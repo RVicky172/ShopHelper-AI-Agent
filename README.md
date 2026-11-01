@@ -1,0 +1,1 @@
+﻿# ShopHelper-AI-Agent
