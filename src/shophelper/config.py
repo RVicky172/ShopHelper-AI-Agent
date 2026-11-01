@@ -1,5 +1,6 @@
 """Runtime settings, read from environment variables (and a local .env file)."""
 
+import os
 from functools import lru_cache
 from typing import Literal
 
@@ -7,7 +8,10 @@ from pydantic_settings import BaseSettings, SettingsConfigDict
 
 
 class Settings(BaseSettings):
-    model_config = SettingsConfigDict(env_file=".env", extra="ignore")
+    # Tests set SHOPHELPER_ENV_FILE="" so a developer .env never leaks into them.
+    model_config = SettingsConfigDict(
+        env_file=os.getenv("SHOPHELPER_ENV_FILE", ".env") or None, extra="ignore"
+    )
 
     aws_region: str = "ap-south-1"
     agent_model_id: str = "global.anthropic.claude-haiku-4-5-20251001-v1:0"

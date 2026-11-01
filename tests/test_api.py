@@ -17,14 +17,14 @@ def test_chat_validates_input():
 
 def test_chat_returns_answer(monkeypatch):
     monkeypatch.setattr(
-        api, "run_agent", lambda q: AgentResult(answer="Hi!", messages=[], tools_used=["x"])
+        api, "run_agent", lambda q, history=None: AgentResult(answer="Hi!", messages=[], tools_used=["x"])
     )
     body = client.post("/chat", json={"session_id": "abcd1234", "message": "hi"}).json()
     assert body["answer"] == "Hi!" and body["tools_used"] == ["x"]
 
 
 def test_chat_max_steps(monkeypatch):
-    def boom(q):
+    def boom(q, history=None):
         raise MaxStepsExceeded("too many")
 
     monkeypatch.setattr(api, "run_agent", boom)
