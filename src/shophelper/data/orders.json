@@ -1,0 +1,9 @@
+[
+  {"order_id": "1001", "customer": "Asha", "item": "Wireless Mouse", "total": 59.99, "status": "delivered", "ordered_days_ago": 9, "delivered_days_ago": 5},
+  {"order_id": "1002", "customer": "Ravi", "item": "Mechanical Keyboard", "total": 129.0, "status": "shipped", "ordered_days_ago": 3, "eta_days": 2},
+  {"order_id": "1003", "customer": "Meera", "item": "USB-C Hub", "total": 45.5, "status": "processing", "ordered_days_ago": 1},
+  {"order_id": "1004", "customer": "Arjun", "item": "Bluetooth Speaker", "total": 89.0, "status": "delivered", "ordered_days_ago": 50, "delivered_days_ago": 45},
+  {"order_id": "1005", "customer": "Priya", "item": "Phone Case", "total": 19.99, "status": "cancelled", "ordered_days_ago": 12},
+  {"order_id": "1006", "customer": "Kabir", "item": "Laptop Stand", "total": 249.0, "status": "delivered", "ordered_days_ago": 6, "delivered_days_ago": 2},
+  {"order_id": "1007", "customer": "Neha", "item": "Noise-Cancelling Headphones", "total": 199.0, "status": "refunded", "ordered_days_ago": 30, "delivered_days_ago": 25, "refund_amount": 199.0}
+]

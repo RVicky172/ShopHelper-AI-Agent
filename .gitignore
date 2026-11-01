@@ -1,0 +1,25 @@
+# Python
+.venv/
+__pycache__/
+*.pyc
+.pytest_cache/
+.ruff_cache/
+
+# Secrets / local config
+.env
+*.tfvars
+!*.tfvars.example
+
+# Terraform (state is local for this learning project - never commit it)
+infra/.terraform/
+infra/*.tfstate
+infra/*.tfstate.*
+infra/.terraform.tfstate.lock.info
+infra/tfplan
+
+# Build / reports
+build/
+evals/report.json
+
+# Source material (not ours to publish)
+*.docx
