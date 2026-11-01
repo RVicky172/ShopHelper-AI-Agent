@@ -41,7 +41,15 @@ resource "aws_lambda_function" "app" {
   timeout       = 30   # HTTP API's integration timeout is 30s anyway
 
   environment {
-    variables = merge(local.app_env, { RUNTIME = "lambda" })
+    variables = merge(local.app_env, {
+      RUNTIME = "lambda"
+      # Spawning the MCP stdio server adds ~3s to every cold start; ECS pays it once per
+      # task, Lambda would pay it per execution environment - so Lambda uses in-process tools.
+      TOOLS_TRANSPORT = "local"
+      # If init runs past Lambda's 10s init limit, finish it during the first invoke
+      # instead of letting Lambda restart init from scratch.
+      AWS_LWA_ASYNC_INIT = "true"
+    })
   }
 
   depends_on = [aws_cloudwatch_log_group.lambda]

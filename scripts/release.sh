@@ -33,7 +33,7 @@ aws lambda wait function-updated-v2 --region "$REGION" --function-name "$NAME"
 if aws ecs describe-services --region "$REGION" --cluster "$NAME" --services "$NAME" \
      --query "services[?status=='ACTIVE'] | length(@)" --output text 2>/dev/null | grep -q 1; then
   echo "==> ECS"
-  TD_FILE=$(mktemp)
+  mkdir -p build && TD_FILE=build/taskdef.json  # repo-relative: works for Windows aws.exe too
   aws ecs describe-task-definition --region "$REGION" --task-definition "$NAME" \
     --query taskDefinition --output json > "$TD_FILE"
   # Swap the image and keep only the fields register-task-definition accepts.

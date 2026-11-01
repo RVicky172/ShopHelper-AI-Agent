@@ -35,9 +35,9 @@ variable "embedding_model_id" {
 }
 
 variable "image_tag" {
-  description = "Container image tag deployed to Lambda and ECS. CI updates it after the first apply."
+  description = "Image tag for Lambda/ECS. Empty = the most recently pushed image in ECR (normal case; scripts/release.sh pushes and rolls out new tags)."
   type        = string
-  default     = "bootstrap"
+  default     = ""
 }
 
 variable "enable_ecs" {
@@ -53,7 +53,7 @@ variable "github_repo" {
 }
 
 variable "tools_transport" {
-  description = "local = tools in-process, mcp = tools via the FastMCP server (stdio)."
+  description = "ECS tool transport: local = in-process, mcp = via the FastMCP server (stdio). Lambda always uses local."
   type        = string
   default     = "mcp"
 }

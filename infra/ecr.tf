@@ -20,6 +20,15 @@ resource "aws_ecr_lifecycle_policy" "app" {
   })
 }
 
+# So a plain `terraform apply` never points Lambda/ECS at a stale or missing tag.
+data "aws_ecr_image" "latest" {
+  count           = var.image_tag == "" ? 1 : 0
+  repository_name = aws_ecr_repository.app.name
+  most_recent     = true
+}
+
 locals {
-  image_uri = "${aws_ecr_repository.app.repository_url}:${var.image_tag}"
+  image_uri = (var.image_tag != ""
+    ? "${aws_ecr_repository.app.repository_url}:${var.image_tag}"
+    : "${aws_ecr_repository.app.repository_url}@${data.aws_ecr_image.latest[0].image_digest}")
 }
