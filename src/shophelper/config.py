@@ -35,7 +35,10 @@ class Settings(BaseSettings):
     tools_transport: Literal["local", "mcp"] = "local"
     # Label for metrics/logs: local | lambda | ecs
     runtime: str = "local"
-    # SSM SecureString holding the LangSmith key (deployed environments only).
+    # LangSmith: key from env/.env locally, or from this SSM SecureString when deployed.
+    langsmith_tracing: bool = True
+    langsmith_project: str = "shophelper"
+    langsmith_api_key: str | None = None
     langsmith_api_key_param: str | None = None
 
 

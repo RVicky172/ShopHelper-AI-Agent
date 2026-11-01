@@ -30,5 +30,5 @@ data "aws_ecr_image" "latest" {
 locals {
   image_uri = (var.image_tag != ""
     ? "${aws_ecr_repository.app.repository_url}:${var.image_tag}"
-    : "${aws_ecr_repository.app.repository_url}@${data.aws_ecr_image.latest[0].image_digest}")
+  : "${aws_ecr_repository.app.repository_url}@${data.aws_ecr_image.latest[0].image_digest}")
 }

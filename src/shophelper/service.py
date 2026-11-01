@@ -19,6 +19,7 @@ from shophelper import guardrails
 from shophelper.config import get_settings
 from shophelper.graph import build_graph, default_checkpointer, default_llm, local_tools
 from shophelper.memory import HistoryStore, get_history_store
+from shophelper.observability import init_tracing
 from shophelper.schemas import ChatResponse
 
 
@@ -35,6 +36,7 @@ class ShopHelperService:
         history: HistoryStore | None = None,
     ) -> None:
         self.settings = get_settings()
+        init_tracing()  # before the first LLM call, so LangSmith picks it up
         self.graph = build_graph(
             tools if tools is not None else local_tools(),
             checkpointer or default_checkpointer(),
