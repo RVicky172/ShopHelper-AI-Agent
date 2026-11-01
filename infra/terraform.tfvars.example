@@ -2,4 +2,4 @@
 alert_email = "you@example.com"
 
 # monthly_budget_usd = 10
-# enable_ecs         = true   # false = skip Fargate + ALB (~$0.75/day)
+# enable_ecs         = true   # false = skip Fargate + ALB (~$1.5/day)

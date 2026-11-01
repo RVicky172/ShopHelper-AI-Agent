@@ -41,7 +41,7 @@ variable "image_tag" {
 }
 
 variable "enable_ecs" {
-  description = "Fargate + ALB cost ~$0.75/day while running. Set false to keep only the Lambda deployment."
+  description = "Fargate + ALB + public IPv4 cost ~$1.5/day while running. Set false to keep only the Lambda deployment."
   type        = bool
   default     = true
 }
