@@ -45,3 +45,10 @@ def test_max_steps_guard():
     stub = StubBedrock([TOOL_CALL] * 10)
     with pytest.raises(MaxStepsExceeded):
         run_agent("loop forever", client=stub)
+
+
+def test_local_policy_search_finds_returns_policy():
+    from shophelper.tools import search_policy
+
+    top = search_policy("restocking fee for opened electronics returns")["passages"][0]
+    assert top["source"] == "returns.md"

@@ -12,12 +12,13 @@ from typing import Any
 import boto3
 
 from shophelper.config import get_settings
-from shophelper.orders import get_order_repo
+from shophelper.tools import get_order_status, search_policy
 
 SYSTEM_PROMPT = (
     "You are ShopHelper, a concise and friendly customer-support assistant for an online "
-    "electronics store. Use the get_order_status tool to look up orders - never guess "
-    "order details. If you cannot help, say so."
+    "electronics store. Use get_order_status to look up orders and search_policy for any "
+    "question about store policy - never guess order details or policy. If you cannot help, "
+    "say so."
 )
 
 TOOL_CONFIG = {
@@ -34,7 +35,21 @@ TOOL_CONFIG = {
                     }
                 },
             }
-        }
+        },
+        {
+            "toolSpec": {
+                "name": "search_policy",
+                "description": "Search store policies: returns, refunds, shipping, warranty, "
+                "cancellation, payments, privacy, price adjustments.",
+                "inputSchema": {
+                    "json": {
+                        "type": "object",
+                        "properties": {"query": {"type": "string"}},
+                        "required": ["query"],
+                    }
+                },
+            }
+        },
     ]
 }
 
@@ -52,12 +67,7 @@ class AgentResult:
     output_tokens: int = 0
 
 
-def get_order_status(order_id: str) -> dict[str, Any]:
-    order = get_order_repo().get(order_id)
-    return order or {"error": f"No order found with id {order_id}"}
-
-
-TOOLS = {"get_order_status": get_order_status}
+TOOLS = {"get_order_status": get_order_status, "search_policy": search_policy}
 
 
 def run_agent(
