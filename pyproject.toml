@@ -1,4 +1,4 @@
-﻿[project]
+[project]
 name = "shophelper"
 version = "0.1.0"
 description = "ShopHelper: a customer-support AI agent on AWS Bedrock (learning project)"
