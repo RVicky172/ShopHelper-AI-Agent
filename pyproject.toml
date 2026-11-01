@@ -35,8 +35,8 @@ build-backend = "hatchling.build"
 packages = ["src/shophelper"]
 
 [tool.pytest.ini_options]
-testpaths = ["tests", "evals"]
-pythonpath = ["src"]
+testpaths = ["tests"]  # evals run separately: RUN_EVALS=1 pytest evals
+pythonpath = ["src", "tests", "evals"]
 asyncio_mode = "auto"
 asyncio_default_fixture_loop_scope = "function"
 markers = ["evals: hits real AWS Bedrock (set RUN_EVALS=1)"]
