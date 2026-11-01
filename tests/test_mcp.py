@@ -1,6 +1,6 @@
-from fakes import ScriptedChatModel, call, say
 from langgraph.checkpoint.memory import InMemorySaver
 
+from fakes import ScriptedChatModel, call, say
 from shophelper.mcp_client import mcp_tools
 from shophelper.memory import InMemoryHistory
 from shophelper.service import ShopHelperService
@@ -8,11 +8,9 @@ from shophelper.service import ShopHelperService
 
 async def test_mcp_server_exposes_tools_and_agent_uses_them():
     async with mcp_tools() as tools:
-        assert {t.name for t in tools} == {"get_order_status", "search_policy"}
-
-        status = await tools[0].ainvoke({"order_id": "1002"}) if tools[0].name == "get_order_status" \
-            else await tools[1].ainvoke({"order_id": "1002"})
-        assert "shipped" in str(status)
+        by_name = {t.name: t for t in tools}
+        assert set(by_name) == {"get_order_status", "search_policy"}
+        assert "shipped" in str(await by_name["get_order_status"].ainvoke({"order_id": "1002"}))
 
         svc = ShopHelperService(
             tools=tools,

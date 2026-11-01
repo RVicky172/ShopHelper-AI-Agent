@@ -5,6 +5,7 @@ Shared by the HTTP API and the eval suite so both exercise exactly the same path
 
 import re
 import time
+from collections.abc import AsyncIterator
 from typing import Any
 
 from langchain_core.language_models import BaseChatModel
@@ -48,12 +49,11 @@ class ShopHelperService:
             "recursion_limit": 2 * self.settings.max_steps + 1,
         }
 
-    async def chat(self, session_id: str, message: str) -> ChatResponse:
-        start = time.perf_counter()
+    async def _prepare(self, session_id: str, message: str):
+        """Input guardrail + pending-approval check. Returns an early response or graph input."""
         guard_in = guardrails.check(message, "INPUT")
         if guard_in.blocked:
-            return ChatResponse(session_id=session_id, status="blocked", answer=guard_in.text)
-
+            return ChatResponse(session_id=session_id, status="blocked", answer=guard_in.text), None
         config = self._config(session_id)
         snapshot = await self.graph.aget_state(config)
         if snapshot.interrupts:  # a refund is waiting for a human; don't start a new run
@@ -62,13 +62,44 @@ class ShopHelperService:
                 status="pending_approval",
                 answer="Your refund request is waiting for a support agent's approval.",
                 pending_refund=snapshot.interrupts[0].value,
-            )
-
+            ), None
         seen = len(snapshot.values.get("messages", [])) if snapshot.values else 0
         self.history.append(session_id, "user", guard_in.text)  # masked text only
-        return await self._run(
-            {"messages": [HumanMessage(guard_in.text)]}, config, session_id, seen, start
-        )
+        return None, ({"messages": [HumanMessage(guard_in.text)]}, config, seen)
+
+    async def chat(self, session_id: str, message: str) -> ChatResponse:
+        start = time.perf_counter()
+        early, prepared = await self._prepare(session_id, message)
+        if early:
+            return early
+        graph_input, config, seen = prepared
+        return await self._run(graph_input, config, session_id, seen, start)
+
+    async def stream(self, session_id: str, message: str) -> AsyncIterator[tuple[str, Any]]:
+        """Yields ("token", text) while the agent writes, then ("final", ChatResponse).
+
+        Trade-off: tokens reach the user before the output guardrail sees the full answer.
+        If it intervenes, the "final" event carries the replacement text and the client
+        must swap it in. Use /chat when that is not acceptable.
+        """
+        start = time.perf_counter()
+        early, prepared = await self._prepare(session_id, message)
+        if early:
+            yield "final", early
+            return
+        graph_input, config, seen = prepared
+        try:
+            async for chunk, meta in self.graph.astream(graph_input, config, stream_mode="messages"):
+                # Streaming models emit AIMessageChunks; non-streaming ones one AIMessage.
+                if meta.get("langgraph_node") == "agent" and isinstance(chunk, AIMessage):
+                    if chunk.text:
+                        yield "token", chunk.text
+        except GraphRecursionError:
+            yield "final", _gave_up(session_id, start)
+            return
+        snapshot = await self.graph.aget_state(config)
+        interrupts = [i.value for i in snapshot.interrupts]
+        yield "final", self._finish(session_id, snapshot.values["messages"][seen:], interrupts, start)
 
     async def approve(self, session_id: str, approved: bool, reviewer: str, note: str = ""):
         start = time.perf_counter()
@@ -84,22 +115,21 @@ class ShopHelperService:
         try:
             result = await self.graph.ainvoke(graph_input, config)
         except GraphRecursionError:
-            return ChatResponse(
-                session_id=session_id,
-                answer="Sorry, I couldn't finish that request. A human agent will follow up.",
-                latency_ms=_ms(start),
-            )
+            return _gave_up(session_id, start)
+        interrupts = [i.value for i in result.get("__interrupt__", [])]
+        return self._finish(session_id, result["messages"][seen:], interrupts, start)
 
-        new = result["messages"][seen:]
-        response = _summarise(session_id, new)
-        if result.get("__interrupt__"):
+    def _finish(self, session_id, new_messages, interrupts, start) -> ChatResponse:
+        response = _summarise(session_id, new_messages)
+        if interrupts:
             response.status = "pending_approval"
-            response.pending_refund = result["__interrupt__"][0].value
+            response.pending_refund = interrupts[0]
             response.answer = (
-                f"I've submitted a refund request of ${response.pending_refund['amount']:.2f} for "
-                f"order {response.pending_refund['order_id']}. A support agent will review it shortly."
+                f"I've submitted a refund request of ${interrupts[0]['amount']:.2f} for "
+                f"order {interrupts[0]['order_id']}. A support agent will review it shortly."
             )
         else:
+            # Guardrail AFTER the loop: never return PII or unsafe content.
             guard_out = guardrails.check(response.answer, "OUTPUT")
             response.answer = guard_out.text
             if guard_out.blocked:
@@ -107,6 +137,15 @@ class ShopHelperService:
         self.history.append(session_id, "assistant", response.answer)
         response.latency_ms = _ms(start)
         return response
+
+
+def _gave_up(session_id: str, start: float) -> ChatResponse:
+    """Max-steps guard tripped (GraphRecursionError)."""
+    return ChatResponse(
+        session_id=session_id,
+        answer="Sorry, I couldn't finish that request. A human agent will follow up.",
+        latency_ms=_ms(start),
+    )
 
 
 def _summarise(session_id: str, messages: list) -> ChatResponse:

@@ -1,0 +1,9 @@
+.venv
+.git
+.env
+infra
+tests
+evals
+build
+*.docx
+**/__pycache__

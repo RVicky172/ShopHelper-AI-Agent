@@ -25,3 +25,29 @@ output "guardrail_version" {
 output "checkpoint_table" {
   value = aws_dynamodb_table.checkpoints.name
 }
+
+output "ecr_repository_url" {
+  value = aws_ecr_repository.app.repository_url
+}
+
+output "lambda_function_name" {
+  value = aws_lambda_function.app.function_name
+}
+
+output "api_gateway_url" {
+  description = "Deployment 1: API Gateway -> Lambda"
+  value       = aws_apigatewayv2_api.http.api_endpoint
+}
+
+output "alb_url" {
+  description = "Deployment 2: ALB -> ECS Fargate"
+  value       = var.enable_ecs ? "http://${aws_lb.app[0].dns_name}" : null
+}
+
+output "ecs_cluster" {
+  value = var.enable_ecs ? aws_ecs_cluster.main[0].name : null
+}
+
+output "ecs_service" {
+  value = var.enable_ecs ? aws_ecs_service.app[0].name : null
+}

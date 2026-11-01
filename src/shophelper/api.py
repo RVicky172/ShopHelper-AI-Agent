@@ -1,8 +1,10 @@
 """FastAPI front door for ShopHelper."""
 
+import json
 from contextlib import AsyncExitStack, asynccontextmanager
 
 from fastapi import FastAPI, HTTPException
+from fastapi.responses import StreamingResponse
 
 from shophelper.config import get_settings
 from shophelper.mcp_client import mcp_tools
@@ -34,6 +36,19 @@ def health() -> dict:
 @app.post("/chat", response_model=ChatResponse)
 async def chat(req: ChatRequest) -> ChatResponse:
     return await app.state.service.chat(req.session_id, req.message)
+
+
+@app.post("/chat/stream")
+async def chat_stream(req: ChatRequest) -> StreamingResponse:
+    """Server-sent events: `token` events while the model writes, then one `final` event.
+    Streams through the ALB (ECS); API Gateway + Lambda buffers it into one response."""
+
+    async def events():
+        async for kind, data in app.state.service.stream(req.session_id, req.message):
+            payload = data.model_dump() if kind == "final" else data
+            yield f"event: {kind}\ndata: {json.dumps(payload)}\n\n"
+
+    return StreamingResponse(events(), media_type="text/event-stream")
 
 
 @app.post("/approve", response_model=ChatResponse)

@@ -79,3 +79,11 @@ async def test_max_steps_guard_returns_graceful_answer():
 async def test_approve_without_pending_refund():
     with pytest.raises(NoPendingApproval):
         await service(say("hi")).approve("session-6", True, "alice")
+
+
+async def test_stream_yields_tokens_then_final():
+    svc = service(call("get_order_status", {"order_id": "1002"}), say("Order 1002 has shipped."))
+    events = [e async for e in svc.stream("session-7", "where is 1002")]
+    assert events[0] == ("token", "Order 1002 has shipped.")
+    kind, final = events[-1]
+    assert kind == "final" and final.tools_used == ["get_order_status"]
