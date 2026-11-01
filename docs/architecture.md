@@ -37,8 +37,8 @@ sequenceDiagram
 
 ```mermaid
 flowchart TD
-    S((START)) --> agent
-    agent -- "no tool calls" --> E((END))
+    S(("START")) --> agent
+    agent -- "no tool calls" --> E(("END"))
     agent -- "get_order_status / search_policy" --> tools
     tools --> agent
     agent -- "request_refund" --> refund_approval

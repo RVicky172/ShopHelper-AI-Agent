@@ -9,36 +9,49 @@ in CI, and is observable in CloudWatch and LangSmith.
 > Learning project. Everything is in one AWS account/region (`ap-south-1`) and is removed with
 > one `terraform destroy` - see [Teardown](#teardown).
 
+> **Current status:** infrastructure is torn down; Claude calls are waiting on the Anthropic
+> use-case form. To continue, follow [docs/next-steps.md](docs/next-steps.md).
+
 ## Architecture
 
 ```mermaid
 flowchart LR
-    client["Client (curl / UI)"]
-    client -- HTTPS --> apigw["API Gateway<br/>HTTP API"]
-    client -- HTTP --> alb["Application<br/>Load Balancer"]
-    apigw --> lambda["Lambda<br/>(container + Web Adapter)"]
-    alb --> ecs["ECS Fargate task"]
+    client["Client - curl or UI"]
+    apigw["API Gateway HTTP API"]
+    alb["Application Load Balancer"]
+    lambda["Lambda - container + Web Adapter"]
+    ecs["ECS Fargate task"]
 
-    subgraph app["ShopHelper app - same Docker image in both runtimes"]
-        gin["Guardrail check<br/>(input)"] --> graph["LangGraph agent<br/>agent / tools / refund_approval"] --> gout["Guardrail check<br/>(output)"]
+    client -->|HTTPS| apigw --> lambda
+    client -->|HTTP| alb --> ecs
+
+    subgraph svc["ShopHelper app - same Docker image in both runtimes"]
+        gin["Guardrail check - input"]
+        agentNode["LangGraph agent: agent, tools, refund_approval"]
+        gout["Guardrail check - output"]
+        gin --> agentNode --> gout
     end
-    lambda --> app
-    ecs --> app
+    lambda --> gin
+    ecs --> gin
 
-    graph -- Converse --> claude["Bedrock<br/>Claude Haiku 4.5"]
-    graph -- "MCP (stdio)" --> mcp["FastMCP server<br/>get_order_status · search_policy"]
-    mcp --> orders[("DynamoDB<br/>orders")]
-    mcp -- Retrieve --> kb["Bedrock<br/>Knowledge Base"]
-    kb --> vectors[("S3 Vectors<br/>index")]
-    docs[("S3<br/>policy docs")] -. "ingest (Titan v2 embeddings)" .-> kb
-    graph --> ckpt[("DynamoDB<br/>checkpoints")]
-    app --> hist[("DynamoDB<br/>history + TTL")]
-    gin & gout --> guard["Bedrock<br/>Guardrail"]
-    app -- JSON logs --> cw["CloudWatch<br/>metrics · dashboard · alarms"] --> sns["SNS → email"]
-    app -. traces .-> ls["LangSmith"]
+    agentNode -->|Converse| claude["Bedrock - Claude Haiku 4.5"]
+    agentNode -->|"tools: in-process on Lambda, MCP stdio on ECS"| toolsNode["get_order_status, search_policy"]
+    toolsNode --> orders[("DynamoDB orders")]
+    toolsNode -->|Retrieve| kb["Bedrock Knowledge Base"]
+    kb --> vectors[("S3 Vectors index")]
+    policyDocs[("S3 policy docs")] -.->|"ingest with Titan v2 embeddings"| kb
+    agentNode --> ckpt[("DynamoDB checkpoints")]
+    gout --> hist[("DynamoDB history with TTL")]
+    gin --> guard["Bedrock Guardrail"]
+    gout --> guard
+    gout -->|JSON logs| cw["CloudWatch metrics, dashboard, alarms"]
+    cw --> sns["SNS email"]
+    agentNode -.->|traces| ls["LangSmith"]
 
-    gh["GitHub Actions"] -- OIDC --> role["IAM deploy role"] --> ecr["ECR"]
-    ecr --> lambda & ecs
+    gh["GitHub Actions"] -->|OIDC| role["IAM deploy role"]
+    role --> ecr["ECR"]
+    ecr --> lambda
+    ecr --> ecs
 ```
 
 **One turn:** input guardrail (block prompt attacks / card numbers, mask email & phone) →
