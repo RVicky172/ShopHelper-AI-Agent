@@ -25,6 +25,13 @@ jobs:
       - run: uv run pytest -q
       - uses: hashicorp/setup-terraform@v3
       - run: terraform -chdir=infra fmt -check -recursive
+      - name: Provider lock covers all dev/CI platforms
+        run: |
+          terraform -chdir=infra providers lock -platform=linux_amd64 -platform=windows_amd64             -platform=darwin_amd64 -platform=darwin_arm64
+          git diff --exit-code infra/.terraform.lock.hcl || {
+            echo "::warning::infra/.terraform.lock.hcl was missing platform hashes - commit the version below"
+            cat infra/.terraform.lock.hcl
+          }
       - run: terraform -chdir=infra init -backend=false -input=false && terraform -chdir=infra validate
 
   # Evals and deploy need live AWS resources. Repo variable AWS_DEPLOY_ENABLED=true
