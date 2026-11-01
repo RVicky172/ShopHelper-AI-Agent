@@ -1,0 +1,87 @@
+name: CI / CD
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: false # never cancel a deploy half-way
+
+jobs:
+  test:
+    name: Lint, unit tests, Terraform checks
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: astral-sh/setup-uv@v5
+      - run: uv sync --frozen
+      - run: uv run ruff check src tests evals
+      - run: uv run pytest -q
+      - uses: hashicorp/setup-terraform@v3
+      - run: terraform -chdir=infra fmt -check -recursive
+      - run: terraform -chdir=infra init -backend=false -input=false && terraform -chdir=infra validate
+
+  # Evals and deploy need live AWS resources. Repo variable AWS_DEPLOY_ENABLED=true
+  # turns them on (scripts/set_github_vars.sh); set it to false after `terraform destroy`.
+  evals:
+    name: Evals (real Bedrock)
+    needs: test
+    if: github.ref == 'refs/heads/main' && vars.AWS_DEPLOY_ENABLED == 'true'
+    runs-on: ubuntu-latest
+    permissions:
+      id-token: write # OIDC token for AWS
+      contents: read
+    env:
+      AWS_REGION: ${{ vars.AWS_REGION }}
+      ORDERS_TABLE: ${{ vars.ORDERS_TABLE }}
+      HISTORY_TABLE: ${{ vars.HISTORY_TABLE }}
+      CHECKPOINT_TABLE: ${{ vars.CHECKPOINT_TABLE }}
+      KNOWLEDGE_BASE_ID: ${{ vars.KNOWLEDGE_BASE_ID }}
+      GUARDRAIL_ID: ${{ vars.GUARDRAIL_ID }}
+      GUARDRAIL_VERSION: ${{ vars.GUARDRAIL_VERSION }}
+      TOOLS_TRANSPORT: mcp
+      RUNTIME: ci
+      RUN_EVALS: "1"
+      LANGSMITH_API_KEY: ${{ secrets.LANGSMITH_API_KEY }}
+      LANGSMITH_PROJECT: shophelper-ci
+    steps:
+      - uses: actions/checkout@v4
+      - uses: astral-sh/setup-uv@v5
+      - run: uv sync --frozen
+      - uses: aws-actions/configure-aws-credentials@v4
+        with:
+          role-to-assume: ${{ vars.AWS_ROLE_ARN }}
+          aws-region: ${{ vars.AWS_REGION }}
+      - run: uv run pytest evals -v
+      - if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: eval-report
+          path: evals/report.json
+          if-no-files-found: ignore
+
+  deploy:
+    name: Build image, deploy Lambda + ECS
+    needs: evals
+    runs-on: ubuntu-latest
+    permissions:
+      id-token: write
+      contents: read
+    steps:
+      - uses: actions/checkout@v4
+      - uses: aws-actions/configure-aws-credentials@v4
+        with:
+          role-to-assume: ${{ vars.AWS_ROLE_ARN }}
+          aws-region: ${{ vars.AWS_REGION }}
+      - name: Release
+        run: TAG=${GITHUB_SHA::7} REGION=${{ vars.AWS_REGION }} scripts/release.sh
+      - name: Smoke test
+        run: |
+          curl -fsS "${{ vars.API_GATEWAY_URL }}/health"
+          if [ -n "${{ vars.ALB_URL }}" ]; then curl -fsS "${{ vars.ALB_URL }}/health"; fi
