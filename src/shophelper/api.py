@@ -1,9 +1,11 @@
 """FastAPI front door for ShopHelper."""
 
-from contextlib import asynccontextmanager
+from contextlib import AsyncExitStack, asynccontextmanager
 
 from fastapi import FastAPI, HTTPException
 
+from shophelper.config import get_settings
+from shophelper.mcp_client import mcp_tools
 from shophelper.memory import get_history_store
 from shophelper.schemas import ApprovalRequest, ChatRequest, ChatResponse
 from shophelper.service import NoPendingApproval, ShopHelperService
@@ -12,9 +14,13 @@ from shophelper.service import NoPendingApproval, ShopHelperService
 @asynccontextmanager
 async def lifespan(app: FastAPI):
     # Built once per process (per Lambda execution environment / ECS task).
-    if not hasattr(app.state, "service"):
-        app.state.service = ShopHelperService()
-    yield
+    async with AsyncExitStack() as stack:
+        if not hasattr(app.state, "service"):
+            tools = None  # in-process tools
+            if get_settings().tools_transport == "mcp":
+                tools = await stack.enter_async_context(mcp_tools())
+            app.state.service = ShopHelperService(tools=tools)
+        yield
 
 
 app = FastAPI(title="ShopHelper", version="0.2.0", lifespan=lifespan)
