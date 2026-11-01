@@ -21,3 +21,7 @@ output "guardrail_id" {
 output "guardrail_version" {
   value = aws_bedrock_guardrail_version.main.version
 }
+
+output "checkpoint_table" {
+  value = aws_dynamodb_table.checkpoints.name
+}

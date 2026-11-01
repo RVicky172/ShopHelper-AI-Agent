@@ -1,16 +1,23 @@
 """FastAPI front door for ShopHelper."""
 
-import time
+from contextlib import asynccontextmanager
 
 from fastapi import FastAPI, HTTPException
 
-from shophelper import guardrails
-from shophelper.config import get_settings
-from shophelper.memory import get_history_store, to_converse_messages
-from shophelper.raw_agent import MaxStepsExceeded, run_agent
-from shophelper.schemas import ChatRequest, ChatResponse
+from shophelper.memory import get_history_store
+from shophelper.schemas import ApprovalRequest, ChatRequest, ChatResponse
+from shophelper.service import NoPendingApproval, ShopHelperService
 
-app = FastAPI(title="ShopHelper", version="0.1.0")
+
+@asynccontextmanager
+async def lifespan(app: FastAPI):
+    # Built once per process (per Lambda execution environment / ECS task).
+    if not hasattr(app.state, "service"):
+        app.state.service = ShopHelperService()
+    yield
+
+
+app = FastAPI(title="ShopHelper", version="0.2.0", lifespan=lifespan)
 
 
 @app.get("/health")
@@ -19,36 +26,17 @@ def health() -> dict:
 
 
 @app.post("/chat", response_model=ChatResponse)
-def chat(req: ChatRequest) -> ChatResponse:
-    start = time.perf_counter()
-    history = get_history_store()
+async def chat(req: ChatRequest) -> ChatResponse:
+    return await app.state.service.chat(req.session_id, req.message)
 
-    # Guardrail BEFORE the loop: block attacks/PII, or continue with masked text.
-    guard_in = guardrails.check(req.message, "INPUT")
-    if guard_in.blocked:
-        return ChatResponse(session_id=req.session_id, status="blocked", answer=guard_in.text)
-    message = guard_in.text
 
-    past = history.load(req.session_id, limit=get_settings().history_turns)
+@app.post("/approve", response_model=ChatResponse)
+async def approve(req: ApprovalRequest) -> ChatResponse:
+    """Human-in-the-loop: a support agent approves or rejects a pending refund."""
     try:
-        result = run_agent(message, history=to_converse_messages(past))
-    except MaxStepsExceeded as exc:
-        raise HTTPException(status_code=422, detail=str(exc)) from exc
-
-    # Guardrail AFTER the loop: never return PII or unsafe content.
-    guard_out = guardrails.check(result.answer, "OUTPUT")
-    answer = guard_out.text
-    history.append(req.session_id, "user", message)  # masked text only - no raw PII stored
-    history.append(req.session_id, "assistant", answer)
-    return ChatResponse(
-        session_id=req.session_id,
-        status="blocked" if guard_out.blocked else "answered",
-        answer=answer,
-        tools_used=result.tools_used,
-        input_tokens=result.input_tokens,
-        output_tokens=result.output_tokens,
-        latency_ms=int((time.perf_counter() - start) * 1000),
-    )
+        return await app.state.service.approve(req.session_id, req.approved, req.reviewer, req.note)
+    except NoPendingApproval as exc:
+        raise HTTPException(status_code=409, detail="No refund is pending for this session") from exc
 
 
 @app.get("/sessions/{session_id}/history")

@@ -73,3 +73,26 @@ resource "aws_dynamodb_table_item" "orders" {
     } : {},
   ))
 }
+
+# LangGraph checkpoints (graph state per thread) - schema required by
+# langgraph-checkpoint-aws DynamoDBSaver: PK/SK strings + "ttl".
+resource "aws_dynamodb_table" "checkpoints" {
+  name         = "${var.name}-checkpoints"
+  billing_mode = "PAY_PER_REQUEST"
+  hash_key     = "PK"
+  range_key    = "SK"
+
+  attribute {
+    name = "PK"
+    type = "S"
+  }
+  attribute {
+    name = "SK"
+    type = "S"
+  }
+
+  ttl {
+    attribute_name = "ttl"
+    enabled        = true
+  }
+}
