@@ -52,6 +52,7 @@ _Goal:_ each user's data is private, access has levels, and the app explains mor
 
 ## Backlog (unscheduled ideas)
 
+- Upgrade MCP: `mcp` 1.30.0 speaks 2025-11-25, a legacy revision, so a modern-only client can't connect. `mcp` 2.x is a real migration.
 - Warranty refunds: the agent wrongly refuses refunds on items under warranty (D-023). Start with a line in the policy.
 - Hybrid search: combine keyword and vector search in RAG.
 - Product search in the shop.

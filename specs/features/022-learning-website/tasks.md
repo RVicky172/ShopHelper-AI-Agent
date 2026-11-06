@@ -89,7 +89,8 @@ ends with `scripts/check.sh`. Lesson tasks may finish 2 or 3 lessons at a time.
       **Result (2026-11-06):** The carried chapter split into Memory and Human approval, plus Workflow patterns. The full approval demo was run with two users: paused, API restarted, approved afterwards, order refunded. Neha's order never reached the queue, and Kabir's $249 request needs an admin.
 - [x] **T107** — Stage 3: multi-agent, frameworks in the market
       **Result (2026-11-06):** Multi-agent systems and Agent frameworks, from each project's own docs. That corrected 2 blog claims: the OpenAI Agents SDK isn't limited to OpenAI models, and Microsoft Agent Framework is the direct successor to AutoGen. OWASP's wording taken from its own cheat sheet. Stage 3 is complete: 8 lessons.
-- [ ] **T108** — Stage 4: all 4 MCP lessons. First check what `mcp` 1.30.0 here does against spec 2026-07-28 · files: `docs/learn/04-mcp/`
+- [x] **T108** — Stage 4: all 4 MCP lessons. First check what `mcp` 1.30.0 here does against spec 2026-07-28 · files: `docs/learn/04-mcp/`
+      **Result (2026-11-06):** 4 lessons replace the carried chapter. Checked against the running server: `mcp` 1.30.0 tops out at 2025-11-25, answers that when asked for 2026-07-28, and still needs a session, so it's a legacy server. It works because this project owns both ends. Upgrade added to the backlog, and the lessons say so. Fixed a Try it broken by 031. Ran the token and curl exercises, and added and removed a tool. The Inspector's own screen wasn't run, as it's interactive: the same calls were made directly. Stage 4 is complete.
 - [ ] **T109** — Stage 5: why RAG, embeddings in depth, chunking · files: `docs/learn/05-rag/`
 - [ ] **T110** — Stage 5: vector indexes, vector databases in the market, hybrid search and reranking
 - [ ] **T111** — Stage 5: contextual retrieval, debugging a wrong answer, RAG or long context or fine-tuning
