@@ -1,0 +1,41 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 400" width="400" height="400">
+  <title>Compact Keyboard</title>
+  <style>
+    svg { --tint: #E4E0FA; --ink: #1B2340; --paper: #FFFFFF; }
+    @media (prefers-color-scheme: dark) { svg { --tint: #352F63; --ink: #EEF1F8; --paper: #141A2E; } }
+    .tint { fill: var(--tint); }
+    .ink { fill: var(--ink); }
+    .paper { fill: var(--paper); }
+    .body { fill: var(--paper); stroke: var(--ink); stroke-width: 6; stroke-linejoin: round; }
+    .line { fill: none; stroke: var(--ink); stroke-width: 6; stroke-linecap: round; stroke-linejoin: round; }
+  </style>
+  <rect class="tint" width="400" height="400"/>
+  <rect class="body" x="70" y="130" width="260" height="140" rx="14"/>
+  <rect class="ink" x="91" y="150" width="22" height="22" rx="4"/>
+  <rect class="ink" x="119" y="150" width="22" height="22" rx="4"/>
+  <rect class="ink" x="147" y="150" width="22" height="22" rx="4"/>
+  <rect class="ink" x="175" y="150" width="22" height="22" rx="4"/>
+  <rect class="ink" x="203" y="150" width="22" height="22" rx="4"/>
+  <rect class="ink" x="231" y="150" width="22" height="22" rx="4"/>
+  <rect class="ink" x="259" y="150" width="22" height="22" rx="4"/>
+  <rect class="ink" x="287" y="150" width="22" height="22" rx="4"/>
+  <rect class="ink" x="91" y="178" width="22" height="22" rx="4"/>
+  <rect class="ink" x="119" y="178" width="22" height="22" rx="4"/>
+  <rect class="ink" x="147" y="178" width="22" height="22" rx="4"/>
+  <rect class="ink" x="175" y="178" width="22" height="22" rx="4"/>
+  <rect class="ink" x="203" y="178" width="22" height="22" rx="4"/>
+  <rect class="ink" x="231" y="178" width="22" height="22" rx="4"/>
+  <rect class="ink" x="259" y="178" width="22" height="22" rx="4"/>
+  <rect class="ink" x="287" y="178" width="22" height="22" rx="4"/>
+  <rect class="ink" x="91" y="206" width="22" height="22" rx="4"/>
+  <rect class="ink" x="119" y="206" width="22" height="22" rx="4"/>
+  <rect class="ink" x="147" y="206" width="22" height="22" rx="4"/>
+  <rect class="ink" x="175" y="206" width="22" height="22" rx="4"/>
+  <rect class="ink" x="203" y="206" width="22" height="22" rx="4"/>
+  <rect class="ink" x="231" y="206" width="22" height="22" rx="4"/>
+  <rect class="ink" x="259" y="206" width="22" height="22" rx="4"/>
+  <rect class="ink" x="287" y="206" width="22" height="22" rx="4"/>
+  <rect class="ink" x="91" y="234" width="50" height="20" rx="4"/>
+  <rect class="ink" x="147" y="234" width="106" height="20" rx="4"/>
+  <rect class="ink" x="259" y="234" width="50" height="20" rx="4"/>
+</svg>

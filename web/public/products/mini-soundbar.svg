@@ -1,0 +1,25 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 400" width="400" height="400">
+  <title>Mini Soundbar</title>
+  <style>
+    svg { --tint: #DCE4FF; --ink: #1B2340; --paper: #FFFFFF; }
+    @media (prefers-color-scheme: dark) { svg { --tint: #2A3563; --ink: #EEF1F8; --paper: #141A2E; } }
+    .tint { fill: var(--tint); }
+    .ink { fill: var(--ink); }
+    .paper { fill: var(--paper); }
+    .body { fill: var(--paper); stroke: var(--ink); stroke-width: 6; stroke-linejoin: round; }
+    .line { fill: none; stroke: var(--ink); stroke-width: 6; stroke-linecap: round; stroke-linejoin: round; }
+  </style>
+  <rect class="tint" width="400" height="400"/>
+  <rect class="ink" x="98" y="244" width="40" height="14" rx="4"/>
+  <rect class="ink" x="262" y="244" width="40" height="14" rx="4"/>
+  <rect class="body" x="44" y="156" width="312" height="92" rx="24"/>
+  <circle class="ink" cx="106" cy="202" r="26"/>
+  <circle class="ink" cx="294" cy="202" r="26"/>
+  <circle class="tint" cx="106" cy="202" r="9"/>
+  <circle class="tint" cx="294" cy="202" r="9"/>
+  <path class="line" d="M168 186 V218"/>
+  <path class="line" d="M184 186 V218"/>
+  <path class="line" d="M200 186 V218"/>
+  <path class="line" d="M216 186 V218"/>
+  <path class="line" d="M232 186 V218"/>
+</svg>

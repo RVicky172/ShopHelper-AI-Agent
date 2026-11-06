@@ -1,0 +1,17 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 400" width="400" height="400">
+  <title>Camping Hammock</title>
+  <style>
+    svg { --tint: #D9F0E8; --ink: #1B2340; --paper: #FFFFFF; }
+    @media (prefers-color-scheme: dark) { svg { --tint: #1F4C3F; --ink: #EEF1F8; --paper: #141A2E; } }
+    .tint { fill: var(--tint); }
+    .ink { fill: var(--ink); }
+    .paper { fill: var(--paper); }
+    .body { fill: var(--paper); stroke: var(--ink); stroke-width: 6; stroke-linejoin: round; }
+    .line { fill: none; stroke: var(--ink); stroke-width: 6; stroke-linecap: round; stroke-linejoin: round; }
+  </style>
+  <rect class="tint" width="400" height="400"/>
+  <rect class="ink" x="52" y="78" width="24" height="248" rx="6"/>
+  <rect class="ink" x="324" y="78" width="24" height="248" rx="6"/>
+  <path class="body" d="M76 126 C124 300 276 300 324 126 C268 214 132 214 76 126 Z"/>
+  <path class="line" d="M28 326 H372"/>
+</svg>

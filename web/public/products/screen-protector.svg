@@ -1,0 +1,17 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 400" width="400" height="400">
+  <title>Screen Protector</title>
+  <style>
+    svg { --tint: #FBE3DC; --ink: #1B2340; --paper: #FFFFFF; }
+    @media (prefers-color-scheme: dark) { svg { --tint: #5A3229; --ink: #EEF1F8; --paper: #141A2E; } }
+    .tint { fill: var(--tint); }
+    .ink { fill: var(--ink); }
+    .paper { fill: var(--paper); }
+    .body { fill: var(--paper); stroke: var(--ink); stroke-width: 6; stroke-linejoin: round; }
+    .line { fill: none; stroke: var(--ink); stroke-width: 6; stroke-linecap: round; stroke-linejoin: round; }
+  </style>
+  <rect class="tint" width="400" height="400"/>
+  <rect class="ink" x="112" y="96" width="136" height="248" rx="26"/>
+  <rect class="body" x="154" y="62" width="136" height="248" rx="26"/>
+  <path class="line" d="M192 124 L252 64" transform="translate(0 60)"/>
+  <path class="line" d="M192 176 L252 116" transform="translate(0 60)"/>
+</svg>

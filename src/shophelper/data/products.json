@@ -1,0 +1,713 @@
+{
+  "categories": [
+    {
+      "slug": "audio",
+      "name": "Audio"
+    },
+    {
+      "slug": "keyboards-and-mice",
+      "name": "Keyboards and mice"
+    },
+    {
+      "slug": "laptop-accessories",
+      "name": "Laptop accessories"
+    },
+    {
+      "slug": "phone-accessories",
+      "name": "Phone accessories"
+    },
+    {
+      "slug": "power-and-charging",
+      "name": "Power and charging"
+    },
+    {
+      "slug": "home-and-kitchen",
+      "name": "Home and kitchen"
+    },
+    {
+      "slug": "bags-and-travel",
+      "name": "Bags and travel"
+    },
+    {
+      "slug": "fitness-and-outdoors",
+      "name": "Fitness and outdoors"
+    }
+  ],
+  "products": [
+    {
+      "id": 1,
+      "slug": "noise-cancelling-headphones",
+      "category": "audio",
+      "name": "Noise-Cancelling Headphones",
+      "price": 199.0,
+      "description": "Over-ear headphones that quieten trains, offices and aeroplanes, with soft cushions for long listening.",
+      "specs": {
+        "Driver": "40 mm",
+        "Battery": "30 hours",
+        "Connection": "Bluetooth 5.3",
+        "Weight": "254 g"
+      },
+      "rating": 4.6,
+      "rating_count": 412,
+      "added_at": "2026-03-12"
+    },
+    {
+      "id": 2,
+      "slug": "wireless-earbuds",
+      "category": "audio",
+      "name": "Wireless Earbuds",
+      "price": 79.0,
+      "description": "Small, light earbuds with a pocket-sized charging case and clear calls.",
+      "specs": {
+        "Battery": "7 hours, 28 with case",
+        "Connection": "Bluetooth 5.3",
+        "Water resistance": "IPX4"
+      },
+      "rating": 4.4,
+      "rating_count": 638,
+      "added_at": "2026-05-02"
+    },
+    {
+      "id": 3,
+      "slug": "bluetooth-speaker",
+      "category": "audio",
+      "name": "Bluetooth Speaker",
+      "price": 89.0,
+      "description": "A rugged speaker with room-filling sound that goes from the kitchen to the park.",
+      "specs": {
+        "Output": "20 W",
+        "Battery": "16 hours",
+        "Water resistance": "IP67",
+        "Weight": "610 g"
+      },
+      "rating": 4.5,
+      "rating_count": 127,
+      "added_at": "2026-02-20"
+    },
+    {
+      "id": 4,
+      "slug": "studio-monitor-headphones",
+      "category": "audio",
+      "name": "Studio Monitor Headphones",
+      "price": 149.0,
+      "description": "Wired headphones with a flat, honest sound for recording and mixing.",
+      "specs": {
+        "Driver": "45 mm",
+        "Cable": "3 m, detachable",
+        "Impedance": "38 ohms"
+      },
+      "rating": 4.7,
+      "rating_count": 96,
+      "added_at": "2026-08-18"
+    },
+    {
+      "id": 5,
+      "slug": "usb-desk-microphone",
+      "category": "audio",
+      "name": "USB Desk Microphone",
+      "price": 69.0,
+      "description": "Plug-in microphone for calls and podcasts, with a mute button on top.",
+      "specs": {
+        "Pattern": "Cardioid",
+        "Connection": "USB-C",
+        "Sample rate": "48 kHz"
+      },
+      "rating": 4.3,
+      "rating_count": 143,
+      "added_at": "2026-06-09"
+    },
+    {
+      "id": 6,
+      "slug": "mini-soundbar",
+      "category": "audio",
+      "name": "Mini Soundbar",
+      "price": 119.0,
+      "description": "A compact soundbar that fits under a monitor or a small television.",
+      "specs": {
+        "Output": "40 W",
+        "Inputs": "HDMI, Bluetooth, 3.5 mm",
+        "Width": "42 cm"
+      },
+      "rating": 4.1,
+      "rating_count": 58,
+      "added_at": "2026-09-27"
+    },
+    {
+      "id": 7,
+      "slug": "mechanical-keyboard",
+      "category": "keyboards-and-mice",
+      "name": "Mechanical Keyboard",
+      "price": 129.0,
+      "description": "A solid full-size keyboard with tactile switches and hot-swappable keys.",
+      "specs": {
+        "Switches": "Tactile",
+        "Layout": "Full size",
+        "Connection": "USB-C or Bluetooth",
+        "Battery": "200 hours"
+      },
+      "rating": 4.6,
+      "rating_count": 301,
+      "added_at": "2026-01-15"
+    },
+    {
+      "id": 8,
+      "slug": "wireless-mouse",
+      "category": "keyboards-and-mice",
+      "name": "Wireless Mouse",
+      "price": 59.99,
+      "description": "A comfortable everyday mouse with a quiet click and months of battery.",
+      "specs": {
+        "Sensor": "4000 DPI",
+        "Battery": "70 days",
+        "Connection": "USB receiver or Bluetooth"
+      },
+      "rating": 4.5,
+      "rating_count": 522,
+      "added_at": "2026-04-04"
+    },
+    {
+      "id": 9,
+      "slug": "compact-keyboard",
+      "category": "keyboards-and-mice",
+      "name": "Compact Keyboard",
+      "price": 74.5,
+      "description": "A slim 75% keyboard that leaves room on the desk and slips into a bag.",
+      "specs": {
+        "Layout": "75%",
+        "Connection": "Bluetooth",
+        "Weight": "480 g"
+      },
+      "rating": 4.2,
+      "rating_count": 88,
+      "added_at": "2026-07-21"
+    },
+    {
+      "id": 10,
+      "slug": "vertical-mouse",
+      "category": "keyboards-and-mice",
+      "name": "Vertical Mouse",
+      "price": 49.0,
+      "description": "An upright grip that keeps your wrist in a natural position through the day.",
+      "specs": {
+        "Sensor": "2400 DPI",
+        "Battery": "60 days",
+        "Hand": "Right"
+      },
+      "rating": 4.0,
+      "rating_count": 71,
+      "added_at": "2026-10-03"
+    },
+    {
+      "id": 11,
+      "slug": "desk-mat",
+      "category": "keyboards-and-mice",
+      "name": "Desk Mat",
+      "price": 24.99,
+      "description": "A large stitched mat that gives keyboard and mouse one smooth surface.",
+      "specs": {
+        "Size": "90 x 40 cm",
+        "Thickness": "3 mm",
+        "Base": "Non-slip rubber"
+      },
+      "rating": 4.7,
+      "rating_count": 214,
+      "added_at": "2026-05-30"
+    },
+    {
+      "id": 12,
+      "slug": "laptop-stand",
+      "category": "laptop-accessories",
+      "name": "Laptop Stand",
+      "price": 249.0,
+      "description": "A machined aluminium stand with a smooth hinge that lifts a screen to eye level.",
+      "specs": {
+        "Material": "Aluminium",
+        "Fits": "Laptops up to 17 inches",
+        "Height": "Adjustable, 12 to 30 cm"
+      },
+      "rating": 4.4,
+      "rating_count": 63,
+      "added_at": "2026-02-02"
+    },
+    {
+      "id": 13,
+      "slug": "usb-c-hub",
+      "category": "laptop-accessories",
+      "name": "USB-C Hub",
+      "price": 45.5,
+      "description": "One cable to a screen, memory cards and all your older USB devices.",
+      "specs": {
+        "Ports": "HDMI, 3 USB-A, SD, USB-C",
+        "Video": "4K at 60 Hz",
+        "Charging": "100 W pass-through"
+      },
+      "rating": 4.3,
+      "rating_count": 276,
+      "added_at": "2026-03-28"
+    },
+    {
+      "id": 14,
+      "slug": "laptop-sleeve",
+      "category": "laptop-accessories",
+      "name": "Laptop Sleeve",
+      "price": 29.0,
+      "description": "A padded felt sleeve with a front pocket for a charger and cables.",
+      "specs": {
+        "Fits": "13 to 14 inches",
+        "Material": "Wool felt",
+        "Closure": "Magnetic"
+      },
+      "rating": 4.5,
+      "rating_count": 190,
+      "added_at": "2026-06-25"
+    },
+    {
+      "id": 15,
+      "slug": "hd-webcam",
+      "category": "laptop-accessories",
+      "name": "HD Webcam",
+      "price": 64.0,
+      "description": "A clip-on camera with a sharper picture and a built-in privacy shutter.",
+      "specs": {
+        "Resolution": "1080p at 60 fps",
+        "Field of view": "78 degrees",
+        "Connection": "USB-C"
+      },
+      "rating": 4.1,
+      "rating_count": 105,
+      "added_at": "2026-08-05"
+    },
+    {
+      "id": 16,
+      "slug": "portable-ssd-1-tb",
+      "category": "laptop-accessories",
+      "name": "Portable SSD 1 TB",
+      "price": 99.0,
+      "description": "A pocket drive for backups and big projects, fast enough to work from.",
+      "specs": {
+        "Capacity": "1 TB",
+        "Speed": "Up to 1050 MB/s",
+        "Connection": "USB-C"
+      },
+      "rating": 4.7,
+      "rating_count": 340,
+      "added_at": "2026-09-14"
+    },
+    {
+      "id": 17,
+      "slug": "laptop-cooling-pad",
+      "category": "laptop-accessories",
+      "name": "Laptop Cooling Pad",
+      "price": 34.5,
+      "description": "A quiet two-fan pad that keeps a laptop cooler under heavy work.",
+      "specs": {
+        "Fans": "2",
+        "Power": "USB",
+        "Fits": "Up to 16 inches"
+      },
+      "rating": 3.9,
+      "rating_count": 47,
+      "added_at": "2026-10-19"
+    },
+    {
+      "id": 18,
+      "slug": "phone-case",
+      "category": "phone-accessories",
+      "name": "Phone Case",
+      "price": 19.99,
+      "description": "A slim, grippy case with raised edges to protect the screen and camera.",
+      "specs": {
+        "Material": "Recycled polycarbonate",
+        "Drop rating": "2 m",
+        "Wireless charging": "Yes"
+      },
+      "rating": 4.2,
+      "rating_count": 480,
+      "added_at": "2026-01-30"
+    },
+    {
+      "id": 19,
+      "slug": "screen-protector",
+      "category": "phone-accessories",
+      "name": "Screen Protector",
+      "price": 12.5,
+      "description": "Tempered glass with an alignment frame for a bubble-free fit.",
+      "specs": {
+        "Material": "Tempered glass",
+        "Hardness": "9H",
+        "Pack": "2 protectors"
+      },
+      "rating": 4.0,
+      "rating_count": 356,
+      "added_at": "2026-04-22"
+    },
+    {
+      "id": 20,
+      "slug": "car-phone-mount",
+      "category": "phone-accessories",
+      "name": "Car Phone Mount",
+      "price": 22.0,
+      "description": "A steady vent mount that holds a phone in view with one hand.",
+      "specs": {
+        "Fits": "Phones up to 7 inches",
+        "Mount": "Air vent",
+        "Rotation": "360 degrees"
+      },
+      "rating": 4.3,
+      "rating_count": 129,
+      "added_at": "2026-07-07"
+    },
+    {
+      "id": 21,
+      "slug": "phone-grip-stand",
+      "category": "phone-accessories",
+      "name": "Phone Grip Stand",
+      "price": 14.99,
+      "description": "A fold-flat ring that gives a safer hold and props a phone up for video.",
+      "specs": {
+        "Attachment": "Adhesive",
+        "Thickness": "6 mm",
+        "Angles": "Adjustable"
+      },
+      "rating": 4.1,
+      "rating_count": 77,
+      "added_at": "2026-08-29"
+    },
+    {
+      "id": 22,
+      "slug": "magnetic-card-wallet",
+      "category": "phone-accessories",
+      "name": "Magnetic Card Wallet",
+      "price": 27.5,
+      "description": "A thin leather wallet that snaps to the back of a phone and holds three cards.",
+      "specs": {
+        "Holds": "3 cards",
+        "Material": "Leather",
+        "Attachment": "Magnetic"
+      },
+      "rating": 4.4,
+      "rating_count": 93,
+      "added_at": "2026-10-11"
+    },
+    {
+      "id": 23,
+      "slug": "portable-charger",
+      "category": "power-and-charging",
+      "name": "Portable Charger",
+      "price": 35.5,
+      "description": "A 10,000 mAh battery with enough power for two full phone charges.",
+      "specs": {
+        "Capacity": "10,000 mAh",
+        "Output": "20 W USB-C",
+        "Weight": "190 g"
+      },
+      "rating": 4.5,
+      "rating_count": 590,
+      "added_at": "2026-02-11"
+    },
+    {
+      "id": 24,
+      "slug": "65-w-wall-charger",
+      "category": "power-and-charging",
+      "name": "65 W Wall Charger",
+      "price": 39.0,
+      "description": "One small charger with enough power for a laptop and a phone together.",
+      "specs": {
+        "Output": "65 W",
+        "Ports": "2 USB-C, 1 USB-A",
+        "Plug": "Folding"
+      },
+      "rating": 4.6,
+      "rating_count": 265,
+      "added_at": "2026-05-16"
+    },
+    {
+      "id": 25,
+      "slug": "wireless-charging-pad",
+      "category": "power-and-charging",
+      "name": "Wireless Charging Pad",
+      "price": 32.0,
+      "description": "A low, weighted pad with a soft top: put your phone down and it charges.",
+      "specs": {
+        "Output": "15 W",
+        "Standard": "Qi2",
+        "Cable": "1.5 m USB-C"
+      },
+      "rating": 4.2,
+      "rating_count": 150,
+      "added_at": "2026-06-30"
+    },
+    {
+      "id": 26,
+      "slug": "usb-c-cable-two-pack",
+      "category": "power-and-charging",
+      "name": "USB-C Cable Two-Pack",
+      "price": 15.99,
+      "description": "Two braided cables that stand up to daily bending and fast charging.",
+      "specs": {
+        "Length": "2 m each",
+        "Power": "100 W",
+        "Data": "480 Mbps"
+      },
+      "rating": 4.4,
+      "rating_count": 412,
+      "added_at": "2026-03-05"
+    },
+    {
+      "id": 27,
+      "slug": "power-strip-with-usb",
+      "category": "power-and-charging",
+      "name": "Power Strip with USB",
+      "price": 42.0,
+      "description": "Four sockets and three USB ports with surge protection for a tidy desk.",
+      "specs": {
+        "Sockets": "4",
+        "USB": "2 USB-A, 1 USB-C",
+        "Cable": "2 m"
+      },
+      "rating": 4.3,
+      "rating_count": 118,
+      "added_at": "2026-09-08"
+    },
+    {
+      "id": 28,
+      "slug": "french-press",
+      "category": "home-and-kitchen",
+      "name": "French Press",
+      "price": 34.0,
+      "description": "A classic glass press with a steel filter, for four cups of full-bodied coffee.",
+      "specs": {
+        "Capacity": "1 litre",
+        "Material": "Borosilicate glass, steel",
+        "Dishwasher safe": "Yes"
+      },
+      "rating": 4.6,
+      "rating_count": 205,
+      "added_at": "2026-04-13"
+    },
+    {
+      "id": 29,
+      "slug": "electric-kettle",
+      "category": "home-and-kitchen",
+      "name": "Electric Kettle",
+      "price": 59.0,
+      "description": "A quick, quiet kettle with temperature settings for tea and coffee.",
+      "specs": {
+        "Capacity": "1.7 litres",
+        "Power": "2200 W",
+        "Settings": "5 temperatures"
+      },
+      "rating": 4.5,
+      "rating_count": 176,
+      "added_at": "2026-07-14"
+    },
+    {
+      "id": 30,
+      "slug": "cast-iron-skillet",
+      "category": "home-and-kitchen",
+      "name": "Cast Iron Skillet",
+      "price": 44.0,
+      "description": "A pre-seasoned pan that goes from hob to oven and improves with use.",
+      "specs": {
+        "Diameter": "26 cm",
+        "Material": "Cast iron",
+        "Hobs": "All, including induction"
+      },
+      "rating": 4.8,
+      "rating_count": 98,
+      "added_at": "2026-08-12"
+    },
+    {
+      "id": 31,
+      "slug": "ceramic-mug-set",
+      "category": "home-and-kitchen",
+      "name": "Ceramic Mug Set",
+      "price": 28.0,
+      "description": "Four stoneware mugs with a comfortable handle and a matte glaze.",
+      "specs": {
+        "Pieces": "4",
+        "Capacity": "350 ml each",
+        "Dishwasher safe": "Yes"
+      },
+      "rating": 4.4,
+      "rating_count": 133,
+      "added_at": "2026-05-23"
+    },
+    {
+      "id": 32,
+      "slug": "bamboo-cutting-board",
+      "category": "home-and-kitchen",
+      "name": "Bamboo Cutting Board",
+      "price": 26.0,
+      "description": "A sturdy board with a juice groove that's kind to knife edges.",
+      "specs": {
+        "Size": "40 x 28 cm",
+        "Material": "Bamboo",
+        "Thickness": "2 cm"
+      },
+      "rating": 4.3,
+      "rating_count": 84,
+      "added_at": "2026-10-01"
+    },
+    {
+      "id": 33,
+      "slug": "canvas-backpack",
+      "category": "bags-and-travel",
+      "name": "Canvas Backpack",
+      "price": 69.0,
+      "description": "A waxed canvas backpack with a padded laptop pocket and room for the day.",
+      "specs": {
+        "Capacity": "22 litres",
+        "Laptop pocket": "Up to 15 inches",
+        "Material": "Waxed canvas"
+      },
+      "rating": 4.5,
+      "rating_count": 222,
+      "added_at": "2026-03-19"
+    },
+    {
+      "id": 34,
+      "slug": "cabin-suitcase",
+      "category": "bags-and-travel",
+      "name": "Cabin Suitcase",
+      "price": 129.0,
+      "description": "A light hard-shell case with four smooth wheels, sized for the cabin.",
+      "specs": {
+        "Capacity": "38 litres",
+        "Size": "55 x 40 x 20 cm",
+        "Weight": "2.6 kg"
+      },
+      "rating": 4.3,
+      "rating_count": 109,
+      "added_at": "2026-06-02"
+    },
+    {
+      "id": 35,
+      "slug": "packing-cube-set",
+      "category": "bags-and-travel",
+      "name": "Packing Cube Set",
+      "price": 31.0,
+      "description": "Three cubes that keep a suitcase organised from packing to arrival.",
+      "specs": {
+        "Pieces": "3",
+        "Material": "Recycled nylon",
+        "Closure": "Two-way zip"
+      },
+      "rating": 4.6,
+      "rating_count": 164,
+      "added_at": "2026-07-28"
+    },
+    {
+      "id": 36,
+      "slug": "travel-toiletry-bag",
+      "category": "bags-and-travel",
+      "name": "Travel Toiletry Bag",
+      "price": 23.5,
+      "description": "A hanging bag with a wipe-clean lining and a clear pocket for liquids.",
+      "specs": {
+        "Capacity": "4 litres",
+        "Hook": "Folding",
+        "Lining": "Wipe-clean"
+      },
+      "rating": 4.2,
+      "rating_count": 72,
+      "added_at": "2026-09-03"
+    },
+    {
+      "id": 37,
+      "slug": "weekender-duffel",
+      "category": "bags-and-travel",
+      "name": "Weekender Duffel",
+      "price": 84.0,
+      "description": "A roomy duffel with a shoe pocket and a sleeve for a suitcase handle.",
+      "specs": {
+        "Capacity": "40 litres",
+        "Straps": "Handles and shoulder strap",
+        "Material": "Heavy canvas"
+      },
+      "rating": 4.4,
+      "rating_count": 61,
+      "added_at": "2026-10-24"
+    },
+    {
+      "id": 38,
+      "slug": "cast-iron-kettlebell",
+      "category": "fitness-and-outdoors",
+      "name": "Cast Iron Kettlebell",
+      "price": 54.0,
+      "description": "A one-piece 16 kg kettlebell with a smooth handle for swings and presses.",
+      "specs": {
+        "Weight": "16 kg",
+        "Material": "Cast iron",
+        "Base": "Flat"
+      },
+      "rating": 4.7,
+      "rating_count": 146,
+      "added_at": "2026-04-27"
+    },
+    {
+      "id": 39,
+      "slug": "yoga-mat",
+      "category": "fitness-and-outdoors",
+      "name": "Yoga Mat",
+      "price": 38.0,
+      "description": "A cushioned, non-slip mat that rolls up tight and wipes clean.",
+      "specs": {
+        "Size": "183 x 61 cm",
+        "Thickness": "6 mm",
+        "Material": "Natural rubber"
+      },
+      "rating": 4.5,
+      "rating_count": 301,
+      "added_at": "2026-02-25"
+    },
+    {
+      "id": 40,
+      "slug": "resistance-band-set",
+      "category": "fitness-and-outdoors",
+      "name": "Resistance Band Set",
+      "price": 21.0,
+      "description": "Five bands of different strengths for training at home or on the road.",
+      "specs": {
+        "Pieces": "5",
+        "Resistance": "5 to 40 kg",
+        "Includes": "Carry bag"
+      },
+      "rating": 4.3,
+      "rating_count": 187,
+      "added_at": "2026-06-17"
+    },
+    {
+      "id": 41,
+      "slug": "insulated-water-bottle",
+      "category": "fitness-and-outdoors",
+      "name": "Insulated Water Bottle",
+      "price": 27.0,
+      "description": "A steel bottle that keeps drinks cold for a day and doesn't leak in a bag.",
+      "specs": {
+        "Capacity": "750 ml",
+        "Cold for": "24 hours",
+        "Material": "Stainless steel"
+      },
+      "rating": 4.6,
+      "rating_count": 412,
+      "added_at": "2026-08-22"
+    },
+    {
+      "id": 42,
+      "slug": "camping-hammock",
+      "category": "fitness-and-outdoors",
+      "name": "Camping Hammock",
+      "price": 46.0,
+      "description": "A light parachute-nylon hammock that packs down to the size of a melon.",
+      "specs": {
+        "Holds": "200 kg",
+        "Weight": "520 g",
+        "Includes": "Straps and carabiners"
+      },
+      "rating": 4.4,
+      "rating_count": 66,
+      "added_at": "2026-09-20"
+    }
+  ]
+}

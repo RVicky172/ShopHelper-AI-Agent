@@ -1,0 +1,18 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 400" width="400" height="400">
+  <title>Magnetic Card Wallet</title>
+  <style>
+    svg { --tint: #FBE3DC; --ink: #1B2340; --paper: #FFFFFF; }
+    @media (prefers-color-scheme: dark) { svg { --tint: #5A3229; --ink: #EEF1F8; --paper: #141A2E; } }
+    .tint { fill: var(--tint); }
+    .ink { fill: var(--ink); }
+    .paper { fill: var(--paper); }
+    .body { fill: var(--paper); stroke: var(--ink); stroke-width: 6; stroke-linejoin: round; }
+    .line { fill: none; stroke: var(--ink); stroke-width: 6; stroke-linecap: round; stroke-linejoin: round; }
+  </style>
+  <rect class="tint" width="400" height="400"/>
+  <rect class="ink" x="130" y="72" width="140" height="120" rx="10"/>
+  <rect class="tint" x="130" y="102" width="140" height="16"/>
+  <rect class="body" x="106" y="118" width="188" height="208" rx="20"/>
+  <rect class="line" x="122" y="134" width="156" height="176" rx="10" stroke-dasharray="2 12"/>
+  <circle class="line" cx="200" cy="222" r="42"/>
+</svg>

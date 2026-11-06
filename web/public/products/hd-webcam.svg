@@ -1,0 +1,20 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 400" width="400" height="400">
+  <title>HD Webcam</title>
+  <style>
+    svg { --tint: #D8EEF0; --ink: #1B2340; --paper: #FFFFFF; }
+    @media (prefers-color-scheme: dark) { svg { --tint: #1F4A50; --ink: #EEF1F8; --paper: #141A2E; } }
+    .tint { fill: var(--tint); }
+    .ink { fill: var(--ink); }
+    .paper { fill: var(--paper); }
+    .body { fill: var(--paper); stroke: var(--ink); stroke-width: 6; stroke-linejoin: round; }
+    .line { fill: none; stroke: var(--ink); stroke-width: 6; stroke-linecap: round; stroke-linejoin: round; }
+  </style>
+  <rect class="tint" width="400" height="400"/>
+  <rect class="body" x="176" y="238" width="48" height="36"/>
+  <rect class="ink" x="124" y="268" width="152" height="20" rx="6"/>
+  <rect class="body" x="84" y="122" width="232" height="120" rx="60"/>
+  <circle class="ink" cx="200" cy="182" r="44"/>
+  <circle class="tint" cx="200" cy="182" r="20"/>
+  <circle class="paper" cx="208" cy="174" r="6"/>
+  <circle class="ink" cx="270" cy="182" r="7"/>
+</svg>

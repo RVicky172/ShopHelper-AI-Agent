@@ -1,0 +1,17 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 400" width="400" height="400">
+  <title>Desk Mat</title>
+  <style>
+    svg { --tint: #E4E0FA; --ink: #1B2340; --paper: #FFFFFF; }
+    @media (prefers-color-scheme: dark) { svg { --tint: #352F63; --ink: #EEF1F8; --paper: #141A2E; } }
+    .tint { fill: var(--tint); }
+    .ink { fill: var(--ink); }
+    .paper { fill: var(--paper); }
+    .body { fill: var(--paper); stroke: var(--ink); stroke-width: 6; stroke-linejoin: round; }
+    .line { fill: none; stroke: var(--ink); stroke-width: 6; stroke-linecap: round; stroke-linejoin: round; }
+  </style>
+  <rect class="tint" width="400" height="400"/>
+  <rect class="body" x="52" y="126" width="296" height="148" rx="10"/>
+  <rect class="line" x="66" y="140" width="268" height="120" rx="4" stroke-dasharray="2 12"/>
+  <rect class="ink" x="88" y="164" width="164" height="72" rx="8"/>
+  <rect class="ink" x="272" y="164" width="40" height="72" rx="20"/>
+</svg>

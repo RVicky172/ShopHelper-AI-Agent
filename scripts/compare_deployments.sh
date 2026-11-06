@@ -12,9 +12,15 @@ chat() {  # url -> total seconds
   curl -s -o /dev/null -w "%{time_total}" -X POST "$1/chat" -H 'content-type: application/json' \
     -d "${Q/SID/cmp-$RANDOM$RANDOM}"
 }
-ttfb() {  # url -> "first byte / total" for the SSE endpoint
-  curl -sN -o /dev/null -w "%{time_starttransfer}s first byte / %{time_total}s total" -X POST "$1/chat/stream" \
-    -H 'content-type: application/json' -d "${Q/SID/cmp-$RANDOM$RANDOM}"
+ttfb() {  # url -> "first token / total" for the SSE endpoint
+  # Not curl's time_starttransfer: step events (guardrail, tool calls) arrive before any token.
+  local start first="" now
+  start=$(date +%s.%N)
+  while IFS= read -r line; do
+    if [[ -z "$first" && "$line" == "event: token"* ]]; then first=$(date +%s.%N); fi
+  done < <(curl -sN -X POST "$1/chat/stream" -H 'content-type: application/json'     -d "${Q/SID/cmp-$RANDOM$RANDOM}")
+  now=$(date +%s.%N)
+  awk -v s="$start" -v f="${first:-$now}" -v n="$now"     'BEGIN { printf "%.3fs first token / %.3fs total", f - s, n - s }'
 }
 
 echo "== Lambda cold start (forcing a new execution environment)"

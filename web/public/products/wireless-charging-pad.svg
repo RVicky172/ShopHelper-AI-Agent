@@ -1,0 +1,17 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 400" width="400" height="400">
+  <title>Wireless Charging Pad</title>
+  <style>
+    svg { --tint: #FFF0C9; --ink: #1B2340; --paper: #FFFFFF; }
+    @media (prefers-color-scheme: dark) { svg { --tint: #574513; --ink: #EEF1F8; --paper: #141A2E; } }
+    .tint { fill: var(--tint); }
+    .ink { fill: var(--ink); }
+    .paper { fill: var(--paper); }
+    .body { fill: var(--paper); stroke: var(--ink); stroke-width: 6; stroke-linejoin: round; }
+    .line { fill: none; stroke: var(--ink); stroke-width: 6; stroke-linecap: round; stroke-linejoin: round; }
+  </style>
+  <rect class="tint" width="400" height="400"/>
+  <path class="line" d="M268 262 Q306 304 346 290"/>
+  <circle class="body" cx="190" cy="196" r="112"/>
+  <circle class="line" cx="190" cy="196" r="78"/>
+  <path class="ink" d="M202 142 L164 204 H188 L178 250 L220 186 H196 Z"/>
+</svg>

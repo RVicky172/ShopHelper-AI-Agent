@@ -1,0 +1,20 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 400" width="400" height="400">
+  <title>Cabin Suitcase</title>
+  <style>
+    svg { --tint: #F3E5D8; --ink: #1B2340; --paper: #FFFFFF; }
+    @media (prefers-color-scheme: dark) { svg { --tint: #4F3B2A; --ink: #EEF1F8; --paper: #141A2E; } }
+    .tint { fill: var(--tint); }
+    .ink { fill: var(--ink); }
+    .paper { fill: var(--paper); }
+    .body { fill: var(--paper); stroke: var(--ink); stroke-width: 6; stroke-linejoin: round; }
+    .line { fill: none; stroke: var(--ink); stroke-width: 6; stroke-linecap: round; stroke-linejoin: round; }
+  </style>
+  <rect class="tint" width="400" height="400"/>
+  <path class="line" d="M166 106 V60 H234 V106"/>
+  <circle class="ink" cx="148" cy="332" r="15"/>
+  <circle class="ink" cx="252" cy="332" r="15"/>
+  <rect class="body" x="112" y="104" width="176" height="224" rx="22"/>
+  <path class="line" d="M156 132 V300"/>
+  <path class="line" d="M200 132 V300"/>
+  <path class="line" d="M244 132 V300"/>
+</svg>

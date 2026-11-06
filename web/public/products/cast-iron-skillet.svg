@@ -1,0 +1,18 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 400" width="400" height="400">
+  <title>Cast Iron Skillet</title>
+  <style>
+    svg { --tint: #E0F0DF; --ink: #1B2340; --paper: #FFFFFF; }
+    @media (prefers-color-scheme: dark) { svg { --tint: #2A4A2C; --ink: #EEF1F8; --paper: #141A2E; } }
+    .tint { fill: var(--tint); }
+    .ink { fill: var(--ink); }
+    .paper { fill: var(--paper); }
+    .body { fill: var(--paper); stroke: var(--ink); stroke-width: 6; stroke-linejoin: round; }
+    .line { fill: none; stroke: var(--ink); stroke-width: 6; stroke-linecap: round; stroke-linejoin: round; }
+  </style>
+  <rect class="tint" width="400" height="400"/>
+  <rect class="ink" x="244" y="184" width="112" height="32" rx="14"/>
+  <circle class="tint" cx="334" cy="200" r="7"/>
+  <circle class="ink" cx="152" cy="200" r="108"/>
+  <circle cx="152" cy="200" r="84" fill="none" stroke="var(--paper)" stroke-width="6"/>
+  <path d="M100 174 A60 60 0 0 1 130 142" fill="none" stroke="var(--paper)" stroke-width="6" stroke-linecap="round"/>
+</svg>

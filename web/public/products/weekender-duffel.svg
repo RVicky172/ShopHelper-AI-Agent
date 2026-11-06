@@ -1,0 +1,19 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 400" width="400" height="400">
+  <title>Weekender Duffel</title>
+  <style>
+    svg { --tint: #F3E5D8; --ink: #1B2340; --paper: #FFFFFF; }
+    @media (prefers-color-scheme: dark) { svg { --tint: #4F3B2A; --ink: #EEF1F8; --paper: #141A2E; } }
+    .tint { fill: var(--tint); }
+    .ink { fill: var(--ink); }
+    .paper { fill: var(--paper); }
+    .body { fill: var(--paper); stroke: var(--ink); stroke-width: 6; stroke-linejoin: round; }
+    .line { fill: none; stroke: var(--ink); stroke-width: 6; stroke-linecap: round; stroke-linejoin: round; }
+  </style>
+  <rect class="tint" width="400" height="400"/>
+  <path class="line" d="M134 158 C134 76 266 76 266 158"/>
+  <rect class="body" x="48" y="150" width="304" height="164" rx="58"/>
+  <path class="line" d="M86 192 H314"/>
+  <rect class="ink" x="118" y="150" width="28" height="164"/>
+  <rect class="ink" x="254" y="150" width="28" height="164"/>
+  <rect class="ink" x="186" y="192" width="14" height="30" rx="5"/>
+</svg>

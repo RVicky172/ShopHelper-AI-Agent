@@ -1,0 +1,21 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 400" width="400" height="400">
+  <title>Canvas Backpack</title>
+  <style>
+    svg { --tint: #F3E5D8; --ink: #1B2340; --paper: #FFFFFF; }
+    @media (prefers-color-scheme: dark) { svg { --tint: #4F3B2A; --ink: #EEF1F8; --paper: #141A2E; } }
+    .tint { fill: var(--tint); }
+    .ink { fill: var(--ink); }
+    .paper { fill: var(--paper); }
+    .body { fill: var(--paper); stroke: var(--ink); stroke-width: 6; stroke-linejoin: round; }
+    .line { fill: none; stroke: var(--ink); stroke-width: 6; stroke-linecap: round; stroke-linejoin: round; }
+  </style>
+  <rect class="tint" width="400" height="400"/>
+  <path class="line" d="M166 92 V74 Q166 60 180 60 H220 Q234 60 234 74 V92"/>
+  <rect class="ink" x="88" y="176" width="26" height="112" rx="12"/>
+  <rect class="ink" x="286" y="176" width="26" height="112" rx="12"/>
+  <path class="body" d="M106 164 Q106 86 200 86 Q294 86 294 164 V300 Q294 324 270 324 H130 Q106 324 106 300 Z"/>
+  <path class="line" d="M106 176 Q200 216 294 176"/>
+  <rect class="ink" x="186" y="182" width="28" height="34" rx="4"/>
+  <rect class="body" x="136" y="238" width="128" height="68" rx="10"/>
+  <path class="line" d="M152 258 H248"/>
+</svg>

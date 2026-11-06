@@ -1,0 +1,20 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 400" width="400" height="400">
+  <title>Laptop Cooling Pad</title>
+  <style>
+    svg { --tint: #D8EEF0; --ink: #1B2340; --paper: #FFFFFF; }
+    @media (prefers-color-scheme: dark) { svg { --tint: #1F4A50; --ink: #EEF1F8; --paper: #141A2E; } }
+    .tint { fill: var(--tint); }
+    .ink { fill: var(--ink); }
+    .paper { fill: var(--paper); }
+    .body { fill: var(--paper); stroke: var(--ink); stroke-width: 6; stroke-linejoin: round; }
+    .line { fill: none; stroke: var(--ink); stroke-width: 6; stroke-linecap: round; stroke-linejoin: round; }
+  </style>
+  <rect class="tint" width="400" height="400"/>
+  <rect class="body" x="62" y="104" width="276" height="192" rx="16"/>
+  <circle class="line" cx="136" cy="200" r="58"/>
+  <circle class="line" cx="264" cy="200" r="58"/>
+  <path class="line" d="M136 148 V252 M84 200 H188 M100 164 L172 236 M172 164 L100 236"/>
+  <path class="line" d="M264 148 V252 M212 200 H316 M228 164 L300 236 M300 164 L228 236"/>
+  <circle class="ink" cx="136" cy="200" r="16"/>
+  <circle class="ink" cx="264" cy="200" r="16"/>
+</svg>

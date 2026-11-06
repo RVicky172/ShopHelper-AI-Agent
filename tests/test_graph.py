@@ -84,6 +84,60 @@ async def test_approve_without_pending_refund():
 async def test_stream_yields_tokens_then_final():
     svc = service(call("get_order_status", {"order_id": "1002"}), say("Order 1002 has shipped."))
     events = [e async for e in svc.stream("session-7", "where is 1002")]
-    assert events[0] == ("token", "Order 1002 has shipped.")
+    assert ("token", "Order 1002 has shipped.") in events
     kind, final = events[-1]
     assert kind == "final" and final.tools_used == ["get_order_status"]
+
+
+# --- The model must not promise a refund it never requested ---
+
+PROMISE = "I'll proceed with the refund request for $59.99. A human support agent will review it shortly."
+
+
+async def test_a_refund_promise_without_a_request_is_retried():
+    svc = service(
+        call("get_order_status", {"order_id": "1001"}, "c1"),
+        say(PROMISE),
+        call("request_refund", {"order_id": "1001", "amount": 59.99, "reason": "broken"}, "c2"),
+    )
+    r = await svc.chat("session-promise-1", "I'd like a refund for order 1001")
+    assert r.status == "pending_approval"
+
+
+async def test_a_repeated_false_promise_never_reaches_the_customer():
+    svc = service(call("get_order_status", {"order_id": "1001"}, "c1"), say(PROMISE), say(PROMISE))
+    r = await svc.chat("session-promise-2", "I'd like a refund for order 1001")
+    assert r.status == "answered"
+    assert "review" not in r.answer and "haven't submitted" in r.answer
+
+
+async def test_asking_to_confirm_a_refund_is_also_retried():
+    svc = service(
+        say("I can help you request a refund. Would you like me to go ahead?"),
+        call("request_refund", {"order_id": "1001", "amount": 59.99, "reason": "broken"}, "c2"),
+    )
+    assert (await svc.chat("session-promise-3", "Refund 1001")).status == "pending_approval"
+
+
+@pytest.mark.parametrize("answer", [
+    "Refunds are reviewed by a human and take 5-7 business days.",
+    "Our return window is 30 days, and refunds go to the original payment method.",
+    "I can't refund that order, because it hasn't been delivered.",
+    "I cannot process a refund for an order that was cancelled.",
+    "Your order has shipped and should arrive on Friday.",
+])
+async def test_normal_answers_are_left_alone(answer):
+    svc = service(say(answer), say("SHOULD NOT BE USED"))
+    assert (await svc.chat("session-promise-4", "Tell me about refunds")).answer == answer
+
+
+async def test_a_real_request_can_be_described_afterwards():
+    svc = service(
+        call("request_refund", {"order_id": "1001", "amount": 59.99, "reason": "broken"}, "c1"),
+        say("I've processed your refund."),
+        say("SHOULD NOT BE USED"),
+    )
+    await svc.chat("session-promise-5", "refund 1001")
+    done = await svc.approve("session-promise-5", True, "alice")
+    assert done.answer == "I've processed your refund."
+

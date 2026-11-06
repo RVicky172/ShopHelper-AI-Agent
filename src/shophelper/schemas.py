@@ -2,7 +2,7 @@
 
 from typing import Literal
 
-from pydantic import BaseModel, Field
+from pydantic import BaseModel, Field, SecretStr
 
 
 class ChatRequest(BaseModel):
@@ -23,10 +23,52 @@ class ChatResponse(BaseModel):
     input_tokens: int = 0
     output_tokens: int = 0
     latency_ms: int = 0
+    guardrail_action: Literal["passed", "masked", "blocked", "skipped"] = "skipped"
+    guardrail_reasons: list[str] = []
 
 
 class ApprovalRequest(BaseModel):
     session_id: str = Field(min_length=8, max_length=64, pattern=r"^[A-Za-z0-9_-]+$")
     approved: bool
-    reviewer: str = Field(min_length=1, max_length=64)
+    # Used only with accounts off (AWS). With accounts on, the reviewer is the signed-in user.
+    reviewer: str = Field(default="support", min_length=1, max_length=64)
     note: str = Field(default="", max_length=500)
+
+
+class SignupRequest(BaseModel):
+    # Length and format are checked in auth.signup, to give a clear message. There is no role
+    # field on purpose: unknown fields are dropped, so a request can't pick its own level.
+    email: str
+    password: SecretStr
+    display_name: str = Field(default="", max_length=64)
+
+
+class CartQuantity(BaseModel):
+    quantity: int = Field(ge=0, le=10)  # 0 removes the item
+
+
+class GuestCartItem(BaseModel):
+    """Read from the browser, so it can hold anything. The merge rules deal with odd values."""
+
+    product_id: int
+    quantity: int
+
+
+class CartMerge(BaseModel):
+    items: list[GuestCartItem] = Field(max_length=100)
+
+
+class LoginRequest(BaseModel):
+    email: str
+    password: SecretStr
+
+
+class UserOut(BaseModel):
+    id: int
+    email: str
+    role: Literal["customer", "support", "admin"]
+    display_name: str
+
+
+class RoleChange(BaseModel):
+    role: Literal["customer", "support", "admin"]

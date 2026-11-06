@@ -7,3 +7,8 @@ evals
 build
 *.docx
 **/__pycache__
+web
+docker
+docs
+specs
+memory

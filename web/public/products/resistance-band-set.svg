@@ -1,0 +1,19 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 400" width="400" height="400">
+  <title>Resistance Band Set</title>
+  <style>
+    svg { --tint: #D9F0E8; --ink: #1B2340; --paper: #FFFFFF; }
+    @media (prefers-color-scheme: dark) { svg { --tint: #1F4C3F; --ink: #EEF1F8; --paper: #141A2E; } }
+    .tint { fill: var(--tint); }
+    .ink { fill: var(--ink); }
+    .paper { fill: var(--paper); }
+    .body { fill: var(--paper); stroke: var(--ink); stroke-width: 6; stroke-linejoin: round; }
+    .line { fill: none; stroke: var(--ink); stroke-width: 6; stroke-linecap: round; stroke-linejoin: round; }
+  </style>
+  <rect class="tint" width="400" height="400"/>
+  <rect class="body" x="70" y="84" width="260" height="72" rx="36"/>
+  <rect class="tint" x="100" y="110" width="200" height="20" rx="10"/>
+  <rect class="ink" x="70" y="164" width="260" height="72" rx="36"/>
+  <rect class="tint" x="100" y="190" width="200" height="20" rx="10"/>
+  <rect class="body" x="70" y="244" width="260" height="72" rx="36"/>
+  <rect class="tint" x="100" y="270" width="200" height="20" rx="10"/>
+</svg>

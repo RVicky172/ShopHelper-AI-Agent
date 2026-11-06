@@ -1,0 +1,130 @@
+@import 'tailwindcss';
+@import '@fontsource-variable/schibsted-grotesk/wght.css';
+
+/* Design tokens: specs/features/021-storefront/plan.md section 1. "static" keeps every token, used in a class or not. */
+@theme static {
+  --font-sans: 'Schibsted Grotesk Variable', ui-sans-serif, system-ui, 'Segoe UI', sans-serif;
+  --font-mono: ui-monospace, 'Cascadia Code', Consolas, monospace;
+
+  /* Type scale: 14, 16 and 20 are Tailwind's text-sm, text-base and text-xl. */
+  --text-title: 1.75rem;
+  --text-display: clamp(2.5rem, 1.5rem + 3.6vw, 4rem);
+
+  /* Narrow enough that the gutter at 1280 px can hold the chat button. */
+  --container-page: 70rem;
+
+  --color-ink: #1b2340;
+  --color-paper: #ffffff;
+  --color-shelf: #eff1f6;
+  --color-muted: #566079;
+  --color-rule: #d3d8e3; /* decoration only: too faint for a form field */
+  --color-field: var(--color-muted); /* form field borders */
+  --color-cobalt: #2340d9;
+  --color-on-cobalt: #ffffff;
+  --color-marigold: #f2b01e; /* rating stars and the cart count only */
+  --color-on-marigold: #1b2340;
+
+  --color-tint-audio: #dce4ff;
+  --color-tint-keyboards: #e4e0fa;
+  --color-tint-laptop: #d8eef0;
+  --color-tint-phone: #fbe3dc;
+  --color-tint-power: #fff0c9;
+  --color-tint-home: #e0f0df;
+  --color-tint-bags: #f3e5d8;
+  --color-tint-fitness: #d9f0e8;
+
+  /* The trace and status colours from the learning tools. */
+  --color-guard: #2e8b57;
+  --color-tool: #2f6fbf;
+  --color-rag: #7a4fc4;
+  --color-warn: #c47f12;
+  --color-danger: #b5362f;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --color-ink: #eef1f8;
+    --color-paper: #141a2e;
+    --color-shelf: #1d2540;
+    --color-muted: #a9b3c9;
+    --color-rule: #323b57;
+    --color-cobalt: #8fa3ff;
+    --color-on-cobalt: #141a2e;
+
+    --color-tint-audio: #2a3563;
+    --color-tint-keyboards: #352f63;
+    --color-tint-laptop: #1f4a50;
+    --color-tint-phone: #5a3229;
+    --color-tint-power: #574513;
+    --color-tint-home: #2a4a2c;
+    --color-tint-bags: #4f3b2a;
+    --color-tint-fitness: #1f4c3f;
+
+    --color-guard: #5cc48a;
+    --color-tool: #6ea8ec;
+    --color-rag: #ab8bea;
+    --color-warn: #e0a544;
+    --color-danger: #ec7a72;
+  }
+}
+
+:root {
+  color-scheme: light dark; /* native controls and scrollbars follow the theme */
+}
+
+@media (min-width: 1440px) {
+  :root {
+    --container-page: 75rem;
+  }
+}
+
+body {
+  background: var(--color-paper);
+  color: var(--color-ink);
+}
+
+:focus-visible {
+  outline: 2px solid var(--color-cobalt);
+  outline-offset: 2px;
+}
+
+/* The site's only two motions, both answering something the user did. */
+@media (prefers-reduced-motion: no-preference) {
+  .cart-tick {
+    animation: cart-tick 200ms ease-out;
+  }
+  .chat-panel {
+    animation: chat-panel 180ms ease-out;
+  }
+}
+@keyframes chat-panel {
+  from {
+    transform: translateY(1rem);
+    opacity: 0;
+  }
+}
+@keyframes cart-tick {
+  from {
+    transform: scale(1.35);
+  }
+}
+
+/* Spacing for model output: react-markdown renders plain elements. */
+.markdown > * + * {
+  margin-top: 0.5rem;
+}
+.markdown ul {
+  list-style: disc;
+  padding-left: 1.25rem;
+}
+.markdown ol {
+  list-style: decimal;
+  padding-left: 1.25rem;
+}
+.markdown strong {
+  font-weight: 600;
+}
+.markdown code {
+  font-family: var(--font-mono);
+  font-size: 0.85em;
+}

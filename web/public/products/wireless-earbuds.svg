@@ -1,0 +1,22 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 400" width="400" height="400">
+  <title>Wireless Earbuds</title>
+  <style>
+    svg { --tint: #DCE4FF; --ink: #1B2340; --paper: #FFFFFF; }
+    @media (prefers-color-scheme: dark) { svg { --tint: #2A3563; --ink: #EEF1F8; --paper: #141A2E; } }
+    .tint { fill: var(--tint); }
+    .ink { fill: var(--ink); }
+    .paper { fill: var(--paper); }
+    .body { fill: var(--paper); stroke: var(--ink); stroke-width: 6; stroke-linejoin: round; }
+    .line { fill: none; stroke: var(--ink); stroke-width: 6; stroke-linecap: round; stroke-linejoin: round; }
+  </style>
+  <rect class="tint" width="400" height="400"/>
+  <rect class="body" x="104" y="124" width="32" height="104" rx="15"/>
+  <rect class="body" x="264" y="124" width="32" height="104" rx="15"/>
+  <circle class="body" cx="134" cy="112" r="44"/>
+  <circle class="body" cx="266" cy="112" r="44"/>
+  <circle class="ink" cx="134" cy="112" r="18"/>
+  <circle class="ink" cx="266" cy="112" r="18"/>
+  <rect class="body" x="120" y="250" width="160" height="82" rx="34"/>
+  <path class="line" d="M122 282 H278"/>
+  <circle class="ink" cx="200" cy="308" r="7"/>
+</svg>

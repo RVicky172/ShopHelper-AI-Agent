@@ -1,0 +1,14 @@
+{
+  "Servers": {
+    "1": {
+      "Name": "ShopHelper (local)",
+      "Group": "Servers",
+      "Host": "postgres",
+      "Port": 5432,
+      "MaintenanceDB": "shophelper",
+      "Username": "shophelper",
+      "PassFile": "/var/lib/pgadmin/pgpass",
+      "SSLMode": "prefer"
+    }
+  }
+}

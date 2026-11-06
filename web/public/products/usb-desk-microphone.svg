@@ -1,0 +1,21 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 400" width="400" height="400">
+  <title>USB Desk Microphone</title>
+  <style>
+    svg { --tint: #DCE4FF; --ink: #1B2340; --paper: #FFFFFF; }
+    @media (prefers-color-scheme: dark) { svg { --tint: #2A3563; --ink: #EEF1F8; --paper: #141A2E; } }
+    .tint { fill: var(--tint); }
+    .ink { fill: var(--ink); }
+    .paper { fill: var(--paper); }
+    .body { fill: var(--paper); stroke: var(--ink); stroke-width: 6; stroke-linejoin: round; }
+    .line { fill: none; stroke: var(--ink); stroke-width: 6; stroke-linecap: round; stroke-linejoin: round; }
+  </style>
+  <rect class="tint" width="400" height="400"/>
+  <path class="line" d="M122 150 V170 A78 78 0 0 0 278 170 V150"/>
+  <rect class="ink" x="186" y="248" width="28" height="60"/>
+  <rect class="ink" x="126" y="302" width="148" height="20" rx="6"/>
+  <rect class="body" x="148" y="64" width="104" height="176" rx="52"/>
+  <path class="line" d="M172 112 H228"/>
+  <path class="line" d="M172 138 H228"/>
+  <path class="line" d="M172 164 H228"/>
+  <circle class="ink" cx="200" cy="202" r="11"/>
+</svg>

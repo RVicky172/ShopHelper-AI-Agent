@@ -1,0 +1,21 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 400" width="400" height="400">
+  <title>Studio Monitor Headphones</title>
+  <style>
+    svg { --tint: #DCE4FF; --ink: #1B2340; --paper: #FFFFFF; }
+    @media (prefers-color-scheme: dark) { svg { --tint: #2A3563; --ink: #EEF1F8; --paper: #141A2E; } }
+    .tint { fill: var(--tint); }
+    .ink { fill: var(--ink); }
+    .paper { fill: var(--paper); }
+    .body { fill: var(--paper); stroke: var(--ink); stroke-width: 6; stroke-linejoin: round; }
+    .line { fill: none; stroke: var(--ink); stroke-width: 6; stroke-linecap: round; stroke-linejoin: round; }
+  </style>
+  <rect class="tint" width="400" height="400"/>
+  <path class="line" d="M98 216 V196 A102 102 0 0 1 302 196 V216"/>
+  <path class="line" d="M92 196 A108 108 0 0 1 308 196"/>
+  <circle class="body" cx="98" cy="248" r="50"/>
+  <circle class="body" cx="302" cy="248" r="50"/>
+  <circle class="ink" cx="98" cy="248" r="26"/>
+  <circle class="ink" cx="302" cy="248" r="26"/>
+  <path class="line" d="M98 298 C98 350 170 356 200 332 C226 312 250 340 262 346"/>
+  <rect class="ink" x="258" y="336" width="34" height="18" rx="5"/>
+</svg>

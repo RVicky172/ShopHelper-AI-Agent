@@ -1,0 +1,17 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 400" width="400" height="400">
+  <title>Laptop Sleeve</title>
+  <style>
+    svg { --tint: #D8EEF0; --ink: #1B2340; --paper: #FFFFFF; }
+    @media (prefers-color-scheme: dark) { svg { --tint: #1F4A50; --ink: #EEF1F8; --paper: #141A2E; } }
+    .tint { fill: var(--tint); }
+    .ink { fill: var(--ink); }
+    .paper { fill: var(--paper); }
+    .body { fill: var(--paper); stroke: var(--ink); stroke-width: 6; stroke-linejoin: round; }
+    .line { fill: none; stroke: var(--ink); stroke-width: 6; stroke-linecap: round; stroke-linejoin: round; }
+  </style>
+  <rect class="tint" width="400" height="400"/>
+  <rect class="body" x="76" y="104" width="248" height="200" rx="14"/>
+  <path class="body" d="M76 118 Q76 104 90 104 H310 Q324 104 324 118 V172 H76 Z"/>
+  <circle class="ink" cx="200" cy="172" r="14"/>
+  <rect class="line" x="108" y="208" width="184" height="72" rx="6"/>
+</svg>

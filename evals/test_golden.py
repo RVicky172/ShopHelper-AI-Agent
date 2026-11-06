@@ -12,9 +12,10 @@ import yaml
 from langchain_core.messages import ToolMessage
 
 from judge import judge_faithfulness
+from shophelper import auth
 from shophelper.config import get_settings
 from shophelper.mcp_client import mcp_tools
-from shophelper.orders import get_order_repo
+from shophelper.orders import demo_email, get_order_repo
 from shophelper.service import ShopHelperService
 
 CASES = yaml.safe_load(Path(__file__).with_name("golden_cases.yaml").read_text())
@@ -23,6 +24,14 @@ MIN_FAITHFULNESS = 4
 
 def _tools_context():
     return mcp_tools() if get_settings().tools_transport == "mcp" else nullcontext(None)
+
+
+def _principal(case: dict):
+    """Each case runs as the customer named in `as:`. With accounts off (AWS) nobody is signed in."""
+    if not get_settings().accounts_enabled:
+        return None
+    store = auth.get_user_store()
+    return auth.to_principal(store.get_by_email(demo_email(case["as"])))
 
 
 def _failures(case: dict, resp, answer: str) -> list[str]:
@@ -49,13 +58,15 @@ def _failures(case: dict, resp, answer: str) -> list[str]:
 @pytest.mark.evals
 @pytest.mark.parametrize("case", CASES, ids=[c["id"] for c in CASES])
 async def test_golden(case, record):
+    if case["id"].startswith("xuser_") and not get_settings().accounts_enabled:
+        pytest.skip("cross-user cases need accounts, which are local only")
     session_id = f"eval-{case['id'].replace('_', '-')}-{uuid.uuid4().hex[:6]}"
     async with _tools_context() as tools:
         svc = ShopHelperService(tools=tools)
-        resp = await svc.chat(session_id, case["message"])
+        resp = await svc.chat(session_id, case["message"], _principal(case))
         state = await svc.graph.aget_state({"configurable": {"thread_id": session_id}})
 
-    answer = resp.answer.lower()
+    answer = resp.answer.lower().replace("’", "'")  # models also write curly apostrophes
     errors = _failures(case, resp, answer)
 
     verdict = None

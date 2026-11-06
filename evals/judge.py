@@ -32,15 +32,30 @@ def _client():
     return boto3.client("bedrock-runtime", region_name=get_settings().aws_region)
 
 
-def judge_faithfulness(question: str, passages: list[str], answer: str) -> dict:
-    prompt = JUDGE_PROMPT.format(
-        question=question, passages="\n---\n".join(passages) or "(none)", answer=answer
-    )
+def _ask_bedrock(prompt: str) -> str:
     resp = _client().converse(
         modelId=get_settings().judge_model_id,
         messages=[{"role": "user", "content": [{"text": prompt}]}],
         inferenceConfig={"maxTokens": 300, "temperature": 0},
     )
-    text = resp["output"]["message"]["content"][0]["text"]
+    return resp["output"]["message"]["content"][0]["text"]
+
+
+def _ask_local(prompt: str) -> str:
+    """Local runs: the agent's own model is the judge, so the bias noted above applies."""
+    from shophelper.rag import _client as local_client
+
+    resp = local_client().chat.completions.create(
+        model=get_settings().local_chat_model, temperature=0, max_tokens=300,
+        messages=[{"role": "user", "content": prompt}],
+    )
+    return resp.choices[0].message.content
+
+
+def judge_faithfulness(question: str, passages: list[str], answer: str) -> dict:
+    prompt = JUDGE_PROMPT.format(
+        question=question, passages="\n---\n".join(passages) or "(none)", answer=answer
+    )
+    text = _ask_local(prompt) if get_settings().llm_provider == "openai_compatible" else _ask_bedrock(prompt)
     match = re.search(r"\{.*\}", text, re.DOTALL)
     return json.loads(match.group(0)) if match else {"score": 0, "faithful": False, "reason": text}

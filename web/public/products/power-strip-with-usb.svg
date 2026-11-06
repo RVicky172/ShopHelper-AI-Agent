@@ -1,0 +1,30 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 400" width="400" height="400">
+  <title>Power Strip with USB</title>
+  <style>
+    svg { --tint: #FFF0C9; --ink: #1B2340; --paper: #FFFFFF; }
+    @media (prefers-color-scheme: dark) { svg { --tint: #574513; --ink: #EEF1F8; --paper: #141A2E; } }
+    .tint { fill: var(--tint); }
+    .ink { fill: var(--ink); }
+    .paper { fill: var(--paper); }
+    .body { fill: var(--paper); stroke: var(--ink); stroke-width: 6; stroke-linejoin: round; }
+    .line { fill: none; stroke: var(--ink); stroke-width: 6; stroke-linecap: round; stroke-linejoin: round; }
+  </style>
+  <rect class="tint" width="400" height="400"/>
+  <path class="line" d="M46 200 H22"/>
+  <rect class="body" x="46" y="146" width="326" height="108" rx="18"/>
+  <circle class="ink" cx="98" cy="200" r="28"/>
+  <circle class="ink" cx="166" cy="200" r="28"/>
+  <circle class="ink" cx="234" cy="200" r="28"/>
+  <circle class="ink" cx="302" cy="200" r="28"/>
+  <rect class="tint" x="88" y="188" width="6" height="24" rx="2"/>
+  <rect class="tint" x="102" y="188" width="6" height="24" rx="2"/>
+  <rect class="tint" x="156" y="188" width="6" height="24" rx="2"/>
+  <rect class="tint" x="170" y="188" width="6" height="24" rx="2"/>
+  <rect class="tint" x="224" y="188" width="6" height="24" rx="2"/>
+  <rect class="tint" x="238" y="188" width="6" height="24" rx="2"/>
+  <rect class="tint" x="292" y="188" width="6" height="24" rx="2"/>
+  <rect class="tint" x="306" y="188" width="6" height="24" rx="2"/>
+  <rect class="ink" x="340" y="172" width="16" height="10" rx="3"/>
+  <rect class="ink" x="340" y="195" width="16" height="10" rx="3"/>
+  <rect class="ink" x="340" y="218" width="16" height="10" rx="3"/>
+</svg>

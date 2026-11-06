@@ -1,0 +1,18 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 400" width="400" height="400">
+  <title>Vertical Mouse</title>
+  <style>
+    svg { --tint: #E4E0FA; --ink: #1B2340; --paper: #FFFFFF; }
+    @media (prefers-color-scheme: dark) { svg { --tint: #352F63; --ink: #EEF1F8; --paper: #141A2E; } }
+    .tint { fill: var(--tint); }
+    .ink { fill: var(--ink); }
+    .paper { fill: var(--paper); }
+    .body { fill: var(--paper); stroke: var(--ink); stroke-width: 6; stroke-linejoin: round; }
+    .line { fill: none; stroke: var(--ink); stroke-width: 6; stroke-linecap: round; stroke-linejoin: round; }
+  </style>
+  <rect class="tint" width="400" height="400"/>
+  <path class="body" d="M112 312 C92 232 118 96 226 84 C302 76 322 176 312 244 C306 292 286 312 248 312 Z"/>
+  <path class="line" d="M172 196 C186 158 222 134 270 134"/>
+  <rect class="ink" x="232" y="94" width="22" height="48" rx="11" transform="rotate(10 243 118)"/>
+  <rect class="ink" x="150" y="226" width="16" height="44" rx="8"/>
+  <path class="line" d="M82 322 H338"/>
+</svg>

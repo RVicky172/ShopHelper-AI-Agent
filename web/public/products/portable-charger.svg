@@ -1,0 +1,20 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 400" width="400" height="400">
+  <title>Portable Charger</title>
+  <style>
+    svg { --tint: #FFF0C9; --ink: #1B2340; --paper: #FFFFFF; }
+    @media (prefers-color-scheme: dark) { svg { --tint: #574513; --ink: #EEF1F8; --paper: #141A2E; } }
+    .tint { fill: var(--tint); }
+    .ink { fill: var(--ink); }
+    .paper { fill: var(--paper); }
+    .body { fill: var(--paper); stroke: var(--ink); stroke-width: 6; stroke-linejoin: round; }
+    .line { fill: none; stroke: var(--ink); stroke-width: 6; stroke-linecap: round; stroke-linejoin: round; }
+  </style>
+  <rect class="tint" width="400" height="400"/>
+  <rect class="body" x="104" y="104" width="192" height="196" rx="20"/>
+  <path class="ink" d="M214 124 L164 204 H196 L184 256 L238 176 H206 Z"/>
+  <circle class="ink" cx="164" cy="278" r="7"/>
+  <circle class="ink" cx="188" cy="278" r="7"/>
+  <circle class="ink" cx="212" cy="278" r="7"/>
+  <circle class="line" cx="236" cy="278" r="6"/>
+  <rect class="ink" x="178" y="98" width="44" height="12" rx="4"/>
+</svg>

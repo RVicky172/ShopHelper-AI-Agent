@@ -1,5 +1,7 @@
 # Runbook
 
+This runbook covers **AWS**. For running locally, see [local-setup.md](local-setup.md).
+
 All commands from the repo root in Git Bash (Windows) or any POSIX shell.
 
 ## Deploy
@@ -29,7 +31,8 @@ curl -s "$API/approve" -H 'content-type: application/json' \
   -d '{"session_id":"demo-0002","approved":true,"reviewer":"alice","note":"photo checked"}'
 curl -s "$API/sessions/demo-0001/history"
 
-# streaming (tokens arrive progressively via the ALB, all at once via API Gateway)
+# streaming (events arrive progressively via the ALB, all at once via API Gateway)
+# event types are listed in docs/learn/06-streaming.md
 curl -N "$(terraform -chdir=infra output -raw alb_url)/chat/stream" \
   -H 'content-type: application/json' -d '{"session_id":"demo-0003","message":"How long is the warranty?"}'
 ```

@@ -1,0 +1,19 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 400" width="400" height="400">
+  <title>Bamboo Cutting Board</title>
+  <style>
+    svg { --tint: #E0F0DF; --ink: #1B2340; --paper: #FFFFFF; }
+    @media (prefers-color-scheme: dark) { svg { --tint: #2A4A2C; --ink: #EEF1F8; --paper: #141A2E; } }
+    .tint { fill: var(--tint); }
+    .ink { fill: var(--ink); }
+    .paper { fill: var(--paper); }
+    .body { fill: var(--paper); stroke: var(--ink); stroke-width: 6; stroke-linejoin: round; }
+    .line { fill: none; stroke: var(--ink); stroke-width: 6; stroke-linecap: round; stroke-linejoin: round; }
+  </style>
+  <rect class="tint" width="400" height="400"/>
+  <rect class="body" x="96" y="60" width="208" height="280" rx="20"/>
+  <rect class="tint" x="164" y="82" width="72" height="20" rx="10"/>
+  <rect class="line" x="164" y="82" width="72" height="20" rx="10"/>
+  <path class="line" d="M148 128 V318"/>
+  <path class="line" d="M200 128 V318"/>
+  <path class="line" d="M252 128 V318"/>
+</svg>

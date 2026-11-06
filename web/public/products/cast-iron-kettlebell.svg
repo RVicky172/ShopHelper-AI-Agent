@@ -1,0 +1,17 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 400" width="400" height="400">
+  <title>Cast Iron Kettlebell</title>
+  <style>
+    svg { --tint: #D9F0E8; --ink: #1B2340; --paper: #FFFFFF; }
+    @media (prefers-color-scheme: dark) { svg { --tint: #1F4C3F; --ink: #EEF1F8; --paper: #141A2E; } }
+    .tint { fill: var(--tint); }
+    .ink { fill: var(--ink); }
+    .paper { fill: var(--paper); }
+    .body { fill: var(--paper); stroke: var(--ink); stroke-width: 6; stroke-linejoin: round; }
+    .line { fill: none; stroke: var(--ink); stroke-width: 6; stroke-linecap: round; stroke-linejoin: round; }
+  </style>
+  <rect class="tint" width="400" height="400"/>
+  <path d="M150 190 L132 128 Q124 86 166 86 H234 Q276 86 268 128 L250 190" fill="none" stroke="var(--ink)" stroke-width="36" stroke-linejoin="round"/>
+  <path d="M150 190 L132 128 Q124 86 166 86 H234 Q276 86 268 128 L250 190" fill="none" stroke="var(--paper)" stroke-width="24" stroke-linejoin="round"/>
+  <circle class="ink" cx="200" cy="232" r="92"/>
+  <path d="M142 252 A62 62 0 0 1 166 180" fill="none" stroke="var(--paper)" stroke-width="6" stroke-linecap="round"/>
+</svg>
