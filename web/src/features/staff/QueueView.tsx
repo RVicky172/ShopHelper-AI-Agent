@@ -31,9 +31,7 @@ function RefundRow({ refund, reviewer }: { refund: QueuedRefund; reviewer: User 
         <dt className="text-muted">Reason</dt>
         <dd>{refund.reason || 'None given'}</dd>
       </dl>
-      {refund.needs_supervisor && (
-        <p className="mt-2 text-sm font-medium">Over $200: an admin must decide this one.</p>
-      )}
+      {refund.needs_supervisor && <p className="mt-2 text-sm font-medium">Over $200: an admin must decide this one.</p>}
       {processing ? (
         <p className="mt-3 text-sm text-muted">Decided. The agent is finishing this conversation.</p>
       ) : (
@@ -50,6 +48,7 @@ function RefundRow({ refund, reviewer }: { refund: QueuedRefund; reviewer: User 
             </label>
             <div className="flex gap-2">
               <button
+                type="button"
                 disabled={decide.isPending}
                 onClick={() => decide.mutate(true)}
                 className="rounded bg-cobalt px-3 py-1.5 text-sm font-medium text-on-cobalt disabled:opacity-50"
@@ -57,6 +56,7 @@ function RefundRow({ refund, reviewer }: { refund: QueuedRefund; reviewer: User 
                 {decide.isPending ? 'Working...' : 'Approve refund'}
               </button>
               <button
+                type="button"
                 disabled={decide.isPending}
                 onClick={() => decide.mutate(false)}
                 className="rounded border border-rule px-3 py-1.5 text-sm font-medium disabled:opacity-50"
@@ -85,8 +85,8 @@ export function QueueView({ user }: { user: User }) {
         <title>Refund queue · ShopHelper</title>
         <h1 className="text-title font-semibold">Refund queue</h1>
         <p className="mt-1 max-w-3xl text-muted">
-          The agent paused each of these and is waiting for a person. Your decision resumes it, acting
-          as the customer. You're recorded as the reviewer.
+          The agent paused each of these and is waiting for a person. Your decision resumes it, acting as the customer.
+          You're recorded as the reviewer.
         </p>
         {refunds.isError && <p className="mt-3 text-sm text-danger">{refunds.error.message}</p>}
         {refunds.data?.length === 0 && (

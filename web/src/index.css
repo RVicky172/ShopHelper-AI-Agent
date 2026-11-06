@@ -1,10 +1,10 @@
-@import 'tailwindcss';
-@import '@fontsource-variable/schibsted-grotesk/wght.css';
+@import "tailwindcss";
+@import "@fontsource-variable/schibsted-grotesk/wght.css";
 
 /* Design tokens: specs/features/021-storefront/plan.md section 1. "static" keeps every token, used in a class or not. */
 @theme static {
-  --font-sans: 'Schibsted Grotesk Variable', ui-sans-serif, system-ui, 'Segoe UI', sans-serif;
-  --font-mono: ui-monospace, 'Cascadia Code', Consolas, monospace;
+  --font-sans: "Schibsted Grotesk Variable", ui-sans-serif, system-ui, "Segoe UI", sans-serif;
+  --font-mono: ui-monospace, "Cascadia Code", Consolas, monospace;
 
   /* Type scale: 14, 16 and 20 are Tailwind's text-sm, text-base and text-xl. */
   --text-title: 1.75rem;

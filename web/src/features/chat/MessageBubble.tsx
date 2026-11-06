@@ -6,9 +6,7 @@ export function MessageBubble({ message, plain = false }: { message: Message; pl
   if (message.role === 'user') {
     return (
       <div className="flex justify-end">
-        <p className="max-w-[85%] rounded bg-cobalt px-3 py-2 whitespace-pre-wrap text-on-cobalt">
-          {message.text}
-        </p>
+        <p className="max-w-[85%] rounded bg-cobalt px-3 py-2 whitespace-pre-wrap text-on-cobalt">{message.text}</p>
       </div>
     )
   }
@@ -17,11 +15,7 @@ export function MessageBubble({ message, plain = false }: { message: Message; pl
   const blocked = result?.status === 'blocked'
   return (
     <div className="max-w-[90%]">
-      <div
-        className={`rounded border px-3 py-2 ${
-          blocked ? 'border-danger/50 bg-danger/10' : 'border-rule bg-paper'
-        }`}
-      >
+      <div className={`rounded border px-3 py-2 ${blocked ? 'border-danger/50 bg-danger/10' : 'border-rule bg-paper'}`}>
         {message.text ? (
           <div className="markdown">
             <Markdown>{message.text}</Markdown>

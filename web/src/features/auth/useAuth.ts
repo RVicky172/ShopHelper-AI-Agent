@@ -1,5 +1,5 @@
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query'
-import { api, ApiError } from '../../shared/api/client'
+import { ApiError, api } from '../../shared/api/client'
 import type { User } from '../../shared/api/types'
 
 async function currentUser(): Promise<User | null> {

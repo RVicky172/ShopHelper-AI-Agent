@@ -152,7 +152,19 @@ export function CartProvider({ user, children }: { user: User | null; children: 
         setFailed(false)
       },
     }
-  }, [added, change, changes, failed, guest, ids.length, products.data, products.isPending, server.data, server.isPending, user])
+  }, [
+    added,
+    change,
+    changes,
+    failed,
+    guest,
+    ids.length,
+    products.data,
+    products.isPending,
+    server.data,
+    server.isPending,
+    user,
+  ])
 
   return <CartContext value={value}>{children}</CartContext>
 }

@@ -1,7 +1,7 @@
 import { useInfiniteQuery, useQuery } from '@tanstack/react-query'
 import { useEffect, useRef } from 'react'
 import { useParams, useSearchParams } from 'react-router'
-import { api, ApiError } from '../../shared/api/client'
+import { ApiError, api } from '../../shared/api/client'
 import { NotFound } from '../../shared/layout/NotFound'
 import { parseSort, SORTS } from './categories'
 import { ProductGrid, ProductGridPlaceholder } from './ProductGrid'
@@ -89,6 +89,7 @@ export function CategoryPage() {
           </p>
           {products.hasNextPage && (
             <button
+              type="button"
               onClick={() => void products.fetchNextPage()}
               disabled={products.isFetchingNextPage}
               className="min-h-11 rounded border border-field px-4 hover:border-cobalt disabled:opacity-50"

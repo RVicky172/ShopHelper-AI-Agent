@@ -9,6 +9,8 @@ echo "== backend tests"
 uv run pytest -q
 echo "== terraform format"
 terraform -chdir=infra fmt -check -recursive
+echo "== frontend lint and format"
+(cd web && npm run lint --silent)
 echo "== frontend types"
 (cd web && npm run typecheck --silent)
 echo "== frontend tests"

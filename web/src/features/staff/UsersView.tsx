@@ -28,7 +28,14 @@ export function UsersView({ me }: { me: User }) {
             {change.error.message}
           </p>
         )}
-        <div role="region" aria-label="Users" tabIndex={0} className="mt-4 overflow-x-auto rounded border border-rule bg-paper">
+        {/* biome-ignore lint/a11y/useSemanticElements: a scrollable table must be reachable by keyboard (021 T090) */}
+        <div
+          role="region"
+          aria-label="Users"
+          // biome-ignore lint/a11y/noNoninteractiveTabindex: a scrollable table must be reachable by keyboard (021 T090)
+          tabIndex={0}
+          className="mt-4 overflow-x-auto rounded border border-rule bg-paper"
+        >
           <table className="w-full text-left text-sm">
             <thead className="text-xs text-muted">
               <tr className="border-b border-rule">

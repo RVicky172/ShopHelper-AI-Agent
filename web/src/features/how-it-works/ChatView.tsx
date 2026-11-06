@@ -55,13 +55,13 @@ export function ChatView({ user }: { user: User }) {
               <div className="pt-6">
                 <h2 className="text-lg font-semibold">Try the agent</h2>
                 <p className="mt-1 text-sm text-muted">
-                  Each example takes a different path through the system. Watch the panel beside the
-                  chat as it runs.
+                  Each example takes a different path through the system. Watch the panel beside the chat as it runs.
                 </p>
                 <ul className="mt-4 space-y-2">
                   {examples(user, orders.data ?? []).map((example) => (
                     <li key={example.label}>
                       <button
+                        type="button"
                         disabled={chat.busy}
                         onClick={() => void chat.send(example.text)}
                         className="w-full rounded border border-rule bg-paper px-3 py-2 text-left text-sm hover:border-cobalt"
@@ -81,8 +81,8 @@ export function ChatView({ user }: { user: User }) {
               <div role="status" className="rounded border border-warn/50 bg-warn/10 p-3 text-sm">
                 <p className="font-semibold">Waiting for review</p>
                 <p className="mt-0.5 text-muted">
-                  ${chat.pending.amount.toFixed(2)} for order {chat.pending.order_id}. A support agent
-                  will decide, and the outcome appears here by itself.
+                  ${chat.pending.amount.toFixed(2)} for order {chat.pending.order_id}. A support agent will decide, and
+                  the outcome appears here by itself.
                 </p>
               </div>
             )}

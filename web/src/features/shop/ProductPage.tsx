@@ -1,12 +1,12 @@
 import { useQuery } from '@tanstack/react-query'
 import { useState } from 'react'
 import { Link, useParams } from 'react-router'
-import { api, ApiError } from '../../shared/api/client'
+import { ApiError, api } from '../../shared/api/client'
+import { NotFound } from '../../shared/layout/NotFound'
 import { AddToCart } from '../cart/AddToCart'
 import { QuantitySelect } from '../cart/QuantitySelect'
 import { useSharedChat } from '../chat/ChatProvider'
 import { productStarters } from '../chat/starters'
-import { NotFound } from '../../shared/layout/NotFound'
 import { formatPrice } from './categories'
 import { ProductGrid, ProductImage, Rating } from './ProductGrid'
 
@@ -101,6 +101,7 @@ export function ProductPage() {
           {productStarters(item.name, category?.name ?? 'our products').map((question) => (
             <li key={question}>
               <button
+                type="button"
                 onClick={() => ask(question)}
                 className="min-h-11 rounded border border-field px-3 py-2 text-left hover:border-cobalt"
               >

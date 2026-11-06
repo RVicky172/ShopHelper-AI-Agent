@@ -25,6 +25,7 @@ function DemoAccounts({ accounts, onPick }: { accounts: DemoAccount[]; onPick: (
         {staff.map((account) => (
           <li key={account.email}>
             <button
+              type="button"
               onClick={() => onPick(account)}
               className="w-full rounded border border-rule px-3 py-1.5 text-left text-sm hover:border-cobalt"
             >
@@ -38,6 +39,7 @@ function DemoAccounts({ accounts, onPick }: { accounts: DemoAccount[]; onPick: (
       <div className="mt-1.5 flex flex-wrap gap-1.5">
         {customers.map((account) => (
           <button
+            type="button"
             key={account.email}
             onClick={() => onPick(account)}
             className="rounded border border-rule px-2.5 py-1 text-sm hover:border-cobalt"
@@ -133,9 +135,7 @@ export function AuthPage({ auth, mode }: { auth: ReturnType<typeof useAuth>; mod
                 autoComplete={mode === 'login' ? 'current-password' : 'new-password'}
                 className="mt-1 w-full rounded border border-field bg-paper px-3 py-2"
               />
-              {mode === 'signup' && (
-                <span className="mt-1 block text-xs text-muted">At least 8 characters.</span>
-              )}
+              {mode === 'signup' && <span className="mt-1 block text-xs text-muted">At least 8 characters.</span>}
             </label>
             {active.isError && (
               <p role="alert" className="text-sm text-danger">
@@ -143,6 +143,7 @@ export function AuthPage({ auth, mode }: { auth: ReturnType<typeof useAuth>; mod
               </p>
             )}
             <button
+              type="submit"
               disabled={active.isPending}
               className="w-full rounded bg-cobalt px-4 py-2 text-sm font-medium text-on-cobalt disabled:opacity-50"
             >

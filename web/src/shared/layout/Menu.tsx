@@ -38,6 +38,7 @@ export function Menu({
   }, [open])
 
   return (
+    // biome-ignore lint/a11y/noStaticElementInteractions: only watches focus leaving the menu
     <div
       ref={root}
       className="relative"
@@ -47,6 +48,7 @@ export function Menu({
       }}
     >
       <button
+        type="button"
         ref={button}
         aria-expanded={open}
         onClick={() => setOpen(!open)}
@@ -80,7 +82,7 @@ export function MenuLink({ to, children }: { to: string; children: ReactNode }) 
 
 export function MenuButton({ onClick, children }: { onClick: () => void; children: ReactNode }) {
   return (
-    <button onClick={onClick} className="flex min-h-11 w-full items-center px-4 text-left hover:bg-shelf">
+    <button type="button" onClick={onClick} className="flex min-h-11 w-full items-center px-4 text-left hover:bg-shelf">
       {children}
     </button>
   )

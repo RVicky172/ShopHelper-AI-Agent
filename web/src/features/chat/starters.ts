@@ -8,7 +8,11 @@ export function productStarters(name: string, category: string): string[] {
 
 // Measured against the live agent: "How long does delivery take?" made it ask for an order number,
 // and "What is your delivery policy?" retrieved a passage with no delivery times in it.
-const GENERAL = ['What are your shipping options and delivery times?', 'What is your return policy?', 'How long do refunds take?']
+const GENERAL = [
+  'What are your shipping options and delivery times?',
+  'What is your return policy?',
+  'How long do refunds take?',
+]
 
 export function startersFor({
   pathname,

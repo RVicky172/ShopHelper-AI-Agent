@@ -126,9 +126,7 @@ export function chatReducer(state: ChatState, action: Action): ChatState {
         messages: action.rows.map((row, i) => ({ id: `history-${i}`, role: row.role, text: row.text })),
       }
     case 'start': {
-      const user: Message[] = action.userText
-        ? [{ id: `${action.id}-user`, role: 'user', text: action.userText }]
-        : []
+      const user: Message[] = action.userText ? [{ id: `${action.id}-user`, role: 'user', text: action.userText }] : []
       return {
         ...state,
         busy: true,

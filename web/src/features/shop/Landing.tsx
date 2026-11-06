@@ -58,11 +58,7 @@ export function Landing() {
           See all {top.data?.total ?? ''} products
         </Link>
       </div>
-      {top.data ? (
-        <ProductGrid products={top.data.items} />
-      ) : (
-        <ProductGridPlaceholder count={TOP_RATED} />
-      )}
+      {top.data ? <ProductGrid products={top.data.items} /> : <ProductGridPlaceholder count={TOP_RATED} />}
     </div>
   )
 }
