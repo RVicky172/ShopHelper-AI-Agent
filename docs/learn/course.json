@@ -20,7 +20,7 @@
       "id": "02-talking-to-models",
       "title": "Talking to models",
       "short": "Prompts",
-      "lessons": []
+      "lessons": ["01-prompts", "02-structured-output", "03-context-engineering", "04-tool-calling", "05-how-data-flows"]
     },
     {
       "id": "03-agents",

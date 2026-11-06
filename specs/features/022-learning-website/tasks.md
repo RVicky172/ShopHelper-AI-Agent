@@ -79,8 +79,10 @@ ends with `scripts/check.sh`. Lesson tasks may finish 2 or 3 lessons at a time.
       **Result (2026-11-06):** 3 lessons. Measured: about 1 second of prefill per 1,000 tokens, decode falling from 63 to 26 tokens a second as prompts grew, and temperature barely changing a simple answer, which tutorials don't usually show.
 - [x] **T102** — Stage 1: context windows and prompt caching, reasoning models, choosing a model
       **Result (2026-11-06):** 3 lessons. Measured a repeated prompt falling from 4.05 s to 0.07 s. Running the Try it showed a repeated chat question doesn't speed up, because the conversation grows, so the exercise now teaches that. Costs worked out from Anthropic's published prices. Stage 1 is complete: 9 lessons.
-- [ ] **T103** — Stage 2: prompts, structured output, context engineering · files: `docs/learn/02-talking-to-models/`
-- [ ] **T104** — Stage 2: tool calling, how data passes through the system, with the one diagram (AC-16)
+- [x] **T103** — Stage 2: prompts, structured output, context engineering · files: `docs/learn/02-talking-to-models/`
+      **Result (2026-11-06):** 3 lessons. Measured: valid JSON 10 of 10 with a prompt alone and with a schema, so the lesson explains a schema is a guarantee for the rare case, not better odds. A real turn split into about 14, 300 and 1,440 tokens. Guidance from Anthropic's docs.
+- [x] **T104** — Stage 2: tool calling, how data passes through the system, with the one diagram (AC-16)
+      **Result (2026-11-06):** 2 lessons, with a real tool call captured from the local model, which also invented tracking information: kept in as a teaching point. AC-16's diagram names the real function at all 13 steps and renders correctly. Every Try it step run. Stage 2 is complete: 5 lessons.
 - [ ] **T105** — Stage 3: chatbot, workflow or agent; the loop; tools · files: `docs/learn/03-agents/`
 - [ ] **T106** — Stage 3: memory, human approval, workflow patterns
 - [ ] **T107** — Stage 3: multi-agent, frameworks in the market
