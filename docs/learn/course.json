@@ -14,22 +14,43 @@
       "id": "01-how-llms-work",
       "title": "How LLMs work",
       "short": "LLMs",
-      "lessons": ["01-tokens", "02-embeddings", "03-attention-and-transformers", "04-training", "05-generating-a-reply", "06-sampling", "07-context-windows-and-prompt-caching", "08-reasoning-models", "09-choosing-a-model"]
+      "lessons": [
+        "01-tokens",
+        "02-embeddings",
+        "03-attention-and-transformers",
+        "04-training",
+        "05-generating-a-reply",
+        "06-sampling",
+        "07-context-windows-and-prompt-caching",
+        "08-reasoning-models",
+        "09-choosing-a-model"
+      ]
     },
     {
       "id": "02-talking-to-models",
       "title": "Talking to models",
       "short": "Prompts",
-      "lessons": ["01-prompts", "02-structured-output", "03-context-engineering", "04-tool-calling", "05-how-data-flows"]
+      "lessons": [
+        "01-prompts",
+        "02-structured-output",
+        "03-context-engineering",
+        "04-tool-calling",
+        "05-how-data-flows"
+      ]
     },
     {
       "id": "03-agents",
       "title": "Agents",
       "short": "Agents",
       "lessons": [
+        "01-chatbot-workflow-or-agent",
         "02-the-agent-loop",
         "03-tools",
-        "04-memory-and-human-approval"
+        "04-memory",
+        "05-human-approval",
+        "06-workflow-patterns",
+        "07-multi-agent-systems",
+        "08-frameworks"
       ]
     },
     {

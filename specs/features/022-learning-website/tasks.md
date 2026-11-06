@@ -83,9 +83,12 @@ ends with `scripts/check.sh`. Lesson tasks may finish 2 or 3 lessons at a time.
       **Result (2026-11-06):** 3 lessons. Measured: valid JSON 10 of 10 with a prompt alone and with a schema, so the lesson explains a schema is a guarantee for the rare case, not better odds. A real turn split into about 14, 300 and 1,440 tokens. Guidance from Anthropic's docs.
 - [x] **T104** — Stage 2: tool calling, how data passes through the system, with the one diagram (AC-16)
       **Result (2026-11-06):** 2 lessons, with a real tool call captured from the local model, which also invented tracking information: kept in as a teaching point. AC-16's diagram names the real function at all 13 steps and renders correctly. Every Try it step run. Stage 2 is complete: 5 lessons.
-- [ ] **T105** — Stage 3: chatbot, workflow or agent; the loop; tools · files: `docs/learn/03-agents/`
-- [ ] **T106** — Stage 3: memory, human approval, workflow patterns
-- [ ] **T107** — Stage 3: multi-agent, frameworks in the market
+- [x] **T105** — Stage 3: chatbot, workflow or agent; the loop; tools · files: `docs/learn/03-agents/`
+      **Result (2026-11-06):** Chatbot, workflow or agent is new, and Designing tools replaces the carried chapter with every fact kept. Tools exercises run: 9999 returns an error object, and Arjun's order is refused by the rule.
+- [x] **T106** — Stage 3: memory, human approval, workflow patterns
+      **Result (2026-11-06):** The carried chapter split into Memory and Human approval, plus Workflow patterns. The full approval demo was run with two users: paused, API restarted, approved afterwards, order refunded. Neha's order never reached the queue, and Kabir's $249 request needs an admin.
+- [x] **T107** — Stage 3: multi-agent, frameworks in the market
+      **Result (2026-11-06):** Multi-agent systems and Agent frameworks, from each project's own docs. That corrected 2 blog claims: the OpenAI Agents SDK isn't limited to OpenAI models, and Microsoft Agent Framework is the direct successor to AutoGen. OWASP's wording taken from its own cheat sheet. Stage 3 is complete: 8 lessons.
 - [ ] **T108** — Stage 4: all 4 MCP lessons. First check what `mcp` 1.30.0 here does against spec 2026-07-28 · files: `docs/learn/04-mcp/`
 - [ ] **T109** — Stage 5: why RAG, embeddings in depth, chunking · files: `docs/learn/05-rag/`
 - [ ] **T110** — Stage 5: vector indexes, vector databases in the market, hybrid search and reranking
