@@ -54,6 +54,8 @@ _Goal:_ each user's data is private, access has levels, and the app explains mor
 
 - Upgrade MCP: `mcp` 1.30.0 speaks 2025-11-25, a legacy revision, so a modern-only client can't connect. `mcp` 2.x is a real migration.
 - Warranty refunds: the agent wrongly refuses refunds on items under warranty (D-023). Start with a line in the policy.
+- Output check for links: a planted policy got the agent to show an outside link 5 of 5 times, and no guardrail reacted (022, stage 8). Allow only the shop's own links.
+- Harder attack evals: 10 new wordings got past the local guardrail 9 times, and 4 leaked part of the system prompt, while the 12 fixed attack cases pass.
 - Hybrid search: combine keyword and vector search in RAG.
 - Product search in the shop.
 - A read-only MCP tool so the agent can answer questions about the catalogue.

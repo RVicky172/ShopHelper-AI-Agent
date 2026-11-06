@@ -114,8 +114,10 @@ ends with `scripts/check.sh`. Lesson tasks may finish 2 or 3 lessons at a time.
       **Result (2026-11-06):** RAG evals (hit rate at 4: 20 of 20, MRR 0.91), agent evals, LLM judges (13 of 14 agreement with hand labels).
 - [x] **T205** — Stage 7: eval tools in the market, evals in CI
       **Result (2026-11-06):** Eval tools in the market, evals in CI (about $0.12 a run on Sonnet 5.5, before judge calls).
-- [ ] **T206** — Stage 8: the OWASP lists, prompt injection, layered defences · files: `docs/learn/08-security/`
-- [ ] **T207** — Stage 8: guardrails and private data, securing tools and secrets
+- [x] **T206** — Stage 8: the OWASP lists, prompt injection, layered defences · files: `docs/learn/08-security/`
+      **Result (2026-11-06):** OWASP lists (read directly: 2025 LLM list, December 2025 agentic list), prompt injection (10 direct attacks and a planted policy, measured), layered defences.
+- [x] **T207** — Stage 8: guardrails and private data, securing tools and secrets
+      **Result (2026-11-06):** Guardrails and private data, securing tools and secrets.
 - [ ] **T208** — Stage 9: running locally, planning it on AWS with costs, compute options (AC-15) · files: `docs/learn/09-cloud-deployment/`
 - [ ] **T209** — Stage 9: infrastructure as code, CI/CD, ways to release
 - [ ] **T210** — Stage 9: scaling and rate limits, cost, other clouds and hosting your own model
