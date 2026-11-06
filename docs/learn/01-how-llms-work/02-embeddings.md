@@ -18,7 +18,7 @@ Picture a map. Cities that are close on the map are close in real life. An embed
 
 A real map has 2 directions. This project's embedding model uses 768. Nobody can picture that, and no single number means anything you could name. But the idea is the same: close means similar.
 
-So to find text similar to a question, you turn the question into an embedding, then look for the nearest ones. That's called **semantic search**, and it's the first half of [RAG](../05-rag/01-rag.md).
+So to find text similar to a question, you turn the question into an embedding, then look for the nearest ones. That's called **semantic search**, and it's the first half of [RAG](../05-rag/01-why-rag.md).
 
 The list of numbers is called a **vector**. To compare two, we use **cosine similarity**, which measures whether they point the same way. Close to 1 means very similar.
 

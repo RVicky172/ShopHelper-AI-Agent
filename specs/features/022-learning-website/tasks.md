@@ -91,10 +91,14 @@ ends with `scripts/check.sh`. Lesson tasks may finish 2 or 3 lessons at a time.
       **Result (2026-11-06):** Multi-agent systems and Agent frameworks, from each project's own docs. That corrected 2 blog claims: the OpenAI Agents SDK isn't limited to OpenAI models, and Microsoft Agent Framework is the direct successor to AutoGen. OWASP's wording taken from its own cheat sheet. Stage 3 is complete: 8 lessons.
 - [x] **T108** — Stage 4: all 4 MCP lessons. First check what `mcp` 1.30.0 here does against spec 2026-07-28 · files: `docs/learn/04-mcp/`
       **Result (2026-11-06):** 4 lessons replace the carried chapter. Checked against the running server: `mcp` 1.30.0 tops out at 2025-11-25, answers that when asked for 2026-07-28, and still needs a session, so it's a legacy server. It works because this project owns both ends. Upgrade added to the backlog, and the lessons say so. Fixed a Try it broken by 031. Ran the token and curl exercises, and added and removed a tool. The Inspector's own screen wasn't run, as it's interactive: the same calls were made directly. Stage 4 is complete.
-- [ ] **T109** — Stage 5: why RAG, embeddings in depth, chunking · files: `docs/learn/05-rag/`
-- [ ] **T110** — Stage 5: vector indexes, vector databases in the market, hybrid search and reranking
-- [ ] **T111** — Stage 5: contextual retrieval, debugging a wrong answer, RAG or long context or fine-tuning
-- [ ] **T112** — Slice 2 gates and merge, once the owner asks
+- [x] **T109** — Stage 5: why RAG, embeddings in depth, chunking · files: `docs/learn/05-rag/`
+      **Result (2026-11-06):** Why RAG, embeddings in depth (prefixes measured: no difference on 24 chunks, and why that proves nothing) and chunking.
+- [x] **T110** — Stage 5: vector indexes, vector databases in the market, hybrid search and reranking
+      **Result (2026-11-06):** Vector indexes (50,000 random vectors: exact 85 ms, HNSW 2.2 to 4.5 ms, recall@10 0.28 to 0.60; index unused at 24 rows), vector databases, hybrid search and reranking (rerank top 8: 17 to 20 of 20 right first).
+- [x] **T111** — Stage 5: contextual retrieval, debugging a wrong answer, RAG or long context or fine-tuning
+      **Result (2026-11-06):** Contextual retrieval, debugging a wrong answer (the Care bug), RAG or long context or fine-tuning. Try it steps run on the live stack.
+- [x] **T112** — Slice 2 gates and merge, once the owner asks
+      **Result (2026-11-06):** Check, build and browser run pass: 9 lessons render, diagrams drawn, no page errors. Slice 2 complete at stage 5.
 
 # Slice 3 — Production
 

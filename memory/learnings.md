@@ -134,3 +134,10 @@ something cost more than ~10 minutes or the fix was non-obvious. Delete entries 
 - A brand name the model doesn't know reads as a product, not a policy, so it skips `search_policy` and answers anyway. Naming "ShopHelper
   Care" in the prompt made this worse: it then invented which categories Care covers. Failures follow the wording, not chance (the same 4
   of 8 failed every round), so one passing eval case says little. Test several wordings.
+
+## Testing vector search
+
+- Uniform random vectors are the worst case for HNSW: recall@10 was only 0.28 to 0.60 on 50,000 of them. They say nothing about
+  real text, so measure recall on real embeddings before quoting a number.
+- On 24 chunks, top 4 is a sixth of the data, so most retrieval changes show no difference. Say the test can't tell, not that the
+  change doesn't matter.

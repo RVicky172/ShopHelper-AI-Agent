@@ -50,7 +50,7 @@ Three things follow from how training works.
 
 | Goal | Try first |
 | --- | --- |
-| Answer from your own, changing facts | [RAG](../05-rag/01-rag.md) |
+| Answer from your own, changing facts | [RAG](../05-rag/01-why-rag.md) |
 | Take actions, or read live data | Tools |
 | Follow a format or tone | A better prompt, then fine-tuning |
 | Cut the cost of a narrow, repeated task | Fine-tune a smaller model |
