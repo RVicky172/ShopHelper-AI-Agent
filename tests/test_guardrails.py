@@ -1,5 +1,5 @@
-from shophelper import guardrails
-from shophelper.config import get_settings
+from shophelper.agent import guardrails
+from shophelper.core.config import get_settings
 
 
 class StubGuardrail:

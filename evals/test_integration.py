@@ -15,15 +15,17 @@ from langchain_mcp_adapters.client import MultiServerMCPClient
 from psycopg.rows import dict_row
 from psycopg.types.json import Jsonb
 
-from shophelper import auth, db, memory
-from shophelper.cart import PostgresCartStore
-from shophelper.catalog import SQL_ORDER, InMemoryProductRepo, PostgresProductRepo
-from shophelper.config import get_settings
-from shophelper.conversations import PostgresConversations
-from shophelper.mcp_client import mcp_tools
-from shophelper.orders import PostgresOrderRepo, demo_email, get_order_repo, refund_eligibility
-from shophelper.refunds import PostgresRefunds, get_refund_store
-from shophelper.service import ShopHelperService
+from shophelper.accounts import auth
+from shophelper.accounts.conversations import PostgresConversations
+from shophelper.agent import memory
+from shophelper.agent.service import ShopHelperService
+from shophelper.core import db
+from shophelper.core.config import get_settings
+from shophelper.mcp.client import mcp_tools
+from shophelper.shop.cart import PostgresCartStore
+from shophelper.shop.catalog import SQL_ORDER, InMemoryProductRepo, PostgresProductRepo
+from shophelper.shop.orders import PostgresOrderRepo, demo_email, get_order_repo, refund_eligibility
+from shophelper.shop.refunds import PostgresRefunds, get_refund_store
 
 pytestmark = pytest.mark.skipif(not get_settings().database_url, reason="needs the local stack's Postgres")
 

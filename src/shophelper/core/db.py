@@ -6,7 +6,7 @@ psycopg is imported inside functions so the AWS runtimes never load it.
 from pathlib import Path
 from typing import Any
 
-from shophelper.config import get_settings
+from shophelper.core.config import get_settings
 
 SCHEMA_FILE = Path(__file__).with_name("schema.sql")
 

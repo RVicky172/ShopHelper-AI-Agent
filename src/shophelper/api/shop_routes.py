@@ -7,12 +7,12 @@ from typing import Annotated, Any
 
 from fastapi import APIRouter, Depends, HTTPException, Query
 
-from shophelper.auth_api import accounts_only, current_principal, require_role
-from shophelper.cart import cart_view, get_cart_store
-from shophelper.catalog import PAGE_SIZE, Sort, get_product_repo
-from shophelper.identity import Principal
-from shophelper.orders import get_order_repo
-from shophelper.schemas import CartMerge, CartQuantity
+from shophelper.api.auth_routes import accounts_only, current_principal, require_role
+from shophelper.api.schemas import CartMerge, CartQuantity
+from shophelper.core.identity import Principal
+from shophelper.shop.cart import cart_view, get_cart_store
+from shophelper.shop.catalog import PAGE_SIZE, Sort, get_product_repo
+from shophelper.shop.orders import get_order_repo
 
 router = APIRouter(dependencies=[Depends(accounts_only)])
 Shopper = Annotated[Principal, Depends(current_principal)]

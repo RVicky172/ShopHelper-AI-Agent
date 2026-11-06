@@ -5,9 +5,10 @@ from datetime import UTC, datetime, timedelta
 import pytest
 from fastapi.testclient import TestClient
 
-from shophelper import api, auth
-from shophelper.config import get_settings
-from shophelper.orders import get_order_repo
+from shophelper.accounts import auth
+from shophelper.api import app as api
+from shophelper.core.config import get_settings
+from shophelper.shop.orders import get_order_repo
 
 NOW = datetime(2026, 11, 4, 12, 0, tzinfo=UTC)
 GOOD = {"email": "asha@example.com", "password": "correct-horse"}

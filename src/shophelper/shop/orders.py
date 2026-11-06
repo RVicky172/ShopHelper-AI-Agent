@@ -13,10 +13,10 @@ from typing import Any, Protocol
 
 import boto3
 
-from shophelper import db
-from shophelper.config import get_settings
+from shophelper.core import db
+from shophelper.core.config import get_settings
 
-SEED_FILE = Path(__file__).parent / "data" / "orders.json"
+SEED_FILE = Path(__file__).parents[1] / "data" / "orders.json"
 REFUND_WINDOW_DAYS = 30
 FIRST_SAMPLE_ORDER = 2001
 DELIVERY_DAYS = 5

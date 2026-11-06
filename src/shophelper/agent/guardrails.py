@@ -12,7 +12,7 @@ from typing import Any, Literal
 
 import boto3
 
-from shophelper.config import get_settings
+from shophelper.core.config import get_settings
 
 
 @dataclass

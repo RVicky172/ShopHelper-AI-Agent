@@ -8,9 +8,12 @@ from pathlib import Path
 import pytest
 from fastapi.testclient import TestClient
 
-from shophelper import api, auth, cart, catalog, graph, raw_agent
-from shophelper.config import get_settings
-from shophelper.orders import SEED_FILE, demo_email, get_order_repo, refund_eligibility, sample_orders
+from shophelper.accounts import auth
+from shophelper.agent import graph, raw_agent
+from shophelper.api import app as api
+from shophelper.core.config import get_settings
+from shophelper.shop import cart, catalog
+from shophelper.shop.orders import SEED_FILE, demo_email, get_order_repo, refund_eligibility, sample_orders
 
 ROOT = Path(__file__).parent.parent
 CATALOGUE = json.loads((ROOT / "src/shophelper/data/products.json").read_text(encoding="utf-8"))

@@ -27,10 +27,10 @@ from langgraph.graph import END, START, StateGraph
 from langgraph.graph.message import add_messages
 from langgraph.types import interrupt
 
-from shophelper import identity
-from shophelper.config import get_settings
-from shophelper.orders import get_order_repo, refund_eligibility
-from shophelper.tools import get_order_status, search_policy
+from shophelper.agent.tools import get_order_status, search_policy
+from shophelper.core import identity
+from shophelper.core.config import get_settings
+from shophelper.shop.orders import get_order_repo, refund_eligibility
 
 SYSTEM_PROMPT = """You are ShopHelper, a concise, friendly customer-support assistant for a \
 general online store selling electronics, home and kitchen goods, bags and travel gear, and \

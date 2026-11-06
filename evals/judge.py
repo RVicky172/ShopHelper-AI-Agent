@@ -9,7 +9,7 @@ from functools import lru_cache
 
 import boto3
 
-from shophelper.config import get_settings
+from shophelper.core.config import get_settings
 
 JUDGE_PROMPT = """You are grading a customer-support answer for FAITHFULNESS.
 
@@ -43,7 +43,7 @@ def _ask_bedrock(prompt: str) -> str:
 
 def _ask_local(prompt: str) -> str:
     """Local runs: the agent's own model is the judge, so the bias noted above applies."""
-    from shophelper.rag import _client as local_client
+    from shophelper.rag.pipeline import _client as local_client
 
     resp = local_client().chat.completions.create(
         model=get_settings().local_chat_model, temperature=0, max_tokens=300,

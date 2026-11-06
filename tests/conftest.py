@@ -1,6 +1,6 @@
 import os
 
-# Must run before shophelper.config is imported: unit tests are offline-only.
+# Must run before shophelper.core.config is imported: unit tests are offline-only.
 os.environ["SHOPHELPER_ENV_FILE"] = ""
 for var in ("ORDERS_TABLE", "HISTORY_TABLE", "CHECKPOINT_TABLE", "KNOWLEDGE_BASE_ID", "DATABASE_URL",
             "LLM_PROVIDER", "LOCAL_GUARDRAILS", "MCP_URL", "TOOLS_TRANSPORT", "AUTH_ENABLED",

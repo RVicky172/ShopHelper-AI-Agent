@@ -16,8 +16,9 @@ from langchain_core.tools import BaseTool
 from langchain_mcp_adapters.client import MultiServerMCPClient
 from langchain_mcp_adapters.tools import load_mcp_tools
 
-from shophelper import auth, identity
-from shophelper.config import get_settings
+from shophelper.accounts import auth
+from shophelper.core import identity
+from shophelper.core.config import get_settings
 
 
 async def add_identity(request, handler):
@@ -43,7 +44,7 @@ async def mcp_tools() -> AsyncIterator[list[BaseTool]]:
         "shophelper": {
             "transport": "stdio",
             "command": sys.executable,
-            "args": ["-m", "shophelper.mcp_server"],
+            "args": ["-m", "shophelper.mcp.server"],
             # The MCP SDK passes only a minimal env by default; the server needs
             # AWS credentials/region and our settings, so forward everything.
             "env": dict(os.environ),

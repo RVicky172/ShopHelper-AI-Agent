@@ -1,4 +1,4 @@
-from shophelper.memory import InMemoryHistory, to_converse_messages
+from shophelper.agent.memory import InMemoryHistory, to_converse_messages
 
 
 def test_history_round_trip_and_limit():

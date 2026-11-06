@@ -9,8 +9,8 @@ from typing import Any, Protocol
 import boto3
 from boto3.dynamodb.conditions import Key
 
-from shophelper import db
-from shophelper.config import get_settings
+from shophelper.core import db
+from shophelper.core.config import get_settings
 
 
 class HistoryStore(Protocol):

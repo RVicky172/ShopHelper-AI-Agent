@@ -14,10 +14,10 @@ from datetime import UTC, datetime, timedelta
 from functools import lru_cache
 from typing import Protocol
 
-from shophelper import db
-from shophelper.config import get_settings
-from shophelper.identity import Principal, Role
-from shophelper.orders import demo_email, get_order_repo, load_seed_orders
+from shophelper.core import db
+from shophelper.core.config import get_settings
+from shophelper.core.identity import Principal, Role
+from shophelper.shop.orders import demo_email, get_order_repo, load_seed_orders
 
 COOKIE_NAME = "shophelper_session"
 SESSION_LIFETIME = timedelta(hours=24)

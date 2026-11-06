@@ -1,6 +1,6 @@
 import pytest
 
-from shophelper.raw_agent import MaxStepsExceeded, run_agent
+from shophelper.agent.raw_agent import MaxStepsExceeded, run_agent
 
 
 class StubBedrock:
@@ -48,7 +48,7 @@ def test_max_steps_guard():
 
 
 def test_local_policy_search_finds_returns_policy():
-    from shophelper.tools import search_policy
+    from shophelper.agent.tools import search_policy
 
     top = search_policy("restocking fee for opened electronics returns")["passages"][0]
     assert top["source"] == "returns.md"

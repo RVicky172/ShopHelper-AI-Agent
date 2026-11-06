@@ -9,22 +9,22 @@ from fastapi import Depends, FastAPI, HTTPException, Request
 from fastapi.responses import StreamingResponse
 from starlette.concurrency import run_in_threadpool
 
-from shophelper.auth_api import AccountsGate, accounts_only, current_principal, require_role
-from shophelper.auth_api import router as auth_router
-from shophelper.chat_response import ChatResponse
-from shophelper.config import get_settings
-from shophelper.conversations import get_conversation_store
-from shophelper.graph import postgres_checkpointer
-from shophelper.identity import Principal
-from shophelper.local_api import router as local_router
-from shophelper.mcp_client import mcp_tools
-from shophelper.memory import get_history_store
-from shophelper.observability import log_event
-from shophelper.orders import get_order_repo
-from shophelper.refunds import RefundRequest, ReviewForbidden, authorize_review, get_refund_store
-from shophelper.schemas import ApprovalRequest, ChatRequest
-from shophelper.service import NoPendingApproval, ShopHelperService
-from shophelper.shop_api import router as shop_router
+from shophelper.accounts.conversations import get_conversation_store
+from shophelper.agent.graph import postgres_checkpointer
+from shophelper.agent.memory import get_history_store
+from shophelper.agent.schemas import ChatResponse
+from shophelper.agent.service import NoPendingApproval, ShopHelperService
+from shophelper.api.auth_routes import AccountsGate, accounts_only, current_principal, require_role
+from shophelper.api.auth_routes import router as auth_router
+from shophelper.api.local_routes import router as local_router
+from shophelper.api.schemas import ApprovalRequest, ChatRequest
+from shophelper.api.shop_routes import router as shop_router
+from shophelper.core.config import get_settings
+from shophelper.core.identity import Principal
+from shophelper.core.observability import log_event
+from shophelper.mcp.client import mcp_tools
+from shophelper.shop.orders import get_order_repo
+from shophelper.shop.refunds import RefundRequest, ReviewForbidden, authorize_review, get_refund_store
 
 
 @asynccontextmanager

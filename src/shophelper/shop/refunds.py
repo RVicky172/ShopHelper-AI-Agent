@@ -8,9 +8,9 @@ from dataclasses import dataclass, replace
 from functools import lru_cache
 from typing import Any, Protocol
 
-from shophelper import db
-from shophelper.config import get_settings
-from shophelper.identity import Principal
+from shophelper.core import db
+from shophelper.core.config import get_settings
+from shophelper.core.identity import Principal
 
 OPEN_STATUSES = ("pending", "claimed")
 

@@ -7,10 +7,10 @@ Two interchangeable stores, in memory and Postgres. The merge rules are one func
 from functools import lru_cache
 from typing import Any, Protocol
 
-from shophelper import db
-from shophelper.catalog import get_product_repo
-from shophelper.config import get_settings
-from shophelper.orders import PostgresOrderRepo, get_order_repo
+from shophelper.core import db
+from shophelper.core.config import get_settings
+from shophelper.shop.catalog import get_product_repo
+from shophelper.shop.orders import PostgresOrderRepo, get_order_repo
 
 MAX_QUANTITY = 10
 

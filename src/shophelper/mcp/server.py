@@ -1,8 +1,8 @@
 """Step 7: ShopHelper's read-only tools as an MCP server (FastMCP).
 
 Any MCP client can use them - the ShopHelper agent, Claude Desktop/Code, MCP Inspector:
-    python -m shophelper.mcp_server            # stdio (default, what the agent uses)
-    python -m shophelper.mcp_server --http     # streamable HTTP on :8765/mcp
+    python -m shophelper.mcp.server            # stdio (default, what the agent uses)
+    python -m shophelper.mcp.server --http     # streamable HTTP on :8765/mcp
 Note: with stdio, stdout is the protocol channel - never print() in this process.
 """
 
@@ -11,8 +11,10 @@ from typing import Any
 
 from mcp.server.fastmcp import Context, FastMCP
 
-from shophelper import auth, identity, tools
-from shophelper.config import get_settings
+from shophelper.accounts import auth
+from shophelper.agent import tools
+from shophelper.core import identity
+from shophelper.core.config import get_settings
 
 mcp = FastMCP("shophelper", host=get_settings().mcp_host, port=8765)
 

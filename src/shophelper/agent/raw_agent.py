@@ -11,8 +11,8 @@ from typing import Any
 
 import boto3
 
-from shophelper.config import get_settings
-from shophelper.tools import get_order_status, search_policy
+from shophelper.agent.tools import get_order_status, search_policy
+from shophelper.core.config import get_settings
 
 SYSTEM_PROMPT = (
     "You are ShopHelper, a concise and friendly customer-support assistant for a general online "
