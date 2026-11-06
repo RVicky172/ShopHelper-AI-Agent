@@ -11,6 +11,14 @@ Newest first. One entry per working session.
 
 ---
 
+## 2026-11-06 — 022: stage 5, RAG
+
+**Done:** 9 lessons, replacing the carried RAG chapter. Measured on this project: reranking the top 8 took right-first from
+17 to 20 of 20; hybrid search and query prefixes showed no gain on 24 chunks; HNSW index unused at 24 rows; on 50,000 random
+vectors, exact 85 ms, HNSW 2.2 to 4.5 ms, recall@10 0.28 to 0.60. Try it steps run live, including the Care price change.
+**Next:** `/spec-implement 022`, from T200: slice 3, production.
+**Blockers:** none
+
 ## 2026-11-06 — 022 slice 1 done
 
 **Done:** The course at `/learn`: right-hand stepper, lessons, quizzes, search, progress. Docs reorganised into stages. 15 lessons so far, 5 at final quality. Owner approved the style.

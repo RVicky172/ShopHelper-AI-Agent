@@ -69,8 +69,15 @@
       "title": "RAG",
       "short": "RAG",
       "lessons": [
-        "01-rag",
-        "03-chunking"
+        "01-why-rag",
+        "02-embeddings-in-depth",
+        "03-chunking",
+        "04-vector-indexes",
+        "05-vector-databases",
+        "06-hybrid-search-and-reranking",
+        "07-contextual-retrieval",
+        "08-debugging-a-wrong-answer",
+        "09-rag-long-context-or-fine-tuning"
       ]
     },
     {
