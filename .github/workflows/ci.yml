@@ -34,6 +34,24 @@ jobs:
           }
       - run: terraform -chdir=infra init -backend=false -input=false && terraform -chdir=infra validate
 
+  frontend:
+    name: Frontend tests, types and build
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: web
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+          cache-dependency-path: web/package-lock.json
+      - run: npm ci
+      - run: npm run typecheck
+      - run: npm test
+      - run: npm run build
+
   # Evals and deploy need live AWS resources. Repo variable AWS_DEPLOY_ENABLED=true
   # turns them on (scripts/set_github_vars.sh); set it to false after `terraform destroy`.
   evals:
