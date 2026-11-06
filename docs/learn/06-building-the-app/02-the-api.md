@@ -125,7 +125,7 @@ Python is a common choice for AI backends, because most agent and model librarie
 
 **REST or something else?** REST over JSON suits most products. GraphQL helps when many clients want different shapes of data. gRPC suits fast calls between your own services. Streaming is separate, and it's the [next lesson](03-streaming.md).
 
-Not built here: **rate limiting** and **API versioning**. A public API needs both. [Stage 9](../09-cloud-deployment/02-local-vs-aws.md) covers deploying it.
+Not built here: **rate limiting** and **API versioning**. A public API needs both. [Stage 9](../09-cloud-deployment/01-running-locally.md) covers deploying it.
 
 ## Try it
 

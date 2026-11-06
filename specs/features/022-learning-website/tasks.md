@@ -118,9 +118,12 @@ ends with `scripts/check.sh`. Lesson tasks may finish 2 or 3 lessons at a time.
       **Result (2026-11-06):** OWASP lists (read directly: 2025 LLM list, December 2025 agentic list), prompt injection (10 direct attacks and a planted policy, measured), layered defences.
 - [x] **T207** — Stage 8: guardrails and private data, securing tools and secrets
       **Result (2026-11-06):** Guardrails and private data, securing tools and secrets.
-- [ ] **T208** — Stage 9: running locally, planning it on AWS with costs, compute options (AC-15) · files: `docs/learn/09-cloud-deployment/`
-- [ ] **T209** — Stage 9: infrastructure as code, CI/CD, ways to release
-- [ ] **T210** — Stage 9: scaling and rate limits, cost, other clouds and hosting your own model
+- [x] **T208** — Stage 9: running locally, planning it on AWS with costs, compute options (AC-15) · files: `docs/learn/09-cloud-deployment/`
+      **Result (2026-11-06):** Running locally, planning it on AWS with costs from AWS's price list (about $1.56 a day of rent), compute options. Paid steps are marked, and nothing was deployed.
+- [x] **T209** — Stage 9: infrastructure as code, CI/CD, ways to release
+      **Result (2026-11-06):** Infrastructure as code, CI/CD, ways to release.
+- [x] **T210** — Stage 9: scaling and rate limits, cost, other clouds and hosting your own model
+      **Result (2026-11-06):** Scaling and rate limits (local throughput stopped at about 44 turns a minute), cost, other clouds and hosting your own model.
 - [ ] **T211** — Stage 10: all 4 lessons on running in production · files: `docs/learn/10-running-in-production/`
 - [ ] **T212** — Slice 3 gates and merge, once the owner asks
 

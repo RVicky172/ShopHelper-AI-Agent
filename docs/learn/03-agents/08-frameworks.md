@@ -86,7 +86,7 @@ Checked on 2026-11-06, from each project's own docs. Comparison blogs often disa
 Two things to watch:
 
 - **Old advice dates fast.** Microsoft now directs AutoGen users to Agent Framework, so older tutorials may point at a path that's been replaced. OpenAI's Swarm was experimental, and the Agents SDK is its successor.
-- **Hosted options exist too.** [Claude Managed Agents](https://code.claude.com/docs/en/agent-sdk/overview) hosts the agent for you, and AWS has Bedrock AgentCore. [Stage 9](../09-cloud-deployment/02-local-vs-aws.md) covers deployment.
+- **Hosted options exist too.** [Claude Managed Agents](https://code.claude.com/docs/en/agent-sdk/overview) hosts the agent for you, and AWS has Bedrock AgentCore. [Stage 9](../09-cloud-deployment/01-running-locally.md) covers deployment.
 
 **How to choose:**
 

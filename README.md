@@ -135,7 +135,7 @@ Same code, different settings. AWS stays the default, so nothing local runs unle
 | Guardrails | Regex rules | Bedrock Guardrails |
 | Runs on | Docker Compose | Lambda and ECS Fargate |
 
-See [Local vs AWS](docs/learn/09-cloud-deployment/02-local-vs-aws.md) for how this works and what local can't prove.
+See [Running it locally](docs/learn/09-cloud-deployment/01-running-locally.md) for how this works and what local can't prove.
 
 ## Test it
 
