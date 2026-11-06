@@ -5,7 +5,7 @@ argument-hint: <NNN>
 
 Verify feature $ARGUMENTS against the Definition of Done in `specs/constitution.md`.
 
-1. Run every gate command in the Definition of Done (`scripts/check.sh`, `scripts/evals_local.sh`, `cd web && npm run build`); report results honestly, including flaky or
+1. Run every gate command in the Definition of Done (`scripts/check.sh`, `scripts/evals_local.sh`, `cd web && npm run build`), plus the measurements `specs/testing-strategy.md` says this feature affects. Run the slow ones once, in the background, and do docs and memory meanwhile; report results honestly, including flaky or
    skipped tests.
 2. Check every acceptance criterion in `spec.md` against its test or recorded measurement; tick only the ones
    proven. If an AC has no real proof, add the missing test or say so — don't tick it.
