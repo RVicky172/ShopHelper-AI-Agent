@@ -151,3 +151,8 @@ something cost more than ~10 minutes or the fix was non-obvious. Delete entries 
 
 - Adding `/orders` to `PUBLIC_PATHS` fails no route test, because the route's own dependency still returns 401. Run a sabotage step before
   writing it down as one a learner can try.
+
+## Reading AWS prices and docs
+
+- WebFetch resets on aws.amazon.com and docs.aws.amazon.com. curl works, and exact prices come from
+  `https://pricing.us-east-1.amazonaws.com/offers/v1.0/aws/<service>/current/<region>/index.json`.

@@ -11,6 +11,13 @@ Newest first. One entry per working session.
 
 ---
 
+## 2026-11-06 — 022: stage 9, cloud deployment
+
+**Done:** 9 lessons, replacing the carried chapter. Rent worked out from AWS's public price list for Mumbai: about $1.56 a day, matching what was seen.
+Local load test: throughput stopped at about 44 turns a minute, with the GPU as the limit. Nothing was deployed.
+**Next:** `/spec-implement 022`, from T211: stage 10, running in production.
+**Blockers:** none
+
 ## 2026-11-06 — 022: stage 8, security
 
 **Done:** 5 lessons, replacing the carried chapter. New measurements: 10 direct attacks, guardrail stopped 1, 4 leaked part of the prompt. A planted

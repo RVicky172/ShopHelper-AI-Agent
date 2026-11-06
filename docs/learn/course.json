@@ -126,7 +126,15 @@
       "title": "Cloud deployment",
       "short": "Cloud",
       "lessons": [
-        "02-local-vs-aws"
+        "01-running-locally",
+        "02-planning-it-on-aws",
+        "03-compute-options",
+        "04-infrastructure-as-code",
+        "05-ci-cd",
+        "06-ways-to-release",
+        "07-scaling-and-rate-limits",
+        "08-cost",
+        "09-other-clouds-and-self-hosting"
       ]
     },
     {

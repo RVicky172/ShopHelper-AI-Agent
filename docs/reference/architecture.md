@@ -158,7 +158,7 @@ flowchart LR
 ## Where things live: local and AWS
 
 The code above is identical in both places. Only the outer pieces change, and settings choose
-which ones. [Local vs AWS](../learn/09-cloud-deployment/02-local-vs-aws.md) explains how.
+which ones. [Running it locally](../learn/09-cloud-deployment/01-running-locally.md) explains how.
 
 | Role | Local (`docker compose up`) | AWS (`scripts/deploy.sh`) |
 | --- | --- | --- |
