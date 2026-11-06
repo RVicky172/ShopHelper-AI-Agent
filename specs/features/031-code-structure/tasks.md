@@ -46,9 +46,12 @@ needs a decision, or would change behaviour.
 
 ## PR 3 — Test layout
 
-- [ ] **T020** — Move tests into folders that mirror the code · files: `tests/**` · test: same test count
-- [ ] **T021** — Split `test_shop.py` along its sections, and `evals/test_integration.py` the same way, all under 400 lines · files: `tests/shop/`, `evals/` · test: same test count, line check
-- [ ] **T022** — Merge PR 3
+- [x] **T020** — Move tests into folders that mirror the code · files: `tests/**` · test: same test count
+      **Result (2026-11-06):** Tests moved into `tests/core`, `agent`, `mcp`, `accounts`, `shop` and `api`. Counts unchanged.
+- [x] **T021** — Split `test_shop.py` along its sections, and `evals/test_integration.py` the same way, all under 400 lines · files: `tests/shop/`, `evals/` · test: same test count, line check
+      **Result (2026-11-06):** `test_shop.py` split into 4 files with shared fixtures in `tests/shop/conftest.py`, `evals/test_integration.py` into 3. Largest test file 304 lines, down from 653. 364 unit tests, 94 eval tests, 57 of 57 integration.
+- [x] **T022** — Merge PR 3
+      **Result (2026-11-06):** Merged as the PR for this branch.
 
 ## PR 4 — Frontend moves
 

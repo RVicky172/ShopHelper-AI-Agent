@@ -114,7 +114,7 @@ evals on real Bedrock, and tear down.
    `docker compose up -d`. Run the evals and compare.
 4. Pick another dependency, such as chat history in
    [memory.py](../../src/shophelper/agent/memory.py), and find its three implementations.
-5. Run `uv run pytest tests/test_shop.py -k accounts_off`. Each test turns accounts off and checks that a shop route
+5. Run `uv run pytest tests/shop -k accounts_off`. Each test turns accounts off and checks that a shop route
    returns 404. That's the AWS behaviour, proved without AWS.
 
 Next: [Accounts and isolation](11-accounts-and-isolation.md)

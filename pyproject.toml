@@ -59,4 +59,4 @@ target-version = "py313"
 select = ["E", "F", "I", "B", "UP"]
 
 [tool.ruff.lint.isort]
-known-first-party = ["shophelper", "fakes", "judge"]
+known-first-party = ["shophelper", "fakes", "judge", "shop_helpers", "integration_support"]
