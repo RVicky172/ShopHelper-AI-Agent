@@ -1,7 +1,7 @@
 """Accounts: who is using the app. Used only when Settings.accounts_enabled is true.
 
 Authentication answers "who are you?" (this file). Authorization answers "what may you do?"
-(auth_api.py and each route). Walkthrough: docs/learn/11-accounts-and-isolation.md
+(auth_api.py and each route). Walkthrough: docs/learn/06-building-the-app/07-accounts-and-isolation.md
 
 Functions that depend on time take `now`, so tests can move the clock instead of sleeping.
 """

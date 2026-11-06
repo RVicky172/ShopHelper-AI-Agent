@@ -1,4 +1,8 @@
-# 2. Tools
+---
+title: Tools
+checked: 2026-11-06
+carried: true
+---
 
 ## What a tool really is
 
@@ -46,7 +50,7 @@ The **Tools** page, under **How it works**, shows exactly what the model is give
 | `search_policy` | Searches the policy documents | Read-only | MCP server |
 | `request_refund` | Asks for a refund | **Moves money** | A graph node |
 
-The code is in [tools.py](../../src/shophelper/agent/tools.py):
+The code is in [tools.py](../../../src/shophelper/agent/tools.py):
 
 ```python
 def get_order_status(order_id: str) -> dict[str, Any]:
@@ -64,9 +68,9 @@ Two habits worth copying:
   customer the order doesn't exist. Raising an exception would just crash the turn.
 
 Notice that `user_id` isn't an argument. The model chooses only `order_id`, and who is asking comes from
-elsewhere. [Chapter 11](11-accounts-and-isolation.md) explains why that matters so much.
+elsewhere. [Chapter 11](../06-building-the-app/07-accounts-and-isolation.md) explains why that matters so much.
 
-For the same reason, `run_tool` in [graph.py](../../src/shophelper/agent/graph.py) catches exceptions and
+For the same reason, `run_tool` in [graph.py](../../../src/shophelper/agent/graph.py) catches exceptions and
 turns them into a message the model can read. The model recovers instead of the request failing.
 
 ## Why `request_refund` is different
@@ -108,8 +112,8 @@ Tools fail, and models misuse them. This project handles each case:
    model reads it and tells you.
 3. Sign in as Arjun and ask for a refund on order 1004. The model asks for one, and the code refuses
    because the order is outside the 30-day window. No human was bothered, and the model explains why.
-4. Edit a tool's docstring in [mcp_server.py](../../src/shophelper/mcp/server.py) to something vague,
+4. Edit a tool's docstring in [mcp_server.py](../../../src/shophelper/mcp/server.py) to something vague,
    like "Gets data". Save, run `docker compose restart api`, and see how the model behaves. Then
    change it back.
 
-Next: [MCP](03-mcp.md)
+Next: [MCP](../04-mcp/01-mcp.md)

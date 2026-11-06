@@ -1,4 +1,8 @@
-# 5. Memory and human approval
+---
+title: Memory and human approval
+checked: 2026-11-06
+carried: true
+---
 
 ## Models have no memory
 
@@ -12,7 +16,7 @@ This project keeps two kinds of memory, for two different readers.
 | --- | --- | --- |
 | Reader | People: support staff, the UI | The agent |
 | Contains | Readable messages only | Everything: tool calls, results, paused work |
-| Written by | [service.py](../../src/shophelper/agent/service.py) | LangGraph, automatically |
+| Written by | [service.py](../../../src/shophelper/agent/service.py) | LangGraph, automatically |
 | Privacy | Stores masked text | Stores masked input and tool data |
 | Purpose | Display and audit | Resuming work |
 
@@ -55,13 +59,13 @@ flowchart TD
 ```
 
 Rule checks first, because a human's time shouldn't go on requests the policy already rules out.
-`refund_eligibility()` in [orders.py](../../src/shophelper/shop/orders.py) is plain Python, so it gives
+`refund_eligibility()` in [orders.py](../../../src/shophelper/shop/orders.py) is plain Python, so it gives
 the same answer every time. No prompt can change it.
 
 ## How pausing works
 
 The key is LangGraph's `interrupt()`, in `_decide_refund` in
-[graph.py](../../src/shophelper/agent/graph.py):
+[graph.py](../../../src/shophelper/agent/graph.py):
 
 ```python
 ok, why = refund_eligibility(order, amount)
@@ -83,7 +87,7 @@ hours. Instead it does this:
 3. The server is now free, and nothing is running at all.
 
 Later, a staff member's approval resumes it as a separate request. The rules for who may do that are in
-[chapter 11](11-accounts-and-isolation.md).
+[chapter 11](../06-building-the-app/07-accounts-and-isolation.md).
 
 ```python
 await graph.ainvoke(Command(resume={"approved": True, "reviewer": "alice"}), config)
@@ -120,7 +124,7 @@ You need two people for this, so use a normal window and a private window.
    Support, choose **Refund queue** from the account menu, and click **Approve refund**. It still works, because the state was in Postgres
    all along. This is the most important demo in the project.
 3. Back in Asha's window, the outcome appears by itself. Choose **Your orders** from the account menu: `1001` is now `refunded`. In pgAdmin, run
-   the orders query from [local-setup.md](../local-setup.md). Then sign in as Admin, open **All orders**, and click **Reset demo orders**.
+   the orders query from [local-setup.md](../../reference/local-setup.md). Then sign in as Admin, open **All orders**, and click **Reset demo orders**.
 4. Try again, and send "Any update?" while it's paused. The agent doesn't run.
 5. Try again and click **Reject** as Support, with a note. The order doesn't change.
 6. Sign in as Kabir and ask for a refund on order 1006, which costs $249. Support can see it, but only an Admin can
@@ -131,4 +135,4 @@ You need two people for this, so use a normal window and a private window.
 8. In pgAdmin, compare `chat_history` with `checkpoints` for one session. Count the rows in each.
    You'll see many more checkpoints than messages, one for each step.
 
-Next: [Streaming](06-streaming.md)
+Next: [Streaming](../06-building-the-app/03-streaming.md)

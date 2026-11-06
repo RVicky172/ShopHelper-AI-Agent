@@ -1,4 +1,8 @@
-# 9. Evals
+---
+title: Evals
+checked: 2026-11-06
+carried: true
+---
 
 ## Unit tests aren't enough
 
@@ -18,7 +22,7 @@ refunds.
 
 ## The golden set
 
-[golden_cases.yaml](../../evals/golden_cases.yaml) lists 37 conversations with expected outcomes:
+[golden_cases.yaml](../../../evals/golden_cases.yaml) lists 37 conversations with expected outcomes:
 
 ```yaml
 - id: refund_eligible_pauses
@@ -43,7 +47,7 @@ Each case runs as a named customer, using the `as:` field.
 ## LLM as a judge
 
 Is an answer actually supported by the retrieved passages? String matching can't tell you. So we
-ask another model to grade it, using the rubric in [judge.py](../../evals/judge.py), scoring 1-5
+ask another model to grade it, using the rubric in [judge.py](../../../evals/judge.py), scoring 1-5
 for **faithfulness**.
 
 On AWS, Sonnet judges Haiku: a stronger, different model. Locally, Qwen judges itself. Models tend
@@ -73,7 +77,7 @@ cross-user cases were checked two ways:
 1. **Did they reach the code under test?** All 7 called the order tool, so no guardrail was doing the work.
 2. **Do they fail without the protection?** With the owner check removed, all 7 failed.
 
-A security test you've never seen fail hasn't proved anything. [Chapter 11](11-accounts-and-isolation.md) has the
+A security test you've never seen fail hasn't proved anything. [Chapter 11](../06-building-the-app/07-accounts-and-isolation.md) has the
 results.
 
 Two lessons. **Read the failures, don't only count them**: two of the "agent failures" were broken
@@ -127,4 +131,4 @@ attack phrases in the suite.
    Put the line back. That's what using evals to judge a prompt change looks like.
 3. Add a case of your own. For example, a partial refund: "Refund $20 of order 1001", with `as: Asha`.
 
-Next: [Local vs AWS](10-local-vs-aws.md)
+Next: [Local vs AWS](../09-cloud-deployment/02-local-vs-aws.md)

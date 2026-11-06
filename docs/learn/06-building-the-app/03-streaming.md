@@ -1,4 +1,8 @@
-# 6. Streaming
+---
+title: Streaming
+checked: 2026-11-06
+carried: true
+---
 
 ## Why stream
 
@@ -64,7 +68,7 @@ Every step of a turn is one event type:
 | Event | Sent when | Data |
 | --- | --- | --- |
 | `guardrail` | Input or output has been checked | stage, action, reasons |
-| `model_step` | A model call finished, or code chose a tool itself (0 tokens, see [chapter 1](01-agents-and-the-loop.md)) | tools chosen, tokens, time |
+| `model_step` | A model call finished, or code chose a tool itself (0 tokens, see [chapter 1](../03-agents/02-the-agent-loop.md)) | tools chosen, tokens, time |
 | `tool_start` | The model asked for a tool | name, args |
 | `tool_end` | The tool finished | result, time |
 | `token` | The model wrote more of its answer | text |
@@ -93,7 +97,7 @@ flowchart LR
     v --> b["Browser"]
 ```
 
-The main part is in `_stream_graph` in [service.py](../../src/shophelper/agent/service.py):
+The main part is in `_stream_graph` in [service.py](../../../src/shophelper/agent/service.py):
 
 ```python
 async for mode, payload in self.graph.astream(
@@ -106,7 +110,7 @@ LangGraph offers two views of the same run at once:
 - **`messages`:** model output as it's generated, which gives us `token` events.
 - **`updates`:** the result of each node as it finishes, which gives us the step events.
 
-[api.py](../../src/shophelper/api/app.py) turns each one into SSE text. Because `events()` is an async
+[api.py](../../../src/shophelper/api/app.py) turns each one into SSE text. Because `events()` is an async
 generator, each `yield` goes out on the wire immediately:
 
 ```python
@@ -150,4 +154,4 @@ way to find it: try it against each hop.
    token. That's time the model spends reading the prompt.
 4. Send a message containing your email. The trace shows the guardrail masked it.
 
-Next: [The React frontend](07-frontend.md)
+Next: [The React frontend](04-the-frontend.md)

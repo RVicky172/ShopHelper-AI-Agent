@@ -3,7 +3,7 @@
     INGEST (once)   markdown -> chunks -> embeddings -> Postgres (pgvector)
     QUERY (per ask) question -> embedding -> nearest chunks -> returned to the agent
 
-Full walkthrough: docs/learn/04-rag.md
+Full walkthrough: docs/learn/05-rag/01-rag.md
 """
 
 import hashlib

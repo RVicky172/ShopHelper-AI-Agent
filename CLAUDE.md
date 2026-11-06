@@ -46,7 +46,7 @@ Guidance for Claude Code (and any AI agent) working in this repository.
 ## Run It
 
 `lms server start`, then `docker compose up --build`. App: http://localhost:5173, pgAdmin: http://localhost:5050.
-Full guide: `docs/local-setup.md`. `docs/` is written for learners; `specs/` and `memory/` are for this workflow.
+Full guide: `docs/reference/local-setup.md`. `docs/` is written for learners; `specs/` and `memory/` are for this workflow.
 
 ## Commands
 

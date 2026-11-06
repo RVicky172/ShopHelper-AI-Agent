@@ -5,36 +5,17 @@ ideas using this project's real code. You can run every example on your own mach
 
 ## Start here
 
-1. **[Local setup](local-setup.md):** get everything running with one command.
-2. **[Architecture](architecture.md):** the whole system, starting from the simplest picture.
-3. **The learning path below:** read it in order. Each chapter builds on the one before it.
+**The course:** run the stack and open http://localhost:5173/learn. It's one path through 13 stages, from how an LLM works to passing an
+interview. Start with [The AI engineer role](learn/00-start-here/01-the-ai-engineer-role.md).
 
-## Learning path
+**To run it:** [Local setup](reference/local-setup.md).
 
-| # | Chapter | The question it answers |
-| --- | --- | --- |
-| 1 | [Agents and the loop](learn/01-agents-and-the-loop.md) | What makes an agent different from a chatbot? |
-| 2 | [Tools](learn/02-tools.md) | How does a model that only writes text do anything? |
-| 3 | [MCP](learn/03-mcp.md) | Why put tools behind a protocol? |
-| 4 | [RAG](learn/04-rag.md) | How does the model answer from documents it was never trained on? |
-| 5 | [Memory and human approval](learn/05-memory-and-human-approval.md) | How does an agent remember, and pause for a person? |
-| 6 | [Streaming](learn/06-streaming.md) | How do steps and words reach the browser as they happen? |
-| 7 | [The React frontend](learn/07-frontend.md) | How does the UI turn a stream into a screen, and a dashboard into a shop? |
-| 8 | [Guardrails](learn/08-guardrails.md) | How do we stop bad input and bad output? |
-| 9 | [Evals](learn/09-evals.md) | How do you test something that isn't deterministic? |
-| 10 | [Local vs AWS](learn/10-local-vs-aws.md) | How does the same code run in both places? |
-| 11 | [Accounts and isolation](learn/11-accounts-and-isolation.md) | How do you keep one user's data from another, when a model is involved? |
+## Layout
 
-Every chapter ends with **Try it**, a short exercise using the running app.
-
-## Reference
-
-| Doc | Use it for |
+| Folder | What's in it |
 | --- | --- |
-| [Runbook](runbook.md) | AWS commands: deploy, operate, tear down |
-| [AWS services](aws-services.md) | What each AWS service does here and what it costs |
-| [Deployment comparison](deployment-comparison.md) | Lambda vs ECS measurements |
-| [Next steps](next-steps.md) | What's left, including moving to AWS |
+| `learn/` | The lessons, one folder per stage. `course.json` sets the order |
+| `reference/` | [Architecture](reference/architecture.md), [Local setup](reference/local-setup.md), [Runbook](reference/runbook.md), [AWS services](reference/aws-services.md), [Deployment comparison](reference/deployment-comparison.md), [Next steps](reference/next-steps.md) |
 
 ## How the project is run
 

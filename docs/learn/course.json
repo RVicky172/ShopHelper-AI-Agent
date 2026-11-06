@@ -1,0 +1,105 @@
+{
+  "stages": [
+    {
+      "id": "00-start-here",
+      "title": "Start here",
+      "short": "Start",
+      "lessons": [
+        "01-the-ai-engineer-role",
+        "02-how-this-course-works",
+        "03-a-tour-of-shophelper"
+      ]
+    },
+    {
+      "id": "01-how-llms-work",
+      "title": "How LLMs work",
+      "short": "LLMs",
+      "lessons": []
+    },
+    {
+      "id": "02-talking-to-models",
+      "title": "Talking to models",
+      "short": "Prompts",
+      "lessons": []
+    },
+    {
+      "id": "03-agents",
+      "title": "Agents",
+      "short": "Agents",
+      "lessons": [
+        "02-the-agent-loop",
+        "03-tools",
+        "04-memory-and-human-approval"
+      ]
+    },
+    {
+      "id": "04-mcp",
+      "title": "MCP",
+      "short": "MCP",
+      "lessons": [
+        "01-mcp"
+      ]
+    },
+    {
+      "id": "05-rag",
+      "title": "RAG",
+      "short": "RAG",
+      "lessons": [
+        "01-rag",
+        "03-chunking"
+      ]
+    },
+    {
+      "id": "06-building-the-app",
+      "title": "Building the app",
+      "short": "The app",
+      "lessons": [
+        "03-streaming",
+        "04-the-frontend",
+        "07-accounts-and-isolation"
+      ]
+    },
+    {
+      "id": "07-evals-and-testing",
+      "title": "Evals and testing",
+      "short": "Evals",
+      "lessons": [
+        "01-evals"
+      ]
+    },
+    {
+      "id": "08-security",
+      "title": "Security",
+      "short": "Security",
+      "lessons": [
+        "04-guardrails"
+      ]
+    },
+    {
+      "id": "09-cloud-deployment",
+      "title": "Cloud deployment",
+      "short": "Cloud",
+      "lessons": [
+        "02-local-vs-aws"
+      ]
+    },
+    {
+      "id": "10-running-in-production",
+      "title": "Running in production",
+      "short": "Production",
+      "lessons": []
+    },
+    {
+      "id": "11-building-with-ai",
+      "title": "Building with AI",
+      "short": "Claude Code",
+      "lessons": []
+    },
+    {
+      "id": "12-the-interview",
+      "title": "The interview",
+      "short": "Interview",
+      "lessons": []
+    }
+  ]
+}

@@ -1,6 +1,6 @@
 # AWS services and configuration
 
-Everything lives in `ap-south-1` (Mumbai), is created by Terraform in [`infra/`](../infra), and
+Everything lives in `ap-south-1` (Mumbai), is created by Terraform in [`infra/`](../../infra), and
 is tagged `Project=ShopHelper`. Prices are approximate list prices - check the AWS pricing pages.
 
 ## What you have to do by hand (once)
