@@ -93,7 +93,7 @@ The main ways to cut model costs, roughly in the order to try them:
 | [Prompt caching](../01-how-llms-work/07-context-windows-and-prompt-caching.md) | About 90% on repeated input, on reads | Needs a stable prefix, and writes cost more |
 | Smaller model for easy work | Up to 20 times, in the table above | Needs evals |
 | Limit output length | Output is the dearer rate | May cut answers |
-| Batch API | 50%, for work that can wait | Not for live chat |
+| [Batch API](https://platform.claude.com/docs/en/build-with-claude/batch-processing) | 50%, for work that can wait | Not for live chat |
 | Cache whole answers | Whole calls | Stale or wrong matches |
 | Fewer agent steps | Whole calls | Needs design |
 

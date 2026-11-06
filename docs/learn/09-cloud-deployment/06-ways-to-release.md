@@ -81,7 +81,7 @@ Checked on 2026-11-06.
 
 | Tool | Gives you |
 | --- | --- |
-| AWS CodeDeploy | Blue/green and canary for ECS and Lambda |
+| [AWS CodeDeploy](https://docs.aws.amazon.com/codedeploy/latest/userguide/welcome.html) | Blue/green and canary for ECS and Lambda |
 | Lambda aliases | Weighted traffic between versions |
 | Load balancer weights | Split traffic between target groups |
 | LaunchDarkly, Unleash | Feature flags |
