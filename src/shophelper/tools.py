@@ -7,15 +7,27 @@ from typing import Any
 
 import boto3
 
+from shophelper import identity
 from shophelper.config import get_settings
 from shophelper.orders import get_order_repo
 
 LOCAL_POLICY_DIR = Path(__file__).resolve().parents[2] / "knowledge" / "policies"
 
 
+class NoIdentity(Exception):
+    """Accounts are on but nobody is named. Refusing is safer than returning any data."""
+
+
 def get_order_status(order_id: str) -> dict[str, Any]:
     """Look up an order by its numeric id (e.g. '1001')."""
-    order = get_order_repo().get(order_id.strip().lstrip("#"))
+    clean_id = order_id.strip().lstrip("#")
+    if get_settings().accounts_enabled:
+        user_id = identity.current_user()
+        if user_id is None:
+            raise NoIdentity
+        order = get_order_repo().get_for_owner(clean_id, user_id)
+    else:
+        order = get_order_repo().get(clean_id)
     return order or {"error": f"No order found with id {order_id}"}
 
 
@@ -26,7 +38,12 @@ def _kb_client():
 
 def search_policy(query: str, top_k: int = 4) -> dict[str, Any]:
     """Search store policies (returns, refunds, shipping, warranty, payments, privacy...)."""
-    kb_id = get_settings().knowledge_base_id
+    settings = get_settings()
+    if settings.database_url:  # local stack: our own pgvector pipeline (see rag.py)
+        from shophelper import rag
+
+        return {"passages": rag.search(query, top_k)}
+    kb_id = settings.knowledge_base_id
     if not kb_id:
         return {"passages": _local_search(query, top_k)}
     resp = _kb_client().retrieve(

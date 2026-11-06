@@ -1,0 +1,17 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 400" width="400" height="400">
+  <title>Wireless Mouse</title>
+  <style>
+    svg { --tint: #E4E0FA; --ink: #1B2340; --paper: #FFFFFF; }
+    @media (prefers-color-scheme: dark) { svg { --tint: #352F63; --ink: #EEF1F8; --paper: #141A2E; } }
+    .tint { fill: var(--tint); }
+    .ink { fill: var(--ink); }
+    .paper { fill: var(--paper); }
+    .body { fill: var(--paper); stroke: var(--ink); stroke-width: 6; stroke-linejoin: round; }
+    .line { fill: none; stroke: var(--ink); stroke-width: 6; stroke-linecap: round; stroke-linejoin: round; }
+  </style>
+  <rect class="tint" width="400" height="400"/>
+  <rect class="body" x="124" y="76" width="152" height="248" rx="76"/>
+  <path class="line" d="M126 178 H274"/>
+  <path class="line" d="M200 78 V178"/>
+  <rect class="ink" x="188" y="104" width="24" height="52" rx="12"/>
+</svg>

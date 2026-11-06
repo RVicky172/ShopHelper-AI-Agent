@@ -1,0 +1,18 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 400" width="400" height="400">
+  <title>Yoga Mat</title>
+  <style>
+    svg { --tint: #D9F0E8; --ink: #1B2340; --paper: #FFFFFF; }
+    @media (prefers-color-scheme: dark) { svg { --tint: #1F4C3F; --ink: #EEF1F8; --paper: #141A2E; } }
+    .tint { fill: var(--tint); }
+    .ink { fill: var(--ink); }
+    .paper { fill: var(--paper); }
+    .body { fill: var(--paper); stroke: var(--ink); stroke-width: 6; stroke-linejoin: round; }
+    .line { fill: none; stroke: var(--ink); stroke-width: 6; stroke-linecap: round; stroke-linejoin: round; }
+  </style>
+  <rect class="tint" width="400" height="400"/>
+  <rect class="body" x="118" y="146" width="240" height="124" rx="14"/>
+  <rect class="ink" x="196" y="146" width="24" height="124"/>
+  <rect class="ink" x="284" y="146" width="24" height="124"/>
+  <circle class="body" cx="112" cy="208" r="64"/>
+  <path class="line" d="M112 208 A14 14 0 0 1 126 222 A28 28 0 0 1 84 208 A42 42 0 0 1 154 208"/>
+</svg>

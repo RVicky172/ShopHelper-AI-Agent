@@ -1,0 +1,19 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 400" width="400" height="400">
+  <title>Electric Kettle</title>
+  <style>
+    svg { --tint: #E0F0DF; --ink: #1B2340; --paper: #FFFFFF; }
+    @media (prefers-color-scheme: dark) { svg { --tint: #2A4A2C; --ink: #EEF1F8; --paper: #141A2E; } }
+    .tint { fill: var(--tint); }
+    .ink { fill: var(--ink); }
+    .paper { fill: var(--paper); }
+    .body { fill: var(--paper); stroke: var(--ink); stroke-width: 6; stroke-linejoin: round; }
+    .line { fill: none; stroke: var(--ink); stroke-width: 6; stroke-linecap: round; stroke-linejoin: round; }
+  </style>
+  <rect class="tint" width="400" height="400"/>
+  <path class="line" d="M262 142 H304 Q326 142 326 164 V248 Q326 270 304 270 H276"/>
+  <path class="body" d="M132 174 L78 118 L150 120 Z"/>
+  <path class="body" d="M136 118 H256 L282 306 H110 Z"/>
+  <rect class="ink" x="176" y="94" width="40" height="26" rx="6"/>
+  <rect class="ink" x="92" y="304" width="208" height="22" rx="7"/>
+  <circle class="ink" cx="196" cy="214" r="12"/>
+</svg>

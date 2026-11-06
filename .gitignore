@@ -19,6 +19,8 @@ infra/tfplan
 
 # Build / reports
 build/
+node_modules/
+web/dist/
 evals/report.json
 
 # Source material (not ours to publish)

@@ -1,0 +1,18 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 400" width="400" height="400">
+  <title>Travel Toiletry Bag</title>
+  <style>
+    svg { --tint: #F3E5D8; --ink: #1B2340; --paper: #FFFFFF; }
+    @media (prefers-color-scheme: dark) { svg { --tint: #4F3B2A; --ink: #EEF1F8; --paper: #141A2E; } }
+    .tint { fill: var(--tint); }
+    .ink { fill: var(--ink); }
+    .paper { fill: var(--paper); }
+    .body { fill: var(--paper); stroke: var(--ink); stroke-width: 6; stroke-linejoin: round; }
+    .line { fill: none; stroke: var(--ink); stroke-width: 6; stroke-linecap: round; stroke-linejoin: round; }
+  </style>
+  <rect class="tint" width="400" height="400"/>
+  <path class="line" d="M200 128 V92 A22 22 0 1 1 222 70"/>
+  <rect class="body" x="76" y="126" width="248" height="198" rx="34"/>
+  <path class="line" d="M78 172 H322"/>
+  <rect class="ink" x="266" y="172" width="16" height="30" rx="5"/>
+  <rect class="line" x="118" y="204" width="130" height="92" rx="10" stroke-dasharray="2 12"/>
+</svg>

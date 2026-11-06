@@ -1,0 +1,19 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 400" width="400" height="400">
+  <title>65 W Wall Charger</title>
+  <style>
+    svg { --tint: #FFF0C9; --ink: #1B2340; --paper: #FFFFFF; }
+    @media (prefers-color-scheme: dark) { svg { --tint: #574513; --ink: #EEF1F8; --paper: #141A2E; } }
+    .tint { fill: var(--tint); }
+    .ink { fill: var(--ink); }
+    .paper { fill: var(--paper); }
+    .body { fill: var(--paper); stroke: var(--ink); stroke-width: 6; stroke-linejoin: round; }
+    .line { fill: none; stroke: var(--ink); stroke-width: 6; stroke-linecap: round; stroke-linejoin: round; }
+  </style>
+  <rect class="tint" width="400" height="400"/>
+  <rect class="ink" x="156" y="72" width="20" height="52" rx="4"/>
+  <rect class="ink" x="224" y="72" width="20" height="52" rx="4"/>
+  <rect class="body" x="124" y="116" width="152" height="196" rx="26"/>
+  <path class="ink" d="M212 140 L170 206 H196 L186 250 L232 182 H204 Z"/>
+  <rect class="ink" x="150" y="274" width="44" height="14" rx="7"/>
+  <rect class="ink" x="206" y="274" width="44" height="14" rx="7"/>
+</svg>

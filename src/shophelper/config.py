@@ -33,6 +33,29 @@ class Settings(BaseSettings):
     guardrail_version: str = "DRAFT"
 
     tools_transport: Literal["local", "mcp"] = "local"
+    # MCP over HTTP (the docker-compose `mcp` service). Unset = spawn a stdio subprocess.
+    mcp_url: str | None = None
+    # Interface the MCP server binds to with --http. Containers need 0.0.0.0.
+    mcp_host: str = "127.0.0.1"
+
+    # --- Local stack (docker-compose). Every default below keeps the AWS behaviour. ---
+    # bedrock = Claude on Bedrock; openai_compatible = any OpenAI-style server (LM Studio).
+    llm_provider: Literal["bedrock", "openai_compatible"] = "bedrock"
+    llm_base_url: str = "http://localhost:1234/v1"
+    llm_api_key: str = "lm-studio"  # LM Studio ignores it, the OpenAI client requires one
+    local_chat_model: str = "qwen/qwen3-30b-a3b-2507"
+    embedding_model: str = "text-embedding-nomic-embed-text-v1.5"
+    # Set = Postgres holds orders, history, checkpoints and embeddings (replaces DynamoDB + KB).
+    database_url: str | None = None
+    # Regex stand-in for the Bedrock Guardrail, used only when guardrail_id is unset.
+    local_guardrails: bool = False
+
+    # --- Accounts (feature 020). Off on AWS: see accounts_enabled. ---
+    auth_enabled: bool = False  # lets offline tests use accounts without a database
+    # Signs the short-lived token that carries a user's identity from the API to the MCP server.
+    internal_token_secret: str | None = None
+    web_origin: str = "http://localhost:5173"  # the only site allowed to send state-changing requests
+    seed_demo_users: bool = False  # only docker-compose.yml turns this on
     # Label for metrics/logs: local | lambda | ecs
     runtime: str = "local"
     # LangSmith: key from env/.env locally, or from this SSM SecureString when deployed.
@@ -40,6 +63,12 @@ class Settings(BaseSettings):
     langsmith_project: str = "shophelper"
     langsmith_api_key: str | None = None
     langsmith_api_key_param: str | None = None
+
+
+    @property
+    def accounts_enabled(self) -> bool:
+        """A database always means accounts, so the local stack can't run without logins."""
+        return self.auth_enabled or bool(self.database_url)
 
 
 @lru_cache

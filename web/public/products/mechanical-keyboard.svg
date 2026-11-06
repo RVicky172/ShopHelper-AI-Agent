@@ -1,0 +1,38 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 400" width="400" height="400">
+  <title>Mechanical Keyboard</title>
+  <style>
+    svg { --tint: #E4E0FA; --ink: #1B2340; --paper: #FFFFFF; }
+    @media (prefers-color-scheme: dark) { svg { --tint: #352F63; --ink: #EEF1F8; --paper: #141A2E; } }
+    .tint { fill: var(--tint); }
+    .ink { fill: var(--ink); }
+    .paper { fill: var(--paper); }
+    .body { fill: var(--paper); stroke: var(--ink); stroke-width: 6; stroke-linejoin: round; }
+    .line { fill: none; stroke: var(--ink); stroke-width: 6; stroke-linecap: round; stroke-linejoin: round; }
+  </style>
+  <rect class="tint" width="400" height="400"/>
+  <rect class="body" x="56" y="116" width="288" height="168" rx="12"/>
+  <rect class="ink" x="78" y="138" width="28" height="28" rx="4"/>
+  <rect class="ink" x="114" y="138" width="28" height="28" rx="4"/>
+  <rect class="ink" x="150" y="138" width="28" height="28" rx="4"/>
+  <rect class="ink" x="186" y="138" width="28" height="28" rx="4"/>
+  <rect class="ink" x="222" y="138" width="28" height="28" rx="4"/>
+  <rect class="ink" x="258" y="138" width="28" height="28" rx="4"/>
+  <rect class="ink" x="294" y="138" width="28" height="28" rx="4"/>
+  <rect class="ink" x="78" y="174" width="28" height="28" rx="4"/>
+  <rect class="ink" x="114" y="174" width="28" height="28" rx="4"/>
+  <rect class="ink" x="150" y="174" width="28" height="28" rx="4"/>
+  <rect class="ink" x="186" y="174" width="28" height="28" rx="4"/>
+  <rect class="ink" x="222" y="174" width="28" height="28" rx="4"/>
+  <rect class="ink" x="258" y="174" width="28" height="28" rx="4"/>
+  <rect class="ink" x="294" y="174" width="28" height="28" rx="4"/>
+  <rect class="ink" x="78" y="210" width="28" height="28" rx="4"/>
+  <rect class="ink" x="114" y="210" width="28" height="28" rx="4"/>
+  <rect class="ink" x="150" y="210" width="28" height="28" rx="4"/>
+  <rect class="ink" x="186" y="210" width="28" height="28" rx="4"/>
+  <rect class="ink" x="222" y="210" width="28" height="28" rx="4"/>
+  <rect class="ink" x="258" y="210" width="28" height="28" rx="4"/>
+  <rect class="ink" x="294" y="210" width="28" height="28" rx="4"/>
+  <rect class="ink" x="78" y="246" width="64" height="20" rx="4"/>
+  <rect class="ink" x="150" y="246" width="136" height="20" rx="4"/>
+  <rect class="ink" x="294" y="246" width="28" height="20" rx="4"/>
+</svg>

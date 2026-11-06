@@ -1,0 +1,21 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 400" width="400" height="400">
+  <title>French Press</title>
+  <style>
+    svg { --tint: #E0F0DF; --ink: #1B2340; --paper: #FFFFFF; }
+    @media (prefers-color-scheme: dark) { svg { --tint: #2A4A2C; --ink: #EEF1F8; --paper: #141A2E; } }
+    .tint { fill: var(--tint); }
+    .ink { fill: var(--ink); }
+    .paper { fill: var(--paper); }
+    .body { fill: var(--paper); stroke: var(--ink); stroke-width: 6; stroke-linejoin: round; }
+    .line { fill: none; stroke: var(--ink); stroke-width: 6; stroke-linecap: round; stroke-linejoin: round; }
+  </style>
+  <rect class="tint" width="400" height="400"/>
+  <path class="line" d="M262 164 H286 Q306 164 306 184 V254 Q306 274 286 274 H262"/>
+  <rect class="body" x="128" y="126" width="134" height="184"/>
+  <rect class="ink" x="128" y="206" width="134" height="104"/>
+  <path class="line" d="M195 70 V196"/>
+  <rect class="ink" x="136" y="194" width="118" height="12" rx="3"/>
+  <circle class="ink" cx="195" cy="66" r="14"/>
+  <path class="body" d="M118 128 Q195 86 272 128 Z"/>
+  <rect class="body" x="116" y="306" width="158" height="14" rx="4"/>
+</svg>

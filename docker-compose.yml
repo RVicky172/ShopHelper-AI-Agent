@@ -1,0 +1,139 @@
+# The whole project on your machine. No AWS is used.
+#
+#     docker compose up --build        then open http://localhost:5173
+#
+# LM Studio is the one thing outside Docker: it runs on the host, next to your GPU, and
+# containers reach it at host.docker.internal:1234.
+#
+# Ports are bound to 127.0.0.1 because nothing here has real authentication.
+# Walkthrough: docs/local-setup.md
+
+x-app: &app
+  # The same Dockerfile that ships to Lambda and ECS. Only the settings differ.
+  build: .
+  image: shophelper-local
+  environment: &app-env
+    LLM_PROVIDER: openai_compatible
+    LLM_BASE_URL: http://host.docker.internal:1234/v1
+    LOCAL_CHAT_MODEL: ${LOCAL_CHAT_MODEL:-qwen/qwen3-30b-a3b-2507}
+    EMBEDDING_MODEL: ${EMBEDDING_MODEL:-text-embedding-nomic-embed-text-v1.5}
+    DATABASE_URL: postgresql://shophelper:shophelper@postgres:5432/shophelper
+    TOOLS_TRANSPORT: mcp
+    MCP_URL: http://mcp:8765/mcp
+    MCP_HOST: 0.0.0.0
+    LOCAL_GUARDRAILS: "true"
+    INTERNAL_TOKEN_SECRET: local-development-only-not-a-real-secret-0123456789
+    WEB_ORIGIN: http://localhost:5173
+    SEED_DEMO_USERS: "true"  # creates the demo accounts; never set this on a real deployment
+    LANGSMITH_TRACING: "false"
+    WATCHFILES_FORCE_POLLING: "true"  # file events don't cross a Windows bind mount
+  extra_hosts:
+    - host.docker.internal:host-gateway  # Linux needs this; Docker Desktop already has it
+  volumes:
+    - ./src:/app/src:ro              # edit code on the host, the container reloads
+    - ./knowledge:/app/knowledge:ro  # the policy documents to embed
+
+services:
+  postgres:
+    # Postgres with the pgvector extension installed. Holds everything: embeddings, orders,
+    # chat history and LangGraph checkpoints.
+    image: pgvector/pgvector:pg17
+    environment:
+      POSTGRES_USER: shophelper
+      POSTGRES_PASSWORD: shophelper
+      POSTGRES_DB: shophelper
+    ports:
+      - 127.0.0.1:5432:5432
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+    healthcheck:
+      test: [CMD-SHELL, pg_isready -U shophelper -d shophelper]
+      interval: 2s
+      timeout: 3s
+      retries: 30
+
+  pgadmin:
+    # Database browser at http://localhost:5050. The ShopHelper server is already registered.
+    image: dpage/pgadmin4:latest
+    # libpq ignores a password file unless it is private (0600), and a file mounted from
+    # Windows can't be, so copy it into pgAdmin's own volume first.
+    entrypoint: >
+      sh -c "cp /pgpass.src /var/lib/pgadmin/pgpass && chmod 600 /var/lib/pgadmin/pgpass
+      && exec /entrypoint.sh"
+    environment:
+      PGADMIN_DEFAULT_EMAIL: admin@shophelper.dev
+      PGADMIN_DEFAULT_PASSWORD: shophelper
+      PGADMIN_CONFIG_SERVER_MODE: "False"                  # single-user: no login page
+      PGADMIN_CONFIG_MASTER_PASSWORD_REQUIRED: "False"
+      PGADMIN_SERVER_JSON_FILE: /pgadmin4/servers.json
+    ports:
+      - 127.0.0.1:5050:80
+    volumes:
+      - ./docker/pgadmin/servers.json:/pgadmin4/servers.json:ro
+      - ./docker/pgadmin/pgpass:/pgpass.src:ro
+      - pgadmin:/var/lib/pgadmin
+    depends_on:
+      postgres:
+        condition: service_healthy
+
+  setup:
+    # Runs once, then exits: creates tables, seeds orders, embeds the policy documents.
+    <<: *app
+    command: python -m shophelper.setup_local
+    depends_on:
+      postgres:
+        condition: service_healthy
+
+  mcp:
+    # The tool server. Any MCP client can use it, not just our agent.
+    <<: *app
+    command: >
+      watchfiles --filter python "python -m shophelper.mcp_server --http" /app/src
+    ports:
+      - 127.0.0.1:8765:8765
+    depends_on:
+      setup:
+        condition: service_completed_successfully
+    healthcheck:
+      test: [CMD, python, -c, "import socket; socket.create_connection(('localhost', 8765), 2)"]
+      interval: 2s
+      timeout: 3s
+      retries: 30
+
+  api:
+    # FastAPI + the LangGraph agent. API docs at http://localhost:8000/docs
+    <<: *app
+    command: uvicorn shophelper.api:app --host 0.0.0.0 --port 8000 --reload --reload-dir /app/src
+    ports:
+      - 127.0.0.1:8000:8000
+    depends_on:
+      mcp:
+        condition: service_healthy
+    healthcheck:
+      test:
+        - CMD
+        - python
+        - -c
+        - "import urllib.request; urllib.request.urlopen('http://localhost:8000/health', timeout=2)"
+      interval: 3s
+      timeout: 3s
+      retries: 30
+
+  web:
+    # React dev server with hot reload.
+    build: ./web
+    image: shophelper-web
+    environment:
+      API_PROXY_TARGET: http://api:8000
+    ports:
+      - 127.0.0.1:5173:5173
+    volumes:
+      - ./web:/app
+      - /app/node_modules  # keep the container's Linux node_modules out of your Windows folder
+    depends_on:
+      api:
+        condition: service_healthy
+
+volumes:
+  pgdata:
+  pgadmin:

@@ -10,11 +10,15 @@ State is checkpointed per thread (= session_id) in DynamoDB, so a paused refund
 survives across requests, processes and even different compute (Lambda vs ECS).
 """
 
+import re
+from collections.abc import AsyncIterator
+from contextlib import asynccontextmanager
 from typing import Annotated, Any, TypedDict
 
 from langchain_aws import ChatBedrockConverse
 from langchain_core.language_models import BaseChatModel
-from langchain_core.messages import AnyMessage, SystemMessage, ToolMessage
+from langchain_core.messages import AIMessage, AnyMessage, HumanMessage, SystemMessage, ToolMessage
+from langchain_core.runnables import RunnableConfig
 from langchain_core.tools import BaseTool, StructuredTool, tool
 from langgraph.checkpoint.base import BaseCheckpointSaver
 from langgraph.checkpoint.memory import InMemorySaver
@@ -22,23 +26,46 @@ from langgraph.graph import END, START, StateGraph
 from langgraph.graph.message import add_messages
 from langgraph.types import interrupt
 
+from shophelper import identity
 from shophelper.config import get_settings
 from shophelper.orders import get_order_repo, refund_eligibility
 from shophelper.tools import get_order_status, search_policy
 
-SYSTEM_PROMPT = """You are ShopHelper, a concise, friendly customer-support assistant for an \
-online electronics store.
+SYSTEM_PROMPT = """You are ShopHelper, a concise, friendly customer-support assistant for a \
+general online store selling electronics, home and kitchen goods, bags and travel gear, and \
+fitness and outdoor products.
 
 Rules:
-- Use get_order_status to look up orders. Never guess order details.
-- Use search_policy for ANY question about store policy, and answer only from the passages \
-it returns. If the passages don't answer the question, say you don't know.
+- Whenever a message names an order number, call get_order_status before replying, even if \
+the order came up earlier: its status may have changed. Never guess order details.
+- You know nothing about this store's policies or services until you search. Call \
+search_policy before answering ANY question about them, including yes/no questions and \
+questions about what a customer can buy, such as warranties or ShopHelper Care. Answer only \
+from the passages it returns. If the passages don't answer the question, say you don't know.
 - To refund, first look up the order, then call request_refund on its own (no other tool in \
-the same turn). Refunds always need human approval; never claim a refund is done until the \
-tool result says it was approved.
+the same turn). Don't ask the customer to confirm first: a human reviews every request. Use \
+the order total unless the customer names a smaller amount. Refunds always need human \
+approval; never claim a refund is done until the tool result says it was approved.
+- Never say you will do something: if an action is needed, call the tool now, in this reply.
 - Never ask for card numbers, CVV, passwords or OTPs.
+- {EMAIL} and {PHONE} mark contact details hidden for privacy. Ignore them and answer the rest \
+of the message.
 - Politely decline requests unrelated to the store, its orders or its policies.
 """
+
+
+# A model can write "I'll process your refund" and stop without calling the tool, leaving the
+# customer waiting for a review that doesn't exist. A prompt rule only reduced this, so code checks.
+REFUND_PROMISE = re.compile(
+    r"\b(i'll|i will|i've|i have|i can(?!'t|not)|let me|proceeding)\b[^.!?\n]{0,80}\brefund", re.IGNORECASE
+)
+REFUND_NUDGE = (
+    "You offered or promised a refund but did not call request_refund, so nothing was submitted. "
+    "Call request_refund now, or tell the customer plainly why you can't. Don't ask them to confirm."
+)
+NO_REFUND_SUBMITTED = (
+    "I haven't submitted a refund request yet. Please ask again, with your order number and the reason."
+)
 
 
 class State(TypedDict):
@@ -58,6 +85,13 @@ def local_tools() -> list[BaseTool]:
 
 def default_llm() -> BaseChatModel:
     s = get_settings()
+    if s.llm_provider == "openai_compatible":
+        from langchain_openai import ChatOpenAI
+
+        return ChatOpenAI(
+            model=s.local_chat_model, base_url=s.llm_base_url, api_key=s.llm_api_key,
+            temperature=0, max_tokens=s.max_tokens, stream_usage=True,
+        )
     return ChatBedrockConverse(
         model=s.agent_model_id, region_name=s.aws_region, temperature=0, max_tokens=s.max_tokens
     )
@@ -76,35 +110,58 @@ def default_checkpointer() -> BaseCheckpointSaver:
     return InMemorySaver()
 
 
+@asynccontextmanager
+async def postgres_checkpointer() -> AsyncIterator[BaseCheckpointSaver]:
+    """Checkpoints in Postgres, for the local stack. A pool, because the graph is async."""
+    from langgraph.checkpoint.postgres.aio import AsyncPostgresSaver
+    from psycopg.rows import dict_row
+    from psycopg_pool import AsyncConnectionPool
+
+    kwargs = {"autocommit": True, "prepare_threshold": 0, "row_factory": dict_row}
+    async with AsyncConnectionPool(get_settings().database_url, kwargs=kwargs, open=False) as pool:
+        saver = AsyncPostgresSaver(pool)
+        await saver.setup()  # creates the checkpoint* tables
+        yield saver
+
+
 def build_graph(tools: list[BaseTool], checkpointer: BaseCheckpointSaver, llm: BaseChatModel):
     model = llm.bind_tools([*tools, request_refund])
     tools_by_name = {t.name: t for t in tools}
 
-    async def run_tool(call: dict[str, Any]) -> ToolMessage:
+    async def run_tool(call: dict[str, Any], config: RunnableConfig) -> ToolMessage:
         t = tools_by_name.get(call["name"])
         if t is None:
             return ToolMessage(f"Unknown tool {call['name']}", tool_call_id=call["id"], status="error")
         try:
-            return await t.ainvoke(call)  # a ToolCall in -> a ToolMessage out
+            # Identity comes from the graph's config, which only our code writes. The model's
+            # output is `call`, and nothing in it is used to decide whose data is read.
+            with identity.acting_as(_user_id(config)):
+                return await t.ainvoke(call)  # a ToolCall in -> a ToolMessage out
         except Exception as exc:  # surface tool failures to the model instead of crashing
             return ToolMessage(f"Tool error: {exc}", tool_call_id=call["id"], status="error")
 
     async def agent(state: State) -> dict:
-        response = await model.ainvoke([SystemMessage(SYSTEM_PROMPT), *state["messages"]])
+        context = [SystemMessage(SYSTEM_PROMPT), *state["messages"]]
+        response = await model.ainvoke(context)
+        if _promises_unrequested_refund(response, state["messages"]):
+            response = await model.ainvoke([*context, response, HumanMessage(REFUND_NUDGE)])
+            if _promises_unrequested_refund(response, state["messages"]):
+                response = AIMessage(NO_REFUND_SUBMITTED)  # honest beats a promise nobody will keep
         return {"messages": [response]}
 
-    async def tools_node(state: State) -> dict:
-        return {"messages": [await run_tool(c) for c in state["messages"][-1].tool_calls]}
+    async def tools_node(state: State, config: RunnableConfig) -> dict:
+        return {"messages": [await run_tool(c, config) for c in state["messages"][-1].tool_calls]}
 
-    async def refund_approval(state: State) -> dict:
+    async def refund_approval(state: State, config: RunnableConfig) -> dict:
         # NB: on resume LangGraph re-runs this node from the top; interrupt() then
         # returns the human's decision instead of pausing. Side effects go after it.
         out = []
         for call in state["messages"][-1].tool_calls:
             if call["name"] != "request_refund":
-                out.append(await run_tool(call))
+                out.append(await run_tool(call, config))
                 continue
-            out.append(ToolMessage(_decide_refund(call["args"]), tool_call_id=call["id"]))
+            refund = _decide_refund(call["args"], _user_id(config))
+            out.append(ToolMessage(refund, tool_call_id=call["id"]))
         return {"messages": out}
 
     def route(state: State) -> str:
@@ -124,10 +181,28 @@ def build_graph(tools: list[BaseTool], checkpointer: BaseCheckpointSaver, llm: B
     return g.compile(checkpointer=checkpointer)
 
 
-def _decide_refund(args: dict[str, Any]) -> str:
+def _promises_unrequested_refund(response: AIMessage, messages: list[AnyMessage]) -> bool:
+    """True if the model talks as if it's handling a refund, but this turn never requested one."""
+    if response.tool_calls or not REFUND_PROMISE.search(response.text.replace("\u2019", "'")):
+        return False
+    last_human = max((i for i, m in enumerate(messages) if isinstance(m, HumanMessage)), default=-1)
+    turn = messages[last_human + 1:]
+    return not any(
+        c["name"] == "request_refund" for m in turn if isinstance(m, AIMessage) for c in m.tool_calls
+    )
+
+
+def _user_id(config: RunnableConfig) -> int | None:
+    return config.get("configurable", {}).get("user_id")
+
+
+def _decide_refund(args: dict[str, Any], user_id: int | None) -> str:
     repo = get_order_repo()
     order_id = str(args.get("order_id", "")).strip().lstrip("#")
-    order = repo.get(order_id)
+    if get_settings().accounts_enabled:
+        order = repo.get_for_owner(order_id, user_id)
+    else:
+        order = repo.get(order_id)
     if not order:
         return f"Refund not possible: no order {order_id}."
     amount = float(args.get("amount") or order["total"])

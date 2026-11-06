@@ -1,0 +1,22 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 400" width="400" height="400">
+  <title>Bluetooth Speaker</title>
+  <style>
+    svg { --tint: #DCE4FF; --ink: #1B2340; --paper: #FFFFFF; }
+    @media (prefers-color-scheme: dark) { svg { --tint: #2A3563; --ink: #EEF1F8; --paper: #141A2E; } }
+    .tint { fill: var(--tint); }
+    .ink { fill: var(--ink); }
+    .paper { fill: var(--paper); }
+    .body { fill: var(--paper); stroke: var(--ink); stroke-width: 6; stroke-linejoin: round; }
+    .line { fill: none; stroke: var(--ink); stroke-width: 6; stroke-linecap: round; stroke-linejoin: round; }
+  </style>
+  <rect class="tint" width="400" height="400"/>
+  <rect class="ink" x="116" y="282" width="34" height="16" rx="4"/>
+  <rect class="ink" x="250" y="282" width="34" height="16" rx="4"/>
+  <rect class="body" x="64" y="122" width="272" height="164" rx="72"/>
+  <path class="line" d="M124 158 V250"/>
+  <path class="line" d="M162 158 V250"/>
+  <path class="line" d="M200 158 V250"/>
+  <path class="line" d="M238 158 V250"/>
+  <path class="line" d="M276 158 V250"/>
+  <path class="line" d="M154 122 Q200 76 246 122"/>
+</svg>

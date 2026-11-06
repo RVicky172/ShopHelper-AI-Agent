@@ -1,176 +1,202 @@
 ﻿# ShopHelper AI Agent
 
-A customer-support AI agent for a fictional electronics store, built on **AWS Bedrock** as a
-learning project. It answers order questions, explains store policy from documents (RAG),
-and submits refunds that **pause for human approval**. It runs behind guardrails, is deployed
-**twice** (serverless and containers) entirely with **Terraform**, is gated by an **eval suite**
-in CI, and is observable in CloudWatch and LangSmith.
+A customer-support AI agent inside a small fictional shop, built as a learning project. You can browse products, fill a cart and
+place an order. The agent answers questions about that order, explains store policy from documents (RAG), and submits refunds that
+**pause for human approval**.
 
-> Learning project. Everything is in one AWS account/region (`ap-south-1`) and is removed with
-> one `terraform destroy` - see [Teardown](#teardown).
+It runs **entirely on your machine**, and a **How it works** area shows every step the agent takes as it happens. Users sign in
+at three access levels, and each customer's data is private to them. The same agent also deploys to AWS with Terraform, without
+the shop.
 
-> **Current status:** infrastructure is torn down; Claude calls are waiting on the Anthropic
-> use-case form. To continue, follow [docs/next-steps.md](docs/next-steps.md).
+> **Current status:** local stack working and tested. AWS infrastructure is torn down, and
+> Bedrock's Claude models are waiting on the Anthropic use-case form.
+> See [docs/next-steps.md](docs/next-steps.md).
 
-## Architecture
+## Quick start
+
+You need [Docker Desktop](https://www.docker.com/products/docker-desktop/) and
+[LM Studio](https://lmstudio.ai/) with `qwen/qwen3-30b-a3b-2507` and
+`text-embedding-nomic-embed-text-v1.5` downloaded.
+
+```bash
+lms server start          # or use the Developer tab in LM Studio
+docker compose up --build
+```
+
+| Open | For |
+| --- | --- |
+| <http://localhost:5173> | The shop. Browse as a guest, or use Sign in and click a demo account |
+| <http://localhost:5050> | pgAdmin: browse the database, no login needed |
+| <http://localhost:8000/docs> | The API, interactive |
+
+Each level sees a different app:
+
+| Level | Demo accounts | Can do |
+| --- | --- | --- |
+| Customer | Asha, Ravi, Kabir and others | Own orders and chats, request refunds |
+| Support | Support | All orders, review refunds up to $200 |
+| Admin | Admin | Review any refund, change levels, reset the demo |
+
+Full guide: [docs/local-setup.md](docs/local-setup.md)
+
+## How it works
 
 ```mermaid
 flowchart LR
-    client["Client - curl or UI"]
-    apigw["API Gateway HTTP API"]
-    alb["Application Load Balancer"]
-    lambda["Lambda - container + Web Adapter"]
-    ecs["ECS Fargate task"]
+    user["You, in the browser<br/>React"]
+    api["API + login gate<br/>FastAPI"]
+    guard["Guardrails"]
+    agent["Agent<br/>LangGraph"]
+    llm["Model<br/>LM Studio"]
+    mcp["Tools<br/>MCP server"]
+    db[("Postgres + pgvector")]
 
-    client -->|HTTPS| apigw --> lambda
-    client -->|HTTP| alb --> ecs
-
-    subgraph svc["ShopHelper app - same Docker image in both runtimes"]
-        gin["Guardrail check - input"]
-        agentNode["LangGraph agent: agent, tools, refund_approval"]
-        gout["Guardrail check - output"]
-        gin --> agentNode --> gout
-    end
-    lambda --> gin
-    ecs --> gin
-
-    agentNode -->|Converse| claude["Bedrock - Claude Haiku 4.5"]
-    agentNode -->|"tools: in-process on Lambda, MCP stdio on ECS"| toolsNode["get_order_status, search_policy"]
-    toolsNode --> orders[("DynamoDB orders")]
-    toolsNode -->|Retrieve| kb["Bedrock Knowledge Base"]
-    kb --> vectors[("S3 Vectors index")]
-    policyDocs[("S3 policy docs")] -.->|"ingest with Titan v2 embeddings"| kb
-    agentNode --> ckpt[("DynamoDB checkpoints")]
-    gout --> hist[("DynamoDB history with TTL")]
-    gin --> guard["Bedrock Guardrail"]
-    gout --> guard
-    gout -->|JSON logs| cw["CloudWatch metrics, dashboard, alarms"]
-    cw --> sns["SNS email"]
-    agentNode -.->|traces| ls["LangSmith"]
-
-    gh["GitHub Actions"] -->|OIDC| role["IAM deploy role"]
-    role --> ecr["ECR"]
-    ecr --> lambda
-    ecr --> ecs
+    user <-->|"SSE stream"| api
+    api --> guard --> agent
+    agent <--> llm
+    agent <--> mcp
+    mcp --> db
+    agent --> db
 ```
 
-**One turn:** input guardrail (block prompt attacks / card numbers, mask email & phone) →
-LangGraph agent loop on Claude (max-steps guard) → tools over MCP (orders in DynamoDB, policies
-via Knowledge Base) → output guardrail → answer + history. A `request_refund` call goes to the
-`refund_approval` node: a deterministic policy check, then `interrupt()` pauses the graph; state is
-checkpointed in DynamoDB until a human calls `/approve`. Details: [docs/architecture.md](docs/architecture.md).
+**One message, step by step:**
 
-## AWS services used
+1. The **login gate** works out who you are, and the **guardrail** checks your text. It blocks attacks and card numbers, and masks emails.
+2. The **agent** asks the **model** what to do next, showing it the available tools.
+3. If the model asks for a tool, the agent runs it through the **MCP server**: looking up an order,
+   or searching policies with **RAG**.
+4. The result goes back to the model. This repeats until it can answer.
+5. A refund request **pauses** the agent and saves its state until a staff member decides.
+6. Words and steps **stream** to your browser as they happen.
 
-| Service | What it does here | Idle cost |
-| --- | --- | --- |
-| **Bedrock - Claude Haiku 4.5** (`global.` inference profile) | Agent model | $0 (per token) |
-| **Bedrock - Claude Sonnet 4.6** | LLM judge in evals | $0 (per token) |
-| **Bedrock Knowledge Base** + Titan Text Embeddings v2 | RAG over policy docs | $0 |
-| **S3 Vectors** | Vector index for the Knowledge Base | ~$0 |
-| **S3** | Policy documents (KB data source) | ~$0 |
-| **Bedrock Guardrails** | Prompt-attack + PII filter, input & output | $0 (per text unit) |
-| **DynamoDB** (on-demand) | Orders, chat history (TTL), LangGraph checkpoints (TTL) | $0 |
-| **Lambda** + **API Gateway HTTP API** | Deployment 1 (serverless) | $0 |
-| **ECS Fargate** + **ALB** + VPC | Deployment 2 (containers) | **~$1.5/day** ⚠️ |
-| **ECR** | Container images | ~$0.03/month |
-| **CloudWatch** Logs, metric filters, dashboard, alarms + **SNS** | Observability | ~$0.10/day |
-| **SSM Parameter Store** | LangSmith API key (SecureString) | $0 |
-| **IAM** OIDC provider + roles | Keyless GitHub Actions deploys | $0 |
-| **AWS Budgets** | $10/month alert | $0 |
+The most important idea: **the model only asks, and your code acts**. So a model that's wrong or
+manipulated still can't move money, or read another customer's data. In testing, with the owner check removed, all 7
+cross-user attacks succeeded. With it in place, none did.
 
-Per-service notes and configuration: [docs/aws-services.md](docs/aws-services.md).
+Layer-by-layer detail: [docs/architecture.md](docs/architecture.md)
+
+## Learn it
+
+The [docs](docs/README.md) are a learning path. Each chapter explains why something exists, walks
+through the real code, and ends with exercises in the running app.
+
+| | |
+| --- | --- |
+| 1. [Agents and the loop](docs/learn/01-agents-and-the-loop.md) | 6. [Streaming](docs/learn/06-streaming.md) |
+| 2. [Tools](docs/learn/02-tools.md) | 7. [The React frontend](docs/learn/07-frontend.md) |
+| 3. [MCP](docs/learn/03-mcp.md) | 8. [Guardrails](docs/learn/08-guardrails.md) |
+| 4. [RAG](docs/learn/04-rag.md) | 9. [Evals](docs/learn/09-evals.md) |
+| 5. [Memory and human approval](docs/learn/05-memory-and-human-approval.md) | 10. [Local vs AWS](docs/learn/10-local-vs-aws.md) |
+| | 11. [Accounts and isolation](docs/learn/11-accounts-and-isolation.md) |
+
+## How this project is built
+
+New features follow a spec-driven workflow: **Specify → Plan → Tasks → Implement → Verify**. Start a
+feature with `/spec-new <name>` in Claude Code.
+
+| File | What it holds |
+| --- | --- |
+| [Constitution](specs/constitution.md) | The project's rules, and what "done" means |
+| [Memory](memory/MEMORY.md) | Current state: read this first in every session |
+| [Learnings](memory/learnings.md) | Gotchas and non-obvious fixes |
+| [Decisions](memory/decisions.md) | Why each choice was made |
+| [Progress](memory/progress.md) | Session log, newest first |
+| [Roadmap](specs/roadmap.md) | What's done and what's next |
+| [Workflow](specs/workflow.md) | The five stages in full |
 
 ## Repository layout
 
 ```text
-src/shophelper/   raw_agent.py (step 1) · api.py · graph.py · service.py · tools.py
-                  mcp_server.py / mcp_client.py · guardrails.py · memory.py · orders.py
-                  observability.py · config.py · data/orders.json
-knowledge/policies/   9 markdown policy documents (the RAG corpus)
-infra/            Terraform for everything (one file per concern)
-evals/            20 golden cases (5 attacks) + LLM faithfulness judge
-tests/            offline unit tests (scripted fake LLM, no AWS)
-scripts/          deploy.sh · release.sh · compare_deployments.sh · teardown.sh ...
-.github/workflows/ci.yml   lint/tests → evals → deploy (OIDC)
+web/                  React + TypeScript UI
+src/shophelper/       The backend
+  api.py                HTTP routes and streaming
+  service.py            One conversation turn, start to finish
+  graph.py              The agent (LangGraph) and the refund approval step
+  auth.py, auth_api.py  Accounts, sessions, the login gate
+  catalog.py, cart.py   The shop: products, carts, checkout
+  refunds.py            The staff review queue
+  tools.py              What the tools do
+  mcp_server.py         Tools exposed over MCP
+  rag.py                Chunk, embed, store, search
+  guardrails.py         Input and output checks
+  raw_agent.py          The agent loop with no framework: read this first
+knowledge/policies/   9 policy documents, the RAG source
+docker-compose.yml    The local stack
+evals/                33 real conversations with expected outcomes
+tests/                Fast offline tests
+infra/                Terraform for AWS
+docs/                 Learning path and reference docs
+specs/                Constitution, roadmap, and one folder per feature
+memory/               Project memory: state, decisions, learnings, progress
 ```
 
-## Quick start
+## Local and AWS
 
-Prerequisites: AWS CLI (admin credentials), Terraform ≥ 1.9, Docker, [uv](https://docs.astral.sh/uv/), Git Bash on Windows.
+Same code, different settings. AWS stays the default, so nothing local runs unless it's switched on.
 
-1. **One-time Bedrock setup:** in the Bedrock console open any Anthropic model in the *Model
-   catalog* and submit the Anthropic **use-case form** (required once per account; ~15 min to activate).
-2. **Run locally with no AWS resources at all** (in-memory orders/history, keyword policy search):
+| Role | Local | AWS |
+| --- | --- | --- |
+| Chat model | LM Studio: Qwen3 30B | Bedrock: Claude Haiku 4.5 |
+| Embeddings | LM Studio: nomic | Bedrock: Titan v2 |
+| Vector store | Postgres + pgvector | S3 Vectors via a Knowledge Base |
+| Orders, history, state | Postgres | DynamoDB |
+| Accounts | Built in, three levels | **None yet: the API has no login** |
+| Shop | Catalogue, cart, checkout | **None: it needs accounts** |
+| Tools | MCP over HTTP | MCP over stdio (ECS), in-process (Lambda) |
+| Guardrails | Regex rules | Bedrock Guardrails |
+| Runs on | Docker Compose | Lambda and ECS Fargate |
 
-   ```bash
-   uv sync
-   uv run pytest                                  # 19 offline tests
-   uv run python -m shophelper.raw_agent "Where is order 1002?"   # step 1: raw loop
-   uv run uvicorn shophelper.api:app --reload     # http://localhost:8000/docs
-   ```
-3. **Deploy everything:**
+See [Local vs AWS](docs/learn/10-local-vs-aws.md) for how this works and what local can't prove.
 
-   ```bash
-   cp infra/terraform.tfvars.example infra/terraform.tfvars   # set alert_email
-   scripts/deploy.sh                 # Terraform + image + Lambda/ECS rollout, writes .env
-   scripts/set_langsmith_key.sh      # optional: LANGSMITH_API_KEY from .env -> SSM
-   scripts/set_github_vars.sh        # CI variables (evals + deploy on push to main)
-   RUN_EVALS=1 uv run pytest evals -v
-   ```
-4. **Try it** (use either `api_gateway_url` or `alb_url` from `terraform -chdir=infra output`):
+## Test it
 
-   ```bash
-   URL=https://<id>.execute-api.ap-south-1.amazonaws.com
-   curl -s $URL/chat -H 'content-type: application/json' \
-     -d '{"session_id":"demo-0001","message":"Refund order 1006, it arrived scratched"}'
-   # -> "status": "pending_approval" ... a human approves:
-   curl -s $URL/approve -H 'content-type: application/json' \
-     -d '{"session_id":"demo-0001","approved":true,"reviewer":"alice"}'
-   ```
+```bash
+scripts/check.sh              # the fast gate: lint, 331 backend and 82 frontend tests, no services needed
+scripts/evals_local.sh        # 33 real conversations and integration tests, through the running stack
+```
 
-   More: [docs/runbook.md](docs/runbook.md).
+Latest local eval: 33 of 33, one run. The faithfulness judge is the same Qwen model
+locally, so treat its scores as a rough signal.
 
-## Decisions and trade-offs
+## Deploy to AWS
+
+Not needed for anything above, and it costs money while running (ECS is about $1.5 a day). Accounts are local only,
+so the deployed API has no login: don't host it publicly as it stands.
+
+```bash
+cp infra/terraform.tfvars.example infra/terraform.tfvars   # set alert_email
+scripts/deploy.sh                 # Terraform, image, rollout; writes .env
+RUN_EVALS=1 uv run pytest evals -v
+scripts/teardown.sh               # remove everything
+```
+
+Before deploying, submit the Anthropic use-case form in the Bedrock console. The full list is in
+[docs/next-steps.md](docs/next-steps.md), and day-to-day commands are in
+[docs/runbook.md](docs/runbook.md). What each service does and costs is in
+[docs/aws-services.md](docs/aws-services.md).
+
+### AWS decisions
 
 | Decision | Why | Trade-off |
 | --- | --- | --- |
-| **Terraform for all infra** (not SAM/CDK) | One tool, one state, one `destroy` | More verbose than SAM for Lambda |
-| **LangGraph** for the agent | Explicit graph, `interrupt()` for human-in-the-loop, pluggable checkpointers | More concepts than a raw loop (kept in `raw_agent.py` for comparison) |
-| **DynamoDB checkpointer** (not Postgres) | Serverless, $0 idle, TTL cleanup | Needs a specific PK/SK schema; 400 KB item limit (S3 offload available) |
-| **S3 Vectors** (not OpenSearch Serverless) | Pay-per-use; OpenSearch Serverless costs ≥ ~$12/day idle | Fewer query features, higher query latency than OpenSearch |
-| **Guardrail via ApplyGuardrail** around the loop | Runs once per turn on user text and final answer, framework-agnostic | Doesn't inspect intermediate tool outputs; streaming tokens reach the user before the output check |
-| **Refund = policy check + human approval** | LLM can *request*, never *execute* money movement; ineligible requests never reach a human | Adds latency for the customer (async approval) |
-| **Tools behind MCP** | Same tools reusable by any MCP client (Claude Desktop, other agents) | stdio subprocess adds ~3 s cold start → **Lambda uses in-process tools, ECS uses MCP** |
-| **One image, two runtimes** (Lambda Web Adapter) | Identical code path; fair comparison | Container Lambdas cold-start slower than zip |
-| **Haiku 4.5 agent, Sonnet 4.6 judge** | Cheap/fast agent; a different, stronger judge reduces self-grading bias | Claude 5.x isn't enabled on this account yet; switch with `AGENT_MODEL_ID` |
-| **CI deploys code, not infra** | Small OIDC role (ECR push, Lambda/ECS update); infra changes stay a reviewed `terraform apply` | Infra drift must be applied manually |
-| **Local Terraform state** | Simplest for a single-person learning project | For a team: S3 backend with `use_lockfile` |
-| **No auth on the API** | Learning scope | Anyone with the URL can chat; API Gateway throttling (5 rps) limits abuse. Add Cognito/JWT for real use |
+| **Terraform for all infra** | One tool, one state, one `destroy` | More verbose than SAM for Lambda |
+| **DynamoDB checkpointer** | Serverless, $0 idle, TTL cleanup | 400 KB item limit |
+| **S3 Vectors** (not OpenSearch Serverless) | Pay-per-use; OpenSearch costs about $12 a day idle | Fewer query features |
+| **Guardrail via ApplyGuardrail** around the loop | Runs once per turn, works with any framework | Doesn't inspect tool outputs; tokens stream before the output check |
+| **One image, two runtimes** | Identical code; a fair comparison | Container Lambdas cold-start slower than zip |
+| **Lambda uses in-process tools, ECS uses MCP** | stdio adds about 3 s to a cold start | Two code paths |
+| **Haiku agent, Sonnet judge** | Cheap agent; a different model reduces self-grading bias | Switch with `AGENT_MODEL_ID` |
+| **CI deploys code, not infra** | Small OIDC role | Infra changes need a manual `terraform apply` |
+| **No auth on the API** | Learning scope | Add Cognito or JWT for real use |
 
-### Lambda vs ECS (measured, see [docs/deployment-comparison.md](docs/deployment-comparison.md))
+### Lambda vs ECS
+
+Measured; see [docs/deployment-comparison.md](docs/deployment-comparison.md).
 
 | | Lambda + API Gateway | ECS Fargate + ALB |
 | --- | --- | --- |
-| Cold start | ~4 s first request (was 20.7 s before moving MCP out of Lambda + async init) | none (always warm) |
-| Warm `/health` | ~0.24 s | ~0.24 s |
-| Streaming (`/chat/stream`) | buffered by API Gateway → arrives all at once | true SSE token streaming |
-| Idle cost | $0 | ~$1.5/day (Fargate + ALB + public IPv4) |
-| Max request time | 30 s (HTTP API limit) | ALB idle timeout (set to 120 s) |
-
-## Teardown
-
-```bash
-scripts/teardown.sh     # terraform destroy + SSM key + CI variables off
-```
-
-Removes every resource including the budget, the GitHub OIDC role, the ECR images and the vector
-index. Check *Billing → Bills* the next day; anything left will be tagged `Project=ShopHelper`.
-
-## The 12 steps (one commit each)
-
-1 raw Converse loop · 2 FastAPI + validation + max-steps · 3 DynamoDB memory with TTL ·
-4 RAG (S3 → KB → S3 Vectors) · 5 Guardrail before/after · 6 LangGraph + human-approval refund +
-DynamoDB checkpointer · 7 tools via FastMCP · 8 evals (20 cases, 5 attacks, LLM judge) ·
-9 deploy twice (Lambda/API GW, ECS/ALB) · 10 CloudWatch + LangSmith · 11 GitHub Actions + OIDC ·
-12 this README. `git log --oneline` shows them in order.
+| Cold start | About 4 s | None (always warm) |
+| Warm `/health` | About 0.24 s | About 0.24 s |
+| Streaming | Buffered, arrives all at once | True SSE streaming |
+| Idle cost | $0 | About $1.5 a day |
+| Max request time | 30 s | 120 s (ALB idle timeout) |

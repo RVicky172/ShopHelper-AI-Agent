@@ -1,0 +1,21 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 400" width="400" height="400">
+  <title>Phone Case</title>
+  <style>
+    svg { --tint: #FBE3DC; --ink: #1B2340; --paper: #FFFFFF; }
+    @media (prefers-color-scheme: dark) { svg { --tint: #5A3229; --ink: #EEF1F8; --paper: #141A2E; } }
+    .tint { fill: var(--tint); }
+    .ink { fill: var(--ink); }
+    .paper { fill: var(--paper); }
+    .body { fill: var(--paper); stroke: var(--ink); stroke-width: 6; stroke-linejoin: round; }
+    .line { fill: none; stroke: var(--ink); stroke-width: 6; stroke-linecap: round; stroke-linejoin: round; }
+  </style>
+  <rect class="tint" width="400" height="400"/>
+  <rect class="body" x="128" y="68" width="144" height="264" rx="30"/>
+  <rect class="line" x="140" y="80" width="120" height="240" rx="20"/>
+  <rect class="ink" x="152" y="94" width="66" height="66" rx="16"/>
+  <circle class="tint" cx="172" cy="114" r="11"/>
+  <circle class="tint" cx="198" cy="140" r="11"/>
+  <circle class="paper" cx="198" cy="114" r="5"/>
+  <rect class="ink" x="272" y="130" width="8" height="46" rx="3"/>
+  <rect class="ink" x="120" y="118" width="8" height="28" rx="3"/>
+</svg>

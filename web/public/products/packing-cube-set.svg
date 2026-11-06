@@ -1,0 +1,21 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 400" width="400" height="400">
+  <title>Packing Cube Set</title>
+  <style>
+    svg { --tint: #F3E5D8; --ink: #1B2340; --paper: #FFFFFF; }
+    @media (prefers-color-scheme: dark) { svg { --tint: #4F3B2A; --ink: #EEF1F8; --paper: #141A2E; } }
+    .tint { fill: var(--tint); }
+    .ink { fill: var(--ink); }
+    .paper { fill: var(--paper); }
+    .body { fill: var(--paper); stroke: var(--ink); stroke-width: 6; stroke-linejoin: round; }
+    .line { fill: none; stroke: var(--ink); stroke-width: 6; stroke-linecap: round; stroke-linejoin: round; }
+  </style>
+  <rect class="tint" width="400" height="400"/>
+  <rect class="body" x="126" y="74" width="148" height="86" rx="12"/>
+  <rect class="ink" x="104" y="156" width="192" height="86" rx="12"/>
+  <rect class="body" x="78" y="238" width="244" height="92" rx="12"/>
+  <path class="line" d="M144 102 H256"/>
+  <path d="M122 184 H278" fill="none" stroke="var(--paper)" stroke-width="6" stroke-linecap="round"/>
+  <path class="line" d="M98 268 H302"/>
+  <rect class="ink" x="238" y="102" width="12" height="24" rx="4"/>
+  <rect class="ink" x="284" y="268" width="12" height="24" rx="4"/>
+</svg>

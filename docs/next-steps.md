@@ -1,5 +1,26 @@
 # Next steps (pick up from here)
 
+## Status on 2026-11-04: local stack done
+
+The whole project now runs locally with `docker compose up`: LM Studio for the models, Postgres and
+pgvector for all data, a React UI, and pgAdmin. See [local-setup.md](local-setup.md). Nothing below
+is needed for local work.
+
+Before the next AWS deployment, know that these changed since the last one:
+
+- The agent's system prompt gained rules while tuning for Qwen. Claude hasn't been evaluated with
+  them, so step 7 below is the first real test.
+- `/chat/stream` sends step events before the first token. Existing clients that read only `token`
+  and `final` still work.
+- The image has extra Python packages, so it's larger. Re-measure cold starts in step 8.
+- `.env` still names the destroyed AWS resources. `scripts/deploy.sh` rewrites it. Until then, don't
+  use it for host-side runs. `docker compose` ignores those values.
+
+Not done: the React UI has no AWS hosting and talks to a local API only. Accounts are local too, so the deployed
+API has no login. Don't host it publicly until a later feature adds Cognito.
+
+## AWS status on 2026-11-01
+
 Status on **2026-11-01**: all 12 steps of the build are written, tested offline (19 unit tests)
 and were deployed and checked in AWS. Then **everything was destroyed** with `scripts/teardown.sh`
 to stop charges. Nothing project-related is running in the AWS account.

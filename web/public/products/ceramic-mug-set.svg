@@ -1,0 +1,19 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 400" width="400" height="400">
+  <title>Ceramic Mug Set</title>
+  <style>
+    svg { --tint: #E0F0DF; --ink: #1B2340; --paper: #FFFFFF; }
+    @media (prefers-color-scheme: dark) { svg { --tint: #2A4A2C; --ink: #EEF1F8; --paper: #141A2E; } }
+    .tint { fill: var(--tint); }
+    .ink { fill: var(--ink); }
+    .paper { fill: var(--paper); }
+    .body { fill: var(--paper); stroke: var(--ink); stroke-width: 6; stroke-linejoin: round; }
+    .line { fill: none; stroke: var(--ink); stroke-width: 6; stroke-linecap: round; stroke-linejoin: round; }
+  </style>
+  <rect class="tint" width="400" height="400"/>
+  <path class="line" d="M146 176 H164 Q184 176 184 196 V222 Q184 242 164 242 H146"/>
+  <path class="line" d="M316 176 H334 Q354 176 354 196 V222 Q354 242 334 242 H316"/>
+  <rect class="ink" x="38" y="140" width="110" height="146" rx="14"/>
+  <rect class="body" x="208" y="140" width="110" height="146" rx="14"/>
+  <path class="line" d="M210 178 H316"/>
+  <path class="line" d="M28 298 H372"/>
+</svg>

@@ -6,10 +6,10 @@ from shophelper.service import NoPendingApproval
 
 
 class FakeService:
-    async def chat(self, session_id, message):
+    async def chat(self, session_id, message, principal=None):
         return ChatResponse(session_id=session_id, answer=f"echo: {message}")
 
-    async def approve(self, session_id, approved, reviewer, note=""):
+    async def approve(self, session_id, approved, reviewer, note="", owner_id=None):
         raise NoPendingApproval(session_id)
 
 

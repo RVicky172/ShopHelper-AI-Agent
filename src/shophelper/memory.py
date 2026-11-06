@@ -9,6 +9,7 @@ from typing import Any, Protocol
 import boto3
 from boto3.dynamodb.conditions import Key
 
+from shophelper import db
 from shophelper.config import get_settings
 
 
@@ -56,9 +57,38 @@ class DynamoHistory:
         )
 
 
+class PostgresHistory:
+    """Same contract as DynamoHistory. There is no TTL: `docker compose down -v` clears it."""
+
+    def load(self, session_id: str, limit: int) -> list[dict[str, Any]]:
+        with db.connect() as conn:
+            rows = conn.execute(
+                "SELECT role, text, created_at::text AS ts FROM chat_history "
+                "WHERE session_id = %s ORDER BY id DESC LIMIT %s",
+                (session_id, limit),
+            ).fetchall()
+        return list(reversed(rows))
+
+    def append(self, session_id: str, role: str, text: str, **meta: Any) -> None:
+        with db.connect() as conn:
+            conn.execute(
+                "INSERT INTO chat_history (session_id, role, text) VALUES (%s, %s, %s)",
+                (session_id, role, text),
+            )
+            # The title is the first message, taken after the guardrail masked it.
+            conn.execute(
+                "UPDATE conversations SET updated_at = now(), "
+                "title = CASE WHEN title = '' AND %s = 'user' THEN left(%s, 60) ELSE title END "
+                "WHERE session_id = %s",
+                (role, text, session_id),
+            )
+
+
 @lru_cache
 def get_history_store() -> HistoryStore:
     s = get_settings()
+    if s.database_url:
+        return PostgresHistory()
     if s.history_table:
         return DynamoHistory(s.history_table, s.aws_region, s.history_ttl_days)
     return InMemoryHistory()
