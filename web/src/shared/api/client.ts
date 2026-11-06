@@ -1,8 +1,8 @@
 import type {
-  Chunk,
-  ConversationDetail,
   CartView,
   Category,
+  Chunk,
+  ConversationDetail,
   ConversationSummary,
   DemoAccount,
   MergeResult,
@@ -69,8 +69,7 @@ export const api = {
 
   cart: () => request<CartView>('/cart'),
   setCartItem: (id: number, quantity: number) => send<CartView>('PUT', `/cart/${id}`, { quantity }),
-  mergeCart: (items: { product_id: number; quantity: number }[]) =>
-    send<MergeResult>('POST', '/cart/merge', { items }),
+  mergeCart: (items: { product_id: number; quantity: number }[]) => send<MergeResult>('POST', '/cart/merge', { items }),
   checkout: () => send<Order>('POST', '/checkout'),
   deliver: (orderId: string) => send<Order>('POST', `/orders/${orderId}/deliver`),
 
@@ -89,6 +88,5 @@ export const api = {
   orders: () => request<Order[]>('/orders'),
   resetOrders: () => send<unknown>('POST', '/demo/reset'),
   chunks: () => request<Chunk[]>('/rag/chunks'),
-  ragSearch: (q: string, k: number) =>
-    request<RagSearchResult>(`/rag/search?q=${encodeURIComponent(q)}&k=${k}`),
+  ragSearch: (q: string, k: number) => request<RagSearchResult>(`/rag/search?q=${encodeURIComponent(q)}&k=${k}`),
 }

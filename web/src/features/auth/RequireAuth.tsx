@@ -4,15 +4,7 @@ import type { Role, User } from '../../shared/api/types'
 import { signInPath } from './next'
 
 // Convenience only: the server enforces the real rules on every request.
-export function RequireAuth({
-  user,
-  roles,
-  children,
-}: {
-  user: User | null
-  roles?: Role[]
-  children: ReactNode
-}) {
+export function RequireAuth({ user, roles, children }: { user: User | null; roles?: Role[]; children: ReactNode }) {
   const location = useLocation()
   if (!user) return <Navigate to={signInPath(location)} replace />
   if (roles && !roles.includes(user.role)) {

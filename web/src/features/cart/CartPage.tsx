@@ -43,7 +43,8 @@ export function CartPage({ user }: { user: User | null }) {
                       label={`Quantity of ${product.name}`}
                       onChange={(next) => setQuantity(product, next)}
                     />
-                    <button type="button"
+                    <button
+                      type="button"
                       onClick={() => setQuantity(product, 0)}
                       aria-label={`Remove ${product.name}`}
                       className="min-h-11 px-1 text-sm text-muted underline hover:text-ink"

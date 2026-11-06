@@ -1,5 +1,5 @@
-import { useEffect, useRef } from 'react'
 import type { ReactNode } from 'react'
+import { useEffect, useRef } from 'react'
 import type { Passage } from '../../shared/api/types'
 import type { TraceItem, Turn } from '../chat/chatReducer'
 
@@ -55,10 +55,7 @@ function Passages({ passages }: { passages: Passage[] }) {
             <summary className="flex cursor-pointer items-center gap-2">
               <span className="min-w-0 flex-1 truncate font-mono">{p.source}</span>
               <span className="h-1.5 w-12 overflow-hidden rounded-full bg-rule">
-                <span
-                  className="block h-full bg-rag"
-                  style={{ width: `${Math.max(0, p.score) * 100}%` }}
-                />
+                <span className="block h-full bg-rag" style={{ width: `${Math.max(0, p.score) * 100}%` }} />
               </span>
               <span className="font-mono tabular-nums">{p.score.toFixed(3)}</span>
             </summary>
@@ -117,8 +114,8 @@ function Item({ item }: { item: TraceItem }) {
               : item.start.name === 'request_refund'
                 ? "The human's decision is applied, and the result goes back to the model."
                 : isRag
-                ? `RAG: the question was embedded and pgvector returned the nearest chunks. ${seconds(item.end.ms)}.`
-                : `Finished in ${seconds(item.end.ms)}. The result goes back to the model.`
+                  ? `RAG: the question was embedded and pgvector returned the nearest chunks. ${seconds(item.end.ms)}.`
+                  : `Finished in ${seconds(item.end.ms)}. The result goes back to the model.`
           }
         >
           <div className="space-y-1.5">
@@ -175,8 +172,8 @@ export function TracePanel({ turns, focus }: { turns: Turn[]; focus?: string | n
       <div className="p-5 text-sm text-muted">
         <p className="font-medium text-ink">Under the hood</p>
         <p className="mt-1">
-          Send a message and every step appears here live: guardrails, model calls, tools, retrieved
-          chunks and approvals.
+          Send a message and every step appears here live: guardrails, model calls, tools, retrieved chunks and
+          approvals.
         </p>
       </div>
     )

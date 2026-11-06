@@ -15,9 +15,7 @@ export function safeNext(next: string | null): string {
 }
 
 export function signInPath({ pathname, search }: { pathname: string; search: string }): string {
-  const here = AUTH_PAGES.includes(pathname)
-    ? new URLSearchParams(search).get('next')
-    : pathname + search
+  const here = AUTH_PAGES.includes(pathname) ? new URLSearchParams(search).get('next') : pathname + search
   const next = safeNext(here)
   return next === '/' ? '/signin' : `/signin?next=${encodeURIComponent(next)}`
 }

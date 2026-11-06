@@ -19,7 +19,10 @@ describe('productStarters', () => {
 
 describe('startersFor', () => {
   it('uses the product on a product page', () => {
-    const starters = startersFor({ pathname: '/products/yoga-mat', product: { name: 'Yoga Mat', category: 'Fitness and outdoors' } })
+    const starters = startersFor({
+      pathname: '/products/yoga-mat',
+      product: { name: 'Yoga Mat', category: 'Fitness and outdoors' },
+    })
     expect(starters[0]).toContain('Yoga Mat')
   })
 

@@ -18,8 +18,8 @@ export function ToolsView({ system }: { system?: SystemInfo }) {
         <section>
           <h2 className="text-lg font-semibold">Tools the model can ask for</h2>
           <p className="mt-1 text-sm text-muted">
-            The model only sees each name, description and argument list. That text is how it decides
-            what to call, so it matters as much as the code behind it.
+            The model only sees each name, description and argument list. That text is how it decides what to call, so
+            it matters as much as the code behind it.
           </p>
           <ul className="mt-3 space-y-2">
             {system.tools.map((tool) => (

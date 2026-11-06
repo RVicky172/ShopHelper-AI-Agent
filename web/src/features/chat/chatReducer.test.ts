@@ -1,6 +1,6 @@
 import { describe, expect, it } from 'vitest'
 import type { ChatResponse, StreamEvent } from '../../shared/api/types'
-import { chatReducer, initialState, type ChatState } from './chatReducer'
+import { type ChatState, chatReducer, initialState } from './chatReducer'
 
 const final = (over: Partial<ChatResponse> = {}): ChatResponse => ({
   session_id: 's',

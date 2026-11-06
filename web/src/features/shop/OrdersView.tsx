@@ -33,7 +33,8 @@ export function OrdersView({ user }: { user: User }) {
             </p>
           </div>
           {user.role === 'admin' && (
-            <button type="button"
+            <button
+              type="button"
               onClick={() => reset.mutate()}
               disabled={reset.isPending}
               className="rounded border border-rule bg-paper px-3 py-1.5 text-sm disabled:opacity-50"
@@ -53,9 +54,14 @@ export function OrdersView({ user }: { user: User }) {
             {deliver.error.message}
           </p>
         )}
-        {/* biome-ignore lint/a11y/noNoninteractiveTabindex: a scrollable table must be reachable by keyboard (021 T090) */}
         {/* biome-ignore lint/a11y/useSemanticElements: a scrollable table must be reachable by keyboard (021 T090) */}
-        <div role="region" aria-label="Orders" tabIndex={0} className="mt-4 overflow-x-auto rounded border border-rule bg-paper">
+        <div
+          role="region"
+          aria-label="Orders"
+          // biome-ignore lint/a11y/noNoninteractiveTabindex: a scrollable table must be reachable by keyboard (021 T090)
+          tabIndex={0}
+          className="mt-4 overflow-x-auto rounded border border-rule bg-paper"
+        >
           <table className="w-full text-left text-sm">
             <thead className="text-xs text-muted">
               <tr className="border-b border-rule">
@@ -80,7 +86,8 @@ export function OrdersView({ user }: { user: User }) {
                   {staff && (
                     <td className="px-3 py-2">
                       {(order.status === 'processing' || order.status === 'shipped') && (
-                        <button type="button"
+                        <button
+                          type="button"
                           onClick={() => deliver.mutate(order.order_id)}
                           disabled={deliver.isPending}
                           aria-label={`Mark delivered, order ${order.order_id}`}

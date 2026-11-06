@@ -1,10 +1,10 @@
 import { useQuery } from '@tanstack/react-query'
 import { Link, NavLink, useLocation, useNavigate } from 'react-router'
-import { api } from '../api/client'
-import type { User } from '../api/types'
 import { signInPath } from '../../features/auth/next'
 import type { useAuth } from '../../features/auth/useAuth'
 import { useCart } from '../../features/cart/useCart'
+import { api } from '../api/client'
+import type { User } from '../api/types'
 import { Menu, MenuButton, MenuLink } from './Menu'
 
 function ShopMenu() {
@@ -80,10 +80,7 @@ export function Navbar({ auth }: { auth: ReturnType<typeof useAuth> }) {
         <Link to="/" className="flex min-h-14 items-center text-xl font-semibold tracking-tight">
           ShopHelper
         </Link>
-        <nav
-          aria-label="Main"
-          className="order-last flex w-full items-center gap-x-6 sm:order-none sm:w-auto"
-        >
+        <nav aria-label="Main" className="order-last flex w-full items-center gap-x-6 sm:order-none sm:w-auto">
           <ShopMenu />
           <NavLink
             to="/how-it-works"

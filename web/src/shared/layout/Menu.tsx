@@ -47,7 +47,8 @@ export function Menu({
         if (event.relatedTarget && !root.current?.contains(event.relatedTarget)) setOpen(false)
       }}
     >
-      <button type="button"
+      <button
+        type="button"
         ref={button}
         aria-expanded={open}
         onClick={() => setOpen(!open)}

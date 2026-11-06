@@ -38,7 +38,11 @@ export function ProductImage({
 
 export function Rating({ rating, count }: { rating: number; count: number }) {
   return (
-    <p role="img" className="flex items-center gap-1 text-sm" aria-label={`Rated ${rating} out of 5, from ${count} ratings`}>
+    <p
+      role="img"
+      className="flex items-center gap-1 text-sm"
+      aria-label={`Rated ${rating} out of 5, from ${count} ratings`}
+    >
       <span aria-hidden="true" className="text-marigold">
         ★
       </span>

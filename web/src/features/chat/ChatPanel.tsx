@@ -4,8 +4,8 @@ import { Link, useLocation, useMatch } from 'react-router'
 import { api } from '../../shared/api/client'
 import type { User } from '../../shared/api/types'
 import { signInPath } from '../auth/next'
-import { MessageBubble } from './MessageBubble'
 import { useSharedChat } from './ChatProvider'
+import { MessageBubble } from './MessageBubble'
 import { startersFor } from './starters'
 
 const DESKTOP = '(min-width: 1280px)'
@@ -91,7 +91,8 @@ function Conversation({ user }: { user: User }) {
             <ul className="mt-4 space-y-2">
               {starters.map((starter) => (
                 <li key={starter}>
-                  <button type="button"
+                  <button
+                    type="button"
                     disabled={chat.busy}
                     onClick={() => void chat.send(starter)}
                     className="min-h-11 w-full rounded border border-rule px-3 py-2 text-left hover:border-cobalt"
@@ -126,8 +127,8 @@ function Conversation({ user }: { user: User }) {
           <div role="status" className="border-l-4 border-warn bg-shelf p-3 text-sm">
             <p className="font-semibold">Waiting for review</p>
             <p className="mt-0.5 text-muted">
-              ${chat.pending.amount.toFixed(2)} for order {chat.pending.order_id}. A support agent will decide, and
-              the outcome appears here by itself.
+              ${chat.pending.amount.toFixed(2)} for order {chat.pending.order_id}. A support agent will decide, and the
+              outcome appears here by itself.
             </p>
           </div>
         )}
@@ -217,7 +218,12 @@ export function ChatPanel({ user }: { user: User | null }) {
     >
       <div className="flex items-center justify-between border-b border-rule py-1 pr-1 pl-4">
         <h2 className="font-semibold">Support</h2>
-        <button type="button" onClick={closePanel} aria-label="Close chat" className="size-11 text-xl text-muted hover:text-ink">
+        <button
+          type="button"
+          onClick={closePanel}
+          aria-label="Close chat"
+          className="size-11 text-xl text-muted hover:text-ink"
+        >
           ×
         </button>
       </div>

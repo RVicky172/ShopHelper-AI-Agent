@@ -68,7 +68,8 @@ export function ChatNudge() {
       <button type="button" onClick={openPanel} className="min-h-6 text-left underline hover:text-cobalt">
         Questions? Ask support.
       </button>
-      <button type="button"
+      <button
+        type="button"
         onClick={() => setVisible(false)}
         aria-label="Dismiss"
         className="size-6 shrink-0 text-muted hover:text-ink"

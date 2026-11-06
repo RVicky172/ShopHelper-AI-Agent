@@ -56,7 +56,11 @@ function useDesktop() {
 
 // The page scrolls in its own region, which ends above the bottom bar, so nothing can slide under the
 // bar. The browser only restores scroll positions for the window, so Back is handled here.
-function useScrollMemory(page: RefObject<HTMLDivElement | null>, main: RefObject<HTMLElement | null>, chatOpen: boolean) {
+function useScrollMemory(
+  page: RefObject<HTMLDivElement | null>,
+  main: RefObject<HTMLElement | null>,
+  chatOpen: boolean,
+) {
   const { key } = useLocation()
   const navigation = useNavigationType()
   const positions = useRef(new Map<string, number>())
