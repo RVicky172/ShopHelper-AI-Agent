@@ -56,7 +56,7 @@ Send a chat message and you'll see `ListToolsRequest` and `CallToolRequest` go b
 
 ## Building a server
 
-[mcp_server.py](../../src/shophelper/mcp_server.py) is the whole server. FastMCP turns ordinary
+[mcp_server.py](../../src/shophelper/mcp/server.py) is the whole server. FastMCP turns ordinary
 functions into MCP tools, using the type hints for the schema and the docstring for the description:
 
 ```python
@@ -68,12 +68,12 @@ def get_order_status(order_id: str) -> dict[str, Any]:
     return tools.get_order_status(order_id)
 ```
 
-The server only wraps [tools.py](../../src/shophelper/tools.py). That separation is deliberate: the
+The server only wraps [tools.py](../../src/shophelper/agent/tools.py). That separation is deliberate: the
 logic stays in one place, and MCP is a way of reaching it.
 
 ## Using a server
 
-[mcp_client.py](../../src/shophelper/mcp_client.py) connects, then converts each MCP tool into a
+[mcp_client.py](../../src/shophelper/mcp/client.py) connects, then converts each MCP tool into a
 LangChain tool. To the agent they look like any other tool, so the graph has no idea MCP is
 involved. That's why switching transport needs no changes to the agent.
 

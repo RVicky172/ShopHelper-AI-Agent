@@ -53,7 +53,7 @@ All from the repo root in Git Bash.
 - [ ] **4. Recreate the infrastructure:** `scripts/deploy.sh` (~10 min). This also rewrites `.env`
       with the new Knowledge Base and Guardrail ids. They change on every deploy.
 - [ ] **5. Smoke-test the agent locally:**
-      `uv run python -m shophelper.raw_agent "Where is order 1002?"`
+      `uv run python -m shophelper.agent.raw_agent "Where is order 1002?"`
 - [ ] **6. LangSmith key to AWS** (if step 2 was done): `scripts/set_langsmith_key.sh`, then
       `scripts/release.sh`.
 - [ ] **7. Run the evals:** `RUN_EVALS=1 uv run pytest evals -v`. The target is all 20 passing with

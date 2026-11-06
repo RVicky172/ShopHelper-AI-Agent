@@ -22,7 +22,7 @@ It's an open-book exam. The model doesn't memorise your policies, it looks them 
 ## The two halves
 
 RAG has two separate pipelines. All the code for both is in
-[rag.py](../../src/shophelper/rag.py).
+[rag.py](../../src/shophelper/rag/pipeline.py).
 
 ```mermaid
 flowchart TB
@@ -104,7 +104,7 @@ own "map". Change your embedding model, and you must re-embed everything.
 ## Step 3: Storing vectors in Postgres
 
 A **vector database** stores embeddings and finds the nearest ones quickly. Here that's plain
-Postgres with the **pgvector** extension. See [schema.sql](../../src/shophelper/schema.sql):
+Postgres with the **pgvector** extension. See [schema.sql](../../src/shophelper/core/schema.sql):
 
 ```sql
 CREATE EXTENSION IF NOT EXISTS vector;

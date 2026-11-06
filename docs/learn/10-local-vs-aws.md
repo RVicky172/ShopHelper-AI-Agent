@@ -8,7 +8,7 @@ Local development should run the same code as production, without copying it or 
 ## The pattern: one contract, many backends
 
 Each external dependency has an interface, and one implementation per backend. For orders, in
-[orders.py](../../src/shophelper/orders.py):
+[orders.py](../../src/shophelper/shop/orders.py):
 
 ```python
 class OrderRepo(Protocol):                  # the contract
@@ -36,7 +36,7 @@ This is **dependency inversion**, and it's what makes offline tests possible at 
 
 ## What each setting switches
 
-All of them are in [config.py](../../src/shophelper/config.py).
+All of them are in [config.py](../../src/shophelper/core/config.py).
 
 | Setting | Default (AWS) | In Docker | Switches |
 | --- | --- | --- | --- |
@@ -113,7 +113,7 @@ evals on real Bedrock, and tear down.
 3. Point at a different model by setting `LOCAL_CHAT_MODEL` in `.env`, then run
    `docker compose up -d`. Run the evals and compare.
 4. Pick another dependency, such as chat history in
-   [memory.py](../../src/shophelper/memory.py), and find its three implementations.
+   [memory.py](../../src/shophelper/agent/memory.py), and find its three implementations.
 5. Run `uv run pytest tests/test_shop.py -k accounts_off`. Each test turns accounts off and checks that a shop route
    returns 404. That's the AWS behaviour, proved without AWS.
 

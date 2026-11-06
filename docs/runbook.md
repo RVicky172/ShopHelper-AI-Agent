@@ -52,7 +52,7 @@ chat demo-0005 "My card is 4111 1111 1111 1111, refund to it"
 ## MCP server
 
 ```bash
-uv run python -m shophelper.mcp_server --http     # http://localhost:8765/mcp
+uv run python -m shophelper.mcp.server --http     # http://localhost:8765/mcp
 npx @modelcontextprotocol/inspector               # connect to it and call the tools
 ```
 

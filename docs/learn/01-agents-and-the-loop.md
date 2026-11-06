@@ -37,7 +37,7 @@ model itself remembers nothing.
 
 ## The loop with no framework
 
-Open [raw_agent.py](../../src/shophelper/raw_agent.py). It's the whole concept in about 40 lines,
+Open [raw_agent.py](../../src/shophelper/agent/raw_agent.py). It's the whole concept in about 40 lines,
 written with no framework so nothing is hidden:
 
 ```python
@@ -73,7 +73,7 @@ The raw loop can't easily do the things real agents need:
 | Stream each step | You build it | `astream()` |
 
 **LangGraph** models the agent as a graph. Nodes are functions, edges are the choices between
-them, and a shared state flows through. Open [graph.py](../../src/shophelper/graph.py):
+them, and a shared state flows through. Open [graph.py](../../src/shophelper/agent/graph.py):
 
 ```python
 g = StateGraph(State)
