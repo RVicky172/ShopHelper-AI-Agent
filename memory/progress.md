@@ -11,6 +11,13 @@ Newest first. One entry per working session.
 
 ---
 
+## 2026-11-06 — 030 Implemented
+
+**Done:** Code searches first on Care and warranty questions: 48 of 48, up from 30 of 48. Evals 37 of 37, 354 backend, 82 frontend. 13 of 13 criteria.
+**Known bug:** The agent can wrongly refuse a refund when the customer mentions a warranty (D-023), now in the backlog.
+**Next:** Owner merges 030. Then 031 code structure, then 022, whose planning is in `git stash` on `feat/022-learning-website`.
+**Blockers:** none
+
 ## 2026-11-06 — 030 paused for the learning website
 
 **Done:** Code searches first on Care and warranty questions: 48 of 48 searched, up from 30 of 48, all answers correct. Three test levels

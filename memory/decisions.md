@@ -136,6 +136,8 @@ chat on the trace page, beside the new widget.
 
 ## D-016 — 021 closes with Care questions unreliable (2026-11-06)
 
+**Closed by 030 (D-018, D-019):** Care questions now search 48 of 48 times.
+
 **Context:** After D-015, only 12 of 24 interleaved Care questions searched the policy. Two prompt rewrites didn't fix it. The other 12
 gave a dead end, such as asking for an order number, and earlier prompts invented coverage.
 **Decision:** Owner's call: accept the gap, take the claim out of AC-39, and move the fix to the backlog. The stronger prompt stays.
@@ -178,3 +180,20 @@ the full evals on every agent change.
 relevant measurements once per feature, in the background. Constitution 1.1.0: Principle II changes, and the Definition of Done doesn't.
 **Alternatives:** Fewer samples, which weakens the rates; running tests in parallel, which fights over one model and shared demo orders.
 **Consequences:** A problem can surface at Verify rather than mid-feature. A feature still can't be Implemented until level 3 passes.
+
+## D-022 — A refund with no stated problem may get a question (2026-11-06)
+
+**Context:** AC-9 measured 59 of 60. The miss, "It's under warranty, please refund order 1006", states no fault, and the agent asked for one. On that
+wording 6 of 12 submit with the 030 check and 0 of 12 without, so the check didn't cause it.
+**Decision:** Owner's call: AC-9 counts refunds that state a problem. Asking what's wrong isn't a false promise. The measurement was repeated with a
+wording that states one, rather than dropping the miss from the count.
+**Alternatives:** Forcing that wording to submit, which pushes the agent to file refunds with no reason.
+**Consequences:** A customer who gives no reason gets asked for one. D-021 is on the 022 branch.
+
+## D-023 — 030 closes with a known warranty refund bug (2026-11-06)
+
+**Context:** With a problem stated, "It's under warranty and it stopped working, please refund order X" still got 0 of 8. The agent says refunds aren't
+issued for items under warranty, which contradicts `refunds.md`. It isn't caused by 030: 8 of 16 submit with its check and 4 of 16 without.
+**Decision:** Owner's call: close 030 on the 45 of 45 refunds with no warranty mention, and put the bug in the backlog.
+**Alternatives:** A line in the policy saying a warranty doesn't remove the 30-day refund, then re-measuring.
+**Consequences:** A customer who mentions a warranty can be wrongly turned down. The recommended fix is that policy line.

@@ -30,7 +30,7 @@ after it could affect the result. A task isn't ticked on level 3's behalf: a fea
 | Backend unit | pytest, scripted fake model | `tests/` | Graph, service, guardrails, API, MCP, chunking, AWS defaults | `uv run pytest` |
 | Frontend unit | Vitest | `web/src/**/*.test.ts` | Stream handling, replayed through the reducer | `cd web && npm test` |
 | Integration | pytest, real Postgres and MCP | `evals/test_integration.py` | Upgrades, Postgres backends, the MCP boundary, races. Uses a scratch database, except one test that needs the real model and removes its own rows | `scripts/evals_local.sh -k integration` |
-| Evals | pytest, real model | `evals/test_golden.py` | Behaviour of the whole system, 33 cases, 12 of them attacks | `scripts/evals_local.sh` |
+| Evals | pytest, real model | `evals/test_golden.py` | Behaviour of the whole system, 37 cases, 12 of them attacks | `scripts/evals_local.sh` |
 | Evals on AWS | pytest, Bedrock | `evals/` | The 20 cases that don't need accounts, on Claude | `RUN_EVALS=1 uv run pytest evals -v` |
 | Browser | Manual, or a throwaway script kept out of the repo | none yet | UI flows as each level, client-side isolation | See the backlog |
 

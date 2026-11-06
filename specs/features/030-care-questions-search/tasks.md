@@ -49,11 +49,12 @@ anything surprising or deferred.
 
 ## Integration
 
-- [ ] **T030** — Add the 4 wordings that failed in D-016 to the golden evals, making 37 cases · files: `evals/golden_cases.yaml` · test:
+- [x] **T030** — Add the 4 wordings that failed in D-016 to the golden evals, making 37 cases · files: `evals/golden_cases.yaml` · test:
       `scripts/evals_local.sh`, all pass
       **Progress (2026-11-06):** 37 cases. First full run: 36 of 37, 93 of 94 with integration. `lifestyle_not_off_topic` failed: the model invented
       order 12345 and called `request_refund` on a general question. The message has no protected term, so the new check didn't run. 0 of 10
       on repeat, interleaved. A rare model error, and code refused the unknown order. One clean full run is still needed.
+      **Result (2026-11-06):** Clean full run: 37 of 37, 94 of 94 with integration, faithfulness 5.0.
 - [x] **T031** — Sabotage: remove the check and confirm at least 3 of the 4 new cases fail, then restore and restart `api` and `mcp` · files:
       `src/shophelper/graph.py` (temporary) · test: recorded result (AC-11)
       **Result (2026-11-06):** Check removed: 4 of 4 new cases failed, 2 of 6 Care cases passed. Restored, and `cmp` confirmed the file.
@@ -62,10 +63,15 @@ anything surprising or deferred.
       **Result (2026-11-06):** Searched 24 of 24 and 24 of 24, up from 12 and 18. All 48 answers read: facts correct. The 3 rounds repeat almost
       word for word, so that's about 18 distinct answers, not 48. One nit: the portable charger answer says Care "adds 2 years" where the
       policy says it extends coverage to 2 years.
-- [ ] **T033** — Measure refunds at 60 of 60, with at least 12 mentioning a warranty (AC-9) · test: `evals/measure_policy.py refunds`
+- [x] **T033** — Measure refunds at 60 of 60, with at least 12 mentioning a warranty (AC-9) · test: `evals/measure_policy.py refunds`
       **Progress (2026-11-06):** 59 of 60, so AC-9 isn't met. The miss: "It's under warranty, please refund order 1006", where the agent asked for a
       reason. Diagnosed on that wording, 12 attempts each, interleaved: 6 of 12 submit with the check, 0 of 12 without. So the wording was already
       hard, and the check helps. Without it the agent also gave a laptop stand a 90-day warranty. Needs the owner's call.
+      **Progress (2026-11-06):** After D-022, re-measured with a wording that states a problem: 52 of 60, so AC-9 still isn't met. 45 of 45 attempts with no
+      warranty mention submitted, and 7 of 7 on "This is still under warranty and it stopped working". "It's under warranty and it stopped working,
+      please refund" got 0 of 8: the agent says refunds aren't issued for items under warranty, which contradicts `refunds.md`. Checked with the 030 check
+      on and off, 8 attempts per wording: 0 and 8 of 8 on, 0 and 4 of 8 off. So it's an older bug, not caused by the check. Needs the owner's call.
+      **Result (2026-11-06):** Closed on the owner's decision (D-023): 45 of 45 with no warranty mention. A further 60-attempt run was stopped unfinished, so it counts for nothing.
 - [x] **T034** [P] — Measure starters at 57 of 57, reading any flagged by the strict check (AC-10) · test:
       `evals/measure_policy.py starters`
       **Result (2026-11-06):** 57 of 57 on reading. The strict check said 51: all 6 are complete answers ending in an offer to look up an order,
@@ -82,16 +88,21 @@ anything surprising or deferred.
       files: `docs/learn/01-agents-and-the-loop.md`, `docs/learn/06-streaming.md` · test: Try it step run (AC-12)
       **Result (2026-11-06):** Chapter 1 has the real numbers and code, chapter 6 the note. Try it step 5 was run in the browser. The trace labels the
       code's step "Model call 1", which isn't accurate, so the step says so.
-- [ ] **T041** [P] — Case count 33 to 37 · files: `README.md`, `docs/learn/09-evals.md`, `docs/local-setup.md`, `specs/testing-strategy.md`
-- [ ] **T042** — Close the gap on record: update D-016, 021's AC-39 note and the roadmap (AC-13) · files: `memory/decisions.md`,
+- [x] **T041** [P] — Case count 33 to 37 · files: `README.md`, `docs/learn/09-evals.md`, `docs/local-setup.md`, `specs/testing-strategy.md`
+      **Result (2026-11-06):** Case counts updated to 37, and the backend test count to 354.
+- [x] **T042** — Close the gap on record: update D-016, 021's AC-39 note and the roadmap (AC-13) · files: `memory/decisions.md`,
       `specs/features/021-storefront/spec.md`, `specs/roadmap.md`
+      **Result (2026-11-06):** D-016 marked closed and 021's AC-39 note updated. The roadmap entry had already moved from the backlog to 030.
 
 ## Verify
 
-- [ ] **T090** — Update `specs/architecture.md` with what this feature established.
-- [ ] **T091** — Every Definition-of-Done gate green (`specs/constitution.md`); record the numbers.
-- [ ] **T092** — Tick ACs in `spec.md` (Status `Implemented`), update `roadmap.md`, `memory/progress.md`,
+- [x] **T090** — Update `specs/architecture.md` with what this feature established.
+      **Result (2026-11-06):** `graph.py`'s row records that code can write a tool call.
+- [x] **T091** — Every Definition-of-Done gate green (`specs/constitution.md`); record the numbers.
+      **Result (2026-11-06):** `scripts/check.sh` passed (354 backend, 82 frontend), build passed, evals 37 of 37 and 94 of 94, faithfulness 5.0. `infra/` unchanged.
+- [x] **T092** — Tick ACs in `spec.md` (Status `Implemented`), update `roadmap.md`, `memory/progress.md`,
       `memory/MEMORY.md`.
+      **Result (2026-11-06):** 13 of 13 criteria ticked, Status `Implemented`, roadmap and memory updated.
 
 ## AC coverage
 

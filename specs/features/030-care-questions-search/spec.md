@@ -1,6 +1,6 @@
 # 030 — Care Questions Always Search the Policy
 
-**Status:** In Progress
+**Status:** Implemented
 **Roadmap phase:** Backlog · **Created:** 2026-11-06 · **Owner:** RVicky172
 
 ## Summary
@@ -21,34 +21,34 @@ the model choosing to search.
 
 ### Care and warranty questions
 
-- [ ] **AC-1:** Every question in the protected set (Q1) calls `search_policy` before the customer gets an answer, in the same turn. Measured
+- [x] **AC-1:** Every question in the protected set (Q1) calls `search_policy` before the customer gets an answer, in the same turn. Measured
       on the 8 wordings from D-016, 3 interleaved rounds: 24 of 24. _(measurement)_
-- [ ] **AC-2:** The same holds for at least 8 new wordings, written before the fix and not used to tune it, 3 interleaved rounds: 24 of 24.
+- [x] **AC-2:** The same holds for at least 8 new wordings, written before the fix and not used to tune it, 3 interleaved rounds: 24 of 24.
       _(measurement)_
-- [ ] **AC-3:** In those 48 attempts, a question about a lifestyle product says Care isn't available for it, and a question about an
+- [x] **AC-3:** In those 48 attempts, a question about a lifestyle product says Care isn't available for it, and a question about an
       electronics product says 2 years, or $19.99 when the price is asked. No answer names a lifestyle category as covered. Every answer is
       read, and none is passed by a keyword check alone. _(measurement)_
-- [ ] **AC-4:** A question that was already asked earlier in the conversation still searches again in its own turn. _(unit)_
-- [ ] **AC-5:** If the policy search fails, the customer gets a fixed, honest reply that points them to support, and the model
+- [x] **AC-4:** A question that was already asked earlier in the conversation still searches again in its own turn. _(unit)_
+- [x] **AC-5:** If the policy search fails, the customer gets a fixed, honest reply that points them to support, and the model
       isn't asked to answer. _(unit)_
-- [ ] **AC-6:** On a protected question, no answer is written before the search, so the chat never shows one that's later
+- [x] **AC-6:** On a protected question, no answer is written before the search, so the chat never shows one that's later
       withdrawn. _(unit + e2e)_
 
 ### Everything else stays the same
 
-- [ ] **AC-7:** A question outside the protected set gets no extra model call. Unit tests cover at least 10 near misses, such as "take care",
+- [x] **AC-7:** A question outside the protected set gets no extra model call. Unit tests cover at least 10 near misses, such as "take care",
       "customer care", "skincare", and "How do I care for my kettle?". _(unit)_
-- [ ] **AC-8:** A protected question costs no extra model call. _(unit)_
-- [ ] **AC-9:** Refund requests still submit in at least 60 of 60 interleaved attempts, including at least 12 that mention a warranty, such as
-      "It's under warranty, please refund order 1001". _(measurement)_
-- [ ] **AC-10:** The chat starters still get real answers, 57 of 57, read in full where the strict check flags one. _(measurement)_
+- [x] **AC-8:** A protected question costs no extra model call. _(unit)_
+- [x] **AC-9:** Refund requests with no warranty mention still submit: 45 of 45 interleaved attempts on the final code. Those that mention a
+      warranty are a known bug, not fixed here (D-023). _(measurement)_
+- [x] **AC-10:** The chat starters still get real answers, 57 of 57, read in full where the strict check flags one. _(measurement)_
 
 ### Proof and explanation
 
-- [ ] **AC-11:** The golden evals gain the 4 wordings that failed in D-016, and all cases pass. With the check removed, at least 3 of those 4
+- [x] **AC-11:** The golden evals gain the 4 wordings that failed in D-016, and all cases pass. With the check removed, at least 3 of those 4
       fail, which proves they test it. _(e2e + sabotage)_
-- [ ] **AC-12:** `docs/learn/` explains why a prompt wasn't enough here, with the real numbers and a Try it step that was run. _(manual)_
-- [ ] **AC-13:** D-016 and 021's AC-39 note are updated to say the gap is closed, and the backlog entry is removed. _(manual)_
+- [x] **AC-12:** `docs/learn/` explains why a prompt wasn't enough here, with the real numbers and a Try it step that was run. _(manual)_
+- [x] **AC-13:** D-016 and 021's AC-39 note are updated to say the gap is closed, and the backlog entry is removed. _(manual)_
 
 ## Non-Functional Requirements
 
@@ -80,4 +80,7 @@ All answered by the owner on 2026-11-06, who accepted the proposals.
 
 - 2026-11-06 — Created, from the backlog entry and D-016.
 - 2026-11-06 — Questions answered and spec Approved.
+- 2026-11-06 — Owner narrowed AC-9 to refunds that state a problem (D-022).
+- 2026-11-06 — Owner took refunds that mention a warranty out of AC-9, as a known bug (D-023). AC-9 records the 45 of 45 measured.
+- 2026-11-06 — All 13 criteria proven, status Implemented.
 - 2026-11-06 — Plan review: code searches before the model answers, instead of sending the model back (D-018). AC-5, AC-6 and AC-8 reworded.

@@ -122,7 +122,7 @@ src/shophelper/       The backend
   raw_agent.py          The agent loop with no framework: read this first
 knowledge/policies/   9 policy documents, the RAG source
 docker-compose.yml    The local stack
-evals/                33 real conversations with expected outcomes
+evals/                37 real conversations with expected outcomes
 tests/                Fast offline tests
 infra/                Terraform for AWS
 docs/                 Learning path and reference docs
@@ -151,11 +151,11 @@ See [Local vs AWS](docs/learn/10-local-vs-aws.md) for how this works and what lo
 ## Test it
 
 ```bash
-scripts/check.sh              # the fast gate: lint, 331 backend and 82 frontend tests, no services needed
-scripts/evals_local.sh        # 33 real conversations and integration tests, through the running stack
+scripts/check.sh              # the fast gate: lint, 354 backend and 82 frontend tests, no services needed
+scripts/evals_local.sh        # 37 real conversations and integration tests, through the running stack
 ```
 
-Latest local eval: 33 of 33, one run. The faithfulness judge is the same Qwen model
+Latest local eval: 37 of 37, one run. The faithfulness judge is the same Qwen model
 locally, so treat its scores as a rough signal.
 
 ## Deploy to AWS

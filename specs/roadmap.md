@@ -47,10 +47,11 @@ _Goal:_ each user's data is private, access has levels, and the app explains mor
 
 | #   | Feature                                                                 | Spec | Status |
 | --- | ----------------------------------------------------------------------- | ---- | ------ |
-| 030 | Care questions always search the policy (closes the D-016 gap)          | [spec](features/030-care-questions-search/spec.md) | 🚧     |
+| 030 | Care questions always search the policy (closes the D-016 gap)          | [spec](features/030-care-questions-search/spec.md) | ✔️     |
 
 ## Backlog (unscheduled ideas)
 
+- Warranty refunds: the agent wrongly refuses refunds on items under warranty (D-023). Start with a line in the policy.
 - Hybrid search: combine keyword and vector search in RAG.
 - Product search in the shop.
 - A read-only MCP tool so the agent can answer questions about the catalogue.

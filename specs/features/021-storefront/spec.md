@@ -112,7 +112,7 @@ placed, in the place where they would really ask.
       isn't declined as off-topic. At least 2 new eval cases cover it. _(e2e)_
 - [x] **AC-39:** The returns and warranty policies say what applies to lifestyle products: 30-day returns with no restocking
       fee, and a 90-day warranty against defects. The agent answers both from the policies. The warranty policy also says
-      ShopHelper Care is for electronics only, but the agent doesn't reliably answer that (D-016). _(e2e)_
+      ShopHelper Care is for electronics only. 030 made the agent answer that reliably. _(e2e)_
 - [x] **AC-40:** After the prompt and policy changes, refund requests still submit in at least 60 of 60 interleaved attempts.
       _(measurement)_
 - [x] **AC-41:** Staff can mark a processing or shipped order as delivered from the all-orders page, which sets its delivery

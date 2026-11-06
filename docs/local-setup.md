@@ -209,7 +209,7 @@ anything you bought.
 ```bash
 uv run pytest                 # backend unit tests, no services needed
 cd web && npm test            # frontend logic tests
-scripts/evals_local.sh        # 33 real conversations and integration tests; needs the stack (about 3 minutes)
+scripts/evals_local.sh        # 37 real conversations and integration tests; needs the stack (about 3 minutes)
 EVAL_RUNS=3 scripts/evals_local.sh   # repeat the suite; the default is 1 run
 ```
 
@@ -260,4 +260,4 @@ Measured on an RTX 5080 (16 GB) with `qwen3-30b-a3b-2507`:
 | First token of a reply | About 2.3 s for a direct answer, 3.5-5 s if tools run first |
 | One embedding | About 15-25 ms |
 | One tool call through MCP | About 30 ms |
-| Eval suite | 33 of 33, one run |
+| Eval suite | 37 of 37, one run |

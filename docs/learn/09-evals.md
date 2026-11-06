@@ -18,7 +18,7 @@ refunds.
 
 ## The golden set
 
-[golden_cases.yaml](../../evals/golden_cases.yaml) lists 33 conversations with expected outcomes:
+[golden_cases.yaml](../../evals/golden_cases.yaml) lists 37 conversations with expected outcomes:
 
 ```yaml
 - id: refund_eligible_pauses
@@ -37,7 +37,7 @@ A language model's wording changes, so exact text matching won't work. Check the
 | Side effects | `orders_after: {"1001": delivered}` | Is the database right? |
 | Judge | `judge: true` | Is the answer faithful to the documents? |
 
-Twelve of the 31 are attacks. Five try to break the guardrails, and seven try to reach another customer's data.
+Twelve of the 37 are attacks. Five try to break the guardrails, and seven try to reach another customer's data.
 Each case runs as a named customer, using the `as:` field.
 
 ## LLM as a judge
@@ -63,7 +63,7 @@ part, because each had a different cause:
 | 8 of 20 failed with `Event loop is closed` | **Test setup.** The client caches connections across pytest's per-test loops | Run all cases in one loop |
 
 After those fixes, all 20 cases that existed then passed, three runs in a row. Feature 020 added 7 cross-user
-attacks, and the shop added 6 cases about which terms apply to which products. All 33 now pass.
+attacks, and the shop added 10 cases about which terms apply to which products. All 37 now pass.
 
 ### Proving an attack test can fail
 
