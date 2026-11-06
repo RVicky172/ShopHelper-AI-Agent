@@ -15,7 +15,7 @@ Run the cheapest level that can catch the problem. The slow level runs once per 
 | Measurement | Run it when these changed |
 | ----------- | ------------------------- |
 | `refunds` | The system prompt, the refund path, or the agent loop in `graph.py` |
-| `starters` | The system prompt, the policies, or `web/src/chat/starters.ts` |
+| `starters` | The system prompt, the policies, or `web/src/features/chat/starters.ts` |
 | `care` | The system prompt, `warranty.md`, or `POLICY_TOPIC` |
 
 While level 3 runs, carry on with docs and memory. Stop only if it fails or needs the owner's decision. Run level 3 again only if a change

@@ -62,12 +62,12 @@ def test_each_lifestyle_category_is_named(name, category):
 # --- AC-11: the return policy page shows what the agent reads ---
 
 def test_the_shops_copy_of_the_return_policy_matches_the_agents():
-    shown = (ROOT / "web/src/shop/returns-policy.md").read_text(encoding="utf-8")
+    shown = (ROOT / "web/src/features/shop/returns-policy.md").read_text(encoding="utf-8")
     assert shown == policy("returns.md")
 
 
 def test_every_category_has_a_colour():
-    tints = (ROOT / "web/src/shop/categories.ts").read_text(encoding="utf-8")
+    tints = (ROOT / "web/src/features/shop/categories.ts").read_text(encoding="utf-8")
     css = (ROOT / "web/src/index.css").read_text(encoding="utf-8")
     for category in CATEGORIES:
         name = re.search(rf"'?{category['slug']}'?: '(\w+)'", tints)

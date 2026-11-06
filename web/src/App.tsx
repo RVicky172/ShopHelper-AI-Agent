@@ -1,23 +1,23 @@
 import { lazy } from 'react'
 import { Route, Routes } from 'react-router'
-import { AuthPage } from './auth/AuthPage'
-import { RequireAuth } from './auth/RequireAuth'
-import { useAuth } from './auth/useAuth'
-import { CartPage } from './cart/CartPage'
-import { CheckoutPage } from './cart/CheckoutPage'
-import { CartProvider } from './cart/useCart'
-import { ChatProvider } from './chat/ChatProvider'
-import { Layout } from './layout/Layout'
-import { NotFound } from './layout/NotFound'
-import { CategoryPage } from './shop/CategoryPage'
-import { Landing } from './shop/Landing'
-import { ProductPage } from './shop/ProductPage'
-import { OrdersView } from './views/OrdersView'
-import { QueueView } from './views/QueueView'
-import { UsersView } from './views/UsersView'
+import { AuthPage } from './features/auth/AuthPage'
+import { RequireAuth } from './features/auth/RequireAuth'
+import { useAuth } from './features/auth/useAuth'
+import { CartPage } from './features/cart/CartPage'
+import { CheckoutPage } from './features/cart/CheckoutPage'
+import { CartProvider } from './features/cart/useCart'
+import { ChatProvider } from './features/chat/ChatProvider'
+import { Layout } from './shared/layout/Layout'
+import { NotFound } from './shared/layout/NotFound'
+import { CategoryPage } from './features/shop/CategoryPage'
+import { Landing } from './features/shop/Landing'
+import { ProductPage } from './features/shop/ProductPage'
+import { OrdersView } from './features/shop/OrdersView'
+import { QueueView } from './features/staff/QueueView'
+import { UsersView } from './features/staff/UsersView'
 
-const ReturnsPolicy = lazy(() => import('./shop/ReturnsPolicy').then((m) => ({ default: m.ReturnsPolicy })))
-const HowItWorks = lazy(() => import('./views/HowItWorks').then((m) => ({ default: m.HowItWorks })))
+const ReturnsPolicy = lazy(() => import('./features/shop/ReturnsPolicy').then((m) => ({ default: m.ReturnsPolicy })))
+const HowItWorks = lazy(() => import('./features/how-it-works/HowItWorks').then((m) => ({ default: m.HowItWorks })))
 
 export function App() {
   const auth = useAuth()

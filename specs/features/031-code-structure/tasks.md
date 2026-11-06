@@ -55,10 +55,14 @@ needs a decision, or would change behaviour.
 
 ## PR 4 — Frontend moves
 
-- [ ] **T030** — Move to `features/` and `shared/`, one commit of paths only, then restart `web` · files: `web/src/**`, `tests/` · test: 82 frontend tests, typecheck, build
-- [ ] **T031** — Add the old-folders check · files: `tests/test_architecture.py` · test: fails on a recreated `views/`
-- [ ] **T032** — Browser run: sign in, buy, chat, staff pages, How it works, with failed responses listed by URL · test: recorded here
-- [ ] **T033** — Merge PR 4
+- [x] **T030** — Move to `features/` and `shared/`, one commit of paths only, then restart `web` · files: `web/src/**`, `tests/` · test: 82 frontend tests, typecheck, build
+      **Result (2026-11-06):** 46 files moved by script, with every relative import recomputed. Types, 82 tests and the build pass. `web` restarted.
+- [x] **T031** — Add the old-folders check · files: `tests/test_architecture.py` · test: fails on a recreated `views/`
+      **Result (2026-11-06):** A recreated `views/` failed the check, then was removed.
+- [x] **T032** — Browser run: sign in, buy, chat, staff pages, How it works, with failed responses listed by URL · test: recorded here
+      **Result (2026-11-06):** Asha bought a mouse, read her orders, and got an answer in the chat; How it works pages load; support and admin pages load. No page errors, and the only failed response was the expected signed-out `401 GET /api/auth/me`. Test order and conversation removed.
+- [x] **T033** — Merge PR 4
+      **Result (2026-11-06):** Merged as the PR for this branch.
 
 ## PR 5 — Lint and format
 

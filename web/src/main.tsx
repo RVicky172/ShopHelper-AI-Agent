@@ -2,7 +2,7 @@ import { QueryCache, QueryClient, QueryClientProvider } from '@tanstack/react-qu
 import { StrictMode } from 'react'
 import { createRoot } from 'react-dom/client'
 import { BrowserRouter } from 'react-router'
-import { ApiError } from './api/client'
+import { ApiError } from './shared/api/client'
 import { App } from './App'
 import './index.css'
 

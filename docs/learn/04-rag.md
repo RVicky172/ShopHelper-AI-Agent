@@ -234,7 +234,7 @@ managed service is doing, and what to check when it misbehaves.
    fee. Run `docker compose up setup`. The log shows only that one document re-embedded, because of
    the content hash. Ask the agent about it. You changed what it knows without touching any code or
    retraining anything. That's the whole appeal of RAG. Change it back afterwards. (The shop shows a copy of this one file, at
-   `web/src/shop/returns-policy.md`, and `scripts/check.sh` fails if the two differ. Keep both in step for a lasting change.)
+   `web/src/features/shop/returns-policy.md`, and `scripts/check.sh` fails if the two differ. Keep both in step for a lasting change.)
 6. **Change the chunk size:** set `MAX_CHUNK_CHARS` to 1000 in rag.py, then run
    `docker compose down -v && docker compose up`. Compare chunks and scores.
 
