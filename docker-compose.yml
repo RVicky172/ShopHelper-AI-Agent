@@ -129,6 +129,7 @@ services:
       - 127.0.0.1:5173:5173
     volumes:
       - ./web:/app
+      - ./docs:/docs:ro  # the course's lessons; ../docs from /app, the same path as on the host
       - /app/node_modules  # keep the container's Linux node_modules out of your Windows folder
     depends_on:
       api:

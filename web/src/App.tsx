@@ -17,6 +17,7 @@ import { Layout } from './shared/layout/Layout'
 import { NotFound } from './shared/layout/NotFound'
 
 const ReturnsPolicy = lazy(() => import('./features/shop/ReturnsPolicy').then((m) => ({ default: m.ReturnsPolicy })))
+const Learn = lazy(() => import('./features/learn/Learn').then((m) => ({ default: m.Learn })))
 const HowItWorks = lazy(() => import('./features/how-it-works/HowItWorks').then((m) => ({ default: m.HowItWorks })))
 
 export function App() {
@@ -42,6 +43,7 @@ export function App() {
             <Route path="shop/:category" element={<CategoryPage />} />
             <Route path="products/:slug" element={<ProductPage />} />
             <Route path="policies/returns" element={<ReturnsPolicy />} />
+            <Route path="learn/*" element={<Learn />} />
             <Route path="cart" element={<CartPage user={user} />} />
             <Route
               path="checkout"

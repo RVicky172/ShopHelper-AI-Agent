@@ -20,7 +20,7 @@ _Goal:_ the agent runs end to end locally, its AWS code is intact, and the spec 
 ## Phase 1 — Move to AWS
 
 _Goal:_ the project runs on AWS with Claude, proven by the same evals, and then torn down. Details:
-[docs/next-steps.md](../docs/next-steps.md). Blocked until the Anthropic use-case form is accepted.
+[docs/reference/next-steps.md](../docs/reference/next-steps.md). Blocked until the Anthropic use-case form is accepted.
 
 | #   | Feature                                                               | Spec | Status |
 | --- | --------------------------------------------------------------------- | ---- | ------ |
@@ -39,7 +39,7 @@ _Goal:_ each user's data is private, access has levels, and the app explains mor
 | --- | ----------------------------------------------------------------------- | ---- | ------ |
 | 020 | User accounts, access levels and per-user data isolation                | [spec](features/020-user-accounts/spec.md) | ✔️     |
 | 021 | Storefront: products, categories, cart, chat button                     | [spec](features/021-storefront/spec.md) | ✔️     |
-| 022 | Learning website: a step-by-step AI engineering course in the site    | [spec](features/022-learning-website/spec.md) | 📝     |
+| 022 | Learning website: a step-by-step AI engineering course in the site    | [spec](features/022-learning-website/spec.md) | 🚧     |
 
 **Exit criteria:** cross-user evals pass, and a customer can't reach another user's data by any route.
 

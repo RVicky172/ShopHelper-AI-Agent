@@ -25,6 +25,7 @@ Local and AWS use the same code. Settings choose the backend.
 | Frontend | React 19, TypeScript (strict), Vite | Standard, fast hot reload, built-in proxy |
 | Streaming | SSE, with `fetch` and eventsource-parser | Traffic is one-way, and `EventSource` can't POST |
 | Accounts | argon2-cffi (password hashing), PyJWT (internal tokens) | Hashing must not be hand-written; PyJWT already came with `mcp` |
+| Course pages | remark-gfm, rehype-highlight and Mermaid, loaded only under `/learn` (D-021) |
 | Routing and type | React Router, Schibsted Grotesk (self-hosted through Fontsource) | Real URLs; no runtime call to a font service |
 | UI data and styling | TanStack Query, Tailwind CSS 4, react-markdown | Caching, co-located styles, safe Markdown |
 

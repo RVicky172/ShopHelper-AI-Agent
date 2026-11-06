@@ -83,6 +83,14 @@ export function Navbar({ auth }: { auth: ReturnType<typeof useAuth> }) {
         <nav aria-label="Main" className="order-last flex w-full items-center gap-x-6 sm:order-none sm:w-auto">
           <ShopMenu />
           <NavLink
+            to="/learn"
+            className={({ isActive }) =>
+              `flex min-h-11 items-center hover:text-cobalt ${isActive ? 'font-medium text-cobalt' : ''}`
+            }
+          >
+            Learn
+          </NavLink>
+          <NavLink
             to="/how-it-works"
             className={({ isActive }) =>
               `flex min-h-11 items-center hover:text-cobalt ${isActive ? 'font-medium text-cobalt' : ''}`

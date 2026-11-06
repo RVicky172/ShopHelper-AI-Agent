@@ -205,3 +205,18 @@ issued for items under warranty, which contradicts `refunds.md`. It isn't caused
 committing, pushing and merging each 031 PR once its checks pass, stopping for failures, decisions or behaviour changes.
 **Alternatives:** ESLint unsupported, or downgrading TypeScript to suit a linter.
 **Consequences:** ESLint is more widely known, but Biome fits this stack. The merge approval covers 031 only.
+
+## D-021 — The learning website's build choices (2026-11-06)
+
+**Context:** The course needs tables, code colouring and diagrams, and an order file. Project rules need the owner's approval for packages.
+**Decision:** Owner approved `remark-gfm`, `rehype-highlight` and `mermaid`, loaded only on course pages; `course.json`, which needs no parser; and
+merging each slice to `main` when it's done.
+**Alternatives:** A separate Starlight site, which means a second app; MDX, which makes lessons code; `course.yaml`, which needs a package.
+**Consequences:** Mermaid is large, so the spike measures it first, with SVG files as the fallback.
+
+## D-025 — Merging 022's slices (2026-11-06)
+
+**Context:** The course lands in 4 slices, and the owner reviewed the style at slice 1.
+**Decision:** Owner's call: merge each slice once its checks pass, and delete merged branches afterwards. Stop for failures, decisions or behaviour changes.
+**Alternatives:** Asking before each merge, which only adds waiting.
+**Consequences:** Covers 022 only. The stepper sits on the right of the page, not across the top.
