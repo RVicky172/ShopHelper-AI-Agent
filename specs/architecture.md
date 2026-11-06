@@ -41,11 +41,11 @@ contracts code must keep.
 | `catalog.py` | Products and categories | `ProductRepo` protocol, in memory and Postgres, which must return the same results; `sort` comes from an allowlist |
 | `cart.py` | Carts, merging, checkout | `CartStore` protocol; `merge_items` is the one set of merge rules; a cart holds ids and quantities only |
 | `shop_api.py` | Shop routes | 404 unless accounts are on; `POST /checkout` takes no body |
-| `web/src/chat/chatReducer.ts` | All stream handling | A pure function, with no React or network |
-| `web/src/chat/ChatProvider.tsx` | The chat, above every page | Keyed by user, so nothing carries over; moving between pages can't interrupt a stream |
-| `web/src/cart/cartLogic.ts`, `useCart.tsx` | The cart in the browser | Storage is untrusted; a merge takes items out of storage before calling the server |
-| `web/src/layout/Layout.tsx` | The page frame | The page scrolls in `#page`, above the bottom bar (D-013) |
-| `web/src/shop/returns-policy.md` | The shop's copy of the return policy | A test fails if it differs from `knowledge/policies/returns.md` |
+| `web/src/features/chat/chatReducer.ts` | All stream handling | A pure function, with no React or network |
+| `web/src/features/chat/ChatProvider.tsx` | The chat, above every page | Keyed by user, so nothing carries over; moving between pages can't interrupt a stream |
+| `web/src/features/cart/cartLogic.ts`, `useCart.tsx` | The cart in the browser | Storage is untrusted; a merge takes items out of storage before calling the server |
+| `web/src/shared/layout/Layout.tsx` | The page frame | The page scrolls in `#page`, above the bottom bar (D-013) |
+| `web/src/features/shop/returns-policy.md` | The shop's copy of the return policy | A test fails if it differs from `knowledge/policies/returns.md` |
 
 SSE events: `guardrail`, `model_step`, `tool_start`, `tool_end`, `token`, `interrupt`, `final`, `error`. `final`
 always comes last and its text is authoritative, because the output guardrail may have changed what streamed.

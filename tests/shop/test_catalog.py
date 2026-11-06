@@ -60,7 +60,7 @@ def category_tints():
     """Each category's light and dark colour, from the design tokens."""
     css = (ROOT / "web/src/index.css").read_text(encoding="utf-8")
     light, dark = css.split("@media (prefers-color-scheme: dark)")[:2]
-    names = (ROOT / "web/src/shop/categories.ts").read_text(encoding="utf-8")
+    names = (ROOT / "web/src/features/shop/categories.ts").read_text(encoding="utf-8")
     tints = {}
     for category in CATEGORIES:
         name = re.search(rf"'?{category['slug']}'?: '(\w+)'", names)[1]

@@ -66,6 +66,11 @@ def test_every_folder_says_what_it_is_for():
         assert ast.get_docstring(ast.parse((PACKAGE / folder / "__init__.py").read_text(encoding="utf-8")))
 
 
+def test_the_frontend_has_only_features_and_shared():
+    folders = {p.name for p in (ROOT / "web" / "src").iterdir() if p.is_dir() and any(p.rglob("*.*"))}
+    assert folders == {"features", "shared"}
+
+
 def test_imports_point_one_way():
     assert forbidden_imports(PACKAGE) == []
 
