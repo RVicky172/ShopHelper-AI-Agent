@@ -74,7 +74,7 @@ Nearly every rule exists because something went wrong. Here's how one grew:
 
 That's the normal cycle: watch it fail, add a rule, test across different wordings, and if it must always hold, move it into code.
 
-**Prompts need testing like code.** A change that fixes one case can break another. So in this project any prompt change runs the evals, and a refund test must still pass. See [Evals](../07-evals-and-testing/01-evals.md).
+**Prompts need testing like code.** A change that fixes one case can break another. So in this project any prompt change runs the evals, and a refund test must still pass. See [Evals](../07-evals-and-testing/01-why-testing-ai-differs.md).
 
 A prompt is also not a security boundary. Customers can type anything, including "ignore your instructions". [Security](../08-security/04-guardrails.md) covers why you can't rely on a prompt to stop that.
 

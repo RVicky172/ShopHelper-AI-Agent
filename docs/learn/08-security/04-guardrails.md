@@ -102,4 +102,4 @@ because the model doesn't hold that power. Decide what a compromised model could
 5. Add a pattern to `_BLOCK_PATTERNS`, such as your own test keyword. Add a case to
    [test_local_stack.py](../../../tests/core/test_local_stack.py), and run `uv run pytest`.
 
-Next: [Evals](../07-evals-and-testing/01-evals.md)
+Next: [Evals](../07-evals-and-testing/01-why-testing-ai-differs.md)

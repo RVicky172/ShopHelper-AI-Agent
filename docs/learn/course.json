@@ -99,7 +99,14 @@
       "title": "Evals and testing",
       "short": "Evals",
       "lessons": [
-        "01-evals"
+        "01-why-testing-ai-differs",
+        "02-test-levels",
+        "03-golden-sets",
+        "04-rag-evals",
+        "05-agent-evals",
+        "06-llm-judges",
+        "07-eval-tools",
+        "08-evals-in-ci"
       ]
     },
     {

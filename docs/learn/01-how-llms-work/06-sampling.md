@@ -56,7 +56,7 @@ model=s.agent_model_id, region_name=s.aws_region, temperature=0, max_tokens=s.ma
 
 Support answers need to be accurate and repeatable, so there's no reason to add randomness. Tests also get more stable.
 
-But stable isn't the same as safe. The evals still saw a failure that appeared once and not again on 10 more tries, at temperature 0, when the model invented an order number. That's why testing here repeats questions with others in between. See [Evals](../07-evals-and-testing/01-evals.md).
+But stable isn't the same as safe. The evals still saw a failure that appeared once and not again on 10 more tries, at temperature 0, when the model invented an order number. That's why testing here repeats questions with others in between. See [Evals](../07-evals-and-testing/01-why-testing-ai-differs.md).
 
 ## In the market
 
