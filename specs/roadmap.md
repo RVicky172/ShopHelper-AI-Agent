@@ -39,13 +39,18 @@ _Goal:_ each user's data is private, access has levels, and the app explains mor
 | --- | ----------------------------------------------------------------------- | ---- | ------ |
 | 020 | User accounts, access levels and per-user data isolation                | [spec](features/020-user-accounts/spec.md) | ✔️     |
 | 021 | Storefront: products, categories, cart, chat button                     | [spec](features/021-storefront/spec.md) | ✔️     |
-| 022 | Learning views: see more of what the system does (scope to be agreed)   | —    | ⬜     |
+| 022 | Learning website: a step-by-step AI engineering course in the site    | [spec](features/022-learning-website/spec.md) | 📝     |
 
 **Exit criteria:** cross-user evals pass, and a customer can't reach another user's data by any route.
 
+## Agreed from the backlog
+
+| #   | Feature                                                                 | Spec | Status |
+| --- | ----------------------------------------------------------------------- | ---- | ------ |
+| 030 | Care questions always search the policy (closes the D-016 gap)          | [spec](features/030-care-questions-search/spec.md) | 🚧     |
+
 ## Backlog (unscheduled ideas)
 
-- Care questions: a code check so the agent always searches the policy. Only 12 of 24 did (D-016). Add the failing wordings as evals.
 - Hybrid search: combine keyword and vector search in RAG.
 - Product search in the shop.
 - A read-only MCP tool so the agent can answer questions about the catalogue.

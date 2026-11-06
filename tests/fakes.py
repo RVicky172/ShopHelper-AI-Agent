@@ -7,6 +7,7 @@ from langchain_core.outputs import ChatGeneration, ChatResult
 
 class ScriptedChatModel(BaseChatModel):
     script: list[AIMessage]
+    calls: int = 0
 
     @property
     def _llm_type(self) -> str:
@@ -16,6 +17,7 @@ class ScriptedChatModel(BaseChatModel):
         return self
 
     def _generate(self, messages, stop=None, run_manager=None, **kwargs):
+        self.calls += 1
         msg = self.script.pop(0) if len(self.script) > 1 else self.script[0]
         return ChatResult(generations=[ChatGeneration(message=msg.model_copy())])
 

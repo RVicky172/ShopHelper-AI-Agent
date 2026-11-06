@@ -602,6 +602,14 @@ def test_returns_policy_covers_lifestyle_products():
     assert "30 days" in line and "no restocking fee" in line
 
 
+def test_the_care_line_says_what_electronics_means():
+    # Chunks are retrieved alone, so a line saying only "electronics" left the model guessing:
+    # it called a laptop stand and a desk mat lifestyle products.
+    line = next(x for x in policy("warranty.md").splitlines() if "ShopHelper Care" in x)
+    for term in ["electronics only", "laptop accessories", "laptop stands", "desk mats", "$19.99", "2 years"]:
+        assert term in line
+
+
 def test_warranty_policy_covers_lifestyle_products():
     line = next(x for x in policy("warranty.md").splitlines() if "lifestyle" in x.lower())
     assert "90-day" in line and "defects" in line

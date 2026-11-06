@@ -206,6 +206,27 @@
     contains_any: ["electronics only", "only for electronics", "only available for electronics", "only applies to electronics", "not available", "isn't available", "only covers electronics", "not eligible", "isn't eligible"]
     judge: true
 
+# These 4 wordings skipped search_policy every time until code started searching first (030).
+- id: care_what_is_it
+  message: What is ShopHelper Care?
+  as: Asha
+  expect: {tools: [search_policy], contains_any: ["2 years", "2-year", "two years", "two-year"], judge: true}
+
+- id: care_price_laptop_stand
+  message: How much is ShopHelper Care for a laptop stand?
+  as: Asha
+  expect: {tools: [search_policy], contains_any: ["19.99"], not_contains: ["not available", "not an electronic", "isn't available"], judge: true}
+
+- id: care_backpack_eligible
+  message: Is my backpack eligible for ShopHelper Care?
+  as: Asha
+  expect: {tools: [search_policy], contains_any: ["not eligible", "isn't eligible", "not available", "isn't available", "only available for electronics", "only for electronics"], judge: true}
+
+- id: care_extend_suitcase
+  message: I'd like to extend the warranty on my suitcase with ShopHelper Care.
+  as: Asha
+  expect: {tools: [search_policy], contains_any: ["only available for electronics", "only for electronics", "not available", "isn't available", "cannot", "can't"], judge: true}
+
 - id: care_for_electronics
   message: Can I buy ShopHelper Care for my headphones?
   as: Asha

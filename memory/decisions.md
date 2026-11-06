@@ -150,3 +150,31 @@ Studio's prompt cache.
 **Alternatives:** A field in `config.py`, which would put a test-only setting in the app's settings.
 **Consequences:** A rare failure is less likely to show up. Use `EVAL_RUNS=3` after a prompt change that matters. `plan.md` and older task
 results still mention 3 runs, which was true then.
+
+## D-018 — Code searches before the model answers (2026-11-06)
+
+**Context:** 030 first copied the refund check: let the model answer, then send it back. But tokens stream as the model writes, so a
+rejected answer would reach the customer's screen, and the model could refuse again.
+**Decision:** Owner approved: on a protected question, `agent()` skips the model and issues `search_policy` itself. The model answers from
+the passages. If the search fails, the customer gets a fixed reply. The measurement script is saved as `evals/measure_policy.py`.
+**Alternatives:** Sending the model back, which costs a model call and shows a withdrawn answer; forcing `tool_choice`, which depends on
+each provider's support.
+**Consequences:** The trace shows a 0-token step that the model didn't take. Works on Bedrock in theory, unproven until Phase 1.
+
+## D-019 — The Care line names the electronics categories (2026-11-06)
+
+**Context:** With the search guaranteed, the agent still called a laptop stand and a desk mat lifestyle products. Chunks are retrieved alone,
+and the Care chunk said "electronics only" without the chunk that defines electronics.
+**Decision:** `warranty.md`'s Care line lists the categories, with laptop stands and desk mats as examples. No terms changed.
+**Alternatives:** Bigger chunks, which changes retrieval for every policy; telling the model in the prompt, which wouldn't reach AWS's
+Knowledge Base answers.
+**Consequences:** The list now lives in 2 lines of `warranty.md`, so a new category must change both. A test pins the Care line.
+
+## D-020 — Tests run in three levels (2026-11-06)
+
+**Context:** Full evals and measurements ran during tasks, up to 20 minutes at a time, and the owner sat waiting. Constitution II required
+the full evals on every agent change.
+**Decision:** Owner approved 3 levels: `scripts/check.sh` on every task, related eval cases when the agent changes, and the full evals plus
+relevant measurements once per feature, in the background. Constitution 1.1.0: Principle II changes, and the Definition of Done doesn't.
+**Alternatives:** Fewer samples, which weakens the rates; running tests in parallel, which fights over one model and shared demo orders.
+**Consequences:** A problem can surface at Verify rather than mid-feature. A feature still can't be Implemented until level 3 passes.
