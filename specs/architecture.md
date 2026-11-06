@@ -28,7 +28,7 @@ contracts code must keep.
 | Module | Responsibility | Contract |
 | ------ | -------------- | -------- |
 | `service.py` | One turn: guardrail, agent, guardrail, history | Used by both the API and the evals, so they exercise one path |
-| `graph.py` | Agent loop, refund node, model selection | Nodes `agent`, `tools`, `refund_approval` |
+| `graph.py` | Agent loop, refund node, model selection | Nodes `agent`, `tools`, `refund_approval`. On a `POLICY_TOPIC` question, code writes the `search_policy` call |
 | `tools.py` | Tool logic | Read-only, and returns errors as data |
 | `mcp_server.py` / `mcp_client.py` | Tools over MCP | Thin wrappers around `tools.py` |
 | `orders.py`, `memory.py` | Storage | `OrderRepo` and `HistoryStore` protocols, with a backend each for memory, DynamoDB and Postgres |

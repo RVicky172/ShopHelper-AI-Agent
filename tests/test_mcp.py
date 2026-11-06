@@ -1,6 +1,6 @@
 from langgraph.checkpoint.memory import InMemorySaver
 
-from fakes import ScriptedChatModel, call, say
+from fakes import ScriptedChatModel, say
 from shophelper.mcp_client import mcp_tools
 from shophelper.memory import InMemoryHistory
 from shophelper.service import ShopHelperService
@@ -14,8 +14,7 @@ async def test_mcp_server_exposes_tools_and_agent_uses_them():
 
         svc = ShopHelperService(
             tools=tools,
-            llm=ScriptedChatModel(script=[call("search_policy", {"query": "warranty length"}),
-                                          say("1-year warranty.")]),
+            llm=ScriptedChatModel(script=[say("1-year warranty.")]),  # code runs the search (030)
             checkpointer=InMemorySaver(),
             history=InMemoryHistory(),
         )

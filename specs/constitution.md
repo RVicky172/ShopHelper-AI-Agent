@@ -3,7 +3,7 @@
 > The non-negotiable principles of this project. Every spec, plan, task, and line of code must comply.
 > If a change needs to break a principle, amend this document first (see "Governance & Amendments").
 
-**Version:** 1.0.0 · **Ratified:** 2026-11-04
+**Version:** 1.1.0 · **Ratified:** 2026-11-04 · **Amended:** 2026-11-06
 
 ---
 
@@ -22,7 +22,7 @@ Bug fixes and refactors that do not change behavior may skip the spec but must s
 
 ### II. Test-Gated Delivery
 
-- No task is "done" until its tests pass: `scripts/check.sh` (and `scripts/evals_local.sh` if the change affects the agent, its prompt, tools or RAG).
+- No task is "done" until its tests pass: `scripts/check.sh`, plus the related eval cases if the change affects the agent, its prompt, tools or RAG. The full `scripts/evals_local.sh` runs once per feature, at Verify (see the levels in `testing-strategy.md`).
 - Pure logic is unit-tested, test-first: write the failing test, then the code.
 - Tests wait on real signals, never fixed sleeps; anything time-dependent takes time as an input so tests are
   deterministic.

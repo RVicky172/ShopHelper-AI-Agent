@@ -1,7 +1,9 @@
 import pytest
+from langchain_core.tools import StructuredTool
 from langgraph.checkpoint.memory import InMemorySaver
 
 from fakes import ScriptedChatModel, call, say
+from shophelper.graph import NO_POLICY_ANSWER
 from shophelper.memory import InMemoryHistory
 from shophelper.orders import get_order_repo
 from shophelper.service import NoPendingApproval, ShopHelperService
@@ -141,3 +143,97 @@ async def test_a_real_request_can_be_described_afterwards():
     done = await svc.approve("session-promise-5", True, "alice")
     assert done.answer == "I've processed your refund."
 
+
+
+# --- Care and warranty questions always search the policy (030) ---
+
+
+def counted(*script):
+    model = ScriptedChatModel(script=list(script))
+    return model, ShopHelperService(llm=model, checkpointer=InMemorySaver(), history=InMemoryHistory())
+
+
+@pytest.mark.parametrize("question", [
+    "What is ShopHelper Care?",
+    "what does shophelper care cost for a desk mat",
+    "SHOPHELPER CARE for my mouse?",
+    "How long is the warranty?",
+    "Do your warranties cover water damage?",
+    "Can I get extended coverage on a charger?",
+    "Is there a protection plan for my headphones?",
+])
+async def test_a_protected_question_searches_before_the_model_answers(question):
+    model, svc = counted(say("From the policy."))
+    r = await svc.chat("session-care-1", question)
+    assert r.tools_used == ["search_policy"] and r.answer == "From the policy."
+    assert model.calls == 1  # the search costs no model call
+
+
+@pytest.mark.parametrize("question", [
+    "Take care!",
+    "How do I contact customer care?",
+    "Do you sell skincare?",
+    "How do I care for my kettle?",
+    "Please handle my order with care.",
+    "I care about delivery times.",
+    "Who takes care of returns?",
+    "What's your coverage area for delivery?",
+    "Is there a plan to add more colours?",
+    "Can you protect my card details?",
+])
+async def test_a_near_miss_is_left_to_the_model(question):
+    model, svc = counted(say("Happy to help."))
+    r = await svc.chat("session-care-2", question)
+    assert r.tools_used == [] and model.calls == 1
+
+
+async def test_a_repeated_question_searches_again():
+    _, svc = counted(say("From the policy."))
+    first = await svc.chat("session-care-3", "What is ShopHelper Care?")
+    second = await svc.chat("session-care-3", "What is ShopHelper Care?")
+    assert first.tools_used == ["search_policy"] and second.tools_used == ["search_policy"]
+
+
+async def test_no_answer_is_written_before_the_search():
+    _, svc = counted(say("From the policy."))
+    events = [kind for kind, _ in [e async for e in svc.stream("session-care-4", "What is ShopHelper Care?")]]
+    assert events.index("tool_end") < events.index("token")
+
+
+def failing_search(query: str) -> dict:
+    """Search store policies."""
+    raise RuntimeError("the search is down")
+
+
+async def test_a_failed_search_gives_an_honest_reply_without_the_model():
+    model = ScriptedChatModel(script=[say("SHOULD NOT BE USED")])
+    svc = ShopHelperService(
+        tools=[StructuredTool.from_function(failing_search, name="search_policy")],
+        llm=model, checkpointer=InMemorySaver(), history=InMemoryHistory(),
+    )
+    r = await svc.chat("session-care-5", "What is ShopHelper Care?")
+    assert r.answer == NO_POLICY_ANSWER and model.calls == 0
+
+
+async def test_a_failed_search_on_another_topic_is_left_to_the_model():
+    model = ScriptedChatModel(
+        script=[call("search_policy", {"query": "fee"}), say("Sorry, I can't check that.")]
+    )
+    svc = ShopHelperService(
+        tools=[StructuredTool.from_function(failing_search, name="search_policy")],
+        llm=model, checkpointer=InMemorySaver(), history=InMemoryHistory(),
+    )
+    r = await svc.chat("session-care-6", "Is there a restocking fee?")
+    assert r.answer == "Sorry, I can't check that."
+
+
+async def test_a_refund_that_mentions_a_warranty_still_reaches_a_human():
+    svc = service(
+        call("get_order_status", {"order_id": "1006"}, "c1"),
+        call("request_refund", {"order_id": "1006", "amount": 249.0, "reason": "faulty"}, "c2"),
+        say("Your refund has been approved."),
+    )
+    r = await svc.chat("session-care-7", "It's under warranty, please refund order 1006")
+    assert r.status == "pending_approval" and r.tools_used[0] == "search_policy"
+    done = await svc.approve("session-care-7", approved=True, reviewer="alice")
+    assert done.answer == "Your refund has been approved." and "search_policy" not in done.tools_used

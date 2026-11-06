@@ -7,7 +7,7 @@ Implement feature $ARGUMENTS.
 
 1. Read `memory/MEMORY.md`, `memory/learnings.md`, and the feature's `spec.md`, `plan.md`, `tasks.md`.
 2. Take the next unchecked task (or the one named). Write/adjust its test first and see it fail, then the code.
-3. Run `scripts/check.sh` (and `scripts/evals_local.sh` if the change affects the agent, its prompt, tools or RAG). Fix until green. For an important test, briefly break the code to confirm the test catches
+3. Run `scripts/check.sh`. If the change affects the agent, its prompt, tools or RAG, also run only the related eval cases (`scripts/evals_local.sh -k <cases>`). Leave the full evals and measurements to `/spec-verify`. Fix until green. For an important test, briefly break the code to confirm the test catches
    it, then restore.
 4. Tick the task in `tasks.md` with a short dated **Result** note (what was done, numbers measured). Record any
    non-obvious gotcha in `memory/learnings.md` and any decision in `memory/decisions.md`.

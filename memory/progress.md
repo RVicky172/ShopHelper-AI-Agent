@@ -11,11 +11,26 @@ Newest first. One entry per working session.
 
 ---
 
+## 2026-11-06 — 030 Implemented
+
+**Done:** Code searches first on Care and warranty questions: 48 of 48, up from 30 of 48. Evals 37 of 37, 354 backend, 82 frontend. 13 of 13 criteria.
+**Known bug:** The agent can wrongly refuse a refund when the customer mentions a warranty (D-023), now in the backlog.
+**Next:** Owner merges 030. Then 031 code structure, then 022, whose planning is in `git stash` on `feat/022-learning-website`.
+**Blockers:** none
+
+## 2026-11-06 — 030 paused for the learning website
+
+**Done:** Code searches first on Care and warranty questions: 48 of 48 searched, up from 30 of 48, all answers correct. Three test levels
+adopted (D-020, Constitution 1.1.0). 14 of 21 tasks done.
+**Open:** AC-9 at 59 of 60 needs the owner's call (T033). One clean full eval run (T030): the last was stopped, the one before had one rare
+failure. Then T041, T042, T090 to T092.
+**Blockers:** Owner put the learning website first. Nothing is lost: the work sits uncommitted on the branch.
+
 ## 2026-11-06 — 021 Implemented
 
 **Done:** Owner accepted the Care gap (D-016) and cut evals to 1 run, with `EVAL_RUNS` to repeat them (D-017). All gates pass: 331 backend,
-82 frontend, build, evals 90 of 90, refunds 60 of 60, starters 57 of 57. 42 of 42 criteria ticked. Everything committed on a branch, not pushed.
-**Next:** Owner reviews and merges the branch. Then scope 022, or the Care fix from the backlog.
+82 frontend, build, evals 90 of 90, refunds 60 of 60, starters 57 of 57. 42 of 42 criteria ticked. Everything merged through PR 1.
+**Next:** Merged to `main` through PR 1. Owner chooses 022 or the Care fix from the backlog.
 **Blockers:** none locally. Phase 1 needs the Anthropic form.
 
 ## 2026-11-06 — 021 Care decision: T094 reopened

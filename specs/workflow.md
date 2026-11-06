@@ -38,7 +38,7 @@ can run in parallel with `[P]`. Every AC is covered by at least one task (AC cov
 
 Work one task at a time. After each task:
 
-1. Run `scripts/check.sh` (and `scripts/evals_local.sh` if the change affects the agent, its prompt, tools or RAG). Fix until green.
+1. Run level 1, `scripts/check.sh`, and level 2, the related eval cases, if the change affects the agent, its prompt, tools or RAG (`testing-strategy.md`). Fix until green.
 2. Tick the task in `tasks.md` and add a short dated **Result** note under it: what was done, what was measured,
    anything surprising. These notes are the evidence Stage 5 checks.
 3. Record decisions in `memory/decisions.md` and gotchas in `memory/learnings.md` as they happen.
@@ -47,7 +47,7 @@ For an important test, prove it can fail: break the code briefly, see the test f
 
 ## Stage 5 — Verify
 
-Run every gate in the Definition of Done (`constitution.md`): `scripts/check.sh`, `scripts/evals_local.sh`, `cd web && npm run build`. Then:
+Run every gate in the Definition of Done (`constitution.md`): `scripts/check.sh`, `scripts/evals_local.sh`, `cd web && npm run build`, and the measurements the feature affects. Run the slow ones once, in the background, and carry on with docs and memory meanwhile. Then:
 
 - Check each AC against its test or measurement; tick only the proven ones. Set `Status: Implemented`.
 - Update `roadmap.md`, add a `memory/progress.md` entry, refresh "Current State" in `memory/MEMORY.md`.

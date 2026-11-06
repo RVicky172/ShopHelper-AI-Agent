@@ -21,6 +21,8 @@ something cost more than ~10 minutes or the fix was non-obvious. Delete entries 
 
 - With nomic, unrelated text still scores around 0.5, so scores are only meaningful relative to each other.
 - Vector search always returns something. Relevance is left to the model and the system prompt.
+- Chunks are retrieved alone, so a term defined in another chunk may not arrive. "Electronics only" came back without the definition of
+  electronics, and the model guessed wrong. A line that depends on a definition should carry it. Print the passages before blaming the model.
 
 ## Evals
 
@@ -44,6 +46,9 @@ something cost more than ~10 minutes or the fix was non-obvious. Delete entries 
 - FastAPI app-level dependencies don't cover `/docs` or `/openapi.json`. Use ASGI middleware to protect everything.
 
 ## Docker
+
+- A `git checkout` that rewrites `web/` can leave Vite failing with `Failed to resolve import "./index.css"`, though the file exists, and every
+  page goes blank. `docker compose restart web` fixes it. The HTML still returns 200, so check `/src/main.tsx`, not just the page.
 
 - PyPI downloads in a Docker build can crawl at about 35 KB/s here, because this ISP's IPv4 route to
   `files.pythonhosted.org` is slow and containers have no IPv6. Other hosts run at full speed, and it isn't Docker's

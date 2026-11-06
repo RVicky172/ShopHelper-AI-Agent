@@ -11,6 +11,7 @@ survives across requests, processes and even different compute (Lambda vs ECS).
 """
 
 import re
+import uuid
 from collections.abc import AsyncIterator
 from contextlib import asynccontextmanager
 from typing import Annotated, Any, TypedDict
@@ -65,6 +66,16 @@ REFUND_NUDGE = (
 )
 NO_REFUND_SUBMITTED = (
     "I haven't submitted a refund request yet. Please ask again, with your order number and the reason."
+)
+
+
+# Asked about "ShopHelper Care", the model reads a product it doesn't know, skips search_policy and
+# answers anyway. Two prompt rewrites reached 12 of 24, so for these topics code searches first.
+POLICY_TOPIC = re.compile(
+    r"\b(shophelper care|warrant(y|ies)|extended coverage|protection plan)\b", re.IGNORECASE
+)
+NO_POLICY_ANSWER = (
+    "I couldn't check our policy just now, so I don't want to guess. Please ask again, or contact support."
 )
 
 
@@ -141,6 +152,10 @@ def build_graph(tools: list[BaseTool], checkpointer: BaseCheckpointSaver, llm: B
             return ToolMessage(f"Tool error: {exc}", tool_call_id=call["id"], status="error")
 
     async def agent(state: State) -> dict:
+        if _needs_policy_search(state["messages"]):
+            return {"messages": [_search_first(state["messages"])]}
+        if _policy_search_failed(state["messages"]):
+            return {"messages": [AIMessage(NO_POLICY_ANSWER)]}  # no passages, so nothing to answer from
         context = [SystemMessage(SYSTEM_PROMPT), *state["messages"]]
         response = await model.ainvoke(context)
         if _promises_unrequested_refund(response, state["messages"]):
@@ -181,12 +196,45 @@ def build_graph(tools: list[BaseTool], checkpointer: BaseCheckpointSaver, llm: B
     return g.compile(checkpointer=checkpointer)
 
 
+def _current_turn(messages: list[AnyMessage]) -> tuple[str, list[AnyMessage]]:
+    """The customer's latest message, and everything that has happened since."""
+    last_human = max((i for i, m in enumerate(messages) if isinstance(m, HumanMessage)), default=-1)
+    return (messages[last_human].text if last_human >= 0 else ""), messages[last_human + 1:]
+
+
+def _search_call_ids(turn: list[AnyMessage]) -> set[str]:
+    calls = [c for m in turn if isinstance(m, AIMessage) for c in m.tool_calls]
+    return {c["id"] for c in calls if c["name"] == "search_policy"}
+
+
+def _needs_policy_search(messages: list[AnyMessage]) -> bool:
+    """True for a protected question that this turn hasn't searched for yet."""
+    question, turn = _current_turn(messages)
+    return bool(POLICY_TOPIC.search(question)) and not _search_call_ids(turn)
+
+
+def _search_first(messages: list[AnyMessage]) -> AIMessage:
+    """A tool call written by code, not the model. The graph runs it like any other."""
+    question, _ = _current_turn(messages)
+    call = {"name": "search_policy", "args": {"query": question}, "id": f"code-{uuid.uuid4().hex}"}
+    return AIMessage("", tool_calls=[call])
+
+
+def _policy_search_failed(messages: list[AnyMessage]) -> bool:
+    """True for a protected question whose every search this turn returned an error."""
+    question, turn = _current_turn(messages)
+    if not POLICY_TOPIC.search(question):
+        return False
+    ids = _search_call_ids(turn)
+    results = [m for m in turn if isinstance(m, ToolMessage) and m.tool_call_id in ids]
+    return bool(results) and all(m.status == "error" for m in results)
+
+
 def _promises_unrequested_refund(response: AIMessage, messages: list[AnyMessage]) -> bool:
     """True if the model talks as if it's handling a refund, but this turn never requested one."""
     if response.tool_calls or not REFUND_PROMISE.search(response.text.replace("\u2019", "'")):
         return False
-    last_human = max((i for i, m in enumerate(messages) if isinstance(m, HumanMessage)), default=-1)
-    turn = messages[last_human + 1:]
+    _, turn = _current_turn(messages)
     return not any(
         c["name"] == "request_refund" for m in turn if isinstance(m, AIMessage) for c in m.tool_calls
     )

@@ -108,6 +108,35 @@ review your refund" with nothing submitted, every time. So `agent()` in graph.py
 a refund and this turn never requested one, it gets one more try, and if it still doesn't, the customer gets an honest
 message instead of a promise nobody will keep.
 
+### When code decides before the model
+
+ShopHelper Care showed a harder case. To the model, the name looks like a product it has never heard of, so it often skipped `search_policy`
+and answered anyway: "I don't know what ShopHelper Care is", or a request for an order number. Two rewrites of the prompt didn't fix it:
+
+| Measured on 3 rounds of each wording | Searched the policy |
+| ------------------------------------ | ------------------- |
+| With the stronger prompt, known wordings | 12 of 24 |
+| With the stronger prompt, new wordings | 18 of 24 |
+| With code searching first, all wordings | 48 of 48 |
+
+Failures followed the wording, not chance: the same questions failed every round. So one passing test proved nothing.
+
+Sending the model back, as the refund check does, wouldn't suit this. Tokens stream as the model writes, so the customer would watch an answer
+appear and then vanish. Instead `agent()` looks at the question first. If it's about Care or a warranty, code writes the tool call itself and
+the model never gets the chance to skip it:
+
+```python
+if _needs_policy_search(state["messages"]):
+    return {"messages": [_search_first(state["messages"])]}
+```
+
+The rest of the loop can't tell the difference: `route` sees a tool call and runs it. That's the useful idea here. A tool call is only a
+message, and code can write one as well as a model can.
+
+It wasn't the whole fix. With the search guaranteed, the agent still called a laptop stand a lifestyle product, because the passage saying
+"electronics only" arrived without the one defining electronics. [RAG](04-rag.md) explains why chunks arrive alone. Guaranteeing the input
+doesn't guarantee the answer, so read the answers, not only the tool calls.
+
 ## Try it
 
 1. Sign in, open **How it works** in the navbar, and click the **Tool call** example.
@@ -115,5 +144,7 @@ message instead of a promise nobody will keep.
 3. Count the model calls. Then ask "Hello!" and count again. One call, because no tool was needed.
 4. Look at the token counts. The second call's input is larger, because it includes the first
    call and the tool result. That's the "fresh call with everything so far" in action.
+5. Ask "What is ShopHelper Care?". The trace says "Model call 1: chose search_policy", but look at the tokens: 0 in, 0 out. No model ran. Code
+   made that choice, and the trace labels it the same way as a model's.
 
 Next: [Tools](02-tools.md)

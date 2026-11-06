@@ -64,7 +64,7 @@ Every step of a turn is one event type:
 | Event | Sent when | Data |
 | --- | --- | --- |
 | `guardrail` | Input or output has been checked | stage, action, reasons |
-| `model_step` | A model call finished | tools chosen, tokens, time |
+| `model_step` | A model call finished, or code chose a tool itself (0 tokens, see [chapter 1](01-agents-and-the-loop.md)) | tools chosen, tokens, time |
 | `tool_start` | The model asked for a tool | name, args |
 | `tool_end` | The tool finished | result, time |
 | `token` | The model wrote more of its answer | text |
