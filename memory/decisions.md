@@ -197,3 +197,11 @@ issued for items under warranty, which contradicts `refunds.md`. It isn't caused
 **Decision:** Owner's call: close 030 on the 45 of 45 refunds with no warranty mention, and put the bug in the backlog.
 **Alternatives:** A line in the policy saying a warranty doesn't remove the 30-day refund, then re-measuring.
 **Consequences:** A customer who mentions a warranty can be wrongly turned down. The recommended fix is that policy line.
+
+## D-024 — 031's build choices (2026-11-06)
+
+**Context:** `typescript-eslint` 8.72.1 supports TypeScript below 6.1, and this project uses 7. The first folder layout also created 2 import cycles.
+**Decision:** Owner approved: Biome for lint and format; `Principal` to `core/`, `ChatResponse` to `agent/`, `setup_local` to `api/`; `pyright` and `pre-commit` as dev tools; and
+committing, pushing and merging each 031 PR once its checks pass, stopping for failures, decisions or behaviour changes.
+**Alternatives:** ESLint unsupported, or downgrading TypeScript to suit a linter.
+**Consequences:** ESLint is more widely known, but Biome fits this stack. The merge approval covers 031 only.

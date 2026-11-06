@@ -3,7 +3,7 @@
 > Approved technologies. Adding or replacing anything here requires updating this file and logging the
 > decision in `memory/decisions.md` (Constitution III).
 
-**Last updated:** 2026-11-04
+**Last updated:** 2026-11-06
 
 ---
 
@@ -38,6 +38,9 @@ Dev-only tools. The commands are in `testing-strategy.md`.
 | Frontend packages | npm, Node 22 in Docker |
 | Backend tests and lint | pytest, pytest-asyncio, ruff |
 | Frontend tests | Vitest |
+| Frontend lint and format | Biome. ESLint's TypeScript parser doesn't support TypeScript 7 (D-024) |
+| Python type checks | Pyright |
+| Commit hooks | pre-commit |
 | Local runtime | Docker Compose, pgAdmin |
 | Infrastructure | Terraform |
 | CI | GitHub Actions with OIDC |
