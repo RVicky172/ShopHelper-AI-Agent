@@ -8,17 +8,20 @@
 ## Directory Layout
 
 ```text
-src/shophelper/     Backend: API, agent, tools, MCP, RAG, guardrails, storage
-web/                React + TypeScript UI
+src/shophelper/     Backend by feature: core, shop, accounts, rag, agent, mcp, api
+web/src/            React + TypeScript UI: features/ and shared/
 knowledge/policies/ The RAG source documents
-evals/              20 golden conversations and the LLM judge
-tests/              Offline tests, using a scripted fake model
+evals/              37 golden conversations, integration tests and the LLM judge
+tests/              Offline tests mirroring src/shophelper, using a scripted fake model
 infra/              Terraform for AWS
 scripts/            check.sh, evals_local.sh, and the AWS deploy scripts
 docker/             pgAdmin configuration
 docs/               Learning path and reference docs (for people)
 specs/, memory/     This workflow
 ```
+
+Folders import one way: `core`, then `shop`, `accounts`, `rag`, `agent`, `mcp`, `api`. `tests/test_architecture.py` enforces it, and
+[CONTRIBUTING.md](../CONTRIBUTING.md) says where new code goes.
 
 ## Main Modules and Contracts
 
@@ -27,20 +30,20 @@ contracts code must keep.
 
 | Module | Responsibility | Contract |
 | ------ | -------------- | -------- |
-| `service.py` | One turn: guardrail, agent, guardrail, history | Used by both the API and the evals, so they exercise one path |
-| `graph.py` | Agent loop, refund node, model selection | Nodes `agent`, `tools`, `refund_approval`. On a `POLICY_TOPIC` question, code writes the `search_policy` call |
-| `tools.py` | Tool logic | Read-only, and returns errors as data |
-| `mcp_server.py` / `mcp_client.py` | Tools over MCP | Thin wrappers around `tools.py` |
-| `orders.py`, `memory.py` | Storage | `OrderRepo` and `HistoryStore` protocols, with a backend each for memory, DynamoDB and Postgres |
-| `rag.py`, `db.py`, `schema.sql` | Local RAG and Postgres | `VECTOR(768)` must match the embedding model |
-| `local_api.py` | Routes for the UI | 404 unless accounts are on |
-| `auth.py`, `auth_api.py` | Accounts, sessions, login gate | `UserStore` protocol; `Principal` comes only from a verified session |
-| `identity.py` | The acting user during a tool call | `ContextVar`, set only by the graph |
-| `conversations.py` | Conversation ownership | Server-issued ids; `ConversationStore` protocol |
-| `refunds.py` | Staff queue and approval rules | `authorize_review` reads stored values only; `claim` is atomic |
-| `catalog.py` | Products and categories | `ProductRepo` protocol, in memory and Postgres, which must return the same results; `sort` comes from an allowlist |
-| `cart.py` | Carts, merging, checkout | `CartStore` protocol; `merge_items` is the one set of merge rules; a cart holds ids and quantities only |
-| `shop_api.py` | Shop routes | 404 unless accounts are on; `POST /checkout` takes no body |
+| `agent/service.py` | One turn: guardrail, agent, guardrail, history | Used by both the API and the evals, so they exercise one path |
+| `agent/graph.py` | Agent loop, refund node, model selection | Nodes `agent`, `tools`, `refund_approval`. On a `POLICY_TOPIC` question, code writes the `search_policy` call |
+| `agent/tools.py` | Tool logic | Read-only, and returns errors as data |
+| `mcp/server.py` / `mcp/client.py` | Tools over MCP | Thin wrappers around `agent/tools.py` |
+| `shop/orders.py`, `agent/memory.py` | Storage | `OrderRepo` and `HistoryStore` protocols, with a backend each for memory, DynamoDB and Postgres |
+| `rag/pipeline.py`, `core/db.py`, `core/schema.sql` | Local RAG and Postgres | `VECTOR(768)` must match the embedding model |
+| `api/local_routes.py` | Routes for the UI | 404 unless accounts are on |
+| `accounts/auth.py`, `api/auth_routes.py` | Accounts, sessions, login gate | `UserStore` protocol; `Principal` comes only from a verified session |
+| `core/identity.py` | `Principal`, and the acting user during a tool call | `ContextVar`, set only by the graph |
+| `accounts/conversations.py` | Conversation ownership | Server-issued ids; `ConversationStore` protocol |
+| `shop/refunds.py` | Staff queue and approval rules | `authorize_review` reads stored values only; `claim` is atomic |
+| `shop/catalog.py` | Products and categories | `ProductRepo` protocol, in memory and Postgres, which must return the same results; `sort` comes from an allowlist |
+| `shop/cart.py` | Carts, merging, checkout | `CartStore` protocol; `merge_items` is the one set of merge rules; a cart holds ids and quantities only |
+| `api/shop_routes.py` | Shop routes | 404 unless accounts are on; `POST /checkout` takes no body |
 | `web/src/features/chat/chatReducer.ts` | All stream handling | A pure function, with no React or network |
 | `web/src/features/chat/ChatProvider.tsx` | The chat, above every page | Keyed by user, so nothing carries over; moving between pages can't interrupt a stream |
 | `web/src/features/cart/cartLogic.ts`, `useCart.tsx` | The cart in the browser | Storage is untrusted; a merge takes items out of storage before calling the server |

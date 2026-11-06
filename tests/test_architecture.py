@@ -79,6 +79,11 @@ def test_every_type_ignore_says_why():
                 assert lines[number - 1].lstrip().startswith("#"), f"{path.name}:{number + 1} gives no reason"
 
 
+def test_test_files_stay_readable():
+    for path in [*(ROOT / "tests").rglob("test_*.py"), *(ROOT / "evals").glob("test_*.py")]:
+        assert len(path.read_text(encoding="utf-8").splitlines()) <= 400, path.name
+
+
 def test_imports_point_one_way():
     assert forbidden_imports(PACKAGE) == []
 

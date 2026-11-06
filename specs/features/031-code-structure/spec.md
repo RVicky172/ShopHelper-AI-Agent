@@ -1,6 +1,6 @@
 # 031 — Code Structure and Standards
 
-**Status:** In Progress
+**Status:** Implemented
 **Roadmap phase:** Backlog · **Created:** 2026-11-06 · **Owner:** RVicky172
 
 ## Summary
@@ -20,30 +20,30 @@ and makes the standards automatic. Nothing the app does changes. It comes before
 
 ### Structure
 
-- [ ] **AC-1:** Backend code is grouped by feature, with no module left loose in the package except the package marker. Each folder's purpose is stated in
+- [x] **AC-1:** Backend code is grouped by feature, with no module left loose in the package except the package marker. Each folder's purpose is stated in
       one line. _(unit)_
-- [ ] **AC-2:** Dependencies point one way: shared code imports no feature, and a test fails if a forbidden import appears. _(unit)_
-- [ ] **AC-3:** Frontend code is grouped by feature, with one shared area, and the separate `views/`, `shop/` and `components/` split is gone. _(manual review + unit)_
-- [ ] **AC-4:** The backend tests mirror the code's folders, and no test file is over 400 lines. The test count doesn't fall. _(unit)_
-- [ ] **AC-5:** A short document says where new code goes, and what each top-level folder is for. _(manual)_
+- [x] **AC-2:** Dependencies point one way: shared code imports no feature, and a test fails if a forbidden import appears. _(unit)_
+- [x] **AC-3:** Frontend code is grouped by feature, with one shared area, and the separate `views/`, `shop/` and `components/` split is gone. _(manual review + unit)_
+- [x] **AC-4:** The backend tests mirror the code's folders, and no test file is over 400 lines. The test count doesn't fall. _(unit)_
+- [x] **AC-5:** A short document says where new code goes, and what each top-level folder is for. _(manual)_
 
 ### Standards that run by themselves
 
-- [ ] **AC-6:** A Python type checker passes on all of `src/`, and runs in `scripts/check.sh` and CI. Any ignored error has a written reason. _(unit)_
-- [ ] **AC-7:** Frontend linting and formatting pass, and run in `scripts/check.sh` and CI. _(unit)_
-- [ ] **AC-8:** CI runs the frontend's tests, type check and production build on every pull request. A failing frontend test fails the pipeline. _(e2e, proved with a
+- [x] **AC-6:** A Python type checker passes on all of `src/`, and runs in `scripts/check.sh` and CI. Any ignored error has a written reason. _(unit)_
+- [x] **AC-7:** Frontend linting and formatting pass, and run in `scripts/check.sh` and CI. _(unit)_
+- [x] **AC-8:** CI runs the frontend's tests, type check and production build on every pull request. A failing frontend test fails the pipeline. _(e2e, proved with a
       deliberate failure on a throwaway branch)_
-- [ ] **AC-9:** Lint and format checks run before each commit, and take under 10 seconds on a small change. _(measurement)_
+- [x] **AC-9:** Lint and format checks run before each commit, and take under 10 seconds on a small change. _(measurement)_
 
 ### Nothing changes
 
-- [ ] **AC-10:** All existing tests pass after every step, with the same behaviour: 354 backend and 82 frontend, plus any added. Evals pass 37 of 37 once, at the end.
+- [x] **AC-10:** All existing tests pass after every step, with the same behaviour: 354 backend and 82 frontend, plus any added. Evals pass 37 of 37 once, at the end.
       _(unit + e2e)_
-- [ ] **AC-11:** `docker compose up` works after a clean rebuild, and `/health`, sign-in, a purchase and a chat all work in a browser. _(e2e)_
-- [ ] **AC-12:** The AWS path is intact: `infra/` needs no edits beyond entry point or path updates, `terraform validate` passes, and
+- [x] **AC-11:** `docker compose up` works after a clean rebuild, and `/health`, sign-in, a purchase and a chat all work in a browser. _(e2e)_
+- [x] **AC-12:** The AWS path is intact: `infra/` needs no edits beyond entry point or path updates, `terraform validate` passes, and
       `test_defaults_are_the_aws_path` passes. Nothing is deployed. _(unit)_
-- [ ] **AC-13:** Every path in live docs, specs and scripts is correct, and a test fails on a `src/` path that doesn't exist. Finished feature specs stay as written. _(unit)_
-- [ ] **AC-14:** The work merges as at least 5 pull requests, none over about 40 files of real change. A pure file move can be larger if nothing else changes in it.
+- [x] **AC-13:** Every path in live docs, specs and scripts is correct, and a test fails on a `src/` path that doesn't exist. Finished feature specs stay as written. _(unit)_
+- [x] **AC-14:** The work merges as at least 5 pull requests, none over about 40 files of real change. A pure file move can be larger if nothing else changes in it.
       _(manual)_
 
 ## Non-Functional Requirements
@@ -103,3 +103,4 @@ All answered by the owner on 2026-11-06, who accepted the proposals.
 - 2026-11-06 — Created, from the owner's concern about structure. Comes before 022.
 - 2026-11-06 — Questions answered and spec Approved.
 - 2026-11-06 — Plan approved. Biome replaces ESLint and Prettier, and Q1 changes to avoid 2 import cycles (D-024).
+- 2026-11-06 — All 14 criteria proven, status Implemented.

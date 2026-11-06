@@ -107,28 +107,26 @@ feature with `/spec-new <name>` in Claude Code.
 ## Repository layout
 
 ```text
-web/                  React + TypeScript UI
-src/shophelper/       The backend
-  api.py                HTTP routes and streaming
-  service.py            One conversation turn, start to finish
-  graph.py              The agent (LangGraph) and the refund approval step
-  auth.py, auth_api.py  Accounts, sessions, the login gate
-  catalog.py, cart.py   The shop: products, carts, checkout
-  refunds.py            The staff review queue
-  tools.py              What the tools do
-  mcp_server.py         Tools exposed over MCP
-  rag.py                Chunk, embed, store, search
-  guardrails.py         Input and output checks
-  raw_agent.py          The agent loop with no framework: read this first
+src/shophelper/       The backend, grouped by feature
+  core/               Settings, database, identity, logging
+  shop/               Catalogue, cart, orders, refunds
+  accounts/           Users, sessions, conversations
+  rag/                Chunk, embed, store, search
+  agent/              The loop, tools, memory, guardrails, and raw_agent.py: the loop with no framework, read this first
+  mcp/                The MCP server and client
+  api/                HTTP routes, request models, local setup
+web/src/              The React app: features/ and shared/
 knowledge/policies/   9 policy documents, the RAG source
 docker-compose.yml    The local stack
 evals/                37 real conversations with expected outcomes
-tests/                Fast offline tests
+tests/                Fast offline tests, mirroring src/shophelper/
 infra/                Terraform for AWS
 docs/                 Learning path and reference docs
 specs/                Constitution, roadmap, and one folder per feature
 memory/               Project memory: state, decisions, learnings, progress
 ```
+
+[CONTRIBUTING.md](CONTRIBUTING.md) explains where new code goes and how a change gets in.
 
 ## Local and AWS
 
@@ -151,7 +149,7 @@ See [Local vs AWS](docs/learn/10-local-vs-aws.md) for how this works and what lo
 ## Test it
 
 ```bash
-scripts/check.sh              # the fast gate: lint, 354 backend and 82 frontend tests, no services needed
+scripts/check.sh              # the fast gate: lint, types, 366 backend and 82 frontend tests, no services needed
 scripts/evals_local.sh        # 37 real conversations and integration tests, through the running stack
 ```
 

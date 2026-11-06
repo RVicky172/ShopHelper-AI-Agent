@@ -48,7 +48,7 @@ _Goal:_ each user's data is private, access has levels, and the app explains mor
 | #   | Feature                                                                 | Spec | Status |
 | --- | ----------------------------------------------------------------------- | ---- | ------ |
 | 030 | Care questions always search the policy (closes the D-016 gap)          | [spec](features/030-care-questions-search/spec.md) | ✔️     |
-| 031 | Code structure and standards: feature folders, type checks, frontend CI | [spec](features/031-code-structure/spec.md) | 🚧     |
+| 031 | Code structure and standards: feature folders, type checks, frontend CI | [spec](features/031-code-structure/spec.md) | ✔️     |
 
 ## Backlog (unscheduled ideas)
 
