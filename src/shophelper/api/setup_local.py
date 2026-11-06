@@ -16,7 +16,7 @@ from shophelper.core import db
 from shophelper.core.config import get_settings
 from shophelper.rag import pipeline as rag
 from shophelper.shop.catalog import get_product_repo
-from shophelper.shop.orders import get_order_repo
+from shophelper.shop.orders import account_order_repo
 
 
 def wait_for_lm_studio(timeout_s: int = 60) -> None:
@@ -50,7 +50,7 @@ def main() -> None:
         owners = auth.seed_demo_users(auth.get_user_store())
         print(f"demo accounts OK: {len(owners)} customers, plus support and admin", flush=True)
 
-    repo = get_order_repo()
+    repo = account_order_repo()
     if repo.list_all():
         print("orders already seeded", flush=True)
     else:

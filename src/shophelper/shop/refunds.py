@@ -6,7 +6,7 @@ reviewer can't change the amount or the owner by sending different values.
 
 from dataclasses import dataclass, replace
 from functools import lru_cache
-from typing import Any, Protocol
+from typing import Any, Protocol, cast
 
 from shophelper.core import db
 from shophelper.core.config import get_settings
@@ -132,7 +132,7 @@ class PostgresRefunds:
                 f"SELECT {self.COLUMNS} FROM refund_requests "
                 "WHERE status IN ('pending', 'claimed') ORDER BY id"
             ).fetchall()
-        return [self._request(r) for r in rows]
+        return cast(list[RefundRequest], [self._request(r) for r in rows])
 
     def claim(self, request_id: int, reviewer_id: int, note: str) -> bool:
         """One atomic UPDATE: if two reviewers race, the database lets exactly one win."""

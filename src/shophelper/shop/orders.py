@@ -9,7 +9,7 @@ from datetime import UTC, date, datetime, timedelta
 from decimal import Decimal
 from functools import lru_cache
 from pathlib import Path
-from typing import Any, Protocol
+from typing import Any, Protocol, cast
 
 import boto3
 
@@ -81,6 +81,20 @@ class OrderRepo(Protocol):
     def mark_refunded(self, order_id: str, amount: float, reason: str) -> None: ...
 
 
+class AccountOrderRepo(OrderRepo, Protocol):
+    """Accounts exist only locally, so the AWS repo has none of this."""
+
+    def list_all(self) -> list[dict[str, Any]]: ...
+    def list_for_owner(self, owner_id: int) -> list[dict[str, Any]]: ...
+    def create_sample_orders(self, owner_id: int, customer: str) -> None: ...
+    def add_order(
+        self, owner_id: int, customer: str, lines: list[dict[str, Any]], conn: Any = None
+    ) -> dict[str, Any]: ...
+    def mark_delivered(self, order_id: str) -> dict[str, Any] | None: ...
+    def assign_owners(self, owners: dict[str, int]) -> None: ...
+    def reset(self) -> None: ...
+
+
 class InMemoryOrderRepo:
     def __init__(self) -> None:
         self._orders = load_seed_orders()
@@ -135,7 +149,8 @@ class InMemoryOrderRepo:
 
 class DynamoOrderRepo:
     def __init__(self, table_name: str, region: str) -> None:
-        self._table = boto3.resource("dynamodb", region_name=region).Table(table_name)
+        # boto3 builds its resources at runtime
+        self._table = boto3.resource("dynamodb", region_name=region).Table(table_name)  # pyright: ignore[reportAttributeAccessIssue]
 
     def get(self, order_id: str) -> dict[str, Any] | None:
         item = self._table.get_item(Key={"order_id": order_id}).get("Item")
@@ -193,7 +208,8 @@ class PostgresOrderRepo:
     def create_sample_orders(self, owner_id: int, customer: str) -> None:
         with db.connect() as conn:
             for order in sample_orders(customer):
-                order_id = str(conn.execute("SELECT nextval('order_numbers') AS n").fetchone()["n"])
+                # count(*) always returns a row
+                order_id = str(conn.execute("SELECT nextval('order_numbers') AS n").fetchone()["n"])  # pyright: ignore[reportOptionalSubscript]
                 conn.execute(
                     "INSERT INTO orders (order_id, data, owner_id) VALUES (%s, %s, %s)",
                     (order_id, db.Jsonb({**order, "order_id": order_id}), owner_id),
@@ -249,6 +265,11 @@ def get_order_repo() -> OrderRepo:
     if settings.orders_table:
         return DynamoOrderRepo(settings.orders_table, settings.aws_region)
     return InMemoryOrderRepo()
+
+
+def account_order_repo() -> AccountOrderRepo:
+    """For code that only runs with accounts on, where the repo is never the AWS one."""
+    return cast(AccountOrderRepo, get_order_repo())
 
 
 def refund_eligibility(order: dict[str, Any], amount: float) -> tuple[bool, str]:

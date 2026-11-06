@@ -60,3 +60,9 @@ select = ["E", "F", "I", "B", "UP"]
 
 [tool.ruff.lint.isort]
 known-first-party = ["shophelper", "fakes", "judge", "shop_helpers", "integration_support"]
+
+[tool.pyright]
+include = ["src"]
+pythonVersion = "3.13"
+venvPath = "."
+venv = ".venv"

@@ -93,11 +93,11 @@ def _product(row: dict[str, Any]) -> dict[str, Any]:
 class PostgresProductRepo:
     def categories(self) -> list[dict[str, Any]]:
         with db.connect() as conn:
-            rows = conn.execute(f"""
+            rows = conn.execute(db.trusted(f"""
                 SELECT DISTINCT ON (category) category, slug, name, count(*) OVER (PARTITION BY category) AS n
                 FROM products
                 ORDER BY category, {SQL_ORDER["rating"]}
-            """).fetchall()
+            """)).fetchall()
         found = {r["category"]: r for r in rows}
         return [
             {**c, "count": found[c["slug"]]["n"], "cover": {k: found[c["slug"]][k] for k in ("slug", "name")}}
@@ -109,12 +109,13 @@ class PostgresProductRepo:
         where = "WHERE %(category)s::text IS NULL OR category = %(category)s"
         args = {"category": category, "offset": offset, "limit": limit}
         with db.connect() as conn:
-            total = conn.execute(f"SELECT count(*) AS n FROM products {where}", args).fetchone()["n"]
+            # count(*) always returns a row
+            total = conn.execute(f"SELECT count(*) AS n FROM products {where}", args).fetchone()["n"]  # pyright: ignore[reportOptionalSubscript]
             rows = conn.execute(
-                f"""
+                db.trusted(f"""
                 SELECT * FROM products {where}
                 ORDER BY {SQL_ORDER[sort]} OFFSET %(offset)s LIMIT %(limit)s
-                """,
+                """),
                 args,
             ).fetchall()
         return {"items": [_product(r) for r in rows], "total": total}
@@ -132,10 +133,10 @@ class PostgresProductRepo:
     def related(self, product: dict[str, Any]) -> list[dict[str, Any]]:
         with db.connect() as conn:
             rows = conn.execute(
-                f"""
+                db.trusted(f"""
                 SELECT * FROM products WHERE category = %s AND id <> %s
                 ORDER BY {SQL_ORDER["rating"]} LIMIT %s
-                """,
+                """),
                 (product["category"], product["id"], RELATED_LIMIT),
             ).fetchall()
         return [_product(r) for r in rows]

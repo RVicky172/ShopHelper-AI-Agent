@@ -12,12 +12,12 @@ import secrets
 from dataclasses import dataclass, replace
 from datetime import UTC, datetime, timedelta
 from functools import lru_cache
-from typing import Protocol
+from typing import Protocol, cast
 
 from shophelper.core import db
 from shophelper.core.config import get_settings
 from shophelper.core.identity import Principal, Role
-from shophelper.shop.orders import demo_email, get_order_repo, load_seed_orders
+from shophelper.shop.orders import account_order_repo, demo_email, load_seed_orders
 
 COOKIE_NAME = "shophelper_session"
 SESSION_LIFETIME = timedelta(hours=24)
@@ -163,7 +163,7 @@ class PostgresUserStore:
                 ).fetchone()
         except UniqueViolation as exc:
             raise EmailTaken(email) from exc
-        return self._user(row)
+        return cast(User, self._user(row))  # the insert returned a row
 
     def get_by_email(self, email: str) -> User | None:
         with db.connect() as conn:
@@ -178,7 +178,7 @@ class PostgresUserStore:
     def list_users(self) -> list[User]:
         with db.connect() as conn:
             rows = conn.execute(f"SELECT {self.COLUMNS} FROM users ORDER BY id").fetchall()
-        return [self._user(r) for r in rows]
+        return cast(list[User], [self._user(r) for r in rows])
 
     def set_role(self, user_id: int, role: Role) -> User | None:
         with db.connect() as conn:  # one transaction: an exception rolls it back
@@ -219,7 +219,8 @@ class PostgresUserStore:
 
     def count_failures(self, email: str, since: datetime) -> int:
         with db.connect() as conn:
-            return conn.execute(
+            # count(*) always returns a row
+            return conn.execute(  # pyright: ignore[reportOptionalSubscript]
                 "SELECT count(*) AS n FROM login_attempts WHERE email = %s AND attempted_at > %s",
                 (email, since),
             ).fetchone()["n"]
@@ -285,7 +286,7 @@ def signup(
         )
     name = display_name.strip() or email.split("@")[0]
     user = store.create_user(email, _hasher().hash(password), "customer", name)
-    get_order_repo().create_sample_orders(user.user_id, name)
+    account_order_repo().create_sample_orders(user.user_id, name)
     return to_principal(user)
 
 
@@ -385,7 +386,10 @@ def seed_demo_users(store: UserStore) -> dict[str, int]:
     owners = {}
     for account in demo_accounts():
         user = store.get_by_email(account["email"]) or store.create_user(
-            account["email"], _hasher().hash(DEMO_PASSWORD), account["role"], account["display_name"]
+            account["email"],
+            _hasher().hash(DEMO_PASSWORD),
+            cast(Role, account["role"]),
+            account["display_name"],
         )
         if account["role"] == "customer":
             owners[account["display_name"]] = user.user_id

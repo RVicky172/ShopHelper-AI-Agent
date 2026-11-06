@@ -31,7 +31,8 @@ class InMemoryHistory:
 
 class DynamoHistory:
     def __init__(self, table_name: str, region: str, ttl_days: int) -> None:
-        self._table = boto3.resource("dynamodb", region_name=region).Table(table_name)
+        # boto3 builds its resources at runtime
+        self._table = boto3.resource("dynamodb", region_name=region).Table(table_name)  # pyright: ignore[reportAttributeAccessIssue]
         self._ttl_seconds = ttl_days * 86400
 
     def load(self, session_id: str, limit: int) -> list[dict[str, Any]]:

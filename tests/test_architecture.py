@@ -71,6 +71,14 @@ def test_the_frontend_has_only_features_and_shared():
     assert folders == {"features", "shared"}
 
 
+def test_every_type_ignore_says_why():
+    for path in PACKAGE.rglob("*.py"):
+        lines = path.read_text(encoding="utf-8").splitlines()
+        for number, line in enumerate(lines):
+            if "pyright: ignore" in line:
+                assert lines[number - 1].lstrip().startswith("#"), f"{path.name}:{number + 1} gives no reason"
+
+
 def test_imports_point_one_way():
     assert forbidden_imports(PACKAGE) == []
 

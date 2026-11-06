@@ -84,17 +84,25 @@ needs a decision, or would change behaviour.
 
 ## PR 7 — Type checks, part 1
 
-- [ ] **T060** — Pyright config, then fix `core` and `rag` · files: `pyproject.toml`, `src/shophelper/core/`, `rag/` · test: 0 errors there
-- [ ] **T061** — Fix `shop` · files: `src/shophelper/shop/` · test: 0 errors there
-- [ ] **T062** — Fix `accounts` · files: `src/shophelper/accounts/` · test: 0 errors there
-- [ ] **T063** — Merge PR 7
+- [x] **T060** — Pyright config, then fix `core` and `rag` · files: `pyproject.toml`, `src/shophelper/core/`, `rag/` · test: 0 errors there
+      **Result (2026-11-06):** Pyright config. `db.connect()` had no return type, which alone caused most errors: 124 fell to 66 with that and a protocol for accounts-only repo methods. `core` and `rag` at 0.
+- [x] **T061** — Fix `shop` · files: `src/shophelper/shop/` · test: 0 errors there
+      **Result (2026-11-06):** `shop` at 0. The catalogue's f-string SQL was checked: only constants are interpolated, and user values stay bound. New helper `db.trusted()` names that.
+- [x] **T062** — Fix `accounts` · files: `src/shophelper/accounts/` · test: 0 errors there
+      **Result (2026-11-06):** `accounts` at 0.
+- [x] **T063** — Merge PR 7
+      **Result (2026-11-06):** Combined with PR 8: the whole change is about 16 files.
 
 ## PR 8 — Type checks, part 2
 
-- [ ] **T070** — Fix `agent` · files: `src/shophelper/agent/` · test: 0 errors there
-- [ ] **T071** — Fix `mcp` and `api` · files: `src/shophelper/mcp/`, `api/` · test: 0 errors in `src/`
-- [ ] **T072** — Add to `scripts/check.sh` and CI, and list any real bugs found · files: `scripts/check.sh`, `.github/workflows/ci.yml` · test: a type error fails
-- [ ] **T073** — Merge PR 8
+- [x] **T070** — Fix `agent` · files: `src/shophelper/agent/` · test: 0 errors there
+      **Result (2026-11-06):** `agent` at 0.
+- [x] **T071** — Fix `mcp` and `api` · files: `src/shophelper/mcp/`, `api/` · test: 0 errors in `src/`
+      **Result (2026-11-06):** `mcp` and `api` at 0. `src/` has 0 errors, with 8 ignores, each with a written reason.
+- [x] **T072** — Add to `scripts/check.sh` and CI, and list any real bugs found · files: `scripts/check.sh`, `.github/workflows/ci.yml` · test: a type error fails
+      **Result (2026-11-06):** In `scripts/check.sh` and CI. A deliberate type error failed. **No real bugs found, and no fix changed behaviour.** Evals and integration 67 of 67 against real Postgres.
+- [x] **T073** — Merge PR 8
+      **Result (2026-11-06):** Merged as the PR for this branch.
 
 ## PR 9 — Guide and close-out
 
