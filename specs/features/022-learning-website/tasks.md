@@ -124,8 +124,10 @@ ends with `scripts/check.sh`. Lesson tasks may finish 2 or 3 lessons at a time.
       **Result (2026-11-06):** Infrastructure as code, CI/CD, ways to release.
 - [x] **T210** — Stage 9: scaling and rate limits, cost, other clouds and hosting your own model
       **Result (2026-11-06):** Scaling and rate limits (local throughput stopped at about 44 turns a minute), cost, other clouds and hosting your own model.
-- [ ] **T211** — Stage 10: all 4 lessons on running in production · files: `docs/learn/10-running-in-production/`
-- [ ] **T212** — Slice 3 gates and merge, once the owner asks
+- [x] **T211** — Stage 10: all 4 lessons on running in production · files: `docs/learn/10-running-in-production/`
+      **Result (2026-11-06):** All 4 lessons on running in production. Metrics come from 66 real turns in the logs: median 2.95 s, p95 9.69 s.
+- [x] **T212** — Slice 3 gates and merge, once the owner asks
+      **Result (2026-11-06):** Check, build and browser run pass. Slice 3 complete: stages 6 to 10, 33 lessons, no carried chapters left.
 
 # Slice 4 — Interview
 

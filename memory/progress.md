@@ -11,6 +11,13 @@ Newest first. One entry per working session.
 
 ---
 
+## 2026-11-06 — 022: stage 10, running in production
+
+**Done:** 4 lessons, closing slice 3. From 66 real turns in the logs: median 2.95 s, p95 9.69 s. Found: the AWS default, Haiku 4.5, is past its
+"not sooner than" retirement date on Anthropic's page, though still active, and `judge.py` sends `temperature`, which the latest API version removed.
+**Next:** `/spec-implement 022`, from T300: slice 4, interview.
+**Blockers:** none
+
 ## 2026-11-06 — 022: stage 9, cloud deployment
 
 **Done:** 9 lessons, replacing the carried chapter. Rent worked out from AWS's public price list for Mumbai: about $1.56 a day, matching what was seen.
