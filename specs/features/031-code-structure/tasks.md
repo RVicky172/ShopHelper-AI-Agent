@@ -66,10 +66,14 @@ needs a decision, or would change behaviour.
 
 ## PR 5 — Lint and format
 
-- [ ] **T040** — Biome config, and fix what the lint rules find, listing anything that would change behaviour · files: `web/biome.json`, `web/src/**` · test: lint passes
-- [ ] **T041** — The mechanical reformat, as its own commit · files: `web/src/**` · test: 82 frontend tests, build
-- [ ] **T042** — Add to `scripts/check.sh` and CI · files: `scripts/check.sh`, `.github/workflows/ci.yml` · test: a formatting slip fails
-- [ ] **T043** — Merge PR 5
+- [x] **T040** — Biome config, and fix what the lint rules find, listing anything that would change behaviour · files: `web/biome.json`, `web/src/**` · test: lint passes
+      **Result (2026-11-06):** 24 buttons state their type. 2 were inside forms and relied on the default, so they became `submit`, keeping sign-in and RAG search working. 5 deliberate choices keep a written reason (scrollable tables, the menu's focus watcher). Non-null checks are off, since strict TypeScript covers them. No finding needed a behaviour change.
+- [x] **T041** — The mechanical reformat, as its own commit · files: `web/src/**` · test: 82 frontend tests, build
+      **Result (2026-11-06):** 33 files reformatted, as one commit. Types, 82 tests and the build pass.
+- [x] **T042** — Add to `scripts/check.sh` and CI · files: `scripts/check.sh`, `.github/workflows/ci.yml` · test: a formatting slip fails
+      **Result (2026-11-06):** In `scripts/check.sh` and CI. A formatting slip failed the lint.
+- [x] **T043** — Merge PR 5
+      **Result (2026-11-06):** Merged as the PR for this branch.
 
 ## PR 6 — Pre-commit
 
