@@ -97,7 +97,7 @@ So the model has no path to money. Even a fully jailbroken model can only *ask*,
 
 Checked on 2026-11-06.
 
-Tools can be defined in your code, as here, or shared through a protocol. [MCP](../04-mcp/01-mcp.md) is the common standard for that, and it's the next stage.
+Tools can be defined in your code, as here, or shared through a protocol. [MCP](../04-mcp/01-why-mcp.md) is the common standard for that, and it's the next stage.
 
 As tool lists grow, models choose less well, and the descriptions use up the context. So some platforms load tools on demand. Anthropic offers a [tool search tool](https://platform.claude.com/docs/en/agents-and-tools/tool-use/overview) for working with thousands of tools.
 

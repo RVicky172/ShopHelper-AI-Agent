@@ -58,7 +58,10 @@
       "title": "MCP",
       "short": "MCP",
       "lessons": [
-        "01-mcp"
+        "01-why-mcp",
+        "02-tools-resources-and-prompts",
+        "03-transports-and-the-current-spec",
+        "04-authorization-and-risks"
       ]
     },
     {
