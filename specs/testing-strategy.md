@@ -62,6 +62,7 @@ after it could affect the result. A task isn't ticked on level 3's behalf: a fea
 
 ```bash
 scripts/check.sh                         # level 1: must pass before any task is ticked
+uv run pre-commit install                # once per clone: ruff and Biome run before each commit
 scripts/evals_local.sh -k care_          # level 2: only the related eval cases
 uv run pytest && (cd web && npm test)    # unit tests only
 scripts/evals_local.sh                   # end-to-end; needs docker compose up + LM Studio; EVAL_RUNS=3 repeats it

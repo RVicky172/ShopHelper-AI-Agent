@@ -211,6 +211,7 @@ uv run pytest                 # backend unit tests, no services needed
 cd web && npm test            # frontend logic tests
 scripts/evals_local.sh        # 37 real conversations and integration tests; needs the stack (about 3 minutes)
 EVAL_RUNS=3 scripts/evals_local.sh   # repeat the suite; the default is 1 run
+uv run pre-commit install    # once per clone: lint and format run before each commit
 ```
 
 ## Changing models

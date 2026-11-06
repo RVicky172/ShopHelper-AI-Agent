@@ -77,8 +77,10 @@ needs a decision, or would change behaviour.
 
 ## PR 6 — Pre-commit
 
-- [ ] **T050** — Hooks for ruff and Biome, with install steps in the docs · files: `.pre-commit-config.yaml`, `docs/` · test: a bad commit is refused; a small commit takes under 10 s (AC-9)
-- [ ] **T051** — Merge PR 6
+- [x] **T050** — Hooks for ruff and Biome, with install steps in the docs · files: `.pre-commit-config.yaml`, `docs/` · test: a bad commit is refused; a small commit takes under 10 s (AC-9)
+      **Result (2026-11-06):** Hooks for ruff and Biome. An unused import and invalid CSS were both refused. A commit took 0.5 s, or 1.4 s when `web/` changed. Install step in `docs/local-setup.md`.
+- [x] **T051** — Merge PR 6
+      **Result (2026-11-06):** Merged as the PR for this branch.
 
 ## PR 7 — Type checks, part 1
 
