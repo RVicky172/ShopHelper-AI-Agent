@@ -37,3 +37,6 @@ def pytest_sessionfinish(session, exitstatus):
     Path(__file__).with_name("report.json").write_text(json.dumps(summary, indent=2))
     print(f"\nEVAL SUMMARY: {passed}/{len(RESULTS)} passed, "
           f"faithfulness={summary['mean_faithfulness']}, report: evals/report.json")
+
+
+from integration_support import empty_db, fresh_db, shoppers  # noqa: E402, F401  (fixtures)
