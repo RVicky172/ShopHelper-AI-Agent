@@ -9,8 +9,8 @@ from functools import lru_cache
 from typing import Any, Protocol
 
 from shophelper import db
-from shophelper.auth import Principal
 from shophelper.config import get_settings
+from shophelper.identity import Principal
 
 OPEN_STATUSES = ("pending", "claimed")
 

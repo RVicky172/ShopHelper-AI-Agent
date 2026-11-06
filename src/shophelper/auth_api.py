@@ -14,8 +14,8 @@ from starlette.responses import JSONResponse
 from starlette.types import ASGIApp, Receive, Scope, Send
 
 from shophelper import auth
-from shophelper.auth import Principal, Role
 from shophelper.config import get_settings
+from shophelper.identity import Principal, Role
 from shophelper.schemas import LoginRequest, RoleChange, SignupRequest, UserOut
 
 PUBLIC_PATHS = {"/health", "/auth/signup", "/auth/login", "/auth/demo-accounts"}

@@ -1,7 +1,7 @@
 from fastapi.testclient import TestClient
 
 from shophelper import api
-from shophelper.schemas import ChatResponse
+from shophelper.chat_response import ChatResponse
 from shophelper.service import NoPendingApproval
 
 

@@ -10,10 +10,10 @@ from typing import Annotated, Any
 from fastapi import APIRouter, Depends, HTTPException, Query, Request
 
 from shophelper import db, rag
-from shophelper.auth import Principal
 from shophelper.auth_api import current_principal, require_role
 from shophelper.config import get_settings
 from shophelper.graph import request_refund
+from shophelper.identity import Principal
 from shophelper.orders import get_order_repo
 from shophelper.refunds import get_refund_store
 

@@ -7,10 +7,10 @@ from typing import Annotated, Any
 
 from fastapi import APIRouter, Depends, HTTPException, Query
 
-from shophelper.auth import Principal
 from shophelper.auth_api import accounts_only, current_principal, require_role
 from shophelper.cart import cart_view, get_cart_store
 from shophelper.catalog import PAGE_SIZE, Sort, get_product_repo
+from shophelper.identity import Principal
 from shophelper.orders import get_order_repo
 from shophelper.schemas import CartMerge, CartQuantity
 

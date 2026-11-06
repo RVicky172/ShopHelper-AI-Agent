@@ -9,19 +9,20 @@ from fastapi import Depends, FastAPI, HTTPException, Request
 from fastapi.responses import StreamingResponse
 from starlette.concurrency import run_in_threadpool
 
-from shophelper.auth import Principal
 from shophelper.auth_api import AccountsGate, accounts_only, current_principal, require_role
 from shophelper.auth_api import router as auth_router
+from shophelper.chat_response import ChatResponse
 from shophelper.config import get_settings
 from shophelper.conversations import get_conversation_store
 from shophelper.graph import postgres_checkpointer
+from shophelper.identity import Principal
 from shophelper.local_api import router as local_router
 from shophelper.mcp_client import mcp_tools
 from shophelper.memory import get_history_store
 from shophelper.observability import log_event
 from shophelper.orders import get_order_repo
 from shophelper.refunds import RefundRequest, ReviewForbidden, authorize_review, get_refund_store
-from shophelper.schemas import ApprovalRequest, ChatRequest, ChatResponse
+from shophelper.schemas import ApprovalRequest, ChatRequest
 from shophelper.service import NoPendingApproval, ShopHelperService
 from shophelper.shop_api import router as shop_router
 
