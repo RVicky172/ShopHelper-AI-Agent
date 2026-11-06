@@ -7,11 +7,11 @@ from typing import Any
 
 import boto3
 
-from shophelper import identity
-from shophelper.config import get_settings
-from shophelper.orders import get_order_repo
+from shophelper.core import identity
+from shophelper.core.config import get_settings
+from shophelper.shop.orders import get_order_repo
 
-LOCAL_POLICY_DIR = Path(__file__).resolve().parents[2] / "knowledge" / "policies"
+LOCAL_POLICY_DIR = Path(__file__).resolve().parents[3] / "knowledge" / "policies"
 
 
 class NoIdentity(Exception):
@@ -40,7 +40,7 @@ def search_policy(query: str, top_k: int = 4) -> dict[str, Any]:
     """Search store policies (returns, refunds, shipping, warranty, payments, privacy...)."""
     settings = get_settings()
     if settings.database_url:  # local stack: our own pgvector pipeline (see rag.py)
-        from shophelper import rag
+        from shophelper.rag import pipeline as rag
 
         return {"passages": rag.search(query, top_k)}
     kb_id = settings.knowledge_base_id

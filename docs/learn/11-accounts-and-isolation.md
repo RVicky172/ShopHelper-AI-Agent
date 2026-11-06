@@ -29,7 +29,7 @@ to live in code the model can't influence.
 | Asks | Who are you? | What may you do? |
 | Answered by | Password and session | Your level, and who owns the data |
 | Fails with | 401 Unauthorized | 403 Forbidden |
-| Code | [auth.py](../../src/shophelper/auth.py) | `require_role`, `authorize_review`, the owner filter |
+| Code | [auth.py](../../src/shophelper/accounts/auth.py) | `require_role`, `authorize_review`, the owner filter |
 
 The names are easy to mix up, and the HTTP status names don't help: 401 really means "not authenticated".
 
@@ -73,7 +73,7 @@ The session lives in a cookie with two important flags:
 - **`SameSite=Strict`:** the browser won't send it on requests that another site started.
 
 `SameSite` ignores port numbers, so another app on `localhost:3000` counts as the same site. That's why
-[auth_api.py](../../src/shophelper/auth_api.py) also checks the `Origin` header.
+[auth_api.py](../../src/shophelper/api/auth_routes.py) also checks the `Origin` header.
 
 ## Not giving attackers hints
 
@@ -149,7 +149,7 @@ isn't in a prompt, a message or a tool's arguments, so there's nothing for an at
 
 Three details matter:
 
-- **`ContextVar`** ([identity.py](../../src/shophelper/identity.py)) keeps the value per request, so 20
+- **`ContextVar`** ([identity.py](../../src/shophelper/core/identity.py)) keeps the value per request, so 20
   users running at once can't see each other's.
 - **The token is signed**, so the MCP server doesn't have to trust whoever is calling. No valid signature
   means no data. A JWT fits this job, unlike browser sessions: it lasts 60 seconds, so it never needs revoking.
@@ -157,7 +157,7 @@ Three details matter:
 
 ## Isolation is one line of SQL
 
-Here's the check, from [orders.py](../../src/shophelper/orders.py):
+Here's the check, from [orders.py](../../src/shophelper/shop/orders.py):
 
 ```sql
 SELECT data FROM orders WHERE order_id = %s AND owner_id = %s
@@ -251,7 +251,7 @@ can read every step, not because that's the right choice for production.
 
    Neither table holds anything a thief could use directly.
 6. **Remove the protection yourself.** This one shows why the check matters. In
-   [tools.py](../../src/shophelper/tools.py), change `get_for_owner(clean_id, user_id)` to `get(clean_id)`, then
+   [tools.py](../../src/shophelper/agent/tools.py), change `get_for_owner(clean_id, user_id)` to `get(clean_id)`, then
    run `docker compose restart mcp`. Repeat step 1, and watch the agent hand over Ravi's order. **Then put it
    back and restart `mcp` again.**
 7. **See the reviewer record.** Approve a refund as Support, then run:

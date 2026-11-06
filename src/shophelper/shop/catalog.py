@@ -9,10 +9,10 @@ from functools import lru_cache
 from pathlib import Path
 from typing import Any, Literal, Protocol
 
-from shophelper import db
-from shophelper.config import get_settings
+from shophelper.core import db
+from shophelper.core.config import get_settings
 
-SEED_FILE = Path(__file__).parent / "data" / "products.json"
+SEED_FILE = Path(__file__).parents[1] / "data" / "products.json"
 PAGE_SIZE = 12
 RELATED_LIMIT = 4
 

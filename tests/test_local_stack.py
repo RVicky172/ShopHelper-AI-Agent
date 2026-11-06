@@ -6,12 +6,14 @@ from langchain_aws import ChatBedrockConverse
 from langgraph.checkpoint.memory import InMemorySaver
 
 from fakes import ScriptedChatModel, call, say
-from shophelper import api, guardrails, rag
-from shophelper.config import Settings, get_settings
-from shophelper.graph import default_checkpointer, default_llm
-from shophelper.memory import InMemoryHistory
-from shophelper.orders import get_order_repo
-from shophelper.service import ShopHelperService, _tool_result
+from shophelper.agent import guardrails
+from shophelper.agent.graph import default_checkpointer, default_llm
+from shophelper.agent.memory import InMemoryHistory
+from shophelper.agent.service import ShopHelperService, _tool_result
+from shophelper.api import app as api
+from shophelper.core.config import Settings, get_settings
+from shophelper.rag import pipeline as rag
+from shophelper.shop.orders import get_order_repo
 
 
 @pytest.fixture(autouse=True)

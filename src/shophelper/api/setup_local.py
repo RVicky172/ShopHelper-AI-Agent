@@ -11,10 +11,12 @@
 import sys
 import time
 
-from shophelper import auth, db, rag
-from shophelper.catalog import get_product_repo
-from shophelper.config import get_settings
-from shophelper.orders import get_order_repo
+from shophelper.accounts import auth
+from shophelper.core import db
+from shophelper.core.config import get_settings
+from shophelper.rag import pipeline as rag
+from shophelper.shop.catalog import get_product_repo
+from shophelper.shop.orders import get_order_repo
 
 
 def wait_for_lm_studio(timeout_s: int = 60) -> None:

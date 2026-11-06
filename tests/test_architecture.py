@@ -57,6 +57,15 @@ def missing_paths(root: Path, patterns: list[str]) -> list[str]:
     return problems
 
 
+def test_no_module_sits_loose_in_the_package():
+    assert [p.name for p in PACKAGE.glob("*.py")] == ["__init__.py"]
+
+
+def test_every_folder_says_what_it_is_for():
+    for folder in ALLOWED:
+        assert ast.get_docstring(ast.parse((PACKAGE / folder / "__init__.py").read_text(encoding="utf-8")))
+
+
 def test_imports_point_one_way():
     assert forbidden_imports(PACKAGE) == []
 

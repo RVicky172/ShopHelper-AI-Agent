@@ -12,7 +12,7 @@ This project keeps two kinds of memory, for two different readers.
 | --- | --- | --- |
 | Reader | People: support staff, the UI | The agent |
 | Contains | Readable messages only | Everything: tool calls, results, paused work |
-| Written by | [service.py](../../src/shophelper/service.py) | LangGraph, automatically |
+| Written by | [service.py](../../src/shophelper/agent/service.py) | LangGraph, automatically |
 | Privacy | Stores masked text | Stores masked input and tool data |
 | Purpose | Display and audit | Resuming work |
 
@@ -55,13 +55,13 @@ flowchart TD
 ```
 
 Rule checks first, because a human's time shouldn't go on requests the policy already rules out.
-`refund_eligibility()` in [orders.py](../../src/shophelper/orders.py) is plain Python, so it gives
+`refund_eligibility()` in [orders.py](../../src/shophelper/shop/orders.py) is plain Python, so it gives
 the same answer every time. No prompt can change it.
 
 ## How pausing works
 
 The key is LangGraph's `interrupt()`, in `_decide_refund` in
-[graph.py](../../src/shophelper/graph.py):
+[graph.py](../../src/shophelper/agent/graph.py):
 
 ```python
 ok, why = refund_eligibility(order, amount)

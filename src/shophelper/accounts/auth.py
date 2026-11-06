@@ -12,13 +12,12 @@ import secrets
 from dataclasses import dataclass, replace
 from datetime import UTC, datetime, timedelta
 from functools import lru_cache
-from typing import Literal, Protocol
+from typing import Protocol
 
-from shophelper import db
-from shophelper.config import get_settings
-from shophelper.orders import demo_email, get_order_repo, load_seed_orders
-
-Role = Literal["customer", "support", "admin"]
+from shophelper.core import db
+from shophelper.core.config import get_settings
+from shophelper.core.identity import Principal, Role
+from shophelper.shop.orders import demo_email, get_order_repo, load_seed_orders
 
 COOKIE_NAME = "shophelper_session"
 SESSION_LIFETIME = timedelta(hours=24)
@@ -59,16 +58,6 @@ class NoSigningKey(Exception):
 
 class SeedingRefused(Exception):
     """Demo accounts have a published password, so they must never reach a real deployment."""
-
-
-@dataclass(frozen=True)
-class Principal:
-    """Who is acting. Comes only from a verified session, never from a request body or the model."""
-
-    user_id: int
-    email: str
-    role: Role
-    display_name: str = ""
 
 
 @dataclass(frozen=True)

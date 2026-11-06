@@ -1,9 +1,9 @@
 from langgraph.checkpoint.memory import InMemorySaver
 
 from fakes import ScriptedChatModel, say
-from shophelper.mcp_client import mcp_tools
-from shophelper.memory import InMemoryHistory
-from shophelper.service import ShopHelperService
+from shophelper.agent.memory import InMemoryHistory
+from shophelper.agent.service import ShopHelperService
+from shophelper.mcp.client import mcp_tools
 
 
 async def test_mcp_server_exposes_tools_and_agent_uses_them():

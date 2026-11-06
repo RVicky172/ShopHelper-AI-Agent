@@ -1,8 +1,8 @@
 from fastapi.testclient import TestClient
 
-from shophelper import api
-from shophelper.schemas import ChatResponse
-from shophelper.service import NoPendingApproval
+from shophelper.agent.schemas import ChatResponse
+from shophelper.agent.service import NoPendingApproval
+from shophelper.api import app as api
 
 
 class FakeService:

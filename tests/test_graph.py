@@ -3,10 +3,10 @@ from langchain_core.tools import StructuredTool
 from langgraph.checkpoint.memory import InMemorySaver
 
 from fakes import ScriptedChatModel, call, say
-from shophelper.graph import NO_POLICY_ANSWER
-from shophelper.memory import InMemoryHistory
-from shophelper.orders import get_order_repo
-from shophelper.service import NoPendingApproval, ShopHelperService
+from shophelper.agent.graph import NO_POLICY_ANSWER
+from shophelper.agent.memory import InMemoryHistory
+from shophelper.agent.service import NoPendingApproval, ShopHelperService
+from shophelper.shop.orders import get_order_repo
 
 
 @pytest.fixture(autouse=True)

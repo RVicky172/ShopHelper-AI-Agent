@@ -13,10 +13,10 @@ from starlette.concurrency import run_in_threadpool
 from starlette.responses import JSONResponse
 from starlette.types import ASGIApp, Receive, Scope, Send
 
-from shophelper import auth
-from shophelper.auth import Principal, Role
-from shophelper.config import get_settings
-from shophelper.schemas import LoginRequest, RoleChange, SignupRequest, UserOut
+from shophelper.accounts import auth
+from shophelper.api.schemas import LoginRequest, RoleChange, SignupRequest, UserOut
+from shophelper.core.config import get_settings
+from shophelper.core.identity import Principal, Role
 
 PUBLIC_PATHS = {"/health", "/auth/signup", "/auth/login", "/auth/demo-accounts"}
 PUBLIC_READS = re.compile(r"/categories|/products(/[^/]+)?")  # fullmatch: "/products/x/y" isn't one

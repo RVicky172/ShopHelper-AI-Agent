@@ -8,6 +8,21 @@ a tool's arguments. The model has nothing it could edit.
 from collections.abc import Iterator
 from contextlib import contextmanager
 from contextvars import ContextVar
+from dataclasses import dataclass
+from typing import Literal
+
+Role = Literal["customer", "support", "admin"]
+
+
+@dataclass(frozen=True)
+class Principal:
+    """Who is acting. Comes only from a verified session, never from a request body or the model."""
+
+    user_id: int
+    email: str
+    role: Role
+    display_name: str = ""
+
 
 _acting_user: ContextVar[int | None] = ContextVar("acting_user", default=None)
 

@@ -12,11 +12,11 @@ import yaml
 from langchain_core.messages import ToolMessage
 
 from judge import judge_faithfulness
-from shophelper import auth
-from shophelper.config import get_settings
-from shophelper.mcp_client import mcp_tools
-from shophelper.orders import demo_email, get_order_repo
-from shophelper.service import ShopHelperService
+from shophelper.accounts import auth
+from shophelper.agent.service import ShopHelperService
+from shophelper.core.config import get_settings
+from shophelper.mcp.client import mcp_tools
+from shophelper.shop.orders import demo_email, get_order_repo
 
 CASES = yaml.safe_load(Path(__file__).with_name("golden_cases.yaml").read_text())
 MIN_FAITHFULNESS = 4

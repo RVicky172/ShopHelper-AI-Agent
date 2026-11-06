@@ -6,13 +6,14 @@ from langchain_core.messages import ToolMessage
 from langgraph.checkpoint.memory import InMemorySaver
 
 from fakes import ScriptedChatModel, call, say
-from shophelper import api, auth
-from shophelper.config import get_settings
-from shophelper.conversations import get_conversation_store
-from shophelper.memory import get_history_store
-from shophelper.orders import demo_email, get_order_repo
-from shophelper.refunds import get_refund_store
-from shophelper.service import ShopHelperService
+from shophelper.accounts import auth
+from shophelper.accounts.conversations import get_conversation_store
+from shophelper.agent.memory import get_history_store
+from shophelper.agent.service import ShopHelperService
+from shophelper.api import app as api
+from shophelper.core.config import get_settings
+from shophelper.shop.orders import demo_email, get_order_repo
+from shophelper.shop.refunds import get_refund_store
 
 
 def clear_caches():

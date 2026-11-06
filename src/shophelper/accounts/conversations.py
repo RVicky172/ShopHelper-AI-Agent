@@ -8,8 +8,8 @@ import uuid
 from functools import lru_cache
 from typing import Any, Protocol
 
-from shophelper import db
-from shophelper.config import get_settings
+from shophelper.core import db
+from shophelper.core.config import get_settings
 
 
 def new_conversation_id() -> str:

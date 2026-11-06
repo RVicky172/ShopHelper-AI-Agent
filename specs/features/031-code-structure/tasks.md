@@ -29,13 +29,20 @@ needs a decision, or would change behaviour.
 
 ## PR 2 — Backend moves
 
-- [ ] **T010** — Cycle fixes, in their own commit: `Principal` to `identity.py`, split `ChatResponse` from the request models · files: `src/shophelper/` · test: `scripts/check.sh`
-- [ ] **T011** — Move script: `git mv`, import rewrites, `ruff --fix`, one commit of paths only · files: `src/shophelper/**`, `tests/**`, `evals/**` · test: same test count, `scripts/check.sh`
-- [ ] **T012** — Fix `__file__` paths and entry points · files: `Dockerfile`, `docker-compose.yml`, `scripts/evals_local.sh`, moved modules · test: `docker compose up --build`, `/health`
-- [ ] **T013** — Turn on the import rule and "no loose modules". Sabotage: add a forbidden import · files: `tests/test_architecture.py` · test: it fails, then passes
-- [ ] **T014** — Level 2 and AWS check: `scripts/evals_local.sh -k "care_ or refund"`, `test_defaults_are_the_aws_path`, `terraform validate`, local `docker build`. Nothing pushed or deployed · test: all pass
-- [ ] **T015** — Update `src/` paths in live docs · files: `README.md`, `CLAUDE.md`, `docs/**`, `specs/architecture.md`, `specs/*.md` · test: path check
-- [ ] **T016** — Merge PR 2
+- [x] **T010** — Cycle fixes, in their own commit: `Principal` to `identity.py`, split `ChatResponse` from the request models · files: `src/shophelper/` · test: `scripts/check.sh`
+      **Result (2026-11-06):** `Principal` and `Role` moved to `identity.py`, `ChatResponse` to its own module. 362 tests pass.
+- [x] **T011** — Move script: `git mv`, import rewrites, `ruff --fix`, one commit of paths only · files: `src/shophelper/**`, `tests/**`, `evals/**` · test: same test count, `scripts/check.sh`
+      **Result (2026-11-06):** 26 modules moved by script. Test counts unchanged at 362 and 94. The script rewrote 2 import forms twice, caught at once by test collection.
+- [x] **T012** — Fix `__file__` paths and entry points · files: `Dockerfile`, `docker-compose.yml`, `scripts/evals_local.sh`, moved modules · test: `docker compose up --build`, `/health`
+      **Result (2026-11-06):** 4 paths and the entry points fixed. Stack rebuilt: all services healthy, `setup` works, `/health` 200.
+- [x] **T013** — Turn on the import rule and "no loose modules". Sabotage: add a forbidden import · files: `tests/test_architecture.py` · test: it fails, then passes
+      **Result (2026-11-06):** No loose modules, and each folder states its purpose. A forbidden import in `core` failed the rule, then was removed.
+- [x] **T014** — Level 2 and AWS check: `scripts/evals_local.sh -k "care_ or refund"`, `test_defaults_are_the_aws_path`, `terraform validate`, local `docker build`. Nothing pushed or deployed · test: all pass
+      **Result (2026-11-06):** Evals -k care or refund: 10 of 10. `test_defaults_are_the_aws_path`, `terraform validate` pass, `infra/` unchanged. A local image starts the app and MCP server, finds its data files, and loads neither `psycopg` nor `langchain_openai`, so lazy imports survived. Nothing pushed or deployed.
+- [x] **T015** — Update `src/` paths in live docs · files: `README.md`, `CLAUDE.md`, `docs/**`, `specs/architecture.md`, `specs/*.md` · test: path check
+      **Result (2026-11-06):** 13 docs updated. The path check found 63 stale paths, and now finds none.
+- [x] **T016** — Merge PR 2
+      **Result (2026-11-06):** Merged as the PR for this branch.
 
 ## PR 3 — Test layout
 

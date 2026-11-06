@@ -16,15 +16,15 @@ from langgraph.checkpoint.base import BaseCheckpointSaver
 from langgraph.errors import GraphRecursionError
 from langgraph.types import Command
 
-from shophelper import guardrails
-from shophelper.auth import Principal
-from shophelper.config import get_settings
-from shophelper.graph import build_graph, default_checkpointer, default_llm, local_tools
-from shophelper.memory import HistoryStore, get_history_store
-from shophelper.observability import init_tracing
-from shophelper.refunds import get_refund_store
-from shophelper.schemas import ChatResponse
-from shophelper.tools import NoIdentity
+from shophelper.agent import guardrails
+from shophelper.agent.graph import build_graph, default_checkpointer, default_llm, local_tools
+from shophelper.agent.memory import HistoryStore, get_history_store
+from shophelper.agent.schemas import ChatResponse
+from shophelper.agent.tools import NoIdentity
+from shophelper.core.config import get_settings
+from shophelper.core.identity import Principal
+from shophelper.core.observability import init_tracing
+from shophelper.shop.refunds import get_refund_store
 
 
 class NoPendingApproval(Exception):

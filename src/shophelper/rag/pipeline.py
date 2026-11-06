@@ -11,10 +11,10 @@ from functools import lru_cache
 from pathlib import Path
 from typing import Any
 
-from shophelper import db
-from shophelper.config import get_settings
+from shophelper.core import db
+from shophelper.core.config import get_settings
 
-POLICY_DIR = Path(__file__).resolve().parents[2] / "knowledge" / "policies"
+POLICY_DIR = Path(__file__).resolve().parents[3] / "knowledge" / "policies"
 MAX_CHUNK_CHARS = 350
 
 # nomic-embed-text was trained with these prefixes. Questions and documents are different

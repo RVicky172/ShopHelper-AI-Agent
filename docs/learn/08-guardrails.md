@@ -30,7 +30,7 @@ flowchart LR
 
 A check at each end, not on every model call. A turn may call the model three times, but only the
 first input and final output cross the boundary with the user. This costs less, and it works with
-any framework. See `check()` in [guardrails.py](../../src/shophelper/guardrails.py).
+any framework. See `check()` in [guardrails.py](../../src/shophelper/agent/guardrails.py).
 
 **What it doesn't cover:** text coming back from tools. If a policy document contained a hidden
 instruction, this design wouldn't catch it. That's called **indirect prompt injection**, and it's a
@@ -60,7 +60,7 @@ together.
 | How | Regular expressions | Trained classifiers plus patterns |
 | Catches | Exact, obvious patterns | Paraphrases, and harmful content |
 | Cost | Free, instant | Per text unit, plus a network call |
-| Set up in | [guardrails.py](../../src/shophelper/guardrails.py) | [infra/guardrail.tf](../../infra/guardrail.tf) |
+| Set up in | [guardrails.py](../../src/shophelper/agent/guardrails.py) | [infra/guardrail.tf](../../infra/guardrail.tf) |
 
 The local rules exist so you can watch the block-and-mask flow. **They aren't real protection.**
 

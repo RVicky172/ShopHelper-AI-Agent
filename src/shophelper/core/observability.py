@@ -14,7 +14,7 @@ from typing import Any
 import boto3
 from botocore.exceptions import BotoCoreError, ClientError
 
-from shophelper.config import get_settings
+from shophelper.core.config import get_settings
 
 _tracing_initialised = False
 

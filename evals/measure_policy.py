@@ -32,11 +32,11 @@ for key, value in {
 
 import psycopg  # noqa: E402
 
-from shophelper import auth  # noqa: E402
-from shophelper.mcp_client import mcp_tools  # noqa: E402
-from shophelper.orders import demo_email  # noqa: E402
-from shophelper.refunds import get_refund_store  # noqa: E402
-from shophelper.service import ShopHelperService  # noqa: E402
+from shophelper.accounts import auth  # noqa: E402
+from shophelper.agent.service import ShopHelperService  # noqa: E402
+from shophelper.mcp.client import mcp_tools  # noqa: E402
+from shophelper.shop.orders import demo_email  # noqa: E402
+from shophelper.shop.refunds import get_refund_store  # noqa: E402
 
 FILLER = [
     "What payment methods do you accept?",

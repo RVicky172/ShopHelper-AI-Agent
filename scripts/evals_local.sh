@@ -18,8 +18,8 @@ export LANGSMITH_TRACING=false
 
 reset_orders() {
   uv run python -c "
-from shophelper.orders import get_order_repo
-from shophelper.refunds import get_refund_store
+from shophelper.shop.orders import get_order_repo
+from shophelper.shop.refunds import get_refund_store
 get_refund_store().cancel_open()  # refund evals open real requests
 get_order_repo().reset()"
 }

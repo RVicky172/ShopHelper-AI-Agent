@@ -79,7 +79,7 @@ services:
   setup:
     # Runs once, then exits: creates tables, seeds orders, embeds the policy documents.
     <<: *app
-    command: python -m shophelper.setup_local
+    command: python -m shophelper.api.setup_local
     depends_on:
       postgres:
         condition: service_healthy
@@ -88,7 +88,7 @@ services:
     # The tool server. Any MCP client can use it, not just our agent.
     <<: *app
     command: >
-      watchfiles --filter python "python -m shophelper.mcp_server --http" /app/src
+      watchfiles --filter python "python -m shophelper.mcp.server --http" /app/src
     ports:
       - 127.0.0.1:8765:8765
     depends_on:
@@ -103,7 +103,7 @@ services:
   api:
     # FastAPI + the LangGraph agent. API docs at http://localhost:8000/docs
     <<: *app
-    command: uvicorn shophelper.api:app --host 0.0.0.0 --port 8000 --reload --reload-dir /app/src
+    command: uvicorn shophelper.api.app:app --host 0.0.0.0 --port 8000 --reload --reload-dir /app/src
     ports:
       - 127.0.0.1:8000:8000
     depends_on:
