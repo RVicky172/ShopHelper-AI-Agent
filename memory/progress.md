@@ -11,6 +11,13 @@ Newest first. One entry per working session.
 
 ---
 
+## 2026-11-06 — 031 Implemented
+
+**Done:** Backend and frontend organised by feature, tests mirror the code, imports enforced one way. Pyright 124 errors to 0, Biome, pre-commit, frontend CI. 8 PRs (4 to 11, without
+the throwaway PR 3). Evals 37 of 37, 366 backend, 82 frontend. No behaviour changed, and no real bugs found.
+**Next:** 022. Restore its planning from `git stash` on `feat/022-learning-website`, rebase on `main`, and move its site to `web/src/features/learn/`.
+**Blockers:** none
+
 ## 2026-11-06 — 030 Implemented
 
 **Done:** Code searches first on Care and warranty questions: 48 of 48, up from 30 of 48. Evals 37 of 37, 354 backend, 82 frontend. 13 of 13 criteria.

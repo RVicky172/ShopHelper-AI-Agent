@@ -45,6 +45,13 @@ something cost more than ~10 minutes or the fix was non-obvious. Delete entries 
   routes must also use `app.openapi()["paths"]`, and should assert that known routes were actually seen.
 - FastAPI app-level dependencies don't cover `/docs` or `/openapi.json`. Use ASGI middleware to protect everything.
 
+## Type checks and lint
+
+- One missing return type can cause dozens of errors: `db.connect()` alone made every row look like a tuple. Sort by cause, not by file.
+- A `# pyright: ignore` inside a multi-line f-string is part of the string, so it would go into the SQL. Wrap the value instead: `db.trusted()`.
+- A linter's automatic fix can change behaviour. A `<button>` in a form submits by default, so `type="button"` would have broken sign-in.
+- A tool's peer dependencies decide whether it fits: `typescript-eslint` stops below TypeScript 6.1. Check before choosing, not after.
+
 ## Docker
 
 - A `git checkout` that rewrites `web/` can leave Vite failing with `Failed to resolve import "./index.css"`, though the file exists, and every

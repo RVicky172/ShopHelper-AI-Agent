@@ -106,11 +106,16 @@ needs a decision, or would change behaviour.
 
 ## PR 9 — Guide and close-out
 
-- [ ] **T090** — `CONTRIBUTING.md`: what each folder is for, where new code goes, the layers, how PRs work · files: `CONTRIBUTING.md` · test: read through
-- [ ] **T091** — Update `specs/architecture.md` with what this feature established.
-- [ ] **T092** — Clean rebuild and browser run, in the background where possible · test: recorded here (AC-11)
-- [ ] **T093** — Every Definition-of-Done gate green (`specs/constitution.md`), level 3 once; record the numbers.
-- [ ] **T094** — Tick ACs in `spec.md` (Status `Implemented`), list the PRs, update `roadmap.md`, `memory/progress.md`, `memory/MEMORY.md`. Merge PR 9.
+- [x] **T090** — `CONTRIBUTING.md`: what each folder is for, where new code goes, the layers, how PRs work · files: `CONTRIBUTING.md` · test: read through
+      **Result (2026-11-06):** `CONTRIBUTING.md` covers each folder, where new code goes, the layers, the checks and how a change gets in. The README's layout now matches.
+- [x] **T091** — Update `specs/architecture.md` with what this feature established.
+      **Result (2026-11-06):** Layout, the import rule and every module path updated.
+- [x] **T092** — Clean rebuild and browser run, in the background where possible · test: recorded here (AC-11)
+      **Result (2026-11-06):** Rebuilt with data kept, all services healthy. Bought, chatted, staff and admin pages, How it works: no page errors, only the expected signed-out `401`. Test order and conversation removed.
+- [x] **T093** — Every Definition-of-Done gate green (`specs/constitution.md`), level 3 once; record the numbers.
+      **Result (2026-11-06):** Pyright 0 errors, 366 backend, 82 frontend, build passes, evals 37 of 37 and 94 of 94, faithfulness 5.0. `infra/` unchanged.
+- [x] **T094** — Tick ACs in `spec.md` (Status `Implemented`), list the PRs, update `roadmap.md`, `memory/progress.md`, `memory/MEMORY.md`. Merge PR 9.
+      **Result (2026-11-06):** 14 of 14 criteria ticked. 8 PRs: 4 safety net, 5 backend, 6 tests, 7 frontend, 8 lint, 9 hooks, 10 types, 11 guide. Plan said 9, as the 2 type PRs combined. Largest test file 304 lines.
 
 ## AC coverage
 
