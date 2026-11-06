@@ -22,8 +22,10 @@ needs a decision, or would change behaviour.
 - [x] **T004** — `tests/test_architecture.py`: import rule, `src/` paths in docs. Rule table inactive until the folders exist. Sabotage each check · files: `tests/test_architecture.py` · test:
       each check fails when broken
       **Result (2026-11-06):** 8 tests. Each check has its own test proving it fails. Live docs currently have no broken paths.
-- [ ] **T005** — Frontend CI job: tests, types and build. Prove it with a failing test on a throwaway branch, then delete the branch · files: `.github/workflows/ci.yml` · test: the job fails, then passes
-- [ ] **T006** — Merge PR 1
+- [x] **T005** — Frontend CI job: tests, types and build. Prove it with a failing test on a throwaway branch, then delete the branch · files: `.github/workflows/ci.yml` · test: the job fails, then passes
+      **Result (2026-11-06):** Job added. A deliberate failing test on throwaway PR 3 failed the job on that test, and the real PR passed. Branch deleted.
+- [x] **T006** — Merge PR 1
+      **Result (2026-11-06):** Merged as PR 4.
 
 ## PR 2 — Backend moves
 
