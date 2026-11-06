@@ -76,6 +76,13 @@ something cost more than ~10 minutes or the fix was non-obvious. Delete entries 
 - The web container sees only `web/`, so it can't read `knowledge/`. `web/src/shop/returns-policy.md` is a copy of the agent's policy,
   and a test fails if they differ: edit both.
 
+## Writing lessons
+
+- Run every Try it step. "Open What's stored" read fine, but it's a heading, with documents to expand. Only doing it showed that.
+- Check a claim against the source you link, not a search summary. One interview claim had no source that said it.
+- Never write an interview answer claiming something the project hasn't done. The reader will repeat it.
+- `search.ts` beside `Search.tsx` fails TypeScript on Windows, where those are the same name.
+
 ## React state
 
 - Effects run twice in development (StrictMode), so an effect that calls a server must be safe to repeat. Take the work out of

@@ -25,7 +25,7 @@ Folders import one way: `core`, then `shop`, `accounts`, `rag`, `agent`, `mcp`, 
 
 ## Main Modules and Contracts
 
-[docs/architecture.md](../docs/architecture.md) explains the system for learners. This section lists the
+[docs/reference/architecture.md](../docs/reference/architecture.md) explains the system for learners. This section lists the
 contracts code must keep.
 
 | Module | Responsibility | Contract |

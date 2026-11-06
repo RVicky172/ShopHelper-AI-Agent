@@ -1,4 +1,8 @@
-# 3. MCP
+---
+title: MCP
+checked: 2026-11-06
+carried: true
+---
 
 ## The problem
 
@@ -56,7 +60,7 @@ Send a chat message and you'll see `ListToolsRequest` and `CallToolRequest` go b
 
 ## Building a server
 
-[mcp_server.py](../../src/shophelper/mcp/server.py) is the whole server. FastMCP turns ordinary
+[mcp_server.py](../../../src/shophelper/mcp/server.py) is the whole server. FastMCP turns ordinary
 functions into MCP tools, using the type hints for the schema and the docstring for the description:
 
 ```python
@@ -68,12 +72,12 @@ def get_order_status(order_id: str) -> dict[str, Any]:
     return tools.get_order_status(order_id)
 ```
 
-The server only wraps [tools.py](../../src/shophelper/agent/tools.py). That separation is deliberate: the
+The server only wraps [tools.py](../../../src/shophelper/agent/tools.py). That separation is deliberate: the
 logic stays in one place, and MCP is a way of reaching it.
 
 ## Using a server
 
-[mcp_client.py](../../src/shophelper/mcp/client.py) connects, then converts each MCP tool into a
+[mcp_client.py](../../../src/shophelper/mcp/client.py) connects, then converts each MCP tool into a
 LangChain tool. To the agent they look like any other tool, so the graph has no idea MCP is
 involved. That's why switching transport needs no changes to the agent.
 
@@ -121,7 +125,7 @@ async def add_identity(request, handler):  # mcp_client.py
 
 The server checks the signature, and FastMCP's `ctx` parameter gives it the header without adding anything to the
 schema the model sees. No valid token means "No order found". `search_policy` stays open, because policies are
-public. The full story is in [chapter 11](11-accounts-and-isolation.md).
+public. The full story is in [chapter 11](../06-building-the-app/07-accounts-and-isolation.md).
 
 This is also a real limit of stdio: a subprocess has no HTTP headers, so per-user identity needs another route
 there. That's one reason shared servers use HTTP.
@@ -167,4 +171,4 @@ action stays inside the graph. The **Tools** page shows this: `via mcp` against
    Ask the agent about support hours. You didn't change any agent code.
 5. Remove it again when you're done.
 
-Next: [RAG](04-rag.md)
+Next: [RAG](../05-rag/01-rag.md)

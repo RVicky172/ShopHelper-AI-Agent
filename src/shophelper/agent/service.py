@@ -91,7 +91,9 @@ class ShopHelperService:
     async def stream(
         self, session_id: str, message: str, principal: Principal | None = None
     ) -> AsyncIterator[tuple[str, Any]]:
-        """Yields one (event, data) pair per step of the turn; see docs/learn/06-streaming.md.
+        """Yields one (event, data) pair per step of the turn.
+
+        See docs/learn/06-building-the-app/03-streaming.md.
 
         guardrail -> [model_step -> tool_start -> tool_end]* -> token* -> guardrail -> final
 

@@ -227,8 +227,8 @@ The chat model can be anything in LM Studio that supports tool calling. Changing
 model takes more work, because:
 
 1. Stored vectors only make sense next to vectors from the same model.
-2. The column size in [schema.sql](../src/shophelper/core/schema.sql) must match the new model.
-3. The `search_query:` prefixes in [rag.py](../src/shophelper/rag/pipeline.py) are specific to nomic.
+2. The column size in [schema.sql](../../src/shophelper/core/schema.sql) must match the new model.
+3. The `search_query:` prefixes in [rag.py](../../src/shophelper/rag/pipeline.py) are specific to nomic.
 
 After editing those, run `docker compose down -v` and start again.
 

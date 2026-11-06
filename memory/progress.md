@@ -11,6 +11,12 @@ Newest first. One entry per working session.
 
 ---
 
+## 2026-11-06 — 022 slice 1 done
+
+**Done:** The course at `/learn`: right-hand stepper, lessons, quizzes, search, progress. Docs reorganised into stages. 15 lessons so far, 5 at final quality. Owner approved the style.
+**Next:** Slice 2, stages 1 to 5.
+**Blockers:** none
+
 ## 2026-11-06 — 031 Implemented
 
 **Done:** Backend and frontend organised by feature, tests mirror the code, imports enforced one way. Pyright 124 errors to 0, Biome, pre-commit, frontend CI. 8 PRs (4 to 11, without

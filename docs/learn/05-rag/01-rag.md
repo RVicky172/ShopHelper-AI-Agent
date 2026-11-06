@@ -1,4 +1,8 @@
-# 4. RAG
+---
+title: RAG
+checked: 2026-11-06
+carried: true
+---
 
 ## The problem
 
@@ -22,7 +26,7 @@ It's an open-book exam. The model doesn't memorise your policies, it looks them 
 ## The two halves
 
 RAG has two separate pipelines. All the code for both is in
-[rag.py](../../src/shophelper/rag/pipeline.py).
+[rag.py](../../../src/shophelper/rag/pipeline.py).
 
 ```mermaid
 flowchart TB
@@ -39,32 +43,7 @@ flowchart TB
 
 ## Step 1: Chunking
 
-**Why split at all?** You search for *passages*, not documents. A small, focused chunk represents
-one idea well. A whole document blurs many ideas together, so it matches everything weakly.
-
-Chunk size is a trade-off:
-
-| Too small | Too large |
-| --- | --- |
-| Loses context: "within 30 days" of what? | Blurred meaning, and wastes prompt space |
-
-`chunk_markdown()` makes two choices, both visible in the code:
-
-```python
-def chunk_markdown(text, max_chars=350):
-    ...
-    title = lines[0]            # e.g. "# Refund Policy"
-    ...
-    for line in body:           # whole lines only
-        if current and len(...) > max_chars:
-            chunks.append("\n".join([title, *current]))
-```
-
-1. **Split on line boundaries.** Each bullet here is a complete rule, so a rule is never cut in half.
-2. **Repeat the title on every chunk.** Alone, "must be within 30 days" could be about anything.
-   With "# Refund Policy" above it, both the embedding and the model know the subject.
-
-Our 9 documents become 20 chunks.
+Documents are cut into small pieces, so a search can find one idea. [Chunking](03-chunking.md) covers it in full.
 
 ## Step 2: Embeddings
 
@@ -104,7 +83,7 @@ own "map". Change your embedding model, and you must re-embed everything.
 ## Step 3: Storing vectors in Postgres
 
 A **vector database** stores embeddings and finds the nearest ones quickly. Here that's plain
-Postgres with the **pgvector** extension. See [schema.sql](../../src/shophelper/core/schema.sql):
+Postgres with the **pgvector** extension. See [schema.sql](../../../src/shophelper/core/schema.sql):
 
 ```sql
 CREATE EXTENSION IF NOT EXISTS vector;
@@ -228,7 +207,7 @@ managed service is doing, and what to check when it misbehaves.
 2. Search for "gift wrapping" and "pizza recipe". Compare the scores to a real question to see the
    floor described above.
 3. Open **What's stored** and read the chunks. Check that each one starts with its title.
-4. **pgAdmin:** run the "most similar" query from [local-setup.md](../local-setup.md). The refunds
+4. **pgAdmin:** run the "most similar" query from [local-setup.md](../../reference/local-setup.md). The refunds
    chunk's nearest neighbour is the *cancellation* policy, at 0.898. They really are close in meaning.
 5. **Change the knowledge:** edit a fact in `knowledge/policies/returns.md`, such as the restocking
    fee. Run `docker compose up setup`. The log shows only that one document re-embedded, because of
@@ -238,4 +217,4 @@ managed service is doing, and what to check when it misbehaves.
 6. **Change the chunk size:** set `MAX_CHUNK_CHARS` to 1000 in rag.py, then run
    `docker compose down -v && docker compose up`. Compare chunks and scores.
 
-Next: [Memory and human approval](05-memory-and-human-approval.md)
+Next: [Memory and human approval](../03-agents/04-memory-and-human-approval.md)

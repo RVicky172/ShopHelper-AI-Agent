@@ -71,7 +71,7 @@ Bug fixes and refactors that do not change behavior may skip the spec but must s
 - `/chat/stream` may gain event types, but existing events keep their names and shapes, so a client that
   reads only `token` and `final` keeps working.
 - New events are handled in `web/src/features/chat/chatReducer.ts`, with a test, and listed in
-  `docs/learn/06-streaming.md`.
+  `docs/learn/06-building-the-app/03-streaming.md`.
 
 ## Quality Gates (Definition of Done)
 

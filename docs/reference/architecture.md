@@ -41,16 +41,16 @@ flowchart TB
 
 | Layer | Its one job | Why it's separate | Code |
 | --- | --- | --- | --- |
-| Browser | Show the shop, the conversation and what the agent is doing | Runs on the user's device | [web/src/](../web/src/) |
-| Login gate | Stop anyone without a session, except for reading the catalogue, and name who's left | Every route is protected by default | [auth_api.py](../src/shophelper/api/auth_routes.py), [auth.py](../src/shophelper/accounts/auth.py) |
-| API | Turn HTTP into calls to the agent | The agent shouldn't know about HTTP | [api.py](../src/shophelper/api/app.py) |
-| Guardrails | Stop unsafe text | Must not depend on the model behaving | [guardrails.py](../src/shophelper/agent/guardrails.py) |
-| Agent | Decide the next step | This is the "brain stem": the loop and its rules | [graph.py](../src/shophelper/agent/graph.py) |
+| Browser | Show the shop, the conversation and what the agent is doing | Runs on the user's device | [web/src/](../../web/src) |
+| Login gate | Stop anyone without a session, except for reading the catalogue, and name who's left | Every route is protected by default | [auth_api.py](../../src/shophelper/api/auth_routes.py), [auth.py](../../src/shophelper/accounts/auth.py) |
+| API | Turn HTTP into calls to the agent | The agent shouldn't know about HTTP | [api.py](../../src/shophelper/api/app.py) |
+| Guardrails | Stop unsafe text | Must not depend on the model behaving | [guardrails.py](../../src/shophelper/agent/guardrails.py) |
+| Agent | Decide the next step | This is the "brain stem": the loop and its rules | [graph.py](../../src/shophelper/agent/graph.py) |
 | Model | Choose and write | Swappable: Qwen locally, Claude on AWS | `default_llm()` in graph.py |
-| Tools | Do real work | Reusable by any MCP client | [mcp_server.py](../src/shophelper/mcp/server.py) |
-| Storage | Remember | Survives restarts | [orders.py](../src/shophelper/shop/orders.py), [memory.py](../src/shophelper/agent/memory.py), [rag.py](../src/shophelper/rag/pipeline.py) |
+| Tools | Do real work | Reusable by any MCP client | [mcp_server.py](../../src/shophelper/mcp/server.py) |
+| Storage | Remember | Survives restarts | [orders.py](../../src/shophelper/shop/orders.py), [memory.py](../../src/shophelper/agent/memory.py), [rag.py](../../src/shophelper/rag/pipeline.py) |
 
-[service.py](../src/shophelper/agent/service.py) holds these together. It runs one turn from start to
+[service.py](../../src/shophelper/agent/service.py) holds these together. It runs one turn from start to
 finish: guardrail, agent, guardrail, save.
 
 ## Level 3: what happens in one message
@@ -111,7 +111,7 @@ flowchart TD
 ```
 
 Why refunds get their own node, and how pausing works, is covered in
-[Memory and human approval](learn/05-memory-and-human-approval.md).
+[Memory and human approval](../learn/03-agents/04-memory-and-human-approval.md).
 
 ## Level 5: keeping users apart
 
@@ -128,7 +128,7 @@ flowchart LR
 ```
 
 Someone else's order and a missing one get the same reply. Refund approval is a separate staff job, and the agent
-resumes as the customer. See [Accounts and isolation](learn/11-accounts-and-isolation.md).
+resumes as the customer. See [Accounts and isolation](../learn/06-building-the-app/07-accounts-and-isolation.md).
 
 ## Level 6: the shop around the agent
 
@@ -158,14 +158,14 @@ flowchart LR
 ## Where things live: local and AWS
 
 The code above is identical in both places. Only the outer pieces change, and settings choose
-which ones. [Local vs AWS](learn/10-local-vs-aws.md) explains how.
+which ones. [Local vs AWS](../learn/09-cloud-deployment/02-local-vs-aws.md) explains how.
 
 | Role | Local (`docker compose up`) | AWS (`scripts/deploy.sh`) |
 | --- | --- | --- |
 | Chat model | LM Studio: Qwen3 30B | Bedrock: Claude Haiku 4.5 |
 | Embeddings | LM Studio: nomic, 768 dimensions | Bedrock: Titan v2, 1024 dimensions |
 | Vector store | Postgres + pgvector | S3 Vectors, through a Knowledge Base |
-| RAG pipeline | Our code, [rag.py](../src/shophelper/rag/pipeline.py) | Managed by the Knowledge Base |
+| RAG pipeline | Our code, [rag.py](../../src/shophelper/rag/pipeline.py) | Managed by the Knowledge Base |
 | Users, orders, history, state | Postgres | Orders, history and state in DynamoDB; no users |
 | Tools | MCP over HTTP, its own container | MCP over stdio on ECS, in-process on Lambda |
 | Guardrails | Regex rules | Bedrock Guardrails |
@@ -213,27 +213,27 @@ CloudWatch, SNS alarms, LangSmith and the GitHub Actions pipeline sit around thi
 
 | File | What it does | Runs where |
 | --- | --- | --- |
-| [raw_agent.py](../src/shophelper/agent/raw_agent.py) | The agent loop with no framework, for comparison | Learning only |
-| [api.py](../src/shophelper/api/app.py) | HTTP routes and SSE | Both |
-| [local_api.py](../src/shophelper/api/local_routes.py) | Routes for the learning UI. Return 404 unless accounts are on | Local |
-| [auth.py](../src/shophelper/accounts/auth.py), [auth_api.py](../src/shophelper/api/auth_routes.py) | Accounts, sessions, the login gate, level checks | Local |
-| [identity.py](../src/shophelper/core/identity.py) | Who a tool call is acting for, out of the model's reach | Both |
-| [conversations.py](../src/shophelper/accounts/conversations.py) | Who owns each conversation | Local |
-| [refunds.py](../src/shophelper/shop/refunds.py) | The staff queue and approval rules | Local |
-| [catalog.py](../src/shophelper/shop/catalog.py) | Products and categories | Local |
-| [cart.py](../src/shophelper/shop/cart.py) | Carts, merging and checkout | Local |
-| [shop_api.py](../src/shophelper/api/shop_routes.py) | Shop routes. Return 404 unless accounts are on | Local |
-| [service.py](../src/shophelper/agent/service.py) | One turn, start to finish, and the stream events | Both |
-| [graph.py](../src/shophelper/agent/graph.py) | The agent, the refund node, model selection | Both |
-| [tools.py](../src/shophelper/agent/tools.py) | What the tools actually do | Both |
-| [mcp_server.py](../src/shophelper/mcp/server.py), [mcp_client.py](../src/shophelper/mcp/client.py) | Tools over MCP | Both |
-| [guardrails.py](../src/shophelper/agent/guardrails.py) | Bedrock Guardrail, and the local rules | Both |
-| [rag.py](../src/shophelper/rag/pipeline.py) | Chunk, embed, store, search | Local |
-| [db.py](../src/shophelper/core/db.py), [schema.sql](../src/shophelper/core/schema.sql) | Postgres connection and tables | Local |
-| [setup_local.py](../src/shophelper/api/setup_local.py) | First-run setup | Local |
-| [orders.py](../src/shophelper/shop/orders.py), [memory.py](../src/shophelper/agent/memory.py) | Storage, one class per backend | Both |
-| [observability.py](../src/shophelper/core/observability.py) | JSON logs, LangSmith | Both |
-| [config.py](../src/shophelper/core/config.py) | Every setting, with AWS defaults | Both |
+| [raw_agent.py](../../src/shophelper/agent/raw_agent.py) | The agent loop with no framework, for comparison | Learning only |
+| [api.py](../../src/shophelper/api/app.py) | HTTP routes and SSE | Both |
+| [local_api.py](../../src/shophelper/api/local_routes.py) | Routes for the learning UI. Return 404 unless accounts are on | Local |
+| [auth.py](../../src/shophelper/accounts/auth.py), [auth_api.py](../../src/shophelper/api/auth_routes.py) | Accounts, sessions, the login gate, level checks | Local |
+| [identity.py](../../src/shophelper/core/identity.py) | Who a tool call is acting for, out of the model's reach | Both |
+| [conversations.py](../../src/shophelper/accounts/conversations.py) | Who owns each conversation | Local |
+| [refunds.py](../../src/shophelper/shop/refunds.py) | The staff queue and approval rules | Local |
+| [catalog.py](../../src/shophelper/shop/catalog.py) | Products and categories | Local |
+| [cart.py](../../src/shophelper/shop/cart.py) | Carts, merging and checkout | Local |
+| [shop_api.py](../../src/shophelper/api/shop_routes.py) | Shop routes. Return 404 unless accounts are on | Local |
+| [service.py](../../src/shophelper/agent/service.py) | One turn, start to finish, and the stream events | Both |
+| [graph.py](../../src/shophelper/agent/graph.py) | The agent, the refund node, model selection | Both |
+| [tools.py](../../src/shophelper/agent/tools.py) | What the tools actually do | Both |
+| [mcp_server.py](../../src/shophelper/mcp/server.py), [mcp_client.py](../../src/shophelper/mcp/client.py) | Tools over MCP | Both |
+| [guardrails.py](../../src/shophelper/agent/guardrails.py) | Bedrock Guardrail, and the local rules | Both |
+| [rag.py](../../src/shophelper/rag/pipeline.py) | Chunk, embed, store, search | Local |
+| [db.py](../../src/shophelper/core/db.py), [schema.sql](../../src/shophelper/core/schema.sql) | Postgres connection and tables | Local |
+| [setup_local.py](../../src/shophelper/api/setup_local.py) | First-run setup | Local |
+| [orders.py](../../src/shophelper/shop/orders.py), [memory.py](../../src/shophelper/agent/memory.py) | Storage, one class per backend | Both |
+| [observability.py](../../src/shophelper/core/observability.py) | JSON logs, LangSmith | Both |
+| [config.py](../../src/shophelper/core/config.py) | Every setting, with AWS defaults | Both |
 
 ## Key decisions
 

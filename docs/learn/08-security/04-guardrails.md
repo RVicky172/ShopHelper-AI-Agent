@@ -1,4 +1,8 @@
-# 8. Guardrails
+---
+title: Guardrails
+checked: 2026-11-06
+carried: true
+---
 
 ## Why they exist
 
@@ -30,7 +34,7 @@ flowchart LR
 
 A check at each end, not on every model call. A turn may call the model three times, but only the
 first input and final output cross the boundary with the user. This costs less, and it works with
-any framework. See `check()` in [guardrails.py](../../src/shophelper/agent/guardrails.py).
+any framework. See `check()` in [guardrails.py](../../../src/shophelper/agent/guardrails.py).
 
 **What it doesn't cover:** text coming back from tools. If a policy document contained a hidden
 instruction, this design wouldn't catch it. That's called **indirect prompt injection**, and it's a
@@ -60,7 +64,7 @@ together.
 | How | Regular expressions | Trained classifiers plus patterns |
 | Catches | Exact, obvious patterns | Paraphrases, and harmful content |
 | Cost | Free, instant | Per text unit, plus a network call |
-| Set up in | [guardrails.py](../../src/shophelper/agent/guardrails.py) | [infra/guardrail.tf](../../infra/guardrail.tf) |
+| Set up in | [guardrails.py](../../../src/shophelper/agent/guardrails.py) | [infra/guardrail.tf](../../../infra/guardrail.tf) |
 
 The local rules exist so you can watch the block-and-mask flow. **They aren't real protection.**
 
@@ -96,6 +100,6 @@ because the model doesn't hold that power. Decide what a compromised model could
    responds, and work out which layer, if any, protected you. Then compare with the same attack
    worded as "ignore all previous instructions".
 5. Add a pattern to `_BLOCK_PATTERNS`, such as your own test keyword. Add a case to
-   [test_local_stack.py](../../tests/test_local_stack.py), and run `uv run pytest`.
+   [test_local_stack.py](../../../tests/core/test_local_stack.py), and run `uv run pytest`.
 
-Next: [Evals](09-evals.md)
+Next: [Evals](../07-evals-and-testing/01-evals.md)

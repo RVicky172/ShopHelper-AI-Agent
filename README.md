@@ -10,7 +10,7 @@ the shop.
 
 > **Current status:** local stack working and tested. AWS infrastructure is torn down, and
 > Bedrock's Claude models are waiting on the Anthropic use-case form.
-> See [docs/next-steps.md](docs/next-steps.md).
+> See [docs/reference/next-steps.md](docs/reference/next-steps.md).
 
 ## Quick start
 
@@ -37,7 +37,7 @@ Each level sees a different app:
 | Support | Support | All orders, review refunds up to $200 |
 | Admin | Admin | Review any refund, change levels, reset the demo |
 
-Full guide: [docs/local-setup.md](docs/local-setup.md)
+Full guide: [docs/reference/local-setup.md](docs/reference/local-setup.md)
 
 ## How it works
 
@@ -73,21 +73,12 @@ The most important idea: **the model only asks, and your code acts**. So a model
 manipulated still can't move money, or read another customer's data. In testing, with the owner check removed, all 7
 cross-user attacks succeeded. With it in place, none did.
 
-Layer-by-layer detail: [docs/architecture.md](docs/architecture.md)
+Layer-by-layer detail: [docs/reference/architecture.md](docs/reference/architecture.md)
 
 ## Learn it
 
-The [docs](docs/README.md) are a learning path. Each chapter explains why something exists, walks
-through the real code, and ends with exercises in the running app.
-
-| | |
-| --- | --- |
-| 1. [Agents and the loop](docs/learn/01-agents-and-the-loop.md) | 6. [Streaming](docs/learn/06-streaming.md) |
-| 2. [Tools](docs/learn/02-tools.md) | 7. [The React frontend](docs/learn/07-frontend.md) |
-| 3. [MCP](docs/learn/03-mcp.md) | 8. [Guardrails](docs/learn/08-guardrails.md) |
-| 4. [RAG](docs/learn/04-rag.md) | 9. [Evals](docs/learn/09-evals.md) |
-| 5. [Memory and human approval](docs/learn/05-memory-and-human-approval.md) | 10. [Local vs AWS](docs/learn/10-local-vs-aws.md) |
-| | 11. [Accounts and isolation](docs/learn/11-accounts-and-isolation.md) |
+The project teaches itself. Start the stack and open http://localhost:5173/learn for a step-by-step course, from how an LLM works
+to passing an AI engineer interview, using this code. The same lessons are in [docs/learn](docs/README.md).
 
 ## How this project is built
 
@@ -144,7 +135,7 @@ Same code, different settings. AWS stays the default, so nothing local runs unle
 | Guardrails | Regex rules | Bedrock Guardrails |
 | Runs on | Docker Compose | Lambda and ECS Fargate |
 
-See [Local vs AWS](docs/learn/10-local-vs-aws.md) for how this works and what local can't prove.
+See [Local vs AWS](docs/learn/09-cloud-deployment/02-local-vs-aws.md) for how this works and what local can't prove.
 
 ## Test it
 
@@ -169,9 +160,9 @@ scripts/teardown.sh               # remove everything
 ```
 
 Before deploying, submit the Anthropic use-case form in the Bedrock console. The full list is in
-[docs/next-steps.md](docs/next-steps.md), and day-to-day commands are in
-[docs/runbook.md](docs/runbook.md). What each service does and costs is in
-[docs/aws-services.md](docs/aws-services.md).
+[docs/reference/next-steps.md](docs/reference/next-steps.md), and day-to-day commands are in
+[docs/reference/runbook.md](docs/reference/runbook.md). What each service does and costs is in
+[docs/reference/aws-services.md](docs/reference/aws-services.md).
 
 ### AWS decisions
 
@@ -189,7 +180,7 @@ Before deploying, submit the Anthropic use-case form in the Bedrock console. The
 
 ### Lambda vs ECS
 
-Measured; see [docs/deployment-comparison.md](docs/deployment-comparison.md).
+Measured; see [docs/reference/deployment-comparison.md](docs/reference/deployment-comparison.md).
 
 | | Lambda + API Gateway | ECS Fargate + ALB |
 | --- | --- | --- |

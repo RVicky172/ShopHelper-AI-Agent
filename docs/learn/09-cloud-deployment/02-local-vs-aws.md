@@ -1,4 +1,8 @@
-# 10. Local vs AWS
+---
+title: Local vs AWS
+checked: 2026-11-06
+carried: true
+---
 
 ## The goal
 
@@ -8,7 +12,7 @@ Local development should run the same code as production, without copying it or 
 ## The pattern: one contract, many backends
 
 Each external dependency has an interface, and one implementation per backend. For orders, in
-[orders.py](../../src/shophelper/shop/orders.py):
+[orders.py](../../../src/shophelper/shop/orders.py):
 
 ```python
 class OrderRepo(Protocol):                  # the contract
@@ -36,7 +40,7 @@ This is **dependency inversion**, and it's what makes offline tests possible at 
 
 ## What each setting switches
 
-All of them are in [config.py](../../src/shophelper/core/config.py).
+All of them are in [config.py](../../../src/shophelper/core/config.py).
 
 | Setting | Default (AWS) | In Docker | Switches |
 | --- | --- | --- | --- |
@@ -48,7 +52,7 @@ All of them are in [config.py](../../src/shophelper/core/config.py).
 | `MCP_URL` | unset | `http://mcp:8765/mcp` | stdio → HTTP |
 | `LOCAL_GUARDRAILS` | `false` | `true` | No rules → regex rules |
 
-The local values are set in [docker-compose.yml](../../docker-compose.yml). AWS sets its own in
+The local values are set in [docker-compose.yml](../../../docker-compose.yml). AWS sets its own in
 Terraform, and those didn't change.
 
 Why LM Studio works so easily: it speaks the OpenAI API, which has become a common standard. Any
@@ -102,19 +106,19 @@ Qwen so far.
 
 ## When you're ready for AWS
 
-See [next-steps.md](../next-steps.md). In short: submit the Anthropic use-case form, deploy, run the
+See [next-steps.md](../../reference/next-steps.md). In short: submit the Anthropic use-case form, deploy, run the
 evals on real Bedrock, and tear down.
 
 ## Try it
 
-1. Read [docker-compose.yml](../../docker-compose.yml) and find each setting from the table above.
+1. Read [docker-compose.yml](../../../docker-compose.yml) and find each setting from the table above.
 2. Read `test_defaults_are_the_aws_path` in
-   [test_local_stack.py](../../tests/test_local_stack.py). Think about what it would catch.
+   [test_local_stack.py](../../../tests/core/test_local_stack.py). Think about what it would catch.
 3. Point at a different model by setting `LOCAL_CHAT_MODEL` in `.env`, then run
    `docker compose up -d`. Run the evals and compare.
 4. Pick another dependency, such as chat history in
-   [memory.py](../../src/shophelper/agent/memory.py), and find its three implementations.
+   [memory.py](../../../src/shophelper/agent/memory.py), and find its three implementations.
 5. Run `uv run pytest tests/shop -k accounts_off`. Each test turns accounts off and checks that a shop route
    returns 404. That's the AWS behaviour, proved without AWS.
 
-Next: [Accounts and isolation](11-accounts-and-isolation.md)
+Next: [Accounts and isolation](../06-building-the-app/07-accounts-and-isolation.md)
