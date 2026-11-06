@@ -33,7 +33,7 @@ function CartNotice() {
             <p key={`${change.kind}-${change.product_id}`}>{changeMessage(change)}</p>
           ))}
         </div>
-        <button onClick={dismiss} className="min-h-6 text-sm underline">
+        <button type="button" onClick={dismiss} className="min-h-6 text-sm underline">
           Dismiss
         </button>
       </div>

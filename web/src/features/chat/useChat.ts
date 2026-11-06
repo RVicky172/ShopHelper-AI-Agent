@@ -80,7 +80,8 @@ export function useChat(user: User | null) {
 
   const send = useCallback(
     async (message: string) => {
-      const id = `turn-${(turnCounter.current += 1)}`
+      turnCounter.current += 1
+      const id = `turn-${turnCounter.current}`
       dispatch({ type: 'start', id, label: message, at: performance.now(), userText: message })
       try {
         let session = conversationId

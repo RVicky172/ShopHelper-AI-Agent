@@ -24,7 +24,7 @@ function DemoAccounts({ accounts, onPick }: { accounts: DemoAccount[]; onPick: (
       <ul className="mt-3 space-y-1.5">
         {staff.map((account) => (
           <li key={account.email}>
-            <button
+            <button type="button"
               onClick={() => onPick(account)}
               className="w-full rounded border border-rule px-3 py-1.5 text-left text-sm hover:border-cobalt"
             >
@@ -37,7 +37,7 @@ function DemoAccounts({ accounts, onPick }: { accounts: DemoAccount[]; onPick: (
       <p className="mt-3 text-xs text-muted">Customers each see only their own orders and chats.</p>
       <div className="mt-1.5 flex flex-wrap gap-1.5">
         {customers.map((account) => (
-          <button
+          <button type="button"
             key={account.email}
             onClick={() => onPick(account)}
             className="rounded border border-rule px-2.5 py-1 text-sm hover:border-cobalt"
@@ -142,7 +142,7 @@ export function AuthPage({ auth, mode }: { auth: ReturnType<typeof useAuth>; mod
                 {active.error.message}
               </p>
             )}
-            <button
+            <button type="submit"
               disabled={active.isPending}
               className="w-full rounded bg-cobalt px-4 py-2 text-sm font-medium text-on-cobalt disabled:opacity-50"
             >

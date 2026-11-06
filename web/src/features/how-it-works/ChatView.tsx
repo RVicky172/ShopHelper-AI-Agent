@@ -61,7 +61,7 @@ export function ChatView({ user }: { user: User }) {
                 <ul className="mt-4 space-y-2">
                   {examples(user, orders.data ?? []).map((example) => (
                     <li key={example.label}>
-                      <button
+                      <button type="button"
                         disabled={chat.busy}
                         onClick={() => void chat.send(example.text)}
                         className="w-full rounded border border-rule bg-paper px-3 py-2 text-left text-sm hover:border-cobalt"

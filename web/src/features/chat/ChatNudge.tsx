@@ -65,10 +65,10 @@ export function ChatNudge() {
 
   return (
     <div role="status" className="flex min-w-0 flex-1 items-start gap-1 text-sm xl:flex-none xl:flex-col">
-      <button onClick={openPanel} className="min-h-6 text-left underline hover:text-cobalt">
+      <button type="button" onClick={openPanel} className="min-h-6 text-left underline hover:text-cobalt">
         Questions? Ask support.
       </button>
-      <button
+      <button type="button"
         onClick={() => setVisible(false)}
         aria-label="Dismiss"
         className="size-6 shrink-0 text-muted hover:text-ink"

@@ -55,7 +55,7 @@ export function RagView() {
                 ))}
               </select>
             </label>
-            <button
+            <button type="submit"
               disabled={search.isPending || !query.trim()}
               className="rounded bg-cobalt px-4 py-2 text-sm font-medium text-on-cobalt disabled:opacity-50"
             >

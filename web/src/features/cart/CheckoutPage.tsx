@@ -55,7 +55,7 @@ export function CheckoutPage({ user }: { user: User }) {
           {place.error.message}
         </p>
       )}
-      <button
+      <button type="button"
         onClick={() => {
           if (sending.current) return
           sending.current = true

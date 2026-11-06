@@ -88,7 +88,7 @@ export function CategoryPage() {
             Showing {items.length} of {total}
           </p>
           {products.hasNextPage && (
-            <button
+            <button type="button"
               onClick={() => void products.fetchNextPage()}
               disabled={products.isFetchingNextPage}
               className="min-h-11 rounded border border-field px-4 hover:border-cobalt disabled:opacity-50"

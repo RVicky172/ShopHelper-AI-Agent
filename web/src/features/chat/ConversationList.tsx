@@ -28,7 +28,7 @@ export function ConversationList({ chat }: { chat: ReturnType<typeof useChat> })
 
       <nav aria-label="Your conversations" className="hidden min-h-0 flex-col border-r border-rule lg:flex">
         <div className="p-3">
-          <button
+          <button type="button"
             disabled={chat.busy}
             onClick={chat.newConversation}
             className="w-full rounded border border-rule bg-paper px-3 py-1.5 text-sm hover:border-cobalt disabled:opacity-50"
@@ -39,7 +39,7 @@ export function ConversationList({ chat }: { chat: ReturnType<typeof useChat> })
         <ul className="min-h-0 flex-1 space-y-0.5 overflow-y-auto px-2 pb-3">
           {rows.map((c) => (
             <li key={c.id}>
-              <button
+              <button type="button"
                 disabled={chat.busy}
                 onClick={() => chat.open(c.id)}
                 aria-current={c.id === chat.conversationId ? 'true' : undefined}

@@ -91,7 +91,7 @@ function Conversation({ user }: { user: User }) {
             <ul className="mt-4 space-y-2">
               {starters.map((starter) => (
                 <li key={starter}>
-                  <button
+                  <button type="button"
                     disabled={chat.busy}
                     onClick={() => void chat.send(starter)}
                     className="min-h-11 w-full rounded border border-rule px-3 py-2 text-left hover:border-cobalt"
@@ -217,7 +217,7 @@ export function ChatPanel({ user }: { user: User | null }) {
     >
       <div className="flex items-center justify-between border-b border-rule py-1 pr-1 pl-4">
         <h2 className="font-semibold">Support</h2>
-        <button onClick={closePanel} aria-label="Close chat" className="size-11 text-xl text-muted hover:text-ink">
+        <button type="button" onClick={closePanel} aria-label="Close chat" className="size-11 text-xl text-muted hover:text-ink">
           ×
         </button>
       </div>

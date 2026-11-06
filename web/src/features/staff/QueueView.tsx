@@ -49,14 +49,14 @@ function RefundRow({ refund, reviewer }: { refund: QueuedRefund; reviewer: User 
               />
             </label>
             <div className="flex gap-2">
-              <button
+              <button type="button"
                 disabled={decide.isPending}
                 onClick={() => decide.mutate(true)}
                 className="rounded bg-cobalt px-3 py-1.5 text-sm font-medium text-on-cobalt disabled:opacity-50"
               >
                 {decide.isPending ? 'Working...' : 'Approve refund'}
               </button>
-              <button
+              <button type="button"
                 disabled={decide.isPending}
                 onClick={() => decide.mutate(false)}
                 className="rounded border border-rule px-3 py-1.5 text-sm font-medium disabled:opacity-50"

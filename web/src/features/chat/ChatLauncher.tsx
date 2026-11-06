@@ -16,7 +16,7 @@ export function ChatLauncher() {
       aria-label="Chat and cart"
       className="flex h-14 shrink-0 items-center gap-3 border-t border-rule bg-paper px-4 xl:fixed xl:right-5 xl:bottom-5 xl:z-30 xl:h-auto xl:w-[76px] xl:flex-col-reverse xl:items-stretch xl:border-0 xl:bg-transparent xl:px-0"
     >
-      <button
+      <button type="button"
         ref={launcher}
         onClick={openPanel}
         aria-expanded={panelOpen}

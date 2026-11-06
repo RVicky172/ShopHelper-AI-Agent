@@ -100,7 +100,7 @@ export function ProductPage() {
         <ul className="mt-3 flex flex-wrap gap-2">
           {productStarters(item.name, category?.name ?? 'our products').map((question) => (
             <li key={question}>
-              <button
+              <button type="button"
                 onClick={() => ask(question)}
                 className="min-h-11 rounded border border-field px-3 py-2 text-left hover:border-cobalt"
               >
