@@ -98,7 +98,7 @@ Common problems:
 
 Checked on 2026-11-06.
 
-At scale you can't read every trace by hand, so teams use tools that record each step and score answers. [Stage 7](../07-evals-and-testing/01-evals.md) covers evals, and stage 10 covers tracing in production.
+At scale you can't read every trace by hand, so teams use tools that record each step and score answers. [Stage 7](../07-evals-and-testing/01-why-testing-ai-differs.md) covers evals, and stage 10 covers tracing in production.
 
 The useful habit is to measure the two halves separately. One [interview guide](https://prachub.com/resources/ai-engineer-interview-questions-2026-rag-agents-evals-and-production-systems) puts it directly: measure retrieval and generation separately.
 

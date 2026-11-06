@@ -11,6 +11,13 @@ Newest first. One entry per working session.
 
 ---
 
+## 2026-11-06 — 022: stage 7, evals and testing
+
+**Done:** 8 lessons, replacing the carried chapter. New measurement: the local judge agreed with 13 of 14 hand labels, and passed an invented
+promise added to true facts (score 4). Retrieval: hit rate at 4 was 20 of 20, MRR 0.91. Evals weren't rerun, because they reset the demo orders.
+**Next:** `/spec-implement 022`, from T206: stage 8, security.
+**Blockers:** none
+
 ## 2026-11-06 — 022: stage 6, building the app
 
 **Done:** 7 lessons, replacing the 3 carried chapters. One timed turn: first event 2.07 s, first token 2.33 s, search 0.04 s, total 4.86 s.

@@ -108,9 +108,12 @@ ends with `scripts/check.sh`. Lesson tasks may finish 2 or 3 lessons at a time.
       **Result (2026-11-06):** The frontend, choosing a database. Try it queries run in Postgres.
 - [x] **T202** — Stage 6: authentication, authorization and isolation
       **Result (2026-11-06):** Authentication, authorization and isolation. The carried chapter split in two, and links updated.
-- [ ] **T203** — Stage 7: why testing AI differs, test levels, golden sets · files: `docs/learn/07-evals-and-testing/`
-- [ ] **T204** — Stage 7: RAG evals, agent evals, LLM judges
-- [ ] **T205** — Stage 7: eval tools in the market, evals in CI
+- [x] **T203** — Stage 7: why testing AI differs, test levels, golden sets · files: `docs/learn/07-evals-and-testing/`
+      **Result (2026-11-06):** Why testing AI differs, test levels, golden sets.
+- [x] **T204** — Stage 7: RAG evals, agent evals, LLM judges
+      **Result (2026-11-06):** RAG evals (hit rate at 4: 20 of 20, MRR 0.91), agent evals, LLM judges (13 of 14 agreement with hand labels).
+- [x] **T205** — Stage 7: eval tools in the market, evals in CI
+      **Result (2026-11-06):** Eval tools in the market, evals in CI (about $0.12 a run on Sonnet 5.5, before judge calls).
 - [ ] **T206** — Stage 8: the OWASP lists, prompt injection, layered defences · files: `docs/learn/08-security/`
 - [ ] **T207** — Stage 8: guardrails and private data, securing tools and secrets
 - [ ] **T208** — Stage 9: running locally, planning it on AWS with costs, compute options (AC-15) · files: `docs/learn/09-cloud-deployment/`

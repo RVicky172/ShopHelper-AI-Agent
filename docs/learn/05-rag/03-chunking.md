@@ -103,7 +103,7 @@ Checked on 2026-11-06.
 
 One [2025 study](https://arxiv.org/html/2504.19754v1) compared the newer methods. Contextual retrieval with reranking gave the best accuracy, at a high compute cost. Late chunking was cheaper, but its results varied with the model and data. Fixed and semantic chunking differed little without added context. That's one study, so treat it as a hint and test on your own documents.
 
-**How to choose:** start with the simplest thing that respects your documents' structure. Build a small set of real questions with known answers, then change one thing at a time and measure. [Evals](../07-evals-and-testing/01-evals.md) shows how.
+**How to choose:** start with the simplest thing that respects your documents' structure. Build a small set of real questions with known answers, then change one thing at a time and measure. [Evals](../07-evals-and-testing/01-why-testing-ai-differs.md) shows how.
 
 ## Try it
 

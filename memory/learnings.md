@@ -146,3 +146,8 @@ something cost more than ~10 minutes or the fix was non-obvious. Delete entries 
 
 - `psql -c "a; b; c"` runs as one transaction, so one bad statement rolls back all of it, and piping to `tail` can hide that. Use a
   separate `-c` per statement, then check the row count.
+
+## Sabotage steps
+
+- Adding `/orders` to `PUBLIC_PATHS` fails no route test, because the route's own dependency still returns 401. Run a sabotage step before
+  writing it down as one a learner can try.
