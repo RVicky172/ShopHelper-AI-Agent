@@ -227,7 +227,8 @@ def list_conversations(principal: Annotated[Principal, Depends(current_principal
 async def open_conversation(session_id: str, request: Request) -> dict:
     principal = await run_in_threadpool(_owned_by_caller, request, session_id)
     messages = await run_in_threadpool(get_history_store().load, session_id, 50)
-    pending = await app.state.service.pending_refund(session_id, principal.user_id)
+    # accounts_only has already ruled out a missing principal
+    pending = await app.state.service.pending_refund(session_id, principal.user_id)  # pyright: ignore[reportOptionalMemberAccess]
     if pending and not await run_in_threadpool(get_refund_store().open_for_session, session_id):
         pending = None  # cancelled by a demo reset
     return {"id": session_id, "messages": messages, "pending_refund": pending}

@@ -10,7 +10,7 @@ from typing import Any, Protocol
 from shophelper.core import db
 from shophelper.core.config import get_settings
 from shophelper.shop.catalog import get_product_repo
-from shophelper.shop.orders import PostgresOrderRepo, get_order_repo
+from shophelper.shop.orders import PostgresOrderRepo, account_order_repo
 
 MAX_QUANTITY = 10
 
@@ -79,7 +79,7 @@ class InMemoryCartStore:
             {"product_id": i, "name": products[i]["name"], "price": products[i]["price"], "quantity": count}
             for i, count in sorted(cart.items())
         ]
-        return get_order_repo().add_order(user_id, customer, lines)
+        return account_order_repo().add_order(user_id, customer, lines)
 
 
 class PostgresCartStore:

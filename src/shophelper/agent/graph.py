@@ -14,7 +14,7 @@ import re
 import uuid
 from collections.abc import AsyncIterator
 from contextlib import asynccontextmanager
-from typing import Annotated, Any, TypedDict
+from typing import Annotated, Any, TypedDict, cast
 
 from langchain_aws import ChatBedrockConverse
 from langchain_core.language_models import BaseChatModel
@@ -101,7 +101,8 @@ def default_llm() -> BaseChatModel:
 
         return ChatOpenAI(
             model=s.local_chat_model, base_url=s.llm_base_url, api_key=s.llm_api_key,
-            temperature=0, max_tokens=s.max_tokens, stream_usage=True,
+            # max_tokens is a pydantic alias the stubs don't show
+            temperature=0, max_tokens=s.max_tokens, stream_usage=True,  # pyright: ignore[reportCallIssue]
         )
     return ChatBedrockConverse(
         model=s.agent_model_id, region_name=s.aws_region, temperature=0, max_tokens=s.max_tokens
@@ -129,8 +130,9 @@ async def postgres_checkpointer() -> AsyncIterator[BaseCheckpointSaver]:
     from psycopg_pool import AsyncConnectionPool
 
     kwargs = {"autocommit": True, "prepare_threshold": 0, "row_factory": dict_row}
-    async with AsyncConnectionPool(get_settings().database_url, kwargs=kwargs, open=False) as pool:
-        saver = AsyncPostgresSaver(pool)
+    url = cast(str, get_settings().database_url)  # only called when it's set
+    async with AsyncConnectionPool(url, kwargs=kwargs, open=False) as pool:
+        saver = AsyncPostgresSaver(cast(Any, pool))
         await saver.setup()  # creates the checkpoint* tables
         yield saver
 
@@ -139,7 +141,7 @@ def build_graph(tools: list[BaseTool], checkpointer: BaseCheckpointSaver, llm: B
     model = llm.bind_tools([*tools, request_refund])
     tools_by_name = {t.name: t for t in tools}
 
-    async def run_tool(call: dict[str, Any], config: RunnableConfig) -> ToolMessage:
+    async def run_tool(call: Any, config: RunnableConfig) -> ToolMessage:
         t = tools_by_name.get(call["name"])
         if t is None:
             return ToolMessage(f"Unknown tool {call['name']}", tool_call_id=call["id"], status="error")
@@ -165,13 +167,13 @@ def build_graph(tools: list[BaseTool], checkpointer: BaseCheckpointSaver, llm: B
         return {"messages": [response]}
 
     async def tools_node(state: State, config: RunnableConfig) -> dict:
-        return {"messages": [await run_tool(c, config) for c in state["messages"][-1].tool_calls]}
+        return {"messages": [await run_tool(c, config) for c in _last_calls(state)]}
 
     async def refund_approval(state: State, config: RunnableConfig) -> dict:
         # NB: on resume LangGraph re-runs this node from the top; interrupt() then
         # returns the human's decision instead of pausing. Side effects go after it.
         out = []
-        for call in state["messages"][-1].tool_calls:
+        for call in _last_calls(state):
             if call["name"] != "request_refund":
                 out.append(await run_tool(call, config))
                 continue
@@ -196,6 +198,11 @@ def build_graph(tools: list[BaseTool], checkpointer: BaseCheckpointSaver, llm: B
     return g.compile(checkpointer=checkpointer)
 
 
+def _last_calls(state: State) -> list[Any]:
+    """Only reached after `route` saw tool calls on the last message."""
+    return cast(AIMessage, state["messages"][-1]).tool_calls
+
+
 def _current_turn(messages: list[AnyMessage]) -> tuple[str, list[AnyMessage]]:
     """The customer's latest message, and everything that has happened since."""
     last_human = max((i for i, m in enumerate(messages) if isinstance(m, HumanMessage)), default=-1)
@@ -204,7 +211,7 @@ def _current_turn(messages: list[AnyMessage]) -> tuple[str, list[AnyMessage]]:
 
 def _search_call_ids(turn: list[AnyMessage]) -> set[str]:
     calls = [c for m in turn if isinstance(m, AIMessage) for c in m.tool_calls]
-    return {c["id"] for c in calls if c["name"] == "search_policy"}
+    return {cast(str, c["id"]) for c in calls if c["name"] == "search_policy"}
 
 
 def _needs_policy_search(messages: list[AnyMessage]) -> bool:

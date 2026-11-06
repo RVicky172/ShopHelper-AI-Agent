@@ -5,6 +5,8 @@ cd "$(dirname "$0")/.."
 
 echo "== backend lint"
 uv run ruff check src tests evals
+echo "== backend types"
+uv run pyright
 echo "== backend tests"
 uv run pytest -q
 echo "== terraform format"

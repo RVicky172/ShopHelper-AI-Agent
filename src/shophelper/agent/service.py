@@ -7,10 +7,11 @@ import json
 import re
 import time
 from collections.abc import AsyncIterator
-from typing import Any
+from typing import Any, Literal, cast
 
 from langchain_core.language_models import BaseChatModel
 from langchain_core.messages import AIMessage, HumanMessage, ToolMessage
+from langchain_core.runnables import RunnableConfig
 from langchain_core.tools import BaseTool
 from langgraph.checkpoint.base import BaseCheckpointSaver
 from langgraph.errors import GraphRecursionError
@@ -49,7 +50,7 @@ class ShopHelperService:
         )
         self.history = history or get_history_store()
 
-    def _config(self, session_id: str, user_id: int | None = None) -> dict[str, Any]:
+    def _config(self, session_id: str, user_id: int | None = None) -> RunnableConfig:
         if self.settings.accounts_enabled and user_id is None:
             raise NoIdentity  # a forgotten argument must fail loudly, never leak
         # Each agent->tools round trip is 2 graph steps; +1 for the final answer.
@@ -58,7 +59,9 @@ class ShopHelperService:
             "recursion_limit": 2 * self.settings.max_steps + 1,
         }
 
-    async def _prepare(self, session_id: str, guard_in: guardrails.GuardResult, user_id: int | None):
+    async def _prepare(
+        self, session_id: str, guard_in: guardrails.GuardResult, user_id: int | None
+    ) -> tuple[ChatResponse | None, Any]:
         """Acts on the input guardrail + pending-approval check. Returns an early response or
         graph input."""
         config = self._config(session_id, user_id)
@@ -118,7 +121,9 @@ class ShopHelperService:
         async for event in self._stream_graph(resume, config, session_id, seen, start):
             yield event
 
-    async def _stream_graph(self, graph_input, config, session_id, seen, start):
+    async def _stream_graph(
+        self, graph_input, config, session_id, seen, start
+    ) -> AsyncIterator[tuple[str, Any]]:
         step_started = time.perf_counter()
         steps = 0
         try:
@@ -127,13 +132,13 @@ class ShopHelperService:
                 graph_input, config, stream_mode=["messages", "updates"]
             ):
                 if mode == "messages":
-                    chunk, meta = payload
+                    chunk, meta = cast(tuple[Any, dict[str, Any]], payload)
                     # Streaming models emit AIMessageChunks; non-streaming ones one AIMessage.
                     if meta.get("langgraph_node") == "agent" and isinstance(chunk, AIMessage):
                         if chunk.text:
                             yield "token", chunk.text
                     continue
-                for node, update in payload.items():
+                for node, update in cast(dict[str, Any], payload).items():
                     if node == "__interrupt__":
                         yield "interrupt", update[0].value
                         continue
@@ -196,7 +201,7 @@ class ShopHelperService:
         user_id = config["configurable"]["user_id"]
         return self._finish(session_id, result["messages"][seen:], interrupts, start, user_id)
 
-    def _finish(self, session_id, new_messages, interrupts, start, user_id=None) -> ChatResponse:
+    def _finish(self, session_id, new_messages, interrupts, start, user_id: Any = None) -> ChatResponse:
         response = _summarise(session_id, new_messages)
         if interrupts:
             if self.settings.accounts_enabled:
@@ -220,7 +225,9 @@ class ShopHelperService:
         return response
 
 
-def _guard_action(guard: guardrails.GuardResult, original: str) -> str:
+def _guard_action(
+    guard: guardrails.GuardResult, original: str
+) -> Literal["passed", "masked", "blocked", "skipped"]:
     if guard.blocked:
         return "blocked"
     return "masked" if guard.text != original else "passed"

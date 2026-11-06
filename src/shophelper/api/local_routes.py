@@ -15,7 +15,7 @@ from shophelper.core import db
 from shophelper.core.config import get_settings
 from shophelper.core.identity import Principal
 from shophelper.rag import pipeline as rag
-from shophelper.shop.orders import get_order_repo
+from shophelper.shop.orders import account_order_repo
 from shophelper.shop.refunds import get_refund_store
 
 
@@ -36,7 +36,8 @@ def _check(fn) -> dict[str, Any]:
 
 def _count_chunks() -> str:
     with db.connect() as conn:
-        return f"{conn.execute('SELECT count(*) AS n FROM policy_chunks').fetchone()['n']} chunks"
+        # count(*) always returns a row
+        return f"{conn.execute('SELECT count(*) AS n FROM policy_chunks').fetchone()['n']} chunks"  # pyright: ignore[reportOptionalSubscript]
 
 
 def _list_models() -> str:
@@ -71,15 +72,15 @@ def system(request: Request) -> dict[str, Any]:
 @router.get("/orders")
 def orders(principal: Annotated[Principal, Depends(current_principal)]) -> list[dict[str, Any]]:
     if principal.role == "customer":
-        return get_order_repo().list_for_owner(principal.user_id)
-    return get_order_repo().list_all()
+        return account_order_repo().list_for_owner(principal.user_id)
+    return account_order_repo().list_all()
 
 
 @router.post("/demo/reset", dependencies=[Depends(require_role("admin"))])
 def reset_orders() -> dict[str, str]:
     """Undo refunds made while testing. Open requests are cancelled, so they can't be decided."""
     get_refund_store().cancel_open()
-    get_order_repo().reset()
+    account_order_repo().reset()
     return {"status": "ok"}
 
 

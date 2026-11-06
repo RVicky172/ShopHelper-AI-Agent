@@ -12,7 +12,7 @@ from shophelper.api.schemas import CartMerge, CartQuantity
 from shophelper.core.identity import Principal
 from shophelper.shop.cart import cart_view, get_cart_store
 from shophelper.shop.catalog import PAGE_SIZE, Sort, get_product_repo
-from shophelper.shop.orders import get_order_repo
+from shophelper.shop.orders import account_order_repo
 
 router = APIRouter(dependencies=[Depends(accounts_only)])
 Shopper = Annotated[Principal, Depends(current_principal)]
@@ -85,7 +85,7 @@ def checkout(shopper: Shopper) -> dict[str, Any]:
 @router.post("/orders/{order_id}/deliver", dependencies=[Depends(require_role("support", "admin"))])
 def mark_delivered(order_id: str) -> dict[str, Any]:
     """Exists so a learner can buy something, deliver it and refund it, end to end."""
-    repo = get_order_repo()
+    repo = account_order_repo()
     if repo.get(order_id) is None:
         raise HTTPException(status_code=404, detail="No such order")
     order = repo.mark_delivered(order_id)
