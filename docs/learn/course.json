@@ -14,7 +14,7 @@
       "id": "01-how-llms-work",
       "title": "How LLMs work",
       "short": "LLMs",
-      "lessons": []
+      "lessons": ["01-tokens", "02-embeddings", "03-attention-and-transformers", "04-training", "05-generating-a-reply", "06-sampling", "07-context-windows-and-prompt-caching", "08-reasoning-models", "09-choosing-a-model"]
     },
     {
       "id": "02-talking-to-models",

@@ -73,9 +73,12 @@ ends with `scripts/check.sh`. Lesson tasks may finish 2 or 3 lessons at a time.
 
 # Slice 2 — Core
 
-- [ ] **T100** — Stage 1: tokens, embeddings, attention and transformers · files: `docs/learn/01-how-llms-work/`
-- [ ] **T101** — Stage 1: training, generating a reply, sampling
-- [ ] **T102** — Stage 1: context windows and prompt caching, reasoning models, choosing a model
+- [x] **T100** — Stage 1: tokens, embeddings, attention and transformers · files: `docs/learn/01-how-llms-work/`
+      **Result (2026-11-06):** 3 lessons with real measurements from this project: digits take a token each, Hindi cost 18 tokens against English 5, and a paraphrase scored below a shipping sentence. Sizes from each provider's docs. Snippet test caught a misquoted schema comment.
+- [x] **T101** — Stage 1: training, generating a reply, sampling
+      **Result (2026-11-06):** 3 lessons. Measured: about 1 second of prefill per 1,000 tokens, decode falling from 63 to 26 tokens a second as prompts grew, and temperature barely changing a simple answer, which tutorials don't usually show.
+- [x] **T102** — Stage 1: context windows and prompt caching, reasoning models, choosing a model
+      **Result (2026-11-06):** 3 lessons. Measured a repeated prompt falling from 4.05 s to 0.07 s. Running the Try it showed a repeated chat question doesn't speed up, because the conversation grows, so the exercise now teaches that. Costs worked out from Anthropic's published prices. Stage 1 is complete: 9 lessons.
 - [ ] **T103** — Stage 2: prompts, structured output, context engineering · files: `docs/learn/02-talking-to-models/`
 - [ ] **T104** — Stage 2: tool calling, how data passes through the system, with the one diagram (AC-16)
 - [ ] **T105** — Stage 3: chatbot, workflow or agent; the loop; tools · files: `docs/learn/03-agents/`

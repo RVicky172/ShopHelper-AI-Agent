@@ -83,6 +83,9 @@ something cost more than ~10 minutes or the fix was non-obvious. Delete entries 
 - Never write an interview answer claiming something the project hasn't done. The reader will repeat it.
 - `search.ts` beside `Search.tsx` fails TypeScript on Windows, where those are the same name.
 
+- Measure the exercise, not just the idea. A repeated prompt took 0.07 s by direct call, but repeating a chat question changed nothing, because the
+  conversation had grown.
+
 ## React state
 
 - Effects run twice in development (StrictMode), so an effect that calls a server must be safe to repeat. Take the work out of
