@@ -141,7 +141,12 @@
       "id": "10-running-in-production",
       "title": "Running in production",
       "short": "Production",
-      "lessons": []
+      "lessons": [
+        "01-monitoring-and-tracing",
+        "02-the-metrics-that-matter",
+        "03-incidents-and-rollback",
+        "04-managing-prompts-and-models"
+      ]
     },
     {
       "id": "11-building-with-ai",

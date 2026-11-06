@@ -5,10 +5,10 @@
 ## Current State (2026-11-06)
 
 - **Phase:** 2. Features 020 (accounts) and 021 (storefront) Implemented. Local stack works: `docker compose up` plus LM Studio. Evals 37/37.
-- **Git:** slices 1 and 2 merged. Merge each 022 slice once checks pass, then delete its branch (D-025).
+- **Git:** slices 1 to 3 merged. Merge each 022 slice once checks pass, then delete its branch (D-025).
 - **AWS:** torn down on 2026-11-01. Don't deploy unless asked.
-- **Active feature:** 022 learning website, In Progress: 42 of 53 tasks, stages 1 to 9 done (D-021). Containers are running.
-- **Next step:** `/spec-implement 022`, from T211: stage 10, running in production. Known bugs: warranty refunds (D-023), MCP one version behind (backlog).
+- **Active feature:** 022 learning website, In Progress: 44 of 53 tasks, stages 1 to 10 done (D-021). Containers are running.
+- **Next step:** `/spec-implement 022`, from T300: slice 4, interview. Known bugs: warranty refunds (D-023), MCP one version behind (backlog).
 - **Blockers:** none locally. Phase 1 needs the Anthropic form.
 
 ## Files
