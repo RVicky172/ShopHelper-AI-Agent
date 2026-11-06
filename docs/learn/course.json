@@ -114,7 +114,11 @@
       "title": "Security",
       "short": "Security",
       "lessons": [
-        "04-guardrails"
+        "01-the-owasp-lists",
+        "02-prompt-injection",
+        "03-layered-defences",
+        "04-guardrails-and-private-data",
+        "05-securing-tools-and-secrets"
       ]
     },
     {

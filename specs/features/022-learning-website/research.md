@@ -95,7 +95,7 @@ direction, not fact.
 
 ## Security
 
-- OWASP's 2026 LLM Top 10 keeps prompt injection first, and reportedly moves Excessive Agency to third. Read it directly when writing the lesson:
+- Secondary sources describe a 2026 LLM Top 10. OWASP's own page still showed the 2025 edition on 2026-11-06, so the course quotes that:
   these details are from secondary sources. [Akamai](https://www.akamai.com/blog/ai/owasp-top-10-llm-applications-2026-realistic-security-model)
 - A separate OWASP Top 10 for Agentic Applications, December 2025, starts with ASI01 Agent Goal Hijack, then Tool Misuse and Identity and Privilege Abuse.
   **[primary]** [OWASP](https://genai.owasp.org/2025/12/09/owasp-top-10-for-agentic-applications-the-benchmark-for-agentic-security-in-the-age-of-autonomous-ai/),

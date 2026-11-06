@@ -11,6 +11,13 @@ Newest first. One entry per working session.
 
 ---
 
+## 2026-11-06 — 022: stage 8, security
+
+**Done:** 5 lessons, replacing the carried chapter. New measurements: 10 direct attacks, guardrail stopped 1, 4 leaked part of the prompt. A planted
+policy showed an outside link 5 of 5 times, and called no extra tools. Both findings are in the roadmap backlog. Knowledge restored to 24 chunks.
+**Next:** `/spec-implement 022`, from T208: stage 9, cloud deployment.
+**Blockers:** none
+
 ## 2026-11-06 — 022: stage 7, evals and testing
 
 **Done:** 8 lessons, replacing the carried chapter. New measurement: the local judge agreed with 13 of 14 hand labels, and passed an invented
