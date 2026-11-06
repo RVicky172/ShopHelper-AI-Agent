@@ -77,7 +77,7 @@ cross-user cases were checked two ways:
 1. **Did they reach the code under test?** All 7 called the order tool, so no guardrail was doing the work.
 2. **Do they fail without the protection?** With the owner check removed, all 7 failed.
 
-A security test you've never seen fail hasn't proved anything. [Chapter 11](../06-building-the-app/07-accounts-and-isolation.md) has the
+A security test you've never seen fail hasn't proved anything. [Chapter 11](../06-building-the-app/07-authorization-and-isolation.md) has the
 results.
 
 Two lessons. **Read the failures, don't only count them**: two of the "agent failures" were broken

@@ -121,4 +121,4 @@ evals on real Bedrock, and tear down.
 5. Run `uv run pytest tests/shop -k accounts_off`. Each test turns accounts off and checks that a shop route
    returns 404. That's the AWS behaviour, proved without AWS.
 
-Next: [Accounts and isolation](../06-building-the-app/07-accounts-and-isolation.md)
+Next: [Accounts and isolation](../06-building-the-app/07-authorization-and-isolation.md)

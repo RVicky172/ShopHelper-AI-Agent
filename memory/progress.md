@@ -11,6 +11,13 @@ Newest first. One entry per working session.
 
 ---
 
+## 2026-11-06 — 022: stage 6, building the app
+
+**Done:** 7 lessons, replacing the 3 carried chapters. One timed turn: first event 2.07 s, first token 2.33 s, search 0.04 s, total 4.86 s.
+Gaps stated in the lessons: no `Secure` cookie flag locally, no migrations tool, no rate limits, one layer of isolation.
+**Next:** `/spec-implement 022`, from T203: stage 7, evals.
+**Blockers:** none
+
 ## 2026-11-06 — 022: stage 5, RAG
 
 **Done:** 9 lessons, replacing the carried RAG chapter. Measured on this project: reranking the top 8 took right-first from
