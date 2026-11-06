@@ -141,3 +141,8 @@ something cost more than ~10 minutes or the fix was non-obvious. Delete entries 
   real text, so measure recall on real embeddings before quoting a number.
 - On 24 chunks, top 4 is a sixth of the data, so most retrieval changes show no difference. Say the test can't tell, not that the
   change doesn't matter.
+
+## Cleaning up test data
+
+- `psql -c "a; b; c"` runs as one transaction, so one bad statement rolls back all of it, and piping to `tail` can hide that. Use a
+  separate `-c` per statement, then check the row count.

@@ -85,9 +85,13 @@
       "title": "Building the app",
       "short": "The app",
       "lessons": [
+        "01-project-setup",
+        "02-the-api",
         "03-streaming",
         "04-the-frontend",
-        "07-accounts-and-isolation"
+        "05-choosing-a-database",
+        "06-authentication",
+        "07-authorization-and-isolation"
       ]
     },
     {

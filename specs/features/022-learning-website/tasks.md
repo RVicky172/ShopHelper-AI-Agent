@@ -102,9 +102,12 @@ ends with `scripts/check.sh`. Lesson tasks may finish 2 or 3 lessons at a time.
 
 # Slice 3 — Production
 
-- [ ] **T200** — Stage 6: project setup and folder structure, the API, streaming · files: `docs/learn/06-building-the-app/`
-- [ ] **T201** — Stage 6: the frontend, choosing a database
-- [ ] **T202** — Stage 6: authentication, authorization and isolation
+- [x] **T200** — Stage 6: project setup and folder structure, the API, streaming · files: `docs/learn/06-building-the-app/`
+      **Result (2026-11-06):** Project setup and folder structure, the API, streaming (one timed turn: first token 2.33 s, total 4.86 s, search 0.04 s).
+- [x] **T201** — Stage 6: the frontend, choosing a database
+      **Result (2026-11-06):** The frontend, choosing a database. Try it queries run in Postgres.
+- [x] **T202** — Stage 6: authentication, authorization and isolation
+      **Result (2026-11-06):** Authentication, authorization and isolation. The carried chapter split in two, and links updated.
 - [ ] **T203** — Stage 7: why testing AI differs, test levels, golden sets · files: `docs/learn/07-evals-and-testing/`
 - [ ] **T204** — Stage 7: RAG evals, agent evals, LLM judges
 - [ ] **T205** — Stage 7: eval tools in the market, evals in CI

@@ -128,7 +128,7 @@ flowchart LR
 ```
 
 Someone else's order and a missing one get the same reply. Refund approval is a separate staff job, and the agent
-resumes as the customer. See [Accounts and isolation](../learn/06-building-the-app/07-accounts-and-isolation.md).
+resumes as the customer. See [Accounts and isolation](../learn/06-building-the-app/07-authorization-and-isolation.md).
 
 ## Level 6: the shop around the agent
 

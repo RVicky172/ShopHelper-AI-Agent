@@ -68,7 +68,7 @@ return order or {"error": f"No order found with id {order_id}"}
 
 - **Clean the input.** `lstrip("#")` handles the model passing `#1002`. Models are inconsistent.
 - **Return errors as data.** `{"error": ...}` goes back to the model, which can tell the customer. An exception would crash the turn.
-- **Keep identity out.** `user_id` isn't an argument. The model chooses only `order_id`, and who's asking comes from elsewhere. [Accounts and isolation](../06-building-the-app/07-accounts-and-isolation.md) explains why.
+- **Keep identity out.** `user_id` isn't an argument. The model chooses only `order_id`, and who's asking comes from elsewhere. [Accounts and isolation](../06-building-the-app/07-authorization-and-isolation.md) explains why.
 
 ### Why `request_refund` is different
 

@@ -94,7 +94,7 @@ return await t.ainvoke(call)  # a ToolCall in -> a ToolMessage out
 yield f"event: {kind}\ndata: {json.dumps(payload)}\n\n"
 ```
 
-So the customer's words pass through the model, but their identity takes a separate path around it. That's why asking the agent for someone else's order can't work, however the question is worded. [Accounts and isolation](../06-building-the-app/07-accounts-and-isolation.md) goes further.
+So the customer's words pass through the model, but their identity takes a separate path around it. That's why asking the agent for someone else's order can't work, however the question is worded. [Accounts and isolation](../06-building-the-app/07-authorization-and-isolation.md) goes further.
 
 **To find a problem, follow the route:**
 
