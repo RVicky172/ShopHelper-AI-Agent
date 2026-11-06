@@ -111,7 +111,7 @@ flowchart TD
 ```
 
 Why refunds get their own node, and how pausing works, is covered in
-[Memory and human approval](../learn/03-agents/04-memory-and-human-approval.md).
+[Memory and human approval](../learn/03-agents/05-human-approval.md).
 
 ## Level 5: keeping users apart
 

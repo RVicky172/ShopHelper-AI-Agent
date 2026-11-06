@@ -217,4 +217,4 @@ managed service is doing, and what to check when it misbehaves.
 6. **Change the chunk size:** set `MAX_CHUNK_CHARS` to 1000 in rag.py, then run
    `docker compose down -v && docker compose up`. Compare chunks and scores.
 
-Next: [Memory and human approval](../03-agents/04-memory-and-human-approval.md)
+Next: [Memory and human approval](../03-agents/05-human-approval.md)
