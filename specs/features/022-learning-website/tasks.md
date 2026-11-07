@@ -131,14 +131,19 @@ ends with `scripts/check.sh`. Lesson tasks may finish 2 or 3 lessons at a time.
 
 # Slice 4 — Interview
 
-- [ ] **T300** — Stage 11: all 4 lessons · files: `docs/learn/11-building-with-ai/`
-- [ ] **T301** — Stage 12: how interviews run, system design practice with 3 walkthroughs · files: `docs/learn/12-the-interview/`
-- [ ] **T302** — Stage 12: 5 debugging scenarios, the AI-assisted round (AC-18)
-- [ ] **T303** — Stage 12: telling the ShopHelper story, and the question bank page · files: `web/src/features/learn/QuestionBank.tsx` · test: 60 or more questions
+- [x] **T300** — Stage 11: all 4 lessons · files: `docs/learn/11-building-with-ai/`
+      **Result (2026-11-07):** 4 lessons, 8 to 9 minutes each, from Anthropic's current docs. Measured on Opus 5.5, 3 runs each: with only a `CLAUDE.md` rule, a direct request edited the protected file 3 of 3, an indirect one kept the rule 3 of 3, and a hook blocked 3 of 3. The first hook silently passed everything, because Windows paths have backslashes: kept in as a teaching point. Try it steps run, the hook steps taken literally from the lesson text, and the sabotage step caught. Checking claims against the repo fixed 3 draft errors: 12 steps on day one, not 9; LangSmith is wired in but never ran with a real model; and eval results come from Qwen. `Esc`, `/rewind` and `/clear` are taught from the docs but weren't run, as they're interactive, so they aren't Try it steps. Browser run at 1280 and 390 px, both themes at 1280: no page errors, no sideways scroll, only this site's host. The diagram went vertical to be readable on a phone. Also fixed stage 0, which still said the stepper was at the top. `scripts/check.sh` passes in 50 s.
+- [x] **T301** — Stage 12: how interviews run, system design practice with 3 walkthroughs · files: `docs/learn/12-the-interview/`
+      **Result (2026-11-07):** 2 lessons, 9 and 11 minutes. Three walkthroughs: a RAG assistant, a refund agent and a shared gateway, each with all 7 steps. New tests fail on fewer than 3 walkthroughs or a missing step, and 2 sabotage checks on the real lesson were caught. Traffic figures are labelled as assumptions; the token averages (1,469 in, 79 out) were re-read from 66 logged turns, and prices from Anthropic's page. Reading the sources dropped 2 research notes: neither "over 60% generative AI" nor "design a RAG chatbot is the warm-up" appears in them. Command Try it steps run; the timed practice steps are for the reader. Browser run at 1280 and 390 px, both themes: 3 of 3 diagrams drawn, no page errors, no sideways scroll, only this site's host. `scripts/check.sh` passes: 389 backend, 95 frontend.
+- [x] **T302** — Stage 12: 5 debugging scenarios, the AI-assisted round (AC-18)
+      **Result (2026-11-07):** 2 lessons, 11 and 9 minutes. 5 scenarios, each with all 6 steps: 3 are real bugs from this project, and 2 are practice cases built on real measurements and checks. New tests fail on fewer than 5 scenarios, a missing step, or a lost AC-18 warning, and 3 sabotage checks were caught. AC-18's rule opens the lesson. Anthropic's and Canva's pages were read directly: their rules are opposite, and a public tracker contradicts Anthropic's own page, which the lesson uses as the reason not to trust lists. Codility's and CodeSignal's help pages refused our request, so those rows say they were read on 2026-11-06, and a report of planted bugs is marked unconfirmed. Log command and refund exercise run: Claude's code was right, and what it lacked was requirements nobody gave it. Scenario 1's browser step was run in T111, and not repeated. Browser run at 1280 and 390 px, both themes: no page errors, no sideways scroll, only this site's host. `scripts/check.sh` passes.
+- [x] **T303** — Stage 12: telling the ShopHelper story, and the question bank page · files: `web/src/features/learn/QuestionBank.tsx` · test: 60 or more questions
+      **Result (2026-11-07):** 2 lessons, so all 13 stages and 81 lessons now exist. The bank shows 226 questions, from every stage, with a stage filter and search. `virtual:course-questions` extracts them at build time from the lessons, so there's no copy, and they load in a 140.70 kB chunk only on this lesson. Shop's main chunk unchanged at 343.06 kB. Answers render only when opened. `LessonText.tsx` was split out of `LessonBody.tsx` so the bank could share it. The pure module is `bankQuestions.ts`, because `questionBank.ts` clashed with `QuestionBank.tsx` on Windows. The story lesson states plainly that no real Claude call ever ran on AWS, in a table of what can and can't be claimed. Frontend tests 95 to 101, 4 sabotage checks caught, including the 60-question rule, which had never failed. Browser run at 1280 and 390 px, both themes: filter 26 for RAG, search 30 for refund, answer, lesson link, empty state, keyboard, no page errors, no sideways scroll, and no bank code on other pages. Spoken practice steps are for the reader.
 
 ## Verify
 
-- [ ] **T390** — Accessibility and performance on a production build, as in 021's T090 · test: recorded numbers (AC-19, AC-20)
+- [-] **T390** — Accessibility and performance on a production build, as in 021's T090 · test: recorded numbers (AC-19, AC-20)
+      **Moved to the backlog (2026-11-07, D-026):** owner's call. Not done, so AC-19 and AC-20 stay unproven.
 - [ ] **T391** — Request hosts listed with LM Studio stopped · test: only this site's host (AC-21)
 - [ ] **T392** — Update `specs/architecture.md` with what this feature established.
 - [ ] **T393** — Every Definition-of-Done gate green (`specs/constitution.md`), level 3 in the background; record the numbers.
@@ -166,8 +171,8 @@ ends with `scripts/check.sh`. Lesson tasks may finish 2 or 3 lessons at a time.
 | AC-16 | T104             |
 | AC-17 | T301, T302, T303 |
 | AC-18 | T302             |
-| AC-19 | T390             |
-| AC-20 | T001, T022, T390 |
+| AC-19 | T390 (backlog)   |
+| AC-20 | T001, T022, T390 (backlog) |
 | AC-21 | T391             |
 | AC-22 | T010, T030, T031 |
 | AC-23 | T393             |
