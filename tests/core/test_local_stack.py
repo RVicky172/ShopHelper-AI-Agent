@@ -36,6 +36,7 @@ def test_defaults_are_the_aws_path():
     assert s.llm_provider == "bedrock" and s.database_url is None
     assert s.mcp_url is None and s.mcp_host == "127.0.0.1" and s.local_guardrails is False
     assert s.accounts_enabled is False and s.seed_demo_users is False and s.internal_token_secret is None
+    assert s.web_origins == {"http://localhost:5173"}
     assert isinstance(default_llm(), ChatBedrockConverse)
     assert isinstance(default_checkpointer(), InMemorySaver)
 

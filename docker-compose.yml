@@ -24,6 +24,7 @@ x-app: &app
     LOCAL_GUARDRAILS: "true"
     INTERNAL_TOKEN_SECRET: local-development-only-not-a-real-secret-0123456789
     WEB_ORIGIN: http://localhost:5173
+    EXTRA_WEB_ORIGINS: http://127.0.0.1:5173 # the same local site: browsers count it as a different one
     SEED_DEMO_USERS: "true"  # creates the demo accounts; never set this on a real deployment
     LANGSMITH_TRACING: "false"
     WATCHFILES_FORCE_POLLING: "true"  # file events don't cross a Windows bind mount

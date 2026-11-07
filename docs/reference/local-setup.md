@@ -31,7 +31,7 @@ docker compose up --build
 The first run takes a few minutes to build the images. Later runs start in seconds. Add `-d` to
 run in the background.
 
-**3. Open the app:** <http://localhost:5173>
+**3. Open the app:** <http://localhost:5173>. `http://127.0.0.1:5173` works too, but it's a separate site to your browser, so you sign in to each one separately.
 
 The shop opens straight away, with no sign-in needed to browse or fill a cart.
 
