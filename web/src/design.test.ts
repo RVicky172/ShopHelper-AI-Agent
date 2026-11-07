@@ -90,6 +90,38 @@ describe('the shop', () => {
   })
 })
 
+describe('the rest of the site', () => {
+  it('leaves no old flat panel, button or field behind', () => {
+    expect(breaking(/rounded border border-rule bg-paper/)).toEqual([])
+    expect(breaking(/\brounded bg-cobalt/)).toEqual([])
+    expect(breaking(/\brounded border border-field/)).toEqual([])
+  })
+
+  it('uses only colours that exist', () => {
+    expect(breaking(/divide-line/)).toEqual([])
+  })
+
+  it('keeps reading and work on a nearly solid surface', () => {
+    for (const page of [
+      'features/learn/Learn.tsx',
+      'features/auth/AuthPage.tsx',
+      'features/shop/OrdersView.tsx',
+      'features/staff/QueueView.tsx',
+      'features/staff/UsersView.tsx',
+      'features/how-it-works/ToolsView.tsx',
+    ]) {
+      expect(read(page)).toContain('surface-solid')
+    }
+  })
+
+  it('puts the course map on glass, clear of the floating navbar', () => {
+    const nav = read('features/learn/CourseNav.tsx')
+    expect(nav).toContain('glass-tile')
+    expect(nav).not.toContain('sticky top-4')
+    expect(read('features/learn/Learn.tsx')).toContain('glass-tile')
+  })
+})
+
 describe('the shell sits on glass', () => {
   it('gives the navbar its glass on a layer, so a menu inside it can still blur the page', () => {
     expect(read('shared/layout/Navbar.tsx')).toContain('glass-bar')

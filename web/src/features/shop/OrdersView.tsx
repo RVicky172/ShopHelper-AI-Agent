@@ -37,7 +37,7 @@ export function OrdersView({ user }: { user: User }) {
               type="button"
               onClick={() => reset.mutate()}
               disabled={reset.isPending}
-              className="rounded border border-rule bg-paper px-3 py-1.5 text-sm disabled:opacity-50"
+              className="rounded-xl border border-rule bg-paper px-3 py-1.5 text-sm disabled:opacity-50"
             >
               Reset demo orders
             </button>
@@ -60,7 +60,7 @@ export function OrdersView({ user }: { user: User }) {
           aria-label="Orders"
           // biome-ignore lint/a11y/noNoninteractiveTabindex: a scrollable table must be reachable by keyboard (021 T090)
           tabIndex={0}
-          className="mt-4 overflow-x-auto rounded border border-rule bg-paper"
+          className="mt-4 overflow-x-auto surface-solid"
         >
           <table className="w-full text-left text-sm">
             <thead className="text-xs text-muted">
@@ -91,7 +91,7 @@ export function OrdersView({ user }: { user: User }) {
                           onClick={() => deliver.mutate(order.order_id)}
                           disabled={deliver.isPending}
                           aria-label={`Mark delivered, order ${order.order_id}`}
-                          className="min-h-8 rounded border border-field px-2 whitespace-nowrap hover:border-cobalt disabled:opacity-50"
+                          className="min-h-8 rounded-xl border border-field px-2 whitespace-nowrap hover:border-cobalt disabled:opacity-50"
                         >
                           Mark delivered
                         </button>

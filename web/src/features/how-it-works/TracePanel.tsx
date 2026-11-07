@@ -185,7 +185,7 @@ export function TracePanel({ turns, focus }: { turns: Turn[]; focus?: string | n
           key={turn.id}
           ref={turn.id === focus ? focused : undefined}
           open={focus ? turn.id === focus : index === 0}
-          className="rounded border border-rule bg-paper"
+          className="surface-solid"
         >
           <summary className="cursor-pointer truncate px-3 py-2 text-sm font-medium">{turn.label}</summary>
           <ol className="px-3 pt-1 pb-3">

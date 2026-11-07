@@ -12,7 +12,7 @@ function Interview({ stage, body }: { stage: string; body: string }) {
   return (
     <div className="mt-3 space-y-2">
       {interviewQuestions(body).map((item) => (
-        <details key={item.question} className="rounded border border-rule px-4 py-2">
+        <details key={item.question} className="rounded-inner border border-edge px-4 py-2">
           <summary className="min-h-11 cursor-pointer py-2 font-medium">{item.question}</summary>
           <div className="pb-2">
             <p className="text-sm font-medium text-muted">A strong answer</p>

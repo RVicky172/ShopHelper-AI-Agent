@@ -15,7 +15,7 @@ function DemoAccounts({ accounts, onPick }: { accounts: DemoAccount[]; onPick: (
   const staff = accounts.filter((a) => a.role !== 'customer')
   const customers = accounts.filter((a) => a.role === 'customer')
   return (
-    <section className="mt-6 rounded border border-rule bg-paper p-4">
+    <section className="mt-6 surface-solid p-4">
       <h2 className="text-sm font-semibold">Demo accounts</h2>
       <p className="mt-0.5 text-xs text-muted">
         Sign in as each level to see the same app from each side. All use the password{' '}
@@ -27,7 +27,7 @@ function DemoAccounts({ accounts, onPick }: { accounts: DemoAccount[]; onPick: (
             <button
               type="button"
               onClick={() => onPick(account)}
-              className="w-full rounded border border-rule px-3 py-1.5 text-left text-sm hover:border-cobalt"
+              className="w-full rounded-xl border border-rule px-3 py-1.5 text-left text-sm hover:border-cobalt"
             >
               <span className="font-medium">{account.display_name}</span>
               <span className="block text-xs text-muted">{LEVELS[account.role]}</span>
@@ -42,7 +42,7 @@ function DemoAccounts({ accounts, onPick }: { accounts: DemoAccount[]; onPick: (
             type="button"
             key={account.email}
             onClick={() => onPick(account)}
-            className="rounded border border-rule px-2.5 py-1 text-sm hover:border-cobalt"
+            className="rounded-xl border border-rule px-2.5 py-1 text-sm hover:border-cobalt"
           >
             {account.display_name}
           </button>
@@ -81,7 +81,7 @@ export function AuthPage({ auth, mode }: { auth: ReturnType<typeof useAuth>; mod
       <div className="mx-auto max-w-md">
         <h1 className="text-title font-semibold">{tabs[mode].label}</h1>
 
-        <div className="mt-6 rounded border border-rule bg-paper p-4">
+        <div className="mt-6 surface-solid p-4">
           <nav aria-label="Sign in or create an account" className="flex gap-1">
             {(['login', 'signup'] as const).map((option) => (
               <Link
@@ -110,7 +110,7 @@ export function AuthPage({ auth, mode }: { auth: ReturnType<typeof useAuth>; mod
                   onChange={(e) => setName(e.target.value)}
                   maxLength={64}
                   autoComplete="name"
-                  className="mt-1 w-full rounded border border-field bg-paper px-3 py-2"
+                  className="mt-1 w-full rounded-xl border border-field bg-paper px-3 py-2"
                 />
               </label>
             )}
@@ -122,7 +122,7 @@ export function AuthPage({ auth, mode }: { auth: ReturnType<typeof useAuth>; mod
                 onChange={(e) => setEmail(e.target.value)}
                 required
                 autoComplete="email"
-                className="mt-1 w-full rounded border border-field bg-paper px-3 py-2"
+                className="mt-1 w-full rounded-xl border border-field bg-paper px-3 py-2"
               />
             </label>
             <label className="block text-sm">
@@ -133,7 +133,7 @@ export function AuthPage({ auth, mode }: { auth: ReturnType<typeof useAuth>; mod
                 onChange={(e) => setPassword(e.target.value)}
                 required
                 autoComplete={mode === 'login' ? 'current-password' : 'new-password'}
-                className="mt-1 w-full rounded border border-field bg-paper px-3 py-2"
+                className="mt-1 w-full rounded-xl border border-field bg-paper px-3 py-2"
               />
               {mode === 'signup' && <span className="mt-1 block text-xs text-muted">At least 8 characters.</span>}
             </label>
@@ -145,7 +145,7 @@ export function AuthPage({ auth, mode }: { auth: ReturnType<typeof useAuth>; mod
             <button
               type="submit"
               disabled={active.isPending}
-              className="w-full rounded bg-cobalt px-4 py-2 text-sm font-medium text-on-cobalt disabled:opacity-50"
+              className="w-full rounded-xl bg-cobalt px-4 py-2 text-sm font-medium text-on-cobalt disabled:opacity-50"
             >
               {mode === 'login' ? 'Sign in' : 'Create account'}
             </button>

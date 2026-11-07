@@ -33,7 +33,7 @@ export function HowItWorks({ user }: { user: User }) {
     <div className="flex min-h-0 flex-1 flex-col">
       <title>How it works · ShopHelper</title>
       <h1 className="sr-only">How it works</h1>
-      <div className="flex flex-wrap items-center gap-x-6 gap-y-1 border-b border-rule bg-shelf px-4 py-1">
+      <div className="glass-card flex flex-wrap items-center gap-x-6 gap-y-1 border-b border-edge px-gutter py-1">
         <nav aria-label="How it works" className="flex flex-wrap gap-x-5">
           {SECTIONS.map((section) => (
             <NavLink

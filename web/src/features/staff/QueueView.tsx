@@ -18,7 +18,7 @@ function RefundRow({ refund, reviewer }: { refund: QueuedRefund; reviewer: User 
   const processing = refund.status === 'claimed'
 
   return (
-    <li className="rounded border border-rule bg-paper p-4">
+    <li className="surface-solid p-4">
       <div className="flex flex-wrap items-baseline justify-between gap-2">
         <p className="font-medium">
           Order <span className="font-mono">{refund.order_id}</span>, {refund.item}
@@ -43,7 +43,7 @@ function RefundRow({ refund, reviewer }: { refund: QueuedRefund; reviewer: User 
                 value={note}
                 onChange={(e) => setNote(e.target.value)}
                 maxLength={500}
-                className="mt-0.5 w-full rounded border border-field bg-paper px-2 py-1.5 text-sm text-ink"
+                className="mt-0.5 w-full rounded-xl border border-field bg-paper px-2 py-1.5 text-sm text-ink"
               />
             </label>
             <div className="flex gap-2">
@@ -51,7 +51,7 @@ function RefundRow({ refund, reviewer }: { refund: QueuedRefund; reviewer: User 
                 type="button"
                 disabled={decide.isPending}
                 onClick={() => decide.mutate(true)}
-                className="rounded bg-cobalt px-3 py-1.5 text-sm font-medium text-on-cobalt disabled:opacity-50"
+                className="rounded-xl bg-cobalt px-3 py-1.5 text-sm font-medium text-on-cobalt disabled:opacity-50"
               >
                 {decide.isPending ? 'Working...' : 'Approve refund'}
               </button>
@@ -59,7 +59,7 @@ function RefundRow({ refund, reviewer }: { refund: QueuedRefund; reviewer: User 
                 type="button"
                 disabled={decide.isPending}
                 onClick={() => decide.mutate(false)}
-                className="rounded border border-rule px-3 py-1.5 text-sm font-medium disabled:opacity-50"
+                className="rounded-xl border border-rule px-3 py-1.5 text-sm font-medium disabled:opacity-50"
               >
                 Reject
               </button>
@@ -90,7 +90,7 @@ export function QueueView({ user }: { user: User }) {
         </p>
         {refunds.isError && <p className="mt-3 text-sm text-danger">{refunds.error.message}</p>}
         {refunds.data?.length === 0 && (
-          <p className="mt-6 rounded border border-rule bg-paper p-4 text-sm text-muted">
+          <p className="mt-6 surface-solid p-4 text-sm text-muted">
             Nothing is waiting. Sign in as a customer and ask for a refund to fill this queue.
           </p>
         )}

@@ -64,7 +64,7 @@ export function ChatView({ user }: { user: User }) {
                         type="button"
                         disabled={chat.busy}
                         onClick={() => void chat.send(example.text)}
-                        className="w-full rounded border border-rule bg-paper px-3 py-2 text-left text-sm hover:border-cobalt"
+                        className="w-full rounded-xl border border-rule bg-paper px-3 py-2 text-left text-sm hover:border-cobalt"
                       >
                         <span className="block text-xs font-medium text-muted">{example.label}</span>
                         {example.text}
@@ -111,12 +111,12 @@ export function ChatView({ user }: { user: User }) {
               maxLength={2000}
               aria-label="Message"
               placeholder="Ask about an order or policy"
-              className="min-h-10 flex-1 resize-none rounded border border-field bg-paper px-3 py-2 text-sm"
+              className="min-h-10 flex-1 resize-none rounded-xl border border-field bg-paper px-3 py-2 text-sm"
             />
             <button
               type="submit"
               disabled={chat.busy || !draft.trim()}
-              className="h-11 rounded bg-cobalt px-4 text-sm font-medium text-on-cobalt disabled:opacity-50"
+              className="h-11 rounded-xl bg-cobalt px-4 text-sm font-medium text-on-cobalt disabled:opacity-50"
             >
               Send
             </button>

@@ -12,7 +12,7 @@ function Question({ item }: { item: BankQuestion }) {
   const [opened, setOpened] = useState(false)
   return (
     <details
-      className="rounded border border-rule px-4 py-2"
+      className="rounded-inner border border-edge px-4 py-2"
       onToggle={(event) => {
         if (event.currentTarget.open) setOpened(true)
       }}
@@ -54,7 +54,7 @@ export function QuestionBank() {
             id={stageId}
             value={stage}
             onChange={(event) => setStage(event.target.value)}
-            className="mt-1 min-h-11 w-full rounded border border-field bg-paper px-3"
+            className="mt-1 min-h-11 w-full rounded-xl border border-field bg-paper px-3"
           >
             <option value="">All stages</option>
             {stages.map(([id, title]) => (
@@ -74,7 +74,7 @@ export function QuestionBank() {
             value={query}
             placeholder='Try "refund" or "latency"'
             onChange={(event) => setQuery(event.target.value)}
-            className="mt-1 min-h-11 w-full rounded border border-field bg-paper px-3"
+            className="mt-1 min-h-11 w-full rounded-xl border border-field bg-paper px-3"
           />
         </div>
       </div>

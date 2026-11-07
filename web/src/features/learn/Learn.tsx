@@ -46,7 +46,7 @@ function LearnHome({ progress }: { progress: Progress }) {
           {start && (
             <Link
               to={lessonPath(start)}
-              className="inline-flex min-h-11 items-center rounded bg-cobalt px-4 font-medium text-on-cobalt"
+              className="inline-flex min-h-11 items-center rounded-xl bg-cobalt px-4 font-medium text-on-cobalt"
             >
               {last ? `Continue: ${last.title}` : 'Start the course'}
             </Link>
@@ -75,11 +75,11 @@ function LearnHome({ progress }: { progress: Progress }) {
             return (
               <li key={stage.id}>
                 {first ? (
-                  <Link to={lessonPath(first)} className="block rounded border border-rule p-4 hover:border-cobalt">
+                  <Link to={lessonPath(first)} className="glass-tile card-lift block h-full p-4 hover:border-cobalt">
                     {label}
                   </Link>
                 ) : (
-                  <div className="rounded border border-rule p-4 opacity-80">{label}</div>
+                  <div className="glass-tile h-full p-4 opacity-80">{label}</div>
                 )}
               </li>
             )
@@ -116,21 +116,23 @@ function LessonPage({
       <title>{`${lesson.title} · Learn · ShopHelper`}</title>
       <article className="min-w-0">
         <CourseMenu course={course} stageId={stage.id} lessonId={lesson.id} done={progress.done} />
-        <p className="mt-4 text-sm text-muted lg:mt-0">{stage.title}</p>
-        <h1 className="mt-1 text-title font-semibold">{lesson.title}</h1>
-        <p className="mt-1 text-sm text-muted">{lesson.minutes} min read</p>
-        <LessonBody key={key} lesson={lesson} />
-        <div className="mt-10 border-t border-rule pt-5">
-          <button
-            type="button"
-            aria-pressed={done}
-            onClick={() => update((current) => toggleDone(current, key))}
-            className={`min-h-11 rounded border px-4 font-medium ${
-              done ? 'border-guard text-guard' : 'border-cobalt bg-cobalt text-on-cobalt'
-            }`}
-          >
-            {done ? 'Done ✓' : 'Mark as done'}
-          </button>
+        <div className="surface-solid mt-4 p-5 lg:mt-0 lg:p-8">
+          <p className="text-sm text-muted">{stage.title}</p>
+          <h1 className="mt-1 text-title font-semibold">{lesson.title}</h1>
+          <p className="mt-1 text-sm text-muted">{lesson.minutes} min read</p>
+          <LessonBody key={key} lesson={lesson} />
+          <div className="mt-10 border-t border-edge pt-5">
+            <button
+              type="button"
+              aria-pressed={done}
+              onClick={() => update((current) => toggleDone(current, key))}
+              className={`min-h-11 rounded-xl border px-4 font-medium ${
+                done ? 'border-guard text-guard' : 'border-cobalt bg-cobalt text-on-cobalt'
+              }`}
+            >
+              {done ? 'Done ✓' : 'Mark as done'}
+            </button>
+          </div>
         </div>
         <nav aria-label="Lessons" className="mt-5 flex flex-wrap justify-between gap-4 pb-10">
           {previous ? (

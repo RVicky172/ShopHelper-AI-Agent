@@ -32,7 +32,7 @@ export function ConversationList({ chat }: { chat: ReturnType<typeof useChat> })
             type="button"
             disabled={chat.busy}
             onClick={chat.newConversation}
-            className="w-full rounded border border-rule bg-paper px-3 py-1.5 text-sm hover:border-cobalt disabled:opacity-50"
+            className="w-full rounded-xl border border-rule bg-paper px-3 py-1.5 text-sm hover:border-cobalt disabled:opacity-50"
           >
             {NEW_CHAT}
           </button>

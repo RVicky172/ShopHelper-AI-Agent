@@ -95,7 +95,7 @@ function Conversation({ user }: { user: User }) {
                     type="button"
                     disabled={chat.busy}
                     onClick={() => void chat.send(starter)}
-                    className="min-h-11 w-full rounded border border-rule px-3 py-2 text-left hover:border-cobalt"
+                    className="min-h-11 w-full rounded-xl border border-rule px-3 py-2 text-left hover:border-cobalt"
                   >
                     {starter}
                   </button>
@@ -155,12 +155,12 @@ function Conversation({ user }: { user: User }) {
           maxLength={2000}
           aria-label="Message to support"
           placeholder="Ask about an order or policy"
-          className="min-h-11 flex-1 resize-none rounded border border-field bg-paper px-3 py-2"
+          className="min-h-11 flex-1 resize-none rounded-xl border border-field bg-paper px-3 py-2"
         />
         <button
           type="submit"
           disabled={chat.busy || !draft.trim()}
-          className="min-h-11 rounded bg-cobalt px-4 font-medium text-on-cobalt disabled:opacity-50"
+          className="min-h-11 rounded-xl bg-cobalt px-4 font-medium text-on-cobalt disabled:opacity-50"
         >
           Send
         </button>
@@ -183,7 +183,7 @@ function SignInFirst() {
       <Link
         ref={link}
         to={to}
-        className="mt-4 flex min-h-11 items-center justify-center rounded bg-cobalt px-4 font-medium text-on-cobalt hover:underline"
+        className="mt-4 flex min-h-11 items-center justify-center rounded-xl bg-cobalt px-4 font-medium text-on-cobalt hover:underline"
       >
         Sign in
       </Link>
