@@ -1,4 +1,5 @@
 import { describe, expect, it } from 'vitest'
+import { filterQuestions, questionsIn } from './bankQuestions'
 import { searchLessons } from './lessonSearch'
 import { checkQuestions, interviewQuestions, parseLesson } from './lessons'
 import { toHref } from './links'
@@ -131,5 +132,69 @@ describe('searchLessons', () => {
 
   it('finds nothing for a blank search', () => {
     expect(searchLessons(COURSE, '  ')).toEqual([])
+  })
+})
+
+describe('the question bank', () => {
+  const where = { stage: '05-rag', stageTitle: 'RAG', lesson: '03-chunking', lessonTitle: 'Chunking' }
+  const raw = [
+    '---',
+    'title: Chunking',
+    '---',
+    '',
+    '## An example',
+    '### Not an interview question',
+    '',
+    '## Interview questions',
+    '',
+    '### What is overlap?',
+    '',
+    '**Strong answer:** Repeated text.',
+    '',
+    '**Follow-up:** How much?',
+    '',
+    '## Check yourself',
+    '',
+    '### Not this one either',
+    '',
+  ].join('\n')
+
+  it('takes questions only from the interview part, and says where they came from', () => {
+    expect(questionsIn(raw, where)).toEqual([
+      { ...where, question: 'What is overlap?', answer: 'Repeated text.', followUp: 'How much?' },
+    ])
+  })
+
+  it('finds nothing in a lesson with no interview part', () => {
+    expect(questionsIn('## An example\nWords.\n', where)).toEqual([])
+  })
+
+  const bank = [
+    { ...where, question: 'What is overlap?', answer: 'Repeated text.', followUp: 'How much?' },
+    {
+      ...where,
+      stage: '08-security',
+      stageTitle: 'Security',
+      question: 'What is injection?',
+      answer: 'An attack.',
+      followUp: 'Why?',
+    },
+  ]
+
+  it('shows everything with no filter', () => {
+    expect(filterQuestions(bank, '', '')).toEqual(bank)
+  })
+
+  it('filters by stage', () => {
+    expect(filterQuestions(bank, '08-security', '').map((q) => q.question)).toEqual(['What is injection?'])
+  })
+
+  it('searches the question and the answer, ignoring case', () => {
+    expect(filterQuestions(bank, '', 'OVERLAP')).toEqual([bank[0]])
+    expect(filterQuestions(bank, '', 'an attack')).toEqual([bank[1]])
+  })
+
+  it('applies both filters together', () => {
+    expect(filterQuestions(bank, '05-rag', 'attack')).toEqual([])
   })
 })

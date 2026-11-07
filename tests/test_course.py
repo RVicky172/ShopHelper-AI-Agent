@@ -13,6 +13,12 @@ MAX_MINUTES = 15
 REQUIRED = ["What you'll learn", "The simple explanation", "An example"]
 SHOPHELPER = ("How ShopHelper does it", "Not in ShopHelper")
 ORDER = [*REQUIRED, *SHOPHELPER, "In the market", "Try it", "Interview questions", "Check yourself"]
+MIN_QUESTIONS = 60
+BANK_PART = "All the questions"
+WALKTHROUGHS = 3
+SCENARIOS = 5
+SCENARIO_STEPS = ["Symptom", "Ask first", "Narrow it down", "Cause", "Fix", "Prevent"]
+WALKTHROUGH_STEPS = ["Clarify", "Estimate", "Design", "Go deep", "Failures", "Measure", "Trade-off"]
 
 
 def split_front(text: str) -> tuple[dict[str, str], str]:
@@ -111,6 +117,26 @@ def link_problems(path: Path) -> list[str]:
     for target in re.findall(r"\]\(([^)#\s]+)(?:#[^)]*)?\)", body):
         if not target.startswith(("http://", "https://", "mailto:")) and not (path.parent / target).exists():
             problems.append(f"{path.relative_to(ROOT)} links to {target}")
+    return problems
+
+
+def walkthrough_problems(text: str) -> list[str]:
+    """A system design walkthrough practises every step, so none can be left out."""
+    found = sections(split_front(text)[1])
+    walks = {name: body for name, body in found.items() if name.startswith("Walkthrough ")}
+    problems = [] if len(walks) >= WALKTHROUGHS else [f"under {WALKTHROUGHS} walkthroughs"]
+    for name, body in walks.items():
+        problems += [f"{name} has no {step}" for step in WALKTHROUGH_STEPS if f"**{step}:**" not in body]
+    return problems
+
+
+def scenario_problems(text: str) -> list[str]:
+    """A debugging scenario walks from symptom to prevention, so none stops at a guess."""
+    found = sections(split_front(text)[1])
+    scenarios = {name: body for name, body in found.items() if name.startswith("Scenario ")}
+    problems = [] if len(scenarios) >= SCENARIOS else [f"under {SCENARIOS} scenarios"]
+    for name, body in scenarios.items():
+        problems += [f"{name} has no {step}" for step in SCENARIO_STEPS if f"**{step}:**" not in body]
     return problems
 
 
@@ -228,6 +254,63 @@ def test_every_lesson_has_a_title():
 def test_code_examples_still_match_the_project():
     for path in lessons():
         assert snippet_problems(path.read_text(encoding="utf-8"), ROOT) == [], path.name
+
+
+def test_a_walkthrough_must_cover_every_step():
+    steps = "\n".join(f"**{step}:** Words." for step in WALKTHROUGH_STEPS)
+    whole = "".join(f"## Walkthrough {n}: A design\n{steps}\n\n" for n in (1, 2, 3))
+    assert walkthrough_problems(whole) == []
+    assert walkthrough_problems(whole.replace("**Failures:**", "**Worries:**", 1)) == [
+        "Walkthrough 1: A design has no Failures"
+    ]
+    assert walkthrough_problems(whole.split("## Walkthrough 3")[0]) == ["under 3 walkthroughs"]
+
+
+def test_the_interview_stage_has_3_system_design_walkthroughs():
+    lesson = LEARN / "12-the-interview" / "02-system-design-practice.md"
+    assert walkthrough_problems(lesson.read_text(encoding="utf-8")) == []
+
+
+def test_a_scenario_must_cover_every_step():
+    steps = " ".join(f"**{step}:** Words." for step in SCENARIO_STEPS)
+    whole = "".join(f"## Scenario {n}: A bug\n{steps}\n\n" for n in range(1, 6))
+    assert scenario_problems(whole) == []
+    guessed = whole.replace("**Cause:**", "**Guess:**", 1)
+    assert scenario_problems(guessed) == ["Scenario 1: A bug has no Cause"]
+    assert scenario_problems(whole.split("## Scenario 5")[0]) == ["under 5 scenarios"]
+
+
+def test_the_interview_stage_has_5_debugging_scenarios():
+    lesson = LEARN / "12-the-interview" / "03-debugging-scenarios.md"
+    assert scenario_problems(lesson.read_text(encoding="utf-8")) == []
+
+
+def test_the_ai_round_says_to_ask_the_recruiter():
+    lesson = LEARN / "12-the-interview" / "04-the-ai-assisted-round.md"
+    text = lesson.read_text(encoding="utf-8").lower()
+    assert "rules differ" in text
+    assert "ask the recruiter" in text
+
+
+def interview_questions(path: Path) -> list[str]:
+    found = sections(split_front(path.read_text(encoding="utf-8"))[1])
+    return re.findall(r"^### (.+)$", found.get("Interview questions", ""), flags=re.MULTILINE)
+
+
+def test_the_question_bank_draws_60_questions_from_every_stage():
+    per_stage = {
+        stage["id"]: sum(
+            len(interview_questions(LEARN / stage["id"] / f"{name}.md")) for name in stage["lessons"]
+        )
+        for stage in course()["stages"]
+    }
+    assert sum(per_stage.values()) >= MIN_QUESTIONS
+    assert [stage for stage, count in per_stage.items() if count == 0] == []
+
+
+def test_the_question_bank_lesson_shows_the_bank():
+    lesson = LEARN / "12-the-interview" / "06-the-question-bank.md"
+    assert BANK_PART in sections(split_front(lesson.read_text(encoding="utf-8"))[1])
 
 
 def test_every_link_works():
