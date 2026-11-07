@@ -23,6 +23,9 @@
   --color-edge: color-mix(in srgb, var(--color-ink) 12%, transparent);
   --shadow-float: 0 12px 32px -16px rgb(16 24 64 / 0.28);
   --radius-panel: 1rem;
+  --radius-inner: 0.75rem;
+  --shadow-tile:
+    inset 0 1px 0 color-mix(in srgb, var(--color-paper) 55%, transparent), 0 10px 24px -20px rgb(16 24 64 / 0.3);
 
   /* The ground behind every page. */
   --ground-a: color-mix(in srgb, #2340d9 22%, transparent);
@@ -134,8 +137,18 @@ body::before {
   background: var(--surface-card);
   backdrop-filter: var(--glass-blur);
 }
+/* The ground is already soft, so blurring it again adds nothing you can see, and costs the GPU on every card.
+   Real blur stays on surfaces with moving content behind them. */
+@utility glass-tile {
+  background: var(--surface-card);
+  border: 1px solid var(--color-edge);
+  border-radius: var(--radius-panel);
+  box-shadow: var(--shadow-tile);
+}
 @utility surface-solid {
   background: var(--surface-solid);
+  border: 1px solid var(--color-edge);
+  border-radius: var(--radius-panel);
 }
 /* An element with a backdrop filter is the backdrop for its children, so a menu inside it would have nothing
    to blur. Keeping the glass on a layer leaves the menu free to blur the real page. */
@@ -204,6 +217,15 @@ body::before {
   }
   .menu-panel {
     animation: menu-panel 160ms var(--ease-fluid);
+  }
+  .card-lift {
+    transition:
+      transform 200ms var(--ease-fluid),
+      box-shadow 200ms var(--ease-fluid);
+  }
+  .card-lift:hover {
+    transform: translateY(-2px);
+    box-shadow: var(--shadow-float);
   }
   .cart-tick {
     animation: cart-tick 200ms ease-out;

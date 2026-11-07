@@ -175,6 +175,8 @@ something cost more than ~10 minutes or the fix was non-obvious. Delete entries 
 - The product SVGs have their tint built in, so changing a tint token means changing the SVGs too. `test_catalog.py` catches it.
 - A lazy panel can still be animating in a screenshot, and looks too transparent. Read its computed style, or wait, before calling it a defect.
 
+- Blurring something already blurred shows nothing. Cards sit on a soft ground, so they're translucent with no `backdrop-filter`, which saves a GPU layer on each of 42 cards.
+
 ## Sabotage steps
 
 - Adding `/orders` to `PUBLIC_PATHS` fails no route test, because the route's own dependency still returns 401. Run a sabotage step before

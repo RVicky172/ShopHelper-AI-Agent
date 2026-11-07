@@ -60,7 +60,7 @@ export function CategoryPage() {
               next.set('sort', event.target.value)
               setParams(next, { replace: true })
             }}
-            className="min-h-11 rounded border border-field bg-paper px-2"
+            className="min-h-11 rounded-xl border border-field bg-paper px-2"
           >
             {SORTS.map((option) => (
               <option key={option.value} value={option.value}>
@@ -92,7 +92,7 @@ export function CategoryPage() {
               type="button"
               onClick={() => void products.fetchNextPage()}
               disabled={products.isFetchingNextPage}
-              className="min-h-11 rounded border border-field px-4 hover:border-cobalt disabled:opacity-50"
+              className="min-h-11 rounded-xl border border-field px-4 hover:border-cobalt disabled:opacity-50"
             >
               Load more
             </button>

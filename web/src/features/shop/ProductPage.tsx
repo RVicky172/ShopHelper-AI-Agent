@@ -57,7 +57,7 @@ export function ProductPage() {
 
       <div className="mt-4 grid gap-8 md:grid-cols-2">
         <ProductImage slug={item.slug} category={item.category} alt={item.name} eager />
-        <div>
+        <div className="glass-tile self-start p-5">
           <h1 className="text-title leading-tight font-semibold">{item.name}</h1>
           <div className="mt-2">
             <Rating rating={item.rating} count={item.rating_count} />
@@ -78,12 +78,12 @@ export function ProductPage() {
         </div>
       </div>
 
-      <section className="mt-10 max-w-3xl border-t border-rule pt-6">
+      <section className="surface-solid mt-8 max-w-3xl p-5">
         <h2 className="text-xl font-semibold">Description</h2>
         <p className="mt-2">{item.description}</p>
       </section>
 
-      <section className="mt-8 max-w-3xl border-t border-rule pt-6">
+      <section className="surface-solid mt-4 max-w-3xl p-5">
         <h2 className="text-xl font-semibold">Specifications</h2>
         <dl className="mt-2 divide-y divide-rule">
           {Object.entries(item.specs).map(([name, value]) => (
@@ -95,7 +95,7 @@ export function ProductPage() {
         </dl>
       </section>
 
-      <section className="mt-8 max-w-3xl border-t border-rule pt-6">
+      <section className="surface-solid mt-4 max-w-3xl p-5">
         <h2 className="text-xl font-semibold">Questions before you buy?</h2>
         <ul className="mt-3 flex flex-wrap gap-2">
           {productStarters(item.name, category?.name ?? 'our products').map((question) => (
@@ -103,7 +103,7 @@ export function ProductPage() {
               <button
                 type="button"
                 onClick={() => ask(question)}
-                className="min-h-11 rounded border border-field px-3 py-2 text-left hover:border-cobalt"
+                className="min-h-11 rounded-xl border border-field px-3 py-2 text-left hover:border-cobalt"
               >
                 {question}
               </button>
@@ -112,7 +112,7 @@ export function ProductPage() {
         </ul>
       </section>
 
-      <section className="mt-10 border-t border-rule pt-6">
+      <section className="mt-10">
         <h2 className="mb-4 text-xl font-semibold">Related products</h2>
         <ProductGrid products={item.related} />
       </section>

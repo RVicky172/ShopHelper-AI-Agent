@@ -2,19 +2,19 @@ import { useQuery } from '@tanstack/react-query'
 import { Link } from 'react-router'
 import { api } from '../../shared/api/client'
 import type { Category } from '../../shared/api/types'
-import { tintOf } from './categories'
 import { ProductGrid, ProductGridPlaceholder, ProductImage } from './ProductGrid'
 
 const TOP_RATED = 4
 const CATEGORY_COUNT = 8
+const TILE = 'glass-tile block p-2'
 
 // The one bold moment on the site: the whole shop on one printed page.
 function CategoryTile({ category }: { category: Category }) {
   return (
     <li>
-      <Link to={`/shop/${category.slug}`} className="block h-full" style={{ background: tintOf(category.slug) }}>
+      <Link to={`/shop/${category.slug}`} className={`${TILE} card-lift h-full`}>
         <ProductImage slug={category.cover.slug} category={category.slug} eager wide />
-        <span className="block px-3 pb-3">
+        <span className="block px-1 pt-3 pb-1">
           <span className="block text-xl font-semibold">{category.name}</span>
           <span className="block text-sm">{category.cover.name}</span>
         </span>
@@ -25,9 +25,9 @@ function CategoryTile({ category }: { category: Category }) {
 
 function TilePlaceholder() {
   return (
-    <li aria-hidden="true" className="bg-shelf">
-      <div className="aspect-[4/3]" />
-      <div className="h-[3.75rem]" />
+    <li aria-hidden="true" className={TILE}>
+      <div className="aspect-[4/3] rounded-inner bg-shelf" />
+      <div className="h-[4.25rem]" />
     </li>
   )
 }
@@ -46,7 +46,7 @@ export function Landing() {
         Everything for your desk, bag and home.
       </h1>
 
-      <ul className="mt-8 grid grid-cols-2 gap-px bg-rule lg:grid-cols-4">
+      <ul className="mt-8 grid grid-cols-2 gap-gutter lg:grid-cols-4">
         {categories.data
           ? categories.data.map((category) => <CategoryTile key={category.slug} category={category} />)
           : Array.from({ length: CATEGORY_COUNT }, (_, index) => <TilePlaceholder key={index} />)}

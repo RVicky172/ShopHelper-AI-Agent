@@ -22,11 +22,16 @@ When a task is done, tick it and add an indented **Result (YYYY-MM-DD):** note.
 
 # Slice 2 — Shop
 
-- [ ] **T101** — Home: category tiles and top rated
-- [ ] **T102** — Catalogue and product cards
-- [ ] **T103** — Product page
-- [ ] **T104** — Cart and checkout, on nearly solid surfaces
-- [ ] **T105** — Slice 2 measurements and browser run
+- [x] **T101** — Home: category tiles and top rated
+      **Result (2026-11-07):** Glass tiles framing each illustration, with placeholders on the same shape.
+- [x] **T102** — Catalogue and product cards
+      **Result (2026-11-07):** Cards on `glass-tile`, which has no blur: the ground is already soft, so blurring it showed nothing and would have cost the GPU on 42 cards. The catalogue has 1 blurred element plus the navbar's layer. Cards lift 2 px on hover, and not with reduced motion.
+- [x] **T103** — Product page
+      **Result (2026-11-07):** Buy box on glass. Description, specifications and questions on nearly solid panels, at 92%.
+- [x] **T104** — Cart and checkout, on nearly solid surfaces
+      **Result (2026-11-07):** Both on `surface-solid`. Flow run signed in as Asha: add, cart, checkout, remove. No order was placed, and the cart ended empty, as it began.
+- [x] **T105** — Slice 2 measurements and browser run
+      **Result (2026-11-07):** Worst text contrast on any shop surface 5.82:1 light and 6.77:1 dark, at 1440 and 390 px. Layout shift with products delayed 500 ms: 0.0000 and 0.0002 in the dev build. No sideways scroll at 5 widths on 6 pages. AC-25 holds, with 0 overlaps. No page errors.
 
 # Slice 3 — The rest
 

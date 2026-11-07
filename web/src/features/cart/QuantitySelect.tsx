@@ -14,7 +14,7 @@ export function QuantitySelect({
       aria-label={label}
       value={value}
       onChange={(event) => onChange(Number(event.target.value))}
-      className="min-h-11 rounded border border-field bg-paper px-2"
+      className="min-h-11 rounded-xl border border-field bg-paper px-2"
     >
       {Array.from({ length: MAX_QUANTITY }, (_, index) => (
         <option key={index + 1} value={index + 1}>
