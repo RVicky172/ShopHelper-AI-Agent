@@ -14,7 +14,7 @@ export function ToolsView({ system }: { system?: SystemInfo }) {
 
   return (
     <div className="min-h-0 flex-1 overflow-y-auto">
-      <div className="mx-auto w-full max-w-page space-y-8 px-4 py-8">
+      <div className="mx-auto w-full max-w-page space-y-8 px-gutter py-8">
         <section>
           <h2 className="text-lg font-semibold">Tools the model can ask for</h2>
           <p className="mt-1 text-sm text-muted">

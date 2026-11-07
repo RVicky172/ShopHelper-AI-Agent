@@ -11,6 +11,13 @@ Newest first. One entry per working session.
 
 ---
 
+## 2026-11-07 — 032 slice 1: T001 to T006 done, stopped for review
+
+**Done:** Design tokens, colour ground, glass navbar, menus, footer, phone bar and chat, fluid sizes, and page motion. All measured contrast passes in both themes.
+**Also:** Everything before this is on PR #23, with CI passed. Merging it was blocked, so the owner needs to merge it.
+**Next:** The owner reviews the look (T007), then slice 2, the shop.
+**Blockers:** PR #23 waits for the owner. Slice 1 is uncommitted on `feat/032-slice-1`.
+
 ## 2026-11-07 — bug fix: local sign-in at 127.0.0.1
 
 **Done:** Opened at `127.0.0.1:5173`, every login got a 403. `EXTRA_WEB_ORIGINS` now trusts that exact origin locally (D-027). Signed in and out in a real browser on both names.

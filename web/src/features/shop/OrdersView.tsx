@@ -23,7 +23,7 @@ export function OrdersView({ user }: { user: User }) {
 
   return (
     <div className="min-h-0 flex-1 overflow-y-auto">
-      <div className="mx-auto w-full max-w-page px-4 py-8">
+      <div className="mx-auto w-full max-w-page px-gutter py-8">
         <div className="flex flex-wrap items-start justify-between gap-3">
           <div>
             <title>{`${staff ? 'All orders' : 'Your orders'} · ShopHelper`}</title>

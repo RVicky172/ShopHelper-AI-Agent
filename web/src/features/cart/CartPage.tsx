@@ -9,7 +9,7 @@ export function CartPage({ user }: { user: User | null }) {
   const { view, loading, setQuantity } = useCart()
 
   return (
-    <div className="mx-auto w-full max-w-page px-4 py-8">
+    <div className="mx-auto w-full max-w-page px-gutter py-8">
       <title>Cart · ShopHelper</title>
       <h1 className="text-title font-semibold">Your cart</h1>
 

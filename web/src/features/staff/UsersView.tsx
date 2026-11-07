@@ -17,7 +17,7 @@ export function UsersView({ me }: { me: User }) {
 
   return (
     <div className="min-h-0 flex-1 overflow-y-auto">
-      <div className="mx-auto w-full max-w-page px-4 py-8">
+      <div className="mx-auto w-full max-w-page px-gutter py-8">
         <title>Users · ShopHelper</title>
         <h1 className="text-title font-semibold">Users</h1>
         <p className="mt-1 max-w-3xl text-muted">

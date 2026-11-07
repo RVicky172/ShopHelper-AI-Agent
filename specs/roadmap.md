@@ -49,7 +49,7 @@ _Goal:_ each user's data is private, access has levels, and the app explains mor
 | --- | ----------------------------------------------------------------------- | ---- | ------ |
 | 030 | Care questions always search the policy (closes the D-016 gap)          | [spec](features/030-care-questions-search/spec.md) | ✔️     |
 | 031 | Code structure and standards: feature folders, type checks, frontend CI | [spec](features/031-code-structure/spec.md) | ✔️     |
-| 032 | Fluid glass redesign: a soft colour ground, frosted surfaces, fluid sizes and motion | [spec](features/032-fluid-glass-redesign/spec.md) | ✅     |
+| 032 | Fluid glass redesign: a soft colour ground, frosted surfaces, fluid sizes and motion | [spec](features/032-fluid-glass-redesign/spec.md) | 🚧     |
 
 ## Backlog (unscheduled ideas)
 

@@ -44,7 +44,7 @@ export function CategoryPage() {
   const total = products.data?.pages[0].total
 
   return (
-    <div className="mx-auto w-full max-w-page px-4 py-8">
+    <div className="mx-auto w-full max-w-page px-gutter py-8">
       <title>{`${name ?? 'Shop'} · ShopHelper`}</title>
       <div className="flex flex-wrap items-end justify-between gap-x-6 gap-y-3">
         <div>

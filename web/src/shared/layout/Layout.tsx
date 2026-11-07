@@ -12,8 +12,8 @@ const ChatPanel = lazy(() => import('../../features/chat/ChatPanel').then((m) =>
 
 function Footer() {
   return (
-    <footer className="border-t border-rule bg-shelf">
-      <p className="mx-auto w-full max-w-page px-4 py-6 text-sm text-muted">
+    <footer className="glass-card border-t border-edge">
+      <p className="mx-auto w-full max-w-page px-gutter py-6 text-sm text-muted">
         ShopHelper is a learning project. Orders are pretend, and nothing is charged or shipped.
       </p>
     </footer>
@@ -26,7 +26,7 @@ function CartNotice() {
   if (!changes.length && !failed) return null
   return (
     <div role="status" className="border-b border-rule bg-shelf">
-      <div className="mx-auto flex w-full max-w-page items-start justify-between gap-4 px-4 py-3">
+      <div className="mx-auto flex w-full max-w-page items-start justify-between gap-4 px-gutter py-3">
         <div>
           {failed && <p>We couldn't update your cart. Please try again.</p>}
           {changes.map((change) => (
@@ -85,6 +85,29 @@ function useScrollMemory(
   }, [key, navigation, page])
 }
 
+// Animates in place: keying the route would remount the page and lose its state. Not on first load, so it
+// can't delay the first paint.
+function usePageMotion(main: RefObject<HTMLElement | null>) {
+  const { pathname } = useLocation()
+  const shown = useRef(pathname)
+
+  useEffect(() => {
+    if (shown.current === pathname) return
+    shown.current = pathname
+    if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return
+    main.current?.animate(
+      [
+        { opacity: 0, transform: 'translateY(6px)' },
+        { opacity: 1, transform: 'none' },
+      ],
+      {
+        duration: 220,
+        easing: 'cubic-bezier(0.2, 0.8, 0.2, 1)',
+      },
+    )
+  }, [pathname, main])
+}
+
 export function Layout({ auth }: { auth: ReturnType<typeof useAuth> }) {
   const fullHeight = useMatch('/how-it-works/trace') !== null // its panels scroll, not the page
   const { panelOpen } = useSharedChat()
@@ -92,9 +115,10 @@ export function Layout({ auth }: { auth: ReturnType<typeof useAuth> }) {
   const page = useRef<HTMLDivElement>(null)
   const main = useRef<HTMLElement>(null)
   useScrollMemory(page, main, panelOpen)
+  usePageMotion(main)
 
   return (
-    <div className="flex h-dvh flex-col bg-paper text-ink">
+    <div className="flex h-dvh flex-col text-ink">
       {/* On a phone the chat fills the screen, so the page behind it leaves the tab order. */}
       <div
         id="page"

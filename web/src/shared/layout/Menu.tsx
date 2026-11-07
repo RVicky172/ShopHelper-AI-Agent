@@ -61,7 +61,7 @@ export function Menu({
       </button>
       {open && (
         <div
-          className={`absolute top-full z-30 min-w-56 border border-rule bg-paper py-1 ${
+          className={`menu-panel glass-chrome absolute top-full z-30 mt-2 min-w-56 overflow-hidden rounded-panel border border-edge py-1 shadow-float ${
             align === 'right' ? 'right-0' : 'left-0'
           }`}
         >

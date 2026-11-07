@@ -10,7 +10,7 @@ import { loadProgress, type Progress, saveProgress, toggleDone } from './progres
 import { Search } from './Search'
 
 const SEARCH_LABEL = 'Search the course'
-const PAGE = 'mx-auto grid w-full max-w-page gap-10 px-4 py-6 lg:grid-cols-[minmax(0,1fr)_17rem]'
+const PAGE = 'mx-auto grid w-full max-w-page gap-10 px-gutter py-6 lg:grid-cols-[minmax(0,1fr)_17rem]'
 
 function useProgress() {
   const [progress, setProgress] = useState<Progress>(loadProgress)
