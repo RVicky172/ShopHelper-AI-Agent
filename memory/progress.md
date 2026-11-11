@@ -11,6 +11,13 @@ Newest first. One entry per working session.
 
 ---
 
+## 2026-11-11 — 022 Implemented
+
+**Done:** T390 (from 032's T290 measurements), T391 to T394. All gates pass: check.sh, build, evals 37 of 37.
+**Also:** Removing a temporary worktree deleted part of `web/node_modules` through a junction; `npm install` restored it.
+**Next:** Pick the next feature from `specs/roadmap.md`. Known bugs: warranty refunds (D-023), MCP one version behind.
+**Blockers:** none
+
 ## 2026-11-11 — 032 Implemented, and everything merged
 
 **Done:** T291 dropped (D-029), T292 and T293 done, 032 Implemented. PRs #23 to #26 and `feat/032-verify` merged to `main`, other branches deleted.

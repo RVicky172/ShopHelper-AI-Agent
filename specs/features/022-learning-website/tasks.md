@@ -142,12 +142,20 @@ ends with `scripts/check.sh`. Lesson tasks may finish 2 or 3 lessons at a time.
 
 ## Verify
 
-- [-] **T390** — Accessibility and performance on a production build, as in 021's T090 · test: recorded numbers (AC-19, AC-20)
+- [x] **T390** — Accessibility and performance on a production build, as in 021's T090 · test: recorded numbers (AC-19, AC-20)
+      **Result (2026-11-11):** Taken from 032's T290, which measured the course on a production build: the course index and 4 lessons on
+      the phone profile, LCP 2.07-2.35 s, layout shift 0; axe on the index and 2 lessons in both themes at 1280 and 390 px, no failures,
+      targets and keyboard focus all pass. A sample, not all 81 lessons: they share one page template. Shop pages unchanged, as course code
+      loads only under `/learn`. Brought back from the backlog by the owner's "do the next planned things".
       **Moved to the backlog (2026-11-07, D-026):** owner's call. Not done, so AC-19 and AC-20 stay unproven.
-- [ ] **T391** — Request hosts listed with LM Studio stopped · test: only this site's host (AC-21)
-- [ ] **T392** — Update `specs/architecture.md` with what this feature established.
-- [ ] **T393** — Every Definition-of-Done gate green (`specs/constitution.md`), level 3 in the background; record the numbers.
-- [ ] **T394** — Tick ACs in `spec.md` (Status `Implemented`), update `roadmap.md`, `memory/progress.md`, `memory/MEMORY.md`.
+- [x] **T391** — Request hosts listed with LM Studio stopped · test: only this site's host (AC-21)
+      **Result (2026-11-11):** The course index and 3 lessons, with LM Studio stopped: only `localhost:5173`, no failed requests or page errors.
+- [x] **T392** — Update `specs/architecture.md` with what this feature established.
+      **Result (2026-11-11):** Rows for the lesson files, `learn-plugin.ts` and `web/src/features/learn/`.
+- [x] **T393** — Every Definition-of-Done gate green (`specs/constitution.md`), level 3 in the background; record the numbers.
+      **Result (2026-11-11):** `scripts/check.sh` passes (396 backend, 128 frontend tests), build passes, evals 37 of 37 with faithfulness 5.0.
+- [x] **T394** — Tick ACs in `spec.md` (Status `Implemented`), update `roadmap.md`, `memory/progress.md`, `memory/MEMORY.md`.
+      **Result (2026-11-11):** All 23 criteria ticked, 022 Implemented.
 
 ## AC coverage
 
@@ -171,8 +179,8 @@ ends with `scripts/check.sh`. Lesson tasks may finish 2 or 3 lessons at a time.
 | AC-16 | T104             |
 | AC-17 | T301, T302, T303 |
 | AC-18 | T302             |
-| AC-19 | T390 (backlog)   |
-| AC-20 | T001, T022, T390 (backlog) |
+| AC-19 | T390             |
+| AC-20 | T001, T022, T390 |
 | AC-21 | T391             |
 | AC-22 | T010, T030, T031 |
 | AC-23 | T393             |

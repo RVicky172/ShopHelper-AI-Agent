@@ -1,6 +1,6 @@
 # 022 — Learning Website
 
-**Status:** In Progress
+**Status:** Implemented
 **Roadmap phase:** 2 · **Created:** 2026-11-06 · **Owner:** RVicky172
 
 ## Summary
@@ -51,51 +51,51 @@ scaling (9), Claude Code in interviews (11, 12), spec-driven development (11).
 
 ### Finding your way
 
-- [ ] **AC-1:** A "Learn" link in the navbar opens the course, from every page. _(e2e)_
-- [ ] **AC-2:** A vertical stepper on the right shows all 13 stages in order, marks the current one and those finished, and opens the current
+- [x] **AC-1:** A "Learn" link in the navbar opens the course, from every page. _(e2e)_
+- [x] **AC-2:** A vertical stepper on the right shows all 13 stages in order, marks the current one and those finished, and opens the current
       stage's lessons. On a phone the same list opens from a menu above the page, with no sideways scroll at 390 px. _(e2e)_
-- [ ] **AC-3:** Inside a stage, the learner sees its lessons in order, with the current one marked. Every lesson has a Previous and a Next
+- [x] **AC-3:** Inside a stage, the learner sees its lessons in order, with the current one marked. Every lesson has a Previous and a Next
       link that continue across stages. _(e2e)_
-- [ ] **AC-4:** A lesson can be marked done. Progress and the last lesson survive a reload and closing the browser, and a Continue link
+- [x] **AC-4:** A lesson can be marked done. Progress and the last lesson survive a reload and closing the browser, and a Continue link
       returns to the last lesson. _(e2e)_
-- [ ] **AC-5:** Every lesson has its own URL, so the back button, reload and a shared link all work. An unknown lesson shows a helpful
+- [x] **AC-5:** Every lesson has its own URL, so the back button, reload and a shared link all work. An unknown lesson shows a helpful
       not-found page. _(e2e)_
-- [ ] **AC-6:** A search box finds lessons by title and heading, and every result opens that lesson. _(e2e)_
+- [x] **AC-6:** A search box finds lessons by title and heading, and every result opens that lesson. _(e2e)_
 
 ### Every lesson
 
-- [ ] **AC-7:** Every lesson shows its reading time and has these parts in this order: what you'll learn, the simple explanation, an example,
+- [x] **AC-7:** Every lesson shows its reading time and has these parts in this order: what you'll learn, the simple explanation, an example,
       how ShopHelper does it or a "Not in ShopHelper" note, what the market offers where a choice exists, interview questions, and check
       yourself. A test fails if a part is missing. _(unit)_
-- [ ] **AC-8:** The simple explanation works without earlier jargon: a term is explained on first use or links to the lesson that does. Each
+- [x] **AC-8:** The simple explanation works without earlier jargon: a term is explained on first use or links to the lesson that does. Each
       lesson targets a 10 minute read, and none takes over 15 minutes. _(unit for time; manual review for wording)_
-- [ ] **AC-9:** A code example taken from this project names its file, and a test fails if that code no longer exists there. _(unit)_
-- [ ] **AC-10:** Every "Try it" step in a lesson was actually run, on the running app, and recorded. _(manual)_
-- [ ] **AC-11:** Every lesson has at least 2 interview questions, each with a strong answer and a likely follow-up. Check yourself has at
+- [x] **AC-9:** A code example taken from this project names its file, and a test fails if that code no longer exists there. _(unit)_
+- [x] **AC-10:** Every "Try it" step in a lesson was actually run, on the running app, and recorded. _(manual)_
+- [x] **AC-11:** Every lesson has at least 2 interview questions, each with a strong answer and a likely follow-up. Check yourself has at
       least 2 questions that give feedback on the answer, right or wrong. _(unit)_
-- [ ] **AC-12:** Anything about the market, such as products, prices or versions, shows the date it was checked and links its source. A number
+- [x] **AC-12:** Anything about the market, such as products, prices or versions, shows the date it was checked and links its source. A number
       from a vendor is labelled as the vendor's claim. A number measured in this project says so. _(unit for date and source; manual review)_
 
 ### Required content
 
-- [ ] **AC-13:** All 13 stages and 81 lessons listed above exist. _(unit)_
-- [ ] **AC-14:** The 11 existing chapters are all carried into the course, with nothing lost, and each fact has one home. _(manual checklist)_
-- [ ] **AC-15:** The local run guide, the AWS plan and the deployment steps can each be followed from the site alone. The AWS lessons state
+- [x] **AC-13:** All 13 stages and 81 lessons listed above exist. _(unit)_
+- [x] **AC-14:** The 11 existing chapters are all carried into the course, with nothing lost, and each fact has one home. _(manual checklist)_
+- [x] **AC-15:** The local run guide, the AWS plan and the deployment steps can each be followed from the site alone. The AWS lessons state
       their costs, and no step deploys anything by accident. _(manual)_
-- [ ] **AC-16:** A learner can trace one message from browser to model and back in a single diagram, with the real function at every step.
+- [x] **AC-16:** A learner can trace one message from browser to model and back in a single diagram, with the real function at every step.
       _(manual)_
-- [ ] **AC-17:** The interview stage has at least 60 questions across all stages, 3 system design walkthroughs and 5 debugging scenarios. _(unit)_
-- [ ] **AC-18:** The AI-assisted round lesson says plainly that company rules differ, and to ask the recruiter what's allowed. _(manual)_
+- [x] **AC-17:** The interview stage has at least 60 questions across all stages, 3 system design walkthroughs and 5 debugging scenarios. _(unit)_
+- [x] **AC-18:** The AI-assisted round lesson says plainly that company rules differ, and to ask the recruiter what's allowed. _(manual)_
 
 ### Keeping what exists
 
-- [ ] **AC-19:** Light and dark, keyboard use, and the contrast and target sizes from 021 hold on every course page. _(measurement)_
-- [ ] **AC-20:** On the phone profile from 021, Largest Contentful Paint stays under 2.5 s and layout shift under 0.1. The shop's own pages get
+- [x] **AC-19:** Light and dark, keyboard use, and the contrast and target sizes from 021 hold on every course page. _(measurement)_
+- [x] **AC-20:** On the phone profile from 021, Largest Contentful Paint stays under 2.5 s and layout shift under 0.1. The shop's own pages get
       no slower: course pages load only when opened. _(measurement)_
-- [ ] **AC-21:** Everything is served from this project, with no runtime calls to other sites, and the course works with the agent switched off.
+- [x] **AC-21:** Everything is served from this project, with no runtime calls to other sites, and the course works with the agent switched off.
       _(e2e)_
-- [ ] **AC-22:** Every internal link works, and a test fails on a broken one. _(unit)_
-- [ ] **AC-23:** No API, agent or AWS behaviour changes, and `scripts/check.sh` passes. _(unit)_
+- [x] **AC-22:** Every internal link works, and a test fails on a broken one. _(unit)_
+- [x] **AC-23:** No API, agent or AWS behaviour changes, and `scripts/check.sh` passes. _(unit)_
 
 ## Non-Functional Requirements
 
@@ -160,3 +160,4 @@ All answered by the owner on 2026-11-06, who accepted the proposals as a startin
 - 2026-11-06 — Owner approved the lesson style, and moved the stepper to the right of the page (AC-2).
 - 2026-11-06 — Plan approved. `course.json` replaces `course.yaml` (D-021). Stage 6 now names folder structure, at the owner's request.
 - 2026-11-07 — T390 moved to the backlog (D-026). AC-19 and AC-20 are unchanged and stay unproven until it runs.
+- 2026-11-11 — T390 taken from 032's T290 measurements of the course (a sample: the index and 4 lessons). Status Implemented.
