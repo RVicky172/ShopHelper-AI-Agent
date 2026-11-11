@@ -40,7 +40,7 @@ export function Landing() {
   })
 
   return (
-    <div className="mx-auto w-full max-w-page px-4 py-8">
+    <div className="mx-auto w-full max-w-page px-gutter py-8">
       <title>ShopHelper</title>
       <h1 className="text-display leading-none font-semibold tracking-tight text-balance">
         Everything for your desk, bag and home.

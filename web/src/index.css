@@ -7,11 +7,29 @@
   --font-mono: ui-monospace, "Cascadia Code", Consolas, monospace;
 
   /* Type scale: 14, 16 and 20 are Tailwind's text-sm, text-base and text-xl. */
-  --text-title: 1.75rem;
+  --text-title: clamp(1.5rem, 1.35rem + 0.6vw, 1.75rem);
   --text-display: clamp(2.5rem, 1.5rem + 3.6vw, 4rem);
 
   /* Narrow enough that the gutter at 1280 px can hold the chat button. */
   --container-page: 70rem;
+  --spacing-gutter: clamp(1rem, 0.7rem + 1.3vw, 1.5rem);
+
+  /* Glass: specs/features/032-fluid-glass-redesign/plan.md section 1. Chrome has page content moving behind it,
+     and needs 85% paper or more to keep text readable. Cards only ever sit on the ground. */
+  --surface-chrome: color-mix(in srgb, var(--color-paper) 86%, transparent);
+  --surface-card: color-mix(in srgb, var(--color-paper) 62%, transparent);
+  --surface-solid: color-mix(in srgb, var(--color-paper) 92%, transparent);
+  --glass-blur: blur(16px) saturate(150%);
+  --color-edge: color-mix(in srgb, var(--color-ink) 12%, transparent);
+  --shadow-float: 0 12px 32px -16px rgb(16 24 64 / 0.28);
+  --radius-panel: 1rem;
+
+  /* The ground behind every page. */
+  --ground-a: color-mix(in srgb, #2340d9 22%, transparent);
+  --ground-b: color-mix(in srgb, #14b8a6 20%, transparent);
+  --ground-c: color-mix(in srgb, #f2b01e 18%, transparent);
+
+  --ease-fluid: cubic-bezier(0.2, 0.8, 0.2, 1);
 
   --color-ink: #1b2340;
   --color-paper: #ffffff;
@@ -25,7 +43,7 @@
   --color-on-marigold: #1b2340;
 
   --color-tint-audio: #dce4ff;
-  --color-tint-keyboards: #e4e0fa;
+  --color-tint-keyboards: #dbe7f8;
   --color-tint-laptop: #d8eef0;
   --color-tint-phone: #fbe3dc;
   --color-tint-power: #fff0c9;
@@ -52,7 +70,7 @@
     --color-on-cobalt: #141a2e;
 
     --color-tint-audio: #2a3563;
-    --color-tint-keyboards: #352f63;
+    --color-tint-keyboards: #25406b;
     --color-tint-laptop: #1f4a50;
     --color-tint-phone: #5a3229;
     --color-tint-power: #574513;
@@ -65,6 +83,11 @@
     --color-rag: #ab8bea;
     --color-warn: #e0a544;
     --color-danger: #ec7a72;
+
+    --ground-a: color-mix(in srgb, #3350e8 30%, transparent);
+    --ground-b: color-mix(in srgb, #0f8f83 24%, transparent);
+    --ground-c: color-mix(in srgb, #a8730f 18%, transparent);
+    --shadow-float: 0 12px 32px -16px rgb(0 0 0 / 0.6);
   }
 }
 
@@ -78,9 +101,85 @@
   }
 }
 
-body {
+html {
   background: var(--color-paper);
+}
+
+/* Clear, or body's own background would hide the ground. */
+body {
+  background: transparent;
   color: var(--color-ink);
+}
+
+/* Soft colour for the glass to catch. Blurred once, so it has no edge, and it never moves. */
+body::before {
+  content: "";
+  position: fixed;
+  inset: -12%;
+  z-index: -1;
+  pointer-events: none;
+  filter: blur(48px);
+  background:
+    radial-gradient(38% 42% at 16% 14%, var(--ground-a), transparent 75%),
+    radial-gradient(34% 40% at 86% 20%, var(--ground-b), transparent 75%),
+    radial-gradient(42% 44% at 72% 88%, var(--ground-c), transparent 75%),
+    radial-gradient(36% 38% at 18% 86%, var(--ground-b), transparent 75%);
+}
+
+@utility glass-chrome {
+  background: var(--surface-chrome);
+  backdrop-filter: var(--glass-blur);
+}
+@utility glass-card {
+  background: var(--surface-card);
+  backdrop-filter: var(--glass-blur);
+}
+@utility surface-solid {
+  background: var(--surface-solid);
+}
+/* An element with a backdrop filter is the backdrop for its children, so a menu inside it would have nothing
+   to blur. Keeping the glass on a layer leaves the menu free to blur the real page. */
+@utility glass-bar {
+  &::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    z-index: -1;
+    border-radius: inherit;
+    background: var(--surface-chrome);
+    backdrop-filter: var(--glass-blur);
+  }
+}
+
+/* Only token values change here, so no component needs to know. */
+@supports not (backdrop-filter: blur(1px)) {
+  :root {
+    --surface-chrome: var(--color-paper);
+    --surface-card: var(--color-paper);
+    --surface-solid: var(--color-paper);
+  }
+}
+@media (prefers-reduced-transparency: reduce) {
+  :root {
+    --surface-chrome: var(--color-paper);
+    --surface-card: var(--color-paper);
+    --surface-solid: var(--color-paper);
+    --glass-blur: none;
+  }
+  body::before {
+    display: none;
+  }
+}
+@media (forced-colors: active) {
+  :root {
+    --surface-chrome: Canvas;
+    --surface-card: Canvas;
+    --surface-solid: Canvas;
+    --glass-blur: none;
+  }
+  body::before {
+    display: none;
+  }
 }
 
 :focus-visible {
@@ -88,13 +187,35 @@ body {
   outline-offset: 2px;
 }
 
-/* The site's only two motions, both answering something the user did. */
+/* Everything here answers something the user did. Nothing moves because the page scrolled. */
 @media (prefers-reduced-motion: no-preference) {
+  a,
+  button,
+  summary,
+  input,
+  select,
+  textarea {
+    transition-property: color, background-color, border-color, box-shadow, transform;
+    transition-duration: 160ms;
+    transition-timing-function: var(--ease-fluid);
+  }
+  button:active:not(:disabled) {
+    transform: scale(0.98);
+  }
+  .menu-panel {
+    animation: menu-panel 160ms var(--ease-fluid);
+  }
   .cart-tick {
     animation: cart-tick 200ms ease-out;
   }
   .chat-panel {
     animation: chat-panel 180ms ease-out;
+  }
+}
+@keyframes menu-panel {
+  from {
+    transform: translateY(-0.25rem);
+    opacity: 0;
   }
 }
 @keyframes chat-panel {

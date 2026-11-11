@@ -171,6 +171,10 @@ something cost more than ~10 minutes or the fix was non-obvious. Delete entries 
 - With `html` and `body` both given backgrounds, a `z-index: -1` layer sits under `body`'s. Make `body` transparent.
 - To test text on a glass navbar, keep real content under it. Hiding the product images made 70% look safe.
 
+- An element with `backdrop-filter` is the backdrop for its children, so a menu inside a frosted navbar has nothing to blur. Put the bar's glass on `::before`.
+- The product SVGs have their tint built in, so changing a tint token means changing the SVGs too. `test_catalog.py` catches it.
+- A lazy panel can still be animating in a screenshot, and looks too transparent. Read its computed style, or wait, before calling it a defect.
+
 ## Sabotage steps
 
 - Adding `/orders` to `PUBLIC_PATHS` fails no route test, because the route's own dependency still returns 401. Run a sabotage step before

@@ -75,8 +75,8 @@ export function Navbar({ auth }: { auth: ReturnType<typeof useAuth> }) {
   }
 
   return (
-    <header className="sticky top-0 z-20 border-b border-rule bg-paper">
-      <div className="mx-auto flex w-full max-w-page flex-wrap items-center gap-x-6 px-4">
+    <header className="glass-bar sticky top-0 z-20 border-b border-edge lg:top-3 lg:mx-auto lg:mt-3 lg:w-[calc(100%-1.5rem)] lg:max-w-page lg:rounded-panel lg:border lg:shadow-float">
+      <div className="mx-auto flex w-full max-w-page flex-wrap items-center gap-x-6 px-gutter">
         <Link to="/" className="flex min-h-14 items-center text-xl font-semibold tracking-tight">
           ShopHelper
         </Link>

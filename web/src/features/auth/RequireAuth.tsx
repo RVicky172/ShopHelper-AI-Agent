@@ -9,7 +9,7 @@ export function RequireAuth({ user, roles, children }: { user: User | null; role
   if (!user) return <Navigate to={signInPath(location)} replace />
   if (roles && !roles.includes(user.role)) {
     return (
-      <div className="mx-auto w-full max-w-page px-4 py-16">
+      <div className="mx-auto w-full max-w-page px-gutter py-16">
         <title>No access · ShopHelper</title>
         <h1 className="text-title font-semibold">You don't have access to this page</h1>
         <p className="mt-2 text-muted">It's for staff only. If that's a mistake, ask an admin.</p>

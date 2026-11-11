@@ -1,8 +1,8 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 400" width="400" height="400">
   <title>Vertical Mouse</title>
   <style>
-    svg { --tint: #E4E0FA; --ink: #1B2340; --paper: #FFFFFF; }
-    @media (prefers-color-scheme: dark) { svg { --tint: #352F63; --ink: #EEF1F8; --paper: #141A2E; } }
+    svg { --tint: #DBE7F8; --ink: #1B2340; --paper: #FFFFFF; }
+    @media (prefers-color-scheme: dark) { svg { --tint: #25406B; --ink: #EEF1F8; --paper: #141A2E; } }
     .tint { fill: var(--tint); }
     .ink { fill: var(--ink); }
     .paper { fill: var(--paper); }

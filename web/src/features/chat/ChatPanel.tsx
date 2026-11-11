@@ -46,7 +46,7 @@ function Conversations() {
       disabled={chat.busy}
       value={chat.conversationId ?? ''}
       onChange={(event) => (event.target.value ? chat.open(event.target.value) : chat.newConversation())}
-      className="min-h-11 w-full border-b border-rule bg-paper px-4 text-sm"
+      className="min-h-11 w-full border-b border-edge bg-transparent px-4 text-sm"
     >
       <option value="">New conversation</option>
       {rows.map((c) => (
@@ -135,7 +135,7 @@ function Conversation({ user }: { user: User }) {
         <div ref={bottom} />
       </div>
       <form
-        className="flex items-end gap-2 border-t border-rule p-3"
+        className="flex items-end gap-2 border-t border-edge p-3"
         onSubmit={(event) => {
           event.preventDefault()
           submit()
@@ -214,9 +214,9 @@ export function ChatPanel({ user }: { user: User | null }) {
     <section
       role="dialog"
       aria-label="Support chat"
-      className="chat-panel fixed inset-0 z-40 flex flex-col bg-paper xl:inset-auto xl:right-5 xl:bottom-5 xl:h-[min(640px,calc(100dvh-7rem))] xl:w-[400px] xl:border xl:border-rule xl:shadow-xl"
+      className="chat-panel glass-chrome fixed inset-0 z-40 flex flex-col overflow-hidden xl:inset-auto xl:right-5 xl:bottom-5 xl:h-[min(640px,calc(100dvh-7rem))] xl:w-[400px] xl:rounded-panel xl:border xl:border-edge xl:shadow-float"
     >
-      <div className="flex items-center justify-between border-b border-rule py-1 pr-1 pl-4">
+      <div className="flex items-center justify-between border-b border-edge py-1 pr-1 pl-4">
         <h2 className="font-semibold">Support</h2>
         <button
           type="button"

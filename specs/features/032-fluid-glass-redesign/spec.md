@@ -1,6 +1,6 @@
 # 032 — Fluid Glass Redesign
 
-**Status:** Approved
+**Status:** In Progress
 **Roadmap phase:** Backlog · **Created:** 2026-11-07 · **Owner:** RVicky172
 
 ## Summary

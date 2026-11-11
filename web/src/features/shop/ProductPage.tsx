@@ -22,7 +22,7 @@ export function ProductPage() {
   }
   if (product.isError) {
     return (
-      <p role="alert" className="mx-auto w-full max-w-page px-4 py-16 text-danger">
+      <p role="alert" className="mx-auto w-full max-w-page px-gutter py-16 text-danger">
         We couldn't load this product. Please try again.
       </p>
     )
@@ -31,7 +31,7 @@ export function ProductPage() {
   const item = product.data
   if (!item) {
     return (
-      <div role="status" aria-label="Loading product" className="mx-auto w-full max-w-page px-4 py-8">
+      <div role="status" aria-label="Loading product" className="mx-auto w-full max-w-page px-gutter py-8">
         <div className="grid gap-8 md:grid-cols-2">
           <div className="aspect-square bg-shelf" />
           <div className="h-64 bg-shelf" />
@@ -43,7 +43,7 @@ export function ProductPage() {
   const category = categories.data?.find((c) => c.slug === item.category)
 
   return (
-    <div className="mx-auto w-full max-w-page px-4 py-6">
+    <div className="mx-auto w-full max-w-page px-gutter py-6">
       <title>{`${item.name} · ShopHelper`}</title>
       <nav aria-label="Breadcrumb" className="text-sm text-muted">
         <Link to="/shop/all" className="underline hover:text-ink">

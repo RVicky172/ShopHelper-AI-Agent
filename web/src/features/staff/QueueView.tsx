@@ -81,7 +81,7 @@ export function QueueView({ user }: { user: User }) {
 
   return (
     <div className="min-h-0 flex-1 overflow-y-auto">
-      <div className="mx-auto w-full max-w-page px-4 py-8">
+      <div className="mx-auto w-full max-w-page px-gutter py-8">
         <title>Refund queue · ShopHelper</title>
         <h1 className="text-title font-semibold">Refund queue</h1>
         <p className="mt-1 max-w-3xl text-muted">
