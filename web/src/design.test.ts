@@ -53,6 +53,43 @@ describe('one glass recipe', () => {
   })
 })
 
+describe('the shop', () => {
+  const css = read('index.css')
+
+  it('puts tiles and cards on glass that needs no blur, because the ground is already soft', () => {
+    const tile = /@utility glass-tile\s*\{([^}]*)\}/.exec(css)?.[1] ?? ''
+    expect(tile).toContain('--surface-card')
+    expect(tile).not.toContain('backdrop-filter')
+    expect(read('features/shop/Landing.tsx')).toContain('glass-tile')
+    expect(read('features/shop/ProductGrid.tsx')).toContain('glass-tile')
+    expect(read('features/shop/ProductPage.tsx')).toContain('glass-tile')
+  })
+
+  it('keeps placeholders on the same shape, so the page does not jump when products arrive', () => {
+    const grid = read('features/shop/ProductGrid.tsx')
+    expect(grid.match(/CARD/g)?.length).toBeGreaterThanOrEqual(3)
+    expect(read('features/shop/Landing.tsx').match(/TILE/g)?.length).toBeGreaterThanOrEqual(3)
+  })
+
+  it('lifts a card only when motion is welcome', () => {
+    const motion = css.slice(css.indexOf('@media (prefers-reduced-motion: no-preference)'))
+    expect(motion).toContain('.card-lift:hover')
+    expect(css.indexOf('.card-lift:hover')).toBe(
+      css.indexOf('.card-lift:hover', css.indexOf('@media (prefers-reduced-motion')),
+    )
+  })
+
+  it('keeps reading and paying on a nearly solid surface', () => {
+    for (const page of [
+      'features/shop/ProductPage.tsx',
+      'features/cart/CartPage.tsx',
+      'features/cart/CheckoutPage.tsx',
+    ]) {
+      expect(read(page)).toContain('surface-solid')
+    }
+  })
+})
+
 describe('the shell sits on glass', () => {
   it('gives the navbar its glass on a layer, so a menu inside it can still blur the page', () => {
     expect(read('shared/layout/Navbar.tsx')).toContain('glass-bar')

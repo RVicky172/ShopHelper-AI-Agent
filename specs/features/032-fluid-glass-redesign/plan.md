@@ -11,7 +11,8 @@ All of the look lives in `web/src/index.css`, as tokens and a few named surfaces
 | Surface | Paper | Blur | Used for |
 | ------- | ----- | ---- | -------- |
 | `glass-chrome` | 86% | Yes | Anything with page content moving behind it: navbar, menus, chat panel |
-| `glass-card` | 62% | Yes | Anything over the ground only: tiles, product cards, footer, phone bar |
+| `glass-card` | 62% | Yes | The footer and phone bar, which sit on the ground and stay on screen |
+| `glass-tile` | 62% | No | Tiles and cards. The ground is already soft, so blurring it again shows nothing and costs the GPU on all 42 cards |
 | `surface-solid` | 92% | No | Reading and work: lessons, tables, forms, checkout, staff pages |
 
 The 86% comes from the spec's measurement: 85% was the lowest that passed everywhere, and 80% left little margin.

@@ -11,6 +11,12 @@ Newest first. One entry per working session.
 
 ---
 
+## 2026-11-07 — 032 slice 2: T101 to T105 done
+
+**Done:** Home, catalogue, product, cart and checkout on glass and nearly solid surfaces. Worst contrast 5.82:1 light, 6.77:1 dark. Layout shift 0.0002. Slice 1 is on PR #24.
+**Next:** T201, slice 3.
+**Blockers:** PRs #23 and #24 wait for the owner to merge. Slice 2 is uncommitted on `feat/032-slice-2`.
+
 ## 2026-11-07 — 032 slice 1: T001 to T006 done, stopped for review
 
 **Done:** Design tokens, colour ground, glass navbar, menus, footer, phone bar and chat, fluid sizes, and page motion. All measured contrast passes in both themes.

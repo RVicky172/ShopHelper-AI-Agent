@@ -24,9 +24,9 @@ export function CartPage({ user }: { user: User | null }) {
 
       {view.items.length > 0 && (
         <div className="mt-6 grid gap-8 lg:grid-cols-[minmax(0,1fr)_320px]">
-          <ul className="border-t border-rule">
+          <ul className="surface-solid divide-y divide-edge self-start px-4">
             {view.items.map(({ product, quantity, line_total }) => (
-              <li key={product.id} className="flex gap-4 border-b border-rule py-4">
+              <li key={product.id} className="flex gap-4 py-4">
                 <Link to={`/products/${product.slug}`} tabIndex={-1} aria-hidden="true" className="w-24 shrink-0">
                   <ProductImage slug={product.slug} category={product.category} />
                 </Link>
@@ -58,7 +58,7 @@ export function CartPage({ user }: { user: User | null }) {
             ))}
           </ul>
 
-          <aside aria-label="Order summary" className="self-start border-t border-rule pt-4">
+          <aside aria-label="Order summary" className="surface-solid self-start p-5">
             <div className="flex items-baseline justify-between">
               <h2 className="text-xl font-semibold">Total</h2>
               <p className="text-title font-semibold">{formatPrice(view.total)}</p>
@@ -68,7 +68,7 @@ export function CartPage({ user }: { user: User | null }) {
             </p>
             <Link
               to={user ? '/checkout' : '/signin?next=%2Fcart'}
-              className="mt-4 flex min-h-14 items-center justify-center rounded bg-cobalt px-4 text-center font-semibold text-on-cobalt hover:underline"
+              className="mt-4 flex min-h-14 items-center justify-center rounded-xl bg-cobalt px-4 text-center font-semibold text-on-cobalt hover:underline"
             >
               {user ? 'Review and place order' : 'Sign in to place your order'}
             </Link>

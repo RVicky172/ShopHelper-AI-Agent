@@ -20,7 +20,10 @@ export function ProductImage({
   const [missing, setMissing] = useState(false)
   // Square and sized up front, so the page doesn't jump when the image arrives.
   return (
-    <div className={wide ? 'aspect-[4/3]' : 'aspect-square'} style={{ background: tintOf(category) }}>
+    <div
+      className={`overflow-hidden rounded-inner ${wide ? 'aspect-[4/3]' : 'aspect-square'}`}
+      style={{ background: tintOf(category) }}
+    >
       {!missing && (
         <img
           src={`/products/${slug}.svg`}
@@ -53,14 +56,16 @@ export function Rating({ rating, count }: { rating: number; count: number }) {
   )
 }
 
+const CARD = 'glass-tile flex flex-col p-2'
+
 function ProductCell({ product, index, eager }: { product: Product; index: number; eager: boolean }) {
   const to = `/products/${product.slug}`
   return (
-    <li data-product-index={index} className="flex flex-col border-r border-b border-rule">
+    <li data-product-index={index} className={`${CARD} card-lift`}>
       <Link to={to} tabIndex={-1} aria-hidden="true">
         <ProductImage slug={product.slug} category={product.category} eager={eager} />
       </Link>
-      <div className="flex flex-1 flex-col gap-1 p-3">
+      <div className="flex flex-1 flex-col gap-1 px-1 pt-3 pb-1">
         <h3 className="min-h-12 line-clamp-2">
           <Link to={to} className="hover:text-cobalt hover:underline">
             {product.name}
@@ -78,9 +83,9 @@ function ProductCell({ product, index, eager }: { product: Product; index: numbe
 
 function PlaceholderCell() {
   return (
-    <li aria-hidden="true" className="flex flex-col border-r border-b border-rule">
-      <div className="aspect-square bg-shelf" />
-      <div className="flex flex-1 flex-col gap-1 p-3">
+    <li aria-hidden="true" className={CARD}>
+      <div className="aspect-square rounded-inner bg-shelf" />
+      <div className="flex flex-1 flex-col gap-1 px-1 pt-3 pb-1">
         <div className="min-h-12">
           <div className="h-4 w-3/4 bg-shelf" />
         </div>
@@ -93,7 +98,7 @@ function PlaceholderCell() {
   )
 }
 
-const GRID = 'grid grid-cols-2 border-t border-l border-rule lg:grid-cols-4'
+const GRID = 'grid grid-cols-2 gap-gutter lg:grid-cols-4'
 
 export function ProductGrid({ products, eagerCount = 0 }: { products: Product[]; eagerCount?: number }) {
   return (

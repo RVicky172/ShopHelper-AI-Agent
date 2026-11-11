@@ -33,7 +33,7 @@ export function AddToCart({
       <button
         type="button"
         onClick={onClick}
-        className={`w-full rounded bg-cobalt font-medium text-on-cobalt hover:underline ${
+        className={`w-full rounded-xl bg-cobalt font-medium text-on-cobalt hover:underline ${
           large ? 'min-h-14 px-8 text-xl font-semibold' : 'min-h-11 px-3'
         }`}
       >
