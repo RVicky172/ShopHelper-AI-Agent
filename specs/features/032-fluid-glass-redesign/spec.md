@@ -1,6 +1,6 @@
 # 032 — Fluid Glass Redesign
 
-**Status:** In Progress
+**Status:** Implemented
 **Roadmap phase:** Backlog · **Created:** 2026-11-07 · **Owner:** RVicky172
 
 ## Summary
@@ -53,33 +53,33 @@ From reading `web/` and trying the look on the live site with injected CSS on 20
 
 ### The look
 
-- [ ] **AC-1:** Every page sits on one soft colour ground, in light and dark, made from the site's own colours, with no violet or lavender in the ground
+- [x] **AC-1:** Every page sits on one soft colour ground, in light and dark, made from the site's own colours, with no violet or lavender in the ground
       and no visible edge or banding. _(screenshot review)_
-- [ ] **AC-2:** The navbar, footer, chat panel, menus, category tiles and product cards are frosted glass: what's behind them shows through, blurred. _(screenshot review)_
-- [ ] **AC-3:** Lesson text, tables, forms, checkout, and staff and admin pages sit on a nearly solid surface of at least 90% paper. _(measurement)_
-- [ ] **AC-4:** Glass is never stacked on glass: no frosted surface sits inside another. _(e2e)_
-- [ ] **AC-5:** One radius scale, one shadow scale and one glass recipe, all as tokens, used on every page. A test fails on a raw blur or colour outside the
+- [x] **AC-2:** The navbar, footer, chat panel, menus, category tiles and product cards are frosted glass: what's behind them shows through, blurred. _(screenshot review)_
+- [x] **AC-3:** Lesson text, tables, forms, checkout, and staff and admin pages sit on a nearly solid surface of at least 90% paper. _(measurement)_
+- [x] **AC-4:** Glass is never stacked on glass: no frosted surface sits inside another. _(e2e)_
+- [x] **AC-5:** One radius scale, one shadow scale and one glass recipe, all as tokens, used on every page. A test fails on a raw blur or colour outside the
       tokens. _(unit)_
 
 ### Fluid
 
-- [ ] **AC-6:** Headings, spacing and page gutters scale smoothly between 390 px and 1440 px, with no sideways scroll at 320, 390, 768, 1024 or 1440 px. _(e2e)_
-- [ ] **AC-7:** Moving between pages, opening the chat and opening a menu each animate in 300 ms or less, and buttons and cards answer hover and press.
+- [x] **AC-6:** Headings, spacing and page gutters scale smoothly between 390 px and 1440 px, with no sideways scroll at 320, 390, 768, 1024 or 1440 px. _(e2e)_
+- [x] **AC-7:** Moving between pages, opening the chat and opening a menu each animate in 300 ms or less, and buttons and cards answer hover and press.
       Nothing moves because the page scrolled. _(e2e)_
-- [ ] **AC-8:** With `prefers-reduced-motion`, all of this movement stops and nothing stays hidden. _(e2e)_
+- [x] **AC-8:** With `prefers-reduced-motion`, all of this movement stops and nothing stays hidden. _(e2e)_
 
 ### Keeping what exists
 
-- [ ] **AC-9:** Text on every glass surface keeps at least 4.5:1 against the worst pixel behind it, in both themes, measured with real content scrolling under
+- [x] **AC-9:** Text on every glass surface keeps at least 4.5:1 against the worst pixel behind it, in both themes, measured with real content scrolling under
       the navbar. _(measurement)_
-- [ ] **AC-10:** Where a browser has no `backdrop-filter`, or the user asks for reduced transparency or forced colours, surfaces become solid and stay readable. _(e2e)_
-- [ ] **AC-11:** Keyboard focus stays visible on every surface, is never hidden by the navbar or chat, and pointer targets stay at least 24 px, or 44 px for main
+- [x] **AC-10:** Where a browser has no `backdrop-filter`, or the user asks for reduced transparency or forced colours, surfaces become solid and stay readable. _(e2e)_
+- [x] **AC-11:** Keyboard focus stays visible on every surface, is never hidden by the navbar or chat, and pointer targets stay at least 24 px, or 44 px for main
       actions. axe finds no new failures on the views 021 measured, in both themes at 1280 and 390 px. _(measurement)_
-- [ ] **AC-12:** On 021's phone profile, Largest Contentful Paint stays under 2.5 s and layout shift under 0.1, and the shop's main bundle grows by no more than
+- [x] **AC-12:** On 021's phone profile, Largest Contentful Paint stays under 2.5 s and layout shift under 0.1, and the shop's main bundle grows by no more than
       5 kB compressed. _(measurement)_
-- [ ] **AC-13:** On a real mid-range phone, scrolling the catalogue and a long lesson shows no visible stutter. If it does, blur is reduced or removed on phones. _(manual)_
-- [ ] **AC-14:** Everything is served from this project, with no runtime calls to other sites, and no new runtime package. _(e2e)_
-- [ ] **AC-15:** No API, agent or AWS behaviour changes, every existing frontend and backend test still passes, and every 021 and 022 flow still works. _(unit + e2e)_
+- [-] **AC-13:** _(dropped 2026-11-11 by the owner, D-029: no phone check for now)_ On a real mid-range phone, scrolling the catalogue and a long lesson shows no visible stutter. If it does, blur is reduced or removed on phones. _(manual)_
+- [x] **AC-14:** Everything is served from this project, with no runtime calls to other sites, and no new runtime package. _(e2e)_
+- [x] **AC-15:** No API, agent or AWS behaviour changes, every existing frontend and backend test still passes, and every 021 and 022 flow still works. _(unit + e2e)_
 
 ## Non-Functional Requirements
 
@@ -116,3 +116,4 @@ All answered by the owner on 2026-11-07, who accepted the proposals (D-028).
 
 - 2026-11-07 — Created, from the owner's request and an analysis of `web/`, with contrast measured on a runtime prototype.
 - 2026-11-07 — Questions answered and spec Approved.
+- 2026-11-11 — AC-13 dropped by the owner (D-029). From 1280 px the page makes room beside the open chat (AC-11). Status Implemented.

@@ -54,9 +54,14 @@ When a task is done, tick it and add an indented **Result (YYYY-MM-DD):** note.
       1,192 focus stops all visible and uncovered. Fixed on the way: catalogue shift 0.11 (sort control wrapped late), lessons over 2.5 s (sign-in
       check now preloaded, first screen rendered first, stylesheet no longer fetched twice), 18 px breadcrumb links, and focus reaching what the
       open chat covers (launcher inert, page makes room beside the panel from 1280 px). 022's T390 stays in the backlog (D-026).
-- [ ] **T291** — Real phone check by the owner (AC-13)
-- [ ] **T292** — Request hosts, and every 021 and 022 flow (AC-14, AC-15)
-- [ ] **T293** — Update `specs/architecture.md`, tick the criteria, update `roadmap.md` and `memory/`
+- [-] **T291** — Real phone check by the owner (AC-13)
+      **Dropped (2026-11-11, D-029):** owner's call, no phone check for now.
+- [x] **T292** — Request hosts, and every 021 and 022 flow (AC-14, AC-15)
+      **Result (2026-11-11):** From T290's runs: only `localhost` contacted, and 21 views in 4 roles (shop, cart, checkout, orders, staff,
+      admin, course, How it works, chat) loaded with no errors. No change to `package.json`, the API or infra since 032 started. `scripts/check.sh`
+      passes: 396 backend and 128 frontend tests.
+- [x] **T293** — Update `specs/architecture.md`, tick the criteria, update `roadmap.md` and `memory/`
+      **Result (2026-11-11):** Done. 032 is Implemented, with AC-13 dropped.
 
 ## AC coverage
 

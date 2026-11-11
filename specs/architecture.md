@@ -81,3 +81,7 @@ These protect user data. Changing any of them needs a spec.
 - **Accounts switch:** `accounts_enabled` is true whenever `DATABASE_URL` is set, and can't be turned off there.
 - **Schema:** `schema.sql` is idempotent and runs on every start, so changes must be safe on an existing database.
 - **Lint:** ruff, 110-character lines.
+- **Frontend look (032):** surfaces use the glass and solid tokens in `web/src/index.css`, never a raw blur or colour; `design.test.ts`
+  fails otherwise. Glass never sits inside glass. From 1280 px the open chat sits beside the page, which makes room for it.
+- **Frontend speed (032):** `index.html` preloads `/api/auth/me`, and on `/learn` pages `learn-plugin.ts` preloads the course code and
+  the lesson. A preload must match the real request, `crossorigin` included, or the browser fetches twice.

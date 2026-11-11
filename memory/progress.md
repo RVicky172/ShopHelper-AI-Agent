@@ -11,6 +11,12 @@ Newest first. One entry per working session.
 
 ---
 
+## 2026-11-11 — 032 Implemented, and everything merged
+
+**Done:** T291 dropped (D-029), T292 and T293 done, 032 Implemented. PRs #23 to #26 and `feat/032-verify` merged to `main`, other branches deleted.
+**Next:** 022: T391, then T392 to T394. T390 stays in the backlog (D-026).
+**Blockers:** none
+
 ## 2026-11-11 — 032 verify: T290 done
 
 **Done:** Production-build measurements pass for AC-11 and AC-12, after five small fixes (see T290). `scripts/check.sh` passes.

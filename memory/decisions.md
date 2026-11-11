@@ -241,3 +241,10 @@ merging each slice to `main` when it's done.
 **Decision:** Owner approved all proposals: layered glass across the whole site in 3 slices, with a review after slice 1; keep the illustrations; the brief beats the skill, whose checker is advice, with its gate off and its kit out of `public/`; fluid means sizes and movement; the keyboards tint moves towards blue; 022's T390 runs after slice 3.
 **Alternatives:** Glass on chrome only, or on everything. See the spec's table.
 **Consequences:** Proof is 032's own criteria, not the skill's gate. Navbar glass needs at least 85% paper.
+
+## D-029 — Drop 032's real-phone check (2026-11-11)
+
+**Context:** AC-13 and T291 needed the owner to scroll the site on a real mid-range phone.
+**Decision:** Owner's call: drop it for now. The owner also kept the desktop chat that moves the page aside.
+**Alternatives:** Running the phone check before calling 032 Implemented.
+**Consequences:** Blur's cost on phones is unmeasured. If a phone ever stutters, reduce blur on phones then.
