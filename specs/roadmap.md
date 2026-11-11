@@ -49,9 +49,11 @@ _Goal:_ each user's data is private, access has levels, and the app explains mor
 | --- | ----------------------------------------------------------------------- | ---- | ------ |
 | 030 | Care questions always search the policy (closes the D-016 gap)          | [spec](features/030-care-questions-search/spec.md) | ✔️     |
 | 031 | Code structure and standards: feature folders, type checks, frontend CI | [spec](features/031-code-structure/spec.md) | ✔️     |
+| 032 | Fluid glass redesign: a soft colour ground, frosted surfaces, fluid sizes and motion | [spec](features/032-fluid-glass-redesign/spec.md) | ✅     |
 
 ## Backlog (unscheduled ideas)
 
+- 022's T390: accessibility and performance on a production build, for AC-19 and AC-20. 022 can't be Implemented until this runs, or the owner changes those criteria (D-026).
 - Upgrade MCP: `mcp` 1.30.0 speaks 2025-11-25, a legacy revision, so a modern-only client can't connect. `mcp` 2.x is a real migration.
 - Warranty refunds: the agent wrongly refuses refunds on items under warranty (D-023). Start with a line in the policy.
 - Output check for links: a planted policy got the agent to show an outside link 5 of 5 times, and no guardrail reacted (022, stage 8). Allow only the shop's own links.

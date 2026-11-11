@@ -42,7 +42,7 @@ class AccountsGate:
 
         request = Request(scope)
         origin = request.headers.get("origin")
-        if request.method in UNSAFE_METHODS and origin and origin != settings.web_origin:
+        if request.method in UNSAFE_METHODS and origin and origin not in settings.web_origins:
             await JSONResponse({"detail": "Cross-site request refused"}, 403)(scope, receive, send)
             return
 

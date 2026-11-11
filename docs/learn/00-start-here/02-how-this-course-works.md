@@ -22,7 +22,7 @@ This course is one path. Each stage builds on the one before, so go in order the
 | 9 to 10 | Deploying and running it |
 | 11 to 12 | Building with AI tools, and interviews |
 
-The stepper at the top shows where you are, and it remembers your place in this browser. **Continue** on the course page takes you back to your last lesson.
+The stepper on the right shows where you are, and it remembers your place in this browser. **Continue** on the course page takes you back to your last lesson.
 
 ## An example
 

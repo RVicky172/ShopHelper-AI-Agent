@@ -152,13 +152,25 @@
       "id": "11-building-with-ai",
       "title": "Building with AI",
       "short": "Claude Code",
-      "lessons": []
+      "lessons": [
+        "01-working-with-claude-code",
+        "02-claude-code-features",
+        "03-spec-driven-development",
+        "04-how-this-project-was-built"
+      ]
     },
     {
       "id": "12-the-interview",
       "title": "The interview",
       "short": "Interview",
-      "lessons": []
+      "lessons": [
+        "01-how-interviews-run",
+        "02-system-design-practice",
+        "03-debugging-scenarios",
+        "04-the-ai-assisted-round",
+        "05-telling-the-shophelper-story",
+        "06-the-question-bank"
+      ]
     }
   ]
 }

@@ -159,3 +159,4 @@ All answered by the owner on 2026-11-06, who accepted the proposals as a startin
 - 2026-11-06 — The site moves to `web/src/features/learn/`, and docs paths follow 031's layout.
 - 2026-11-06 — Owner approved the lesson style, and moved the stepper to the right of the page (AC-2).
 - 2026-11-06 — Plan approved. `course.json` replaces `course.yaml` (D-021). Stage 6 now names folder structure, at the owner's request.
+- 2026-11-07 — T390 moved to the backlog (D-026). AC-19 and AC-20 are unchanged and stay unproven until it runs.

@@ -24,6 +24,8 @@ direction, not fact.
   [PracHub](https://prachub.com/resources/ai-engineer-interview-questions-2026-rag-agents-evals-and-production-systems)
 - "Design a RAG chatbot" is reported as the warm-up. Harder rounds cover evaluation, failure handling, cost, and debugging a wrong answer when
   the right document exists.
+- _2026-11-07: reading these sources again, none gives a share of generative AI questions or names "design a RAG chatbot" as a warm-up, and Exponent is now
+  Aced. Stage 12 doesn't repeat either claim, and says so._
 - **What it means for the course:** debugging scenarios and system design walkthroughs, not only definitions.
 
 ## AI-assisted interviews
@@ -37,11 +39,14 @@ direction, not fact.
   [CodeSignal](https://support.codesignal.com/hc/en-us/articles/38841637349015-How-can-I-use-Agentic-Interviewing-in-my-recruiting-process)
 - Reported rubrics reward breaking the problem down, directing the tool, and checking its output, rather than speed.
   [Guide](https://pawankjha.substack.com/p/ai-assisted-coding-interviews-a-complete)
+- _2026-11-07: the Substack guide is paywalled, so its rubric claim couldn't be checked. Canva's own posts replace it: [its rule](https://www.canva.dev/blog/engineering/yes-you-can-use-ai-in-our-interviews/),
+  and [what its interviewers assess](https://www.canva.dev/blog/engineering/ai-interview-success/). Codility's and CodeSignal's help pages returned 403._
 - **What it means for the course:** practise verifying and explaining, and always ask the recruiter what's allowed (AC-18).
 
 ## Claude Code **[primary]**
 
-- Explore, plan, code, commit. Give Claude a way to check its own work, such as tests.
+- Explore, plan, code, commit. Give Claude a way to check its own work, such as tests. _2026-11-07: the page no longer uses this framing. It now
+  says: tell Claude what it can't see, give it a check to run, and enforce the rules that can't have exceptions. Stage 11 follows the new wording._
 - Keep `CLAUDE.md` short, around 200 lines, with facts it can't work out. Use hooks for rules with no exceptions, and skills for repeatable
   procedures. Subagents suit parallel work and independent review.
   [Best practices](https://code.claude.com/docs/en/best-practices), [Features](https://code.claude.com/docs/en/features-overview)

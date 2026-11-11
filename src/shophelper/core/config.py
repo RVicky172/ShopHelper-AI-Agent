@@ -54,7 +54,8 @@ class Settings(BaseSettings):
     auth_enabled: bool = False  # lets offline tests use accounts without a database
     # Signs the short-lived token that carries a user's identity from the API to the MCP server.
     internal_token_secret: str | None = None
-    web_origin: str = "http://localhost:5173"  # the only site allowed to send state-changing requests
+    web_origin: str = "http://localhost:5173"  # the site allowed to send state-changing requests
+    extra_web_origins: str = ""  # comma-separated exact origins, for the same site under another name
     seed_demo_users: bool = False  # only docker-compose.yml turns this on
     # Label for metrics/logs: local | lambda | ecs
     runtime: str = "local"
@@ -64,6 +65,11 @@ class Settings(BaseSettings):
     langsmith_api_key: str | None = None
     langsmith_api_key_param: str | None = None
 
+
+    @property
+    def web_origins(self) -> set[str]:
+        extra = (origin.strip() for origin in self.extra_web_origins.split(","))
+        return {self.web_origin, *(origin for origin in extra if origin)}
 
     @property
     def accounts_enabled(self) -> bool:

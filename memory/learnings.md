@@ -41,6 +41,8 @@ something cost more than ~10 minutes or the fix was non-obvious. Delete entries 
 - Inside a LangGraph node, an MCP interceptor's `request.runtime` is `None`. Pass identity with a `ContextVar`.
 - `SameSite` ignores ports, so another app on `localhost:3000` counts as same-site, and the Vite dev server reflects
   localhost origins in CORS headers. The API's own `Origin` check is what actually protects it.
+- `localhost` and `127.0.0.1` are different origins, so the API's exact check refused sign-in at `127.0.0.1:5173` with a 403. It's the API refusing, not a browser CORS error. Add an exact
+  origin to `EXTRA_WEB_ORIGINS`, never a wildcard. A changed variable needs `docker compose up -d api`, not a restart.
 - FastAPI 0.162 wraps `include_router` routes in `_IncludedRouter`, so `app.routes` doesn't list them. A test walking
   routes must also use `app.openapi()["paths"]`, and should assert that known routes were actually seen.
 - FastAPI app-level dependencies don't cover `/docs` or `/openapi.json`. Use ASGI middleware to protect everything.
@@ -53,6 +55,9 @@ something cost more than ~10 minutes or the fix was non-obvious. Delete entries 
 - A tool's peer dependencies decide whether it fits: `typescript-eslint` stops below TypeScript 6.1. Check before choosing, not after.
 
 ## Docker
+
+- Listing a lesson in `course.json` before its file exists makes the plugin fail with `ENOENT`, so the course stops loading. With a new stage folder it stayed
+  stuck after the files arrived, and `docker compose restart web` fixed it. Test-first lesson work triggers this, so restart before a browser run.
 
 - A `git checkout` that rewrites `web/` can leave Vite failing with `Failed to resolve import "./index.css"`, though the file exists, and every
   page goes blank. `docker compose restart web` fixes it. The HTML still returns 200, so check `/src/main.tsx`, not just the page.
@@ -82,6 +87,10 @@ something cost more than ~10 minutes or the fix was non-obvious. Delete entries 
 - Check a claim against the source you link, not a search summary. One interview claim had no source that said it.
 - Never write an interview answer claiming something the project hasn't done. The reader will repeat it.
 - `search.ts` beside `Search.tsx` fails TypeScript on Windows, where those are the same name.
+- Don't quote a spec's acceptance criterion in a `file=` snippet. Its `- [ ]` becomes `- [x]` at Verify, and the snippet test then fails. Use a blockquote.
+
+- A public tracker can state the opposite of a company's own page: one said Anthropic allows AI in coding rounds, with no source. Read the company's page.
+- Add a lesson's file before listing it in `course.json`. A test can read the file directly, so test-first still works, and Vite doesn't get stuck.
 
 - Measure the exercise, not just the idea. A repeated prompt took 0.07 s by direct call, but repeating a chat question changed nothing, because the
   conversation had grown.
@@ -146,6 +155,21 @@ something cost more than ~10 minutes or the fix was non-obvious. Delete entries 
 
 - `psql -c "a; b; c"` runs as one transaction, so one bad statement rolls back all of it, and piping to `tail` can hide that. Use a
   separate `-c` per statement, then check the row count.
+
+## Claude Code
+
+- A Claude Code hook that doesn't match does nothing, with no error. On Windows, `file_path` arrives with backslashes, so a `migrations/` pattern let
+  every edit through. Match `migrations[/\\]+`, and test a hook by watching it block something.
+- Git Bash rewrites `claude -p "/context"` into a file path. Set `MSYS_NO_PATHCONV=1`.
+- Backslashes in a Python heredoc sent through the Bash tool arrive halved, so `\n` became a real newline three times, breaking test files. Never write test code that way: use Write or Edit.
+- An experiment that edits a file needs a reset between runs. One leftover edit made the next run a different test.
+
+## Measuring glass
+
+- Headless Chrome can't measure blur's cost: 121 frames a second for every version, even at 4x slower CPU. Blur is GPU work, so test on a real phone.
+- A number that doesn't change when its input does is a broken test. Contrast stayed the same at every opacity because `body`'s background hid the ground.
+- With `html` and `body` both given backgrounds, a `z-index: -1` layer sits under `body`'s. Make `body` transparent.
+- To test text on a glass navbar, keep real content under it. Hiding the product images made 70% look safe.
 
 ## Sabotage steps
 

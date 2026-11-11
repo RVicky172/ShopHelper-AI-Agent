@@ -2,11 +2,14 @@ import { readFileSync } from 'node:fs'
 import { dirname, resolve } from 'node:path'
 import { fileURLToPath } from 'node:url'
 import type { Plugin } from 'vite'
+import { questionsIn } from './src/features/learn/bankQuestions'
 
 const WORDS_PER_MINUTE = 200
 const LEARN = resolve(dirname(fileURLToPath(import.meta.url)), '../docs/learn')
 const VIRTUAL = 'virtual:course'
 const RESOLVED = `\0${VIRTUAL}`
+const VIRTUAL_QUESTIONS = 'virtual:course-questions'
+const RESOLVED_QUESTIONS = `\0${VIRTUAL_QUESTIONS}`
 
 type CourseFile = { stages: { id: string; title: string; short: string; lessons: string[] }[] }
 
@@ -40,15 +43,31 @@ function lessonIndex(stage: string, id: string) {
 }
 
 // Titles and headings only, so the stepper and search never download 81 lessons to draw a menu.
+// The questions are a separate module, so only the question bank's lesson downloads them.
 export function learnPlugin(): Plugin {
   return {
     name: 'shophelper-course',
-    resolveId: (id) => (id === VIRTUAL ? RESOLVED : undefined),
+    resolveId(id) {
+      if (id === VIRTUAL) return RESOLVED
+      return id === VIRTUAL_QUESTIONS ? RESOLVED_QUESTIONS : undefined
+    },
     load(id) {
-      if (id !== RESOLVED) return undefined
+      if (id !== RESOLVED && id !== RESOLVED_QUESTIONS) return undefined
       const file = resolve(LEARN, 'course.json')
       this.addWatchFile(file)
       const course = JSON.parse(readFileSync(file, 'utf-8')) as CourseFile
+      if (id === RESOLVED_QUESTIONS) {
+        const questions = course.stages.flatMap((stage) =>
+          stage.lessons.flatMap((lesson) => {
+            const path = resolve(LEARN, stage.id, `${lesson}.md`)
+            this.addWatchFile(path)
+            const raw = readFileSync(path, 'utf-8')
+            const lessonTitle = header(raw).title ?? lesson
+            return questionsIn(raw, { stage: stage.id, stageTitle: stage.title, lesson, lessonTitle })
+          }),
+        )
+        return `export const questions = ${JSON.stringify(questions)}`
+      }
       const stages = course.stages.map((stage) => ({
         ...stage,
         lessons: stage.lessons.map((lesson) => {

@@ -198,6 +198,23 @@ def test_requests_from_our_own_site_are_allowed(client):
     assert r.status_code == 204
 
 
+def test_no_extra_site_is_trusted_by_default(client):
+    assert get_settings().extra_web_origins == ""
+    r = client.post("/auth/login", json=GOOD, headers={"origin": "http://127.0.0.1:5173"})
+    assert r.status_code == 403
+
+
+def test_an_extra_origin_is_trusted_only_when_it_matches_exactly(client, monkeypatch):
+    # The same local site can be opened as localhost or 127.0.0.1, which browsers treat as two sites.
+    monkeypatch.setattr(get_settings(), "extra_web_origins", "http://127.0.0.1:5173, http://other.test")
+    signup(client)
+    for origin in ("http://127.0.0.1:5173", "http://other.test"):
+        assert client.post("/auth/login", json=GOOD, headers={"origin": origin}).status_code == 200
+    close_but_wrong = ("http://127.0.0.1:5174", "https://127.0.0.1:5173", "http://127.0.0.1")
+    for origin in (*close_but_wrong, "https://evil.example", "null"):
+        assert client.post("/auth/login", json=GOOD, headers={"origin": origin}).status_code == 403
+
+
 # --- AC-21: access levels ---
 
 def make_user(store, email, role):

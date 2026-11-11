@@ -11,6 +11,42 @@ Newest first. One entry per working session.
 
 ---
 
+## 2026-11-07 — bug fix: local sign-in at 127.0.0.1
+
+**Done:** Opened at `127.0.0.1:5173`, every login got a 403. `EXTRA_WEB_ORIGINS` now trusts that exact origin locally (D-027). Signed in and out in a real browser on both names.
+Other sites still get 403. AWS defaults unchanged. Also: 032's spec Approved, and T390 moved to the backlog.
+**Next:** Commit and push, then plan 032.
+**Blockers:** none
+
+## 2026-11-07 — 022 stage 12: T303 done, all lessons written
+
+**Done:** The ShopHelper story and the question bank: 226 questions from every stage, extracted at build time, loaded only on their own lesson. Shop's main chunk
+unchanged at 343.06 kB. All 81 lessons exist. `scripts/check.sh` passes, with 4 sabotage checks caught.
+**Next:** T390 to T394, the final checks. Stages 11 and 12 and the bank are uncommitted on `main`.
+**Blockers:** none
+
+## 2026-11-07 — 022 stage 12: T302 done
+
+**Done:** 5 debugging scenarios and the AI-assisted round. New tests hold the scenario count, the steps and AC-18's warning, with 3 sabotage checks caught.
+`scripts/check.sh` passes. Canva's and Anthropic's own pages replace a paywalled guide. Codility's and CodeSignal's pages refused requests, and the lesson says so.
+**Next:** T303, the ShopHelper story and the question bank page, which is real code: `virtual:course-questions`. Stages 11 and 12 are uncommitted on `main`.
+**Blockers:** none
+
+## 2026-11-07 — 022 stage 12: T301 done
+
+**Done:** How interviews run, and system design practice with 3 walkthroughs. New tests hold AC-17's walkthrough count and steps, with 2 sabotage checks caught.
+`scripts/check.sh` passes. Two research claims about interviews had no source, so they're out.
+**Next:** T302, debugging scenarios and the AI-assisted round. Stages 11 and 12 are uncommitted on `main`, waiting for the owner.
+**Blockers:** none
+
+## 2026-11-07 — 022 stage 11: T300 done
+
+**Done:** 4 lessons on Claude Code, its features, spec-driven development and how this project was built. A `CLAUDE.md` rule against a hook measured,
+3 runs each: direct request edited 3 of 3, indirect kept the rule 3 of 3, hook blocked 3 of 3. `scripts/check.sh` passes.
+**Also:** Checking claims against the repo fixed 3 draft errors. Stage 0 no longer says the stepper is at the top.
+**Next:** T301, stage 12. Stage 11 is uncommitted on `main`, waiting for the owner.
+**Blockers:** none
+
 ## 2026-11-06 — 022: stage 10, running in production
 
 **Done:** 4 lessons, closing slice 3. From 66 real turns in the logs: median 2.95 s, p95 9.69 s. Found: the AWS default, Haiku 4.5, is past its

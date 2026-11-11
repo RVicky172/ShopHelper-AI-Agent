@@ -220,3 +220,24 @@ merging each slice to `main` when it's done.
 **Decision:** Owner's call: merge each slice once its checks pass, and delete merged branches afterwards. Stop for failures, decisions or behaviour changes.
 **Alternatives:** Asking before each merge, which only adds waiting.
 **Consequences:** Covers 022 only. The stepper sits on the right of the page, not across the top.
+
+## D-026 — T390 moves to the backlog (2026-11-07)
+
+**Context:** T390 is 022's accessibility and performance measurement, the only proof for AC-19 and AC-20.
+**Decision:** Owner's call: move T390 to the backlog, and carry on with T391.
+**Alternatives:** Running it now, as planned.
+**Consequences:** AC-19 and AC-20 stay unticked, so 022 can't reach Implemented under the Definition of Done until T390 runs, or the owner changes those criteria.
+
+## D-027 — Trust the local site under both names (2026-11-07)
+
+**Context:** The owner couldn't sign in locally. Opened at `127.0.0.1:5173`, every login got 403 "Cross-site request refused", because the API trusted only `http://localhost:5173`.
+**Decision:** `EXTRA_WEB_ORIGINS`, a list of exact origins, empty by default and set only in `docker-compose.yml`.
+**Alternatives:** A wildcard or any local origin, which would let another app on this machine act as the user; redirecting `127.0.0.1` to `localhost` in Vite, which hides the cause.
+**Consequences:** AWS is unchanged, and `test_defaults_are_the_aws_path` pins it. The two names keep separate cookies, so each needs its own sign-in.
+
+## D-028 — 032's direction (2026-11-07)
+
+**Context:** The owner asked for a fluid interface with glassmorphism. The `design-taste-frontend` skill bans glass, blur and gradients on shop sites.
+**Decision:** Owner approved all proposals: layered glass across the whole site in 3 slices, with a review after slice 1; keep the illustrations; the brief beats the skill, whose checker is advice, with its gate off and its kit out of `public/`; fluid means sizes and movement; the keyboards tint moves towards blue; 022's T390 runs after slice 3.
+**Alternatives:** Glass on chrome only, or on everything. See the spec's table.
+**Consequences:** Proof is 032's own criteria, not the skill's gate. Navbar glass needs at least 85% paper.
