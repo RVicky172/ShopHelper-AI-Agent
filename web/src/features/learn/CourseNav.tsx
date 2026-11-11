@@ -124,7 +124,7 @@ type Props = { course: Stage[]; stageId?: string; lessonId?: string; done: strin
 export function CourseRail({ course, stageId, lessonId, done }: Props) {
   return (
     <aside className="hidden lg:block">
-      <div className="sticky top-4 max-h-[calc(100dvh-7rem)] overflow-y-auto pr-1 pb-4">
+      <div className="glass-tile sticky top-24 max-h-[calc(100dvh-8rem)] overflow-y-auto p-3">
         <Search course={course} label="Search the course" compact />
         <nav aria-label="Course stages" className="mt-4">
           <Stages course={course} stageId={stageId} lessonId={lessonId} done={done} />
@@ -139,7 +139,7 @@ export function CourseMenu({ course, stageId, lessonId, done }: Props) {
   const index = course.findIndex((stage) => stage.id === stageId)
   const stage = course[index]
   return (
-    <details className="rounded border border-rule lg:hidden">
+    <details className="glass-tile lg:hidden">
       <summary className="min-h-11 cursor-pointer px-3 py-2.5 font-medium">
         {stage ? `Stage ${index} of ${course.length - 1}: ${stage.title}` : 'Course menu'}
       </summary>

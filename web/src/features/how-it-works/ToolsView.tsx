@@ -23,7 +23,7 @@ export function ToolsView({ system }: { system?: SystemInfo }) {
           </p>
           <ul className="mt-3 space-y-2">
             {system.tools.map((tool) => (
-              <li key={tool.name} className="rounded border border-rule bg-paper p-3">
+              <li key={tool.name} className="surface-solid p-3">
                 <div className="flex flex-wrap items-baseline justify-between gap-2">
                   <span className="font-mono text-sm font-medium">{tool.name}</span>
                   <span className="rounded bg-shelf px-1.5 py-0.5 text-xs text-muted">via {tool.via}</span>
@@ -41,7 +41,7 @@ export function ToolsView({ system }: { system?: SystemInfo }) {
 
         <section>
           <h2 className="text-lg font-semibold">How this instance is wired</h2>
-          <dl className="mt-3 divide-y divide-line rounded border border-rule bg-paper text-sm">
+          <dl className="mt-3 surface-solid divide-y divide-edge text-sm">
             {wiring.map(([label, value]) => (
               <div key={label} className="flex flex-wrap justify-between gap-x-4 px-3 py-2">
                 <dt className="text-muted">{label}</dt>

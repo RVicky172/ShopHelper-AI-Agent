@@ -6,7 +6,7 @@ function Question({ item }: { item: CheckQuestion }) {
   const answer = picked === null ? null : item.options[picked]
 
   return (
-    <fieldset className="rounded border border-rule p-4">
+    <fieldset className="rounded-inner border border-edge p-4">
       <legend className="px-1 font-medium">{item.question}</legend>
       <div className="space-y-1">
         {item.options.map((option, index) => (

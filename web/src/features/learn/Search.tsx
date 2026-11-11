@@ -20,14 +20,14 @@ export function Search({ course, label, compact = false }: { course: Stage[]; la
         value={query}
         placeholder={compact ? 'Search' : 'Try "chunking" or "prompt injection"'}
         onChange={(event) => setQuery(event.target.value)}
-        className="mt-1 min-h-11 w-full rounded border border-field bg-paper px-3"
+        className="mt-1 min-h-11 w-full rounded-xl border border-field bg-paper px-3"
       />
       {searched && (
         <div role="status" className="mt-2">
           {results.length === 0 ? (
             <p className="text-sm text-muted">No lessons match that yet.</p>
           ) : (
-            <ul className="rounded border border-rule">
+            <ul className="surface-solid overflow-hidden">
               {results.map((lesson) => (
                 <li key={`${lesson.stage}/${lesson.id}`}>
                   <Link

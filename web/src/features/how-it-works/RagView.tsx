@@ -41,14 +41,14 @@ export function RagView() {
               onChange={(e) => setQuery(e.target.value)}
               maxLength={500}
               aria-label="Search text"
-              className="min-w-0 flex-1 basis-64 rounded border border-field bg-paper px-3 py-2 text-sm"
+              className="min-w-0 flex-1 basis-64 rounded-xl border border-field bg-paper px-3 py-2 text-sm"
             />
             <label className="flex items-center gap-2 text-sm text-muted">
               Top
               <select
                 value={k}
                 onChange={(e) => setK(Number(e.target.value))}
-                className="rounded border border-field bg-paper px-2 py-2 text-ink"
+                className="rounded-xl border border-field bg-paper px-2 py-2 text-ink"
               >
                 {[2, 4, 8, 12].map((n) => (
                   <option key={n}>{n}</option>
@@ -58,7 +58,7 @@ export function RagView() {
             <button
               type="submit"
               disabled={search.isPending || !query.trim()}
-              className="rounded bg-cobalt px-4 py-2 text-sm font-medium text-on-cobalt disabled:opacity-50"
+              className="rounded-xl bg-cobalt px-4 py-2 text-sm font-medium text-on-cobalt disabled:opacity-50"
             >
               {search.isPending ? 'Searching...' : 'Search'}
             </button>
@@ -99,7 +99,7 @@ export function RagView() {
               </p>
               <ol className="mt-2 space-y-2">
                 {result.passages.map((p) => (
-                  <li key={`${p.source}-${p.chunk_index}`} className="rounded border border-rule bg-paper p-3">
+                  <li key={`${p.source}-${p.chunk_index}`} className="surface-solid p-3">
                     <div className="flex items-center gap-3 text-xs">
                       <span className="font-mono">
                         {p.source} #{p.chunk_index}
@@ -125,7 +125,7 @@ export function RagView() {
           </p>
           <div className="mt-3 space-y-2">
             {bySource.map(([source, list]) => (
-              <details key={source} className="rounded border border-rule bg-paper">
+              <details key={source} className="surface-solid">
                 <summary className="cursor-pointer px-3 py-2 font-mono text-sm">
                   {source} <span className="text-muted">({list.length})</span>
                 </summary>

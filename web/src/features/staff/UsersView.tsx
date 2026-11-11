@@ -34,7 +34,7 @@ export function UsersView({ me }: { me: User }) {
           aria-label="Users"
           // biome-ignore lint/a11y/noNoninteractiveTabindex: a scrollable table must be reachable by keyboard (021 T090)
           tabIndex={0}
-          className="mt-4 overflow-x-auto rounded border border-rule bg-paper"
+          className="mt-4 overflow-x-auto surface-solid"
         >
           <table className="w-full text-left text-sm">
             <thead className="text-xs text-muted">
@@ -58,7 +58,7 @@ export function UsersView({ me }: { me: User }) {
                       value={user.role}
                       disabled={change.isPending}
                       onChange={(e) => change.mutate({ id: user.id, role: e.target.value as Role })}
-                      className="rounded border border-field bg-paper px-2 py-1"
+                      className="rounded-xl border border-field bg-paper px-2 py-1"
                     >
                       {ROLES.map((role) => (
                         <option key={role}>{role}</option>

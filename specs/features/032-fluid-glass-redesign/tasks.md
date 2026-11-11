@@ -35,11 +35,16 @@ When a task is done, tick it and add an indented **Result (YYYY-MM-DD):** note.
 
 # Slice 3 — The rest
 
-- [ ] **T201** — The course: lesson surface, stepper and question bank
-- [ ] **T202** — How it works and its trace views
-- [ ] **T203** — Sign-in, account and orders
-- [ ] **T204** — Staff and admin pages
-- [ ] **T205** — Slice 3 measurements and browser run
+- [x] **T201** — The course: lesson surface, stepper and question bank
+      **Result (2026-11-07):** Lessons on a 92% panel, stage cards and the stepper on glass tiles. Fixed an older bug: the stepper stuck at `top-4` and slid under the navbar. It now sits 26 px clear. Mark as done, search, diagrams, the bank and Continue all still work.
+- [x] **T202** — How it works and its trace views
+      **Result (2026-11-07):** Status bar on glass, and panels on `surface-solid`. Also fixed `divide-line`, a colour token that never existed.
+- [x] **T203** — Sign-in, account and orders
+      **Result (2026-11-07):** On `surface-solid`, with fields and buttons on the shared radius.
+- [x] **T204** — Staff and admin pages
+      **Result (2026-11-07):** Tables and queues on `surface-solid`, checked at 92% as admin.
+- [x] **T205** — Slice 3 measurements and browser run
+      **Result (2026-11-07):** 14 pages as guest, customer, support and admin: no page errors, no failed requests, and no sideways scroll at 320, 390, 768, 1024 and 1440 px, with both themes at 390 and 1440. Worst text contrast 4.82:1 light, on the How it works bar, and 6.65:1 dark. New design rules fail on any old flat panel, button or field.
 
 ## Verify
 

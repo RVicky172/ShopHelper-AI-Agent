@@ -11,6 +11,12 @@ Newest first. One entry per working session.
 
 ---
 
+## 2026-11-07 — 032 slice 3: T201 to T205 done
+
+**Done:** The course, How it works, sign-in, orders, staff and admin pages, so the whole site is on one design. 14 pages checked in 4 roles at 5 widths, with no errors or sideways scroll. Slice 2 is on PR #25.
+**Next:** T290, then T291 on a real phone, T292 and T293.
+**Blockers:** PRs #23, #24 and #25 wait for the owner to merge, in that order. Slice 3 is uncommitted on `feat/032-slice-3`.
+
 ## 2026-11-07 — 032 slice 2: T101 to T105 done
 
 **Done:** Home, catalogue, product, cart and checkout on glass and nearly solid surfaces. Worst contrast 5.82:1 light, 6.77:1 dark. Layout shift 0.0002. Slice 1 is on PR #24.

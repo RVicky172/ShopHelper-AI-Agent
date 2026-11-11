@@ -6,7 +6,7 @@ export function MessageBubble({ message, plain = false }: { message: Message; pl
   if (message.role === 'user') {
     return (
       <div className="flex justify-end">
-        <p className="max-w-[85%] rounded bg-cobalt px-3 py-2 whitespace-pre-wrap text-on-cobalt">{message.text}</p>
+        <p className="max-w-[85%] rounded-xl bg-cobalt px-3 py-2 whitespace-pre-wrap text-on-cobalt">{message.text}</p>
       </div>
     )
   }
