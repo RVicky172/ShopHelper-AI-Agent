@@ -188,3 +188,5 @@ something cost more than ~10 minutes or the fix was non-obvious. Delete entries 
   `https://pricing.us-east-1.amazonaws.com/offers/v1.0/aws/<service>/current/<region>/index.json`.
 - A `<link rel=preload>` must match how the page later asks for the file, `crossorigin` included. Vite loads CSS with `crossorigin`, so a
   preload without it is ignored and the file downloads twice. Chrome's console says so. The same matching lets `/api/auth/me` be preloaded.
+- Never point a temporary worktree's `node_modules` at the real one with a junction: deleting the worktree recursively deletes through it.
+  Copy or reinstall instead. If it happens, `npm install` in `web/` restores the missing files.

@@ -49,6 +49,9 @@ contracts code must keep.
 | `web/src/features/cart/cartLogic.ts`, `useCart.tsx` | The cart in the browser | Storage is untrusted; a merge takes items out of storage before calling the server |
 | `web/src/shared/layout/Layout.tsx` | The page frame | The page scrolls in `#page`, above the bottom bar (D-013) |
 | `web/src/features/shop/returns-policy.md` | The shop's copy of the return policy | A test fails if it differs from `knowledge/policies/returns.md` |
+| `docs/learn/<stage>/<lesson>.md`, `docs/learn/course.json` | The course's lessons and their order (022) | The site reads them at build time; a test fails on a missing lesson or a broken internal link |
+| `web/learn-plugin.ts` | Turns the course into modules: `virtual:course`, `virtual:course-questions`, one chunk per lesson | Course code loads only under `/learn`, so the shop's bundle doesn't grow |
+| `web/src/features/learn/` | The course pages: stepper, lesson, search, progress, question bank | Progress lives only in the browser; nothing here calls the API or the agent |
 
 SSE events: `guardrail`, `model_step`, `tool_start`, `tool_end`, `token`, `interrupt`, `final`, `error`. `final`
 always comes last and its text is authoritative, because the output guardrail may have changed what streamed.
