@@ -46,7 +46,8 @@ export function CategoryPage() {
   return (
     <div className="mx-auto w-full max-w-page px-gutter py-8">
       <title>{`${name ?? 'Shop'} · ShopHelper`}</title>
-      <div className="flex flex-wrap items-end justify-between gap-x-6 gap-y-3">
+      {/* On phones the sort sits on its own line: when it wrapped only once the category name arrived, the grid jumped down. */}
+      <div className="flex flex-col items-start gap-x-6 gap-y-3 sm:flex-row sm:flex-wrap sm:items-end sm:justify-between">
         <div>
           <h1 className="min-h-10 text-title font-semibold">{name}</h1>
           <p className="min-h-6 text-muted">{total !== undefined && `${total} products`}</p>

@@ -1,4 +1,5 @@
 import { createContext, type ReactNode, type RefObject, useContext, useMemo, useRef, useState } from 'react'
+import { flushSync } from 'react-dom'
 import type { User } from '../../shared/api/types'
 import { useChat } from './useChat'
 
@@ -26,7 +27,8 @@ export function ChatProvider({ user, children }: { user: User | null; children: 
       launcher,
       openPanel: () => setPanelOpen(true),
       closePanel: () => {
-        setPanelOpen(false)
+        // The launcher is inert while the panel is open, so it must be back before it can take focus.
+        flushSync(() => setPanelOpen(false))
         launcher.current?.focus()
       },
       ask: (question) => {

@@ -4,6 +4,8 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>ShopHelper</title>
+    <!-- Nothing renders until we know who is signed in. Asking now, not after the main bundle runs, saves a round trip. -->
+    <link rel="preload" href="/api/auth/me" as="fetch" crossorigin />
   </head>
   <body>
     <div id="root"></div>

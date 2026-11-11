@@ -11,6 +11,52 @@ const RESOLVED = `\0${VIRTUAL}`
 const VIRTUAL_QUESTIONS = 'virtual:course-questions'
 const RESOLVED_QUESTIONS = `\0${VIRTUAL_QUESTIONS}`
 
+type Chunk = {
+  type: string
+  name?: string
+  isEntry?: boolean
+  imports?: string[]
+  viteMetadata?: { importedCss?: Set<string> }
+  facadeModuleId?: string | null
+}
+
+/** The course's files that the entry doesn't already load. */
+export function courseFiles(bundle: Record<string, unknown>): string[] {
+  const chunks = bundle as Record<string, Chunk>
+  const learn = Object.keys(chunks).find((file) => chunks[file].type === 'chunk' && chunks[file].name === 'Learn')
+  if (!learn) return []
+
+  const walk = (file: string, seen: Set<string>) => {
+    if (seen.has(file) || !chunks[file]) return seen
+    seen.add(file)
+    for (const next of chunks[file].imports ?? []) walk(next, seen)
+    return seen
+  }
+  const loaded = new Set<string>()
+  for (const file of Object.keys(chunks)) if (chunks[file].isEntry) walk(file, loaded)
+
+  const needed = [...walk(learn, new Set())].filter((file) => !loaded.has(file))
+  const css = needed.flatMap((file) => [...(chunks[file].viteMetadata?.importedCss ?? [])])
+  return [...needed, ...css].map((file) => `/${file}`)
+}
+
+/** Each lesson's own file, by its path under /learn. */
+export function lessonFiles(bundle: Record<string, unknown>): Record<string, string> {
+  const chunks = bundle as Record<string, Chunk>
+  const found = Object.keys(chunks).flatMap((file) => {
+    const lesson = /docs\/learn\/([^/]+\/[^/]+)\.md/.exec(chunks[file].facadeModuleId ?? '')?.[1]
+    return lesson ? [[lesson, `/${file}`]] : []
+  })
+  return Object.fromEntries(found)
+}
+
+// A lazy route's code is only found once the main bundle has run. On a slow phone that wait was most of
+// the time to the first words of a lesson, so course pages ask for it straight away. Vite loads them with
+// crossorigin, and a preload without it doesn't match, so the browser fetched the stylesheet twice.
+export function preloadScript(files: string[], lessons: Record<string, string>): string {
+  return `<script>if(location.pathname.startsWith('/learn')){const m=${JSON.stringify(lessons)}[location.pathname.slice(7)];for(const f of ${JSON.stringify(files)}.concat(m||[])){const l=document.createElement('link');const c=f.endsWith('.css');l.rel=c?'preload':'modulepreload';if(c)l.as='style';l.crossOrigin='';l.href=f;document.head.append(l)}}</script>`
+}
+
 type CourseFile = { stages: { id: string; title: string; short: string; lessons: string[] }[] }
 
 function header(text: string): Record<string, string> {
@@ -47,6 +93,14 @@ function lessonIndex(stage: string, id: string) {
 export function learnPlugin(): Plugin {
   return {
     name: 'shophelper-course',
+    transformIndexHtml: {
+      order: 'post',
+      handler(html, context) {
+        const files = context.bundle ? courseFiles(context.bundle) : []
+        if (!context.bundle || !files.length) return html
+        return html.replace('</title>', `</title>${preloadScript(files, lessonFiles(context.bundle))}`)
+      },
+    },
     resolveId(id) {
       if (id === VIRTUAL) return RESOLVED
       return id === VIRTUAL_QUESTIONS ? RESOLVED_QUESTIONS : undefined
