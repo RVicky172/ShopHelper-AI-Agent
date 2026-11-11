@@ -27,6 +27,18 @@ export function parseLesson(raw: string): ParsedLesson {
   return { front, intro: intro.join('\n'), sections }
 }
 
+/** How many sections fill a phone's first screen: each starts while less than `chars` of text is above it. */
+export function firstScreen(lesson: ParsedLesson, chars = 1000): number {
+  let above = lesson.intro.trim().length
+  let count = 0
+  for (const section of lesson.sections) {
+    if (count > 0 && above >= chars) break
+    above += section.body.length
+    count++
+  }
+  return count
+}
+
 function blocks(body: string): string[] {
   return body.split(/^### /m).slice(1)
 }

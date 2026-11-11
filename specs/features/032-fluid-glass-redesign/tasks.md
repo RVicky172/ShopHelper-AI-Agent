@@ -48,7 +48,12 @@ When a task is done, tick it and add an indented **Result (YYYY-MM-DD):** note.
 
 ## Verify
 
-- [ ] **T290** — axe, keyboard, LCP and layout shift on a production build (AC-11, AC-12), then 022's T390
+- [x] **T290** — axe, keyboard, LCP and layout shift on a production build (AC-11, AC-12), then 022's T390
+      **Result (2026-11-11):** Phone profile, 5 runs a page: shop LCP 1.42-1.91 s, course 2.07-2.35 s, layout shift at most 0.018, only this site's
+      host. Main bundle +1.5 kB compressed over pre-032. axe: 84 runs, no failures. 771 targets at least 24 px, 92 main actions at least 44 px,
+      1,192 focus stops all visible and uncovered. Fixed on the way: catalogue shift 0.11 (sort control wrapped late), lessons over 2.5 s (sign-in
+      check now preloaded, first screen rendered first, stylesheet no longer fetched twice), 18 px breadcrumb links, and focus reaching what the
+      open chat covers (launcher inert, page makes room beside the panel from 1280 px). 022's T390 stays in the backlog (D-026).
 - [ ] **T291** — Real phone check by the owner (AC-13)
 - [ ] **T292** — Request hosts, and every 021 and 022 flow (AC-14, AC-15)
 - [ ] **T293** — Update `specs/architecture.md`, tick the criteria, update `roadmap.md` and `memory/`

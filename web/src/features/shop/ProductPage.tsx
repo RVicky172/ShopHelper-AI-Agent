@@ -46,11 +46,12 @@ export function ProductPage() {
     <div className="mx-auto w-full max-w-page px-gutter py-6">
       <title>{`${item.name} · ShopHelper`}</title>
       <nav aria-label="Breadcrumb" className="text-sm text-muted">
-        <Link to="/shop/all" className="underline hover:text-ink">
+        {/* 24 px tall at least, the WCAG minimum for a link that isn't part of a sentence. */}
+        <Link to="/shop/all" className="inline-flex min-h-6 items-center underline hover:text-ink">
           Shop
         </Link>
         {' / '}
-        <Link to={`/shop/${item.category}`} className="underline hover:text-ink">
+        <Link to={`/shop/${item.category}`} className="inline-flex min-h-6 items-center underline hover:text-ink">
           {category?.name ?? 'Category'}
         </Link>
       </nav>

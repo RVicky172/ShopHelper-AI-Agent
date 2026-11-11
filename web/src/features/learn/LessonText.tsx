@@ -1,12 +1,34 @@
-import { lazy, Suspense } from 'react'
-import Markdown, { type Components } from 'react-markdown'
+import { lazy, Suspense, useEffect, useMemo, useState } from 'react'
+import Markdown, { type Components, type Options } from 'react-markdown'
 import { Link } from 'react-router'
-import rehypeHighlight from 'rehype-highlight'
 import remarkGfm from 'remark-gfm'
 import { toHref } from './links'
 
 // The largest piece, Mermaid, comes only with a lesson that has a diagram.
 const Diagram = lazy(() => import('./Diagram').then((m) => ({ default: m.Diagram })))
+
+type Plugins = NonNullable<Options['rehypePlugins']>
+let colouring: Plugins | undefined
+
+// Code colours are a large download that nobody needs to start reading, so they arrive after the words.
+// They only change colour, so nothing moves when they land.
+function useColouring(needed: boolean) {
+  const [plugins, setPlugins] = useState(colouring)
+
+  useEffect(() => {
+    if (!needed || plugins) return
+    let current = true
+    void import('rehype-highlight').then(({ default: rehypeHighlight }) => {
+      colouring = [[rehypeHighlight, { plainText: ['mermaid', 'text'] }]]
+      if (current) setPlugins(colouring)
+    })
+    return () => {
+      current = false
+    }
+  }, [needed, plugins])
+
+  return plugins
+}
 
 type HastNode = { type?: string; value?: string; tagName?: string; children?: HastNode[]; data?: { meta?: string } }
 
@@ -57,12 +79,11 @@ function components(stage: string): Components {
 }
 
 export function Text({ stage, children }: { stage: string; children: string }) {
+  const plugins = useColouring(children.includes('```'))
+  // New functions here would remount every code block and diagram when the colours land.
+  const parts = useMemo(() => components(stage), [stage])
   return (
-    <Markdown
-      remarkPlugins={[remarkGfm]}
-      rehypePlugins={[[rehypeHighlight, { plainText: ['mermaid', 'text'] }]]}
-      components={components(stage)}
-    >
+    <Markdown remarkPlugins={[remarkGfm]} rehypePlugins={plugins} components={parts}>
       {children}
     </Markdown>
   )

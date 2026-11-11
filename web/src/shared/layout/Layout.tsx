@@ -140,15 +140,23 @@ export function Layout({ auth }: { auth: ReturnType<typeof useAuth> }) {
           id="main"
           ref={main}
           tabIndex={-1}
-          className={`flex flex-col outline-none ${fullHeight ? 'min-h-0 flex-1' : 'flex-[1_0_auto]'}`}
+          // From 1280 px the chat sits beside the page, so the page makes room: anything under the panel could
+          // take keyboard focus and not be seen (AC-11).
+          className={`flex flex-col outline-none ${fullHeight ? 'min-h-0 flex-1' : 'flex-[1_0_auto]'} ${
+            panelOpen ? 'xl:pr-110' : ''
+          }`}
         >
-          <Suspense fallback={null}>
+          {/* A full screen, or the footer sits in view and gets pushed when the page's code arrives. */}
+          <Suspense fallback={<div className="min-h-dvh" />}>
             <Outlet />
           </Suspense>
         </main>
         {!fullHeight && <Footer />}
       </div>
-      <ChatLauncher />
+      {/* The open panel covers the launcher at every width, so Tab mustn't reach it. */}
+      <div className="contents" inert={panelOpen}>
+        <ChatLauncher />
+      </div>
       {panelOpen && (
         <Suspense fallback={null}>
           <ChatPanel user={auth.user} />

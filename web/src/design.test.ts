@@ -122,6 +122,23 @@ describe('the rest of the site', () => {
   })
 })
 
+describe('the first paint', () => {
+  it('holds a full screen while a page or lesson loads, so nothing below it gets pushed', () => {
+    expect(read('shared/layout/Layout.tsx')).toContain('<Suspense fallback={<div className="min-h-dvh" />}>')
+    expect(read('features/learn/LessonBody.tsx')).toContain('className="mt-6 min-h-dvh"')
+  })
+
+  it('keeps code colouring off the path to the first words of a lesson', () => {
+    const text = read('features/learn/LessonText.tsx')
+    expect(text).not.toMatch(/^import .* from 'rehype-highlight'/m)
+    expect(text).toContain("import('rehype-highlight')")
+  })
+
+  it('keeps Markdown components stable, or late colouring would redraw every diagram', () => {
+    expect(read('features/learn/LessonText.tsx')).toContain('useMemo(() => components(stage), [stage])')
+  })
+})
+
 describe('the shell sits on glass', () => {
   it('gives the navbar its glass on a layer, so a menu inside it can still blur the page', () => {
     expect(read('shared/layout/Navbar.tsx')).toContain('glass-bar')

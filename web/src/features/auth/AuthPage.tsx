@@ -145,7 +145,7 @@ export function AuthPage({ auth, mode }: { auth: ReturnType<typeof useAuth>; mod
             <button
               type="submit"
               disabled={active.isPending}
-              className="w-full rounded-xl bg-cobalt px-4 py-2 text-sm font-medium text-on-cobalt disabled:opacity-50"
+              className="min-h-11 w-full rounded-xl bg-cobalt px-4 py-2 text-sm font-medium text-on-cobalt disabled:opacity-50"
             >
               {mode === 'login' ? 'Sign in' : 'Create account'}
             </button>

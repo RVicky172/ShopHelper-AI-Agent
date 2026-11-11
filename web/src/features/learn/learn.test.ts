@@ -1,7 +1,8 @@
 import { describe, expect, it } from 'vitest'
+import { courseFiles, lessonFiles, preloadScript } from '../../../learn-plugin'
 import { filterQuestions, questionsIn } from './bankQuestions'
 import { searchLessons } from './lessonSearch'
-import { checkQuestions, interviewQuestions, parseLesson } from './lessons'
+import { checkQuestions, firstScreen, interviewQuestions, parseLesson } from './lessons'
 import { toHref } from './links'
 import { emptyProgress, markDone, parseProgress, toggleDone } from './progress'
 
@@ -56,6 +57,26 @@ describe('parseLesson', () => {
 
   it('copes with a lesson that has no header', () => {
     expect(parseLesson('## One\nFirst.').sections[0].title).toBe('One')
+  })
+})
+
+describe('firstScreen', () => {
+  const lesson = (intro: number, ...bodies: number[]) => ({
+    front: {},
+    intro: 'i'.repeat(intro),
+    sections: bodies.map((n, at) => ({ title: `S${at}`, body: 'b'.repeat(n) })),
+  })
+
+  it('keeps adding sections until a screen of text is above the next one', () => {
+    expect(firstScreen(lesson(0, 250, 600, 5000, 100))).toBe(3)
+  })
+
+  it('always shows the first section, however long the intro', () => {
+    expect(firstScreen(lesson(2000, 50, 50))).toBe(1)
+  })
+
+  it('copes with a lesson with no sections', () => {
+    expect(firstScreen(lesson(10))).toBe(0)
   })
 })
 
@@ -132,6 +153,49 @@ describe('searchLessons', () => {
 
   it('finds nothing for a blank search', () => {
     expect(searchLessons(COURSE, '  ')).toEqual([])
+  })
+})
+
+describe('early course downloads', () => {
+  const bundle = {
+    'assets/index.js': { type: 'chunk', name: 'index', isEntry: true, imports: ['assets/shared.js'] },
+    'assets/shared.js': { type: 'chunk', name: 'shared', isEntry: false, imports: [] },
+    'assets/Learn.js': {
+      type: 'chunk',
+      name: 'Learn',
+      isEntry: false,
+      imports: ['assets/shared.js', 'assets/lib.js'],
+      viteMetadata: { importedCss: new Set(['assets/Learn.css']) },
+    },
+    'assets/lib.js': { type: 'chunk', name: 'lib', isEntry: false, imports: [] },
+    'assets/Other.js': { type: 'chunk', name: 'Other', isEntry: false, imports: [] },
+  }
+
+  it('lists the course and what it needs, but not what the entry already loads', () => {
+    expect(courseFiles(bundle)).toEqual(['/assets/Learn.js', '/assets/lib.js', '/assets/Learn.css'])
+  })
+
+  it('asks for them only on course pages', () => {
+    const script = preloadScript(['/assets/Learn.js', '/assets/Learn.css'], {})
+    expect(script).toContain("location.pathname.startsWith('/learn')")
+    expect(script).toContain('modulepreload')
+  })
+
+  it('asks the way Vite will, so the browser reuses the answer instead of fetching twice', () => {
+    expect(preloadScript(['/assets/Learn.css'], {})).toContain("l.crossOrigin=''")
+  })
+
+  it('maps each lesson to its file, so its text can start downloading straight away', () => {
+    const files = {
+      'assets/03-chunking-abc.js': { type: 'chunk', facadeModuleId: '/repo/docs/learn/05-rag/03-chunking.md?raw' },
+      'assets/Other.js': { type: 'chunk', facadeModuleId: '/repo/web/src/Other.tsx' },
+    }
+    expect(lessonFiles(files)).toEqual({ '05-rag/03-chunking': '/assets/03-chunking-abc.js' })
+    expect(preloadScript([], lessonFiles(files))).toContain('"05-rag/03-chunking":"/assets/03-chunking-abc.js"')
+  })
+
+  it('adds nothing when the course is missing', () => {
+    expect(courseFiles({})).toEqual([])
   })
 })
 

@@ -186,3 +186,5 @@ something cost more than ~10 minutes or the fix was non-obvious. Delete entries 
 
 - WebFetch resets on aws.amazon.com and docs.aws.amazon.com. curl works, and exact prices come from
   `https://pricing.us-east-1.amazonaws.com/offers/v1.0/aws/<service>/current/<region>/index.json`.
+- A `<link rel=preload>` must match how the page later asks for the file, `crossorigin` included. Vite loads CSS with `crossorigin`, so a
+  preload without it is ignored and the file downloads twice. Chrome's console says so. The same matching lets `/api/auth/me` be preloaded.

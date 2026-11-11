@@ -11,6 +11,12 @@ Newest first. One entry per working session.
 
 ---
 
+## 2026-11-11 — 032 verify: T290 done
+
+**Done:** Production-build measurements pass for AC-11 and AC-12, after five small fixes (see T290). `scripts/check.sh` passes.
+**Next:** T291, the owner checks on a real phone. Then T292 and T293.
+**Blockers:** PRs #23 to #25 wait for the owner to merge. T290's changes are uncommitted on `feat/032-verify`.
+
 ## 2026-11-07 — 032 slice 3: T201 to T205 done
 
 **Done:** The course, How it works, sign-in, orders, staff and admin pages, so the whole site is on one design. 14 pages checked in 4 roles at 5 widths, with no errors or sideways scroll. Slice 2 is on PR #25.
